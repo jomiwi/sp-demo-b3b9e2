@@ -1,4 +1,4 @@
-# Saranay Pickleball Court and Cafe: one-page demo site (v1.2)
+# Saranay Pickleball Court and Cafe: one-page demo site (v1.2.1)
 
 **Status:** DEMO. Unlisted and `noindex, nofollow`. Not the official site; not for promotion.
 **Built by:** Jared (UX/UI) for Jon Miller · brief from Ling · CHOAM asset `aeafee96-740a-4803-a7ce-9050ec2fd0d7` · 30 Oct 2026
@@ -60,3 +60,5 @@ Reclub member count: 584 (per the brief, 30 Oct 2026).
 ## v1.2 (30 Oct 2026)
 
 Applied Martha's copy review (`/002/CHOAM/saranay/saranay-demo-copy-review-2026-10-30.md`): call line, café lede and seating row, rental ticks, no-partner list, first-visit steps, FAQ intro and 3 FAQ answers, event cards (days, "Request a spot on Reclub"), "584 members", rates lede, plus code now TBC, full official name in the copy-pin text and map embed.
+
+v1.2.1 (30 Oct 2026): added Martha's optional "Good for:" label above the rental list (approved by Ling).
