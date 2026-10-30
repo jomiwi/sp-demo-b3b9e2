@@ -13,7 +13,7 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&amp;family=Inter:wght@400;500;600;700&amp;display=swap">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -31,7 +31,7 @@
 <header class="site-header">
   <div class="container site-header__inner">
     <a class="brand" href="#top" aria-label="Saranay Pickleball Court and Cafe, back to top">
-      <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#1E5B45"/><circle cx="20" cy="20" r="11" fill="#D9F24B"/><g fill="#1E5B45"><circle cx="16" cy="16" r="1.6"/><circle cx="23" cy="15" r="1.6"/><circle cx="25" cy="22" r="1.6"/><circle cx="18" cy="24" r="1.6"/><circle cx="20" cy="19.5" r="1.6"/></g></svg>
+      <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" style="fill:var(--c-court)"/><circle cx="20" cy="20" r="11" style="fill:var(--c-ball)"/><g style="fill:var(--c-court)"><circle cx="16" cy="16" r="1.6"/><circle cx="23" cy="15" r="1.6"/><circle cx="25" cy="22" r="1.6"/><circle cx="18" cy="24" r="1.6"/><circle cx="20" cy="19.5" r="1.6"/></g></svg>
       <span class="brand__name">Saranay<small>Pickleball Court &amp; Cafe</small></span>
     </a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
@@ -41,10 +41,10 @@
     <nav class="site-nav" id="site-nav" aria-label="Main" hidden>
       <ul>
         <li><a href="#open-play">Open play</a></li>
+        <li><a href="#rates">Rates &amp; hours</a></li>
         <li><a href="#rent">Rent the court</a></li>
         <li><a href="#new">New here?</a></li>
         <li><a href="#cafe">Café</a></li>
-        <li><a href="#book">How to book</a></li>
         <li><a href="#find-us">Find us</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
@@ -70,20 +70,24 @@
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C7 3 3 6.7 3 11.3c0 2.6 1.3 4.9 3.3 6.4V21l3-1.7c.9.3 1.8.4 2.7.4 5 0 9-3.7 9-8.3S17 3 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7.5 13.5l3-3 2.3 2 3.7-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           Rent a court</a>
       </div>
-      <p class="hero__alt">Open <span class="tbc">official hours</span> · Block 5 Lot 13 Saranay Road, Bagumbong North, Caloocan</p>
-      <p class="hero__alt"><span class="tbc">Messenger link to confirm</span> · Prefer to call? <a href="tel:+639065458384">+63 906 545 8384</a></p>
+      <a class="next-play" href="https://reclub.co/clubs/@saranay-pickleball-club" aria-label="Next open play: date and time to be confirmed. All levels. See sessions on Reclub.">
+        <span class="next-play__label">Next open play</span>
+        <span class="next-play__when"><span class="tbc">date and time</span> · All levels</span>
+        <span class="next-play__go" aria-hidden="true">See sessions on Reclub →</span>
+      </a>
+      <p class="hero__alt">Open <span class="tbc">official hours</span> · Block 5 Lot 13 Saranay Road, Bagumbong North, Caloocan · <a href="tel:+639065458384">+63 906 545 8384</a></p>
     </div>
     <div class="hero__art">
       <!-- PHOTO 1 placeholder. Real photo alt: "Players in a doubles game of pickleball on the single court at Saranay Pickleball Court, North Caloocan." -->
       <svg class="court-art" viewBox="0 0 560 460" role="img" aria-label="Illustration of a pickleball court with a ball in play. Placeholder for a real photo of the Saranay court.">
         <defs>
-          <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1E5B45"/><stop offset="1" stop-color="#123A2C"/></linearGradient>
-          <linearGradient id="g-court" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2F7A5D"/><stop offset="1" stop-color="#22664D"/></linearGradient>
+          <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--c-court)"/><stop offset="1" style="stop-color:var(--c-court-deep)"/></linearGradient>
+          <linearGradient id="g-court" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--c-court-light)"/><stop offset="1" style="stop-color:var(--c-court-mid)"/></linearGradient>
         </defs>
         <rect width="560" height="460" rx="28" fill="url(#g-sky)"/>
         <g transform="translate(280 250)">
           <polygon points="-170,-150 170,-150 250,150 -250,150" fill="url(#g-court)"/>
-          <g fill="none" stroke="#F5F1E6" stroke-width="4" stroke-linejoin="round">
+          <g fill="none" style="stroke:var(--c-court-line)" stroke-width="4" stroke-linejoin="round">
             <polygon points="-170,-150 170,-150 250,150 -250,150"/>
             <line x1="-200" y1="-40" x2="200" y2="-40"/>
             <line x1="-222" y1="45" x2="222" y2="45"/>
@@ -92,25 +96,25 @@
           </g>
           <!-- net -->
           <g>
-            <line x1="-214" y1="2" x2="214" y2="2" stroke="#F5F1E6" stroke-width="5"/>
-            <rect x="-214" y="-22" width="428" height="24" fill="#F5F1E6" opacity=".16"/>
-            <line x1="-214" y1="-22" x2="214" y2="-22" stroke="#F5F1E6" stroke-width="3"/>
-            <line x1="-214" y1="-24" x2="-214" y2="6" stroke="#F5F1E6" stroke-width="6"/>
-            <line x1="214" y1="-24" x2="214" y2="6" stroke="#F5F1E6" stroke-width="6"/>
+            <line x1="-214" y1="2" x2="214" y2="2" style="stroke:var(--c-court-line)" stroke-width="5"/>
+            <rect x="-214" y="-22" width="428" height="24" style="fill:var(--c-court-line)" opacity=".16"/>
+            <line x1="-214" y1="-22" x2="214" y2="-22" style="stroke:var(--c-court-line)" stroke-width="3"/>
+            <line x1="-214" y1="-24" x2="-214" y2="6" style="stroke:var(--c-court-line)" stroke-width="6"/>
+            <line x1="214" y1="-24" x2="214" y2="6" style="stroke:var(--c-court-line)" stroke-width="6"/>
           </g>
         </g>
-        <path d="M120 360 C 210 170, 330 150, 410 120" fill="none" stroke="#D9F24B" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round" opacity=".8"/>
+        <path d="M120 360 C 210 170, 330 150, 410 120" fill="none" style="stroke:var(--c-ball)" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round" opacity=".8"/>
         <g class="ball-bounce">
-          <circle cx="420" cy="112" r="24" fill="#D9F24B"/>
-          <g fill="#7E9216"><circle cx="412" cy="104" r="3.4"/><circle cx="426" cy="102" r="3.4"/><circle cx="430" cy="116" r="3.4"/><circle cx="416" cy="122" r="3.4"/><circle cx="420" cy="112" r="3.4"/></g>
+          <circle cx="420" cy="112" r="24" style="fill:var(--c-ball)"/>
+          <g style="fill:var(--c-ball-seam)"><circle cx="412" cy="104" r="3.4"/><circle cx="426" cy="102" r="3.4"/><circle cx="430" cy="116" r="3.4"/><circle cx="416" cy="122" r="3.4"/><circle cx="420" cy="112" r="3.4"/></g>
         </g>
         <g transform="translate(70 70) rotate(-24)">
-          <rect x="-26" y="-34" width="52" height="64" rx="22" fill="#B4532A"/>
-          <rect x="-7" y="26" width="14" height="40" rx="6" fill="#5E3B22"/>
+          <rect x="-26" y="-34" width="52" height="64" rx="22" style="fill:var(--c-clay)"/>
+          <rect x="-7" y="26" width="14" height="40" rx="6" style="fill:var(--c-coffee)"/>
         </g>
       </svg>
       <div class="hero__badge">
-        <svg viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="10" fill="#EAD9C6"/><path d="M9 14h15v6a7 7 0 0 1-7 7h-1a7 7 0 0 1-7-7z" fill="#5E3B22"/><path d="M24 16h2a3 3 0 0 1 0 6h-2" fill="none" stroke="#5E3B22" stroke-width="2"/><path d="M13 8c0 2 2 2 2 4M18 8c0 2 2 2 2 4" stroke="#5E3B22" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="10" style="fill:var(--c-coffee-soft)"/><path d="M9 14h15v6a7 7 0 0 1-7 7h-1a7 7 0 0 1-7-7z" style="fill:var(--c-coffee)"/><path d="M24 16h2a3 3 0 0 1 0 6h-2" fill="none" style="stroke:var(--c-coffee)" stroke-width="2"/><path d="M13 8c0 2 2 2 2 4M18 8c0 2 2 2 2 4" style="stroke:var(--c-coffee)" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
         <span><strong>D' Rafael's Cafe</strong><br>right at the court</span>
       </div>
     </div>
@@ -119,32 +123,45 @@
     <ul class="facts" aria-label="At a glance">
       <li><strong>The first</strong>pickleball court in Saranay</li>
       <li><strong>One court</strong>with its own café</li>
-      <li><strong>580+ players</strong>in our Reclub club</li>
+      <li><strong>584 players</strong>in our Reclub club</li>
       <li><strong>All levels</strong>at every open play</li>
     </ul>
   </div>
 </section>
 <!-- /COPY: 1 hero -->
-
-<!-- COPY: 2 about -->
-<section class="section" id="about" aria-labelledby="about-title">
-  <div class="container split">
-    <div>
-      <p class="eyebrow">About the court</p>
-      <h2 id="about-title">A court with a café, not just a court</h2>
-      <p>We're a single pickleball court in Caloocan with our own café, D' Rafael's Cafe, inside Saranay Homes in North Caloocan. It's the first pickleball court in Saranay, and we built it as a place to stay a while.</p>
-      <p>Play a few games, then sit down for coffee or a plate of fishball and kwek-kwek. Bring the barkada, the family or the kids. Players of every level share this court, and more than 580 of them have joined our club on Reclub.</p>
-      <p>There's a dartboard too, for when you're waiting for the next game.</p>
+<!-- COPY: 1b coming up (dated strip, idea from Pickle Up / The Jar "What's on") -->
+<section class="section section--tight" id="coming-up" aria-labelledby="coming-title">
+  <div class="container">
+    <div class="strip-head">
+      <div>
+        <p class="eyebrow">On court soon</p>
+        <h2 id="coming-title">Coming up</h2>
+      </div>
+      <p class="note">Dates below are placeholders. The live schedule is always on <a href="https://reclub.co/clubs/@saranay-pickleball-club">Reclub</a>.</p>
     </div>
-    <!-- PHOTO 4 placeholder -->
-    <figure class="photo-ph" role="img" data-alt="An all-levels open play group posing with paddles on the court at Saranay Pickleball Court." aria-label="Photo placeholder: an all-levels open play group posing with paddles on the court.">
-      <svg viewBox="0 0 200 120" aria-hidden="true"><g fill="none" stroke="#F5F1E6" stroke-width="3" stroke-linecap="round"><circle cx="50" cy="40" r="12"/><path d="M30 95c0-16 9-28 20-28s20 12 20 28"/><circle cx="100" cy="34" r="13"/><path d="M78 95c0-18 10-31 22-31s22 13 22 31"/><circle cx="150" cy="40" r="12"/><path d="M130 95c0-16 9-28 20-28s20 12 20 28"/></g><g transform="translate(176 60) rotate(20)"><rect x="-9" y="-12" width="18" height="22" rx="8" fill="#D9F24B"/><rect x="-2.5" y="9" width="5" height="13" rx="2" fill="#D9F24B"/></g></svg>
-      <figcaption>Photo placeholder · open play group</figcaption>
-    </figure>
+    <ol class="events" role="list">
+      <li class="event">
+        <p class="event__date"><span class="tbc">date</span></p>
+        <h3 class="event__title">Open play · all levels</h3>
+        <p class="event__meta"><span class="tbc">time</span> <span class="tbc">₱ per player</span></p>
+        <a class="btn btn--outline btn--sm" href="https://reclub.co/clubs/@saranay-pickleball-club" aria-label="Reserve a spot for open play, all levels, on Reclub">Reserve on Reclub</a>
+      </li>
+      <li class="event">
+        <p class="event__date"><span class="tbc">date</span></p>
+        <h3 class="event__title">Coffee open play</h3>
+        <p class="event__meta">Buy a drink at D' Rafael's Cafe, play free. <span class="tbc">time and terms</span></p>
+        <a class="btn btn--outline btn--sm" href="https://reclub.co/clubs/@saranay-pickleball-club" aria-label="Reserve a spot for coffee open play on Reclub">Reserve on Reclub</a>
+      </li>
+      <li class="event">
+        <p class="event__date"><span class="tbc">date</span></p>
+        <h3 class="event__title">Open play · all levels</h3>
+        <p class="event__meta"><span class="tbc">time</span> <span class="tbc">₱ per player</span></p>
+        <a class="btn btn--outline btn--sm" href="https://reclub.co/clubs/@saranay-pickleball-club" aria-label="Reserve a spot for a second open play session on Reclub">Reserve on Reclub</a>
+      </li>
+    </ol>
   </div>
 </section>
-<!-- /COPY: 2 about -->
-
+<!-- /COPY: 1b coming up -->
 <!-- COPY: 3 open play -->
 <section class="section section--dark on-dark" id="open-play" aria-labelledby="op-title">
   <div class="container split">
@@ -161,22 +178,67 @@
     </div>
     <div>
       <dl class="info">
-        <div><dt>Schedule</dt><dd><span class="tbc">open play days and times</span></dd></div>
-        <div><dt>Rate</dt><dd><span class="tbc">₱ per player per session</span></dd></div>
-        <div><dt>Players per session</dt><dd><span class="tbc">cap per session</span></dd></div>
         <div><dt>Levels</dt><dd>All sessions are open to all levels</dd></div>
+        <div><dt>Partner needed?</dt><dd>No. Come solo and we rotate you in.</dd></div>
+        <div><dt>Payment</dt><dd>On Reclub, by GCash</dd></div>
       </dl>
       <div class="card">
         <h3>Coffee + free open play</h3>
         <p>Buy a drink at D' Rafael's Cafe and your open play session is free.</p>
         <p><span class="tbc">days, times and terms of the coffee sessions</span></p>
       </div>
-      <p class="mt-6"><a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club">See this week's sessions</a></p>
+      <p class="mt-6"><a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club">See this week's sessions</a> <a class="btn btn--outline-light" href="#rates">Rates and hours</a></p>
     </div>
   </div>
 </section>
 <!-- /COPY: 3 open play -->
-
+<!-- COPY: 3b rates and hours (layout idea from PickleBOS) -->
+<section class="section section--alt" id="rates" aria-labelledby="rates-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Rates and hours</p>
+      <h2 id="rates-title">What it costs, and when we're open</h2>
+      <p class="lede">Everything marked TBC is still being confirmed with the court. We'll match the numbers on our Facebook page and Google listing.</p>
+    </div>
+    <div class="rates">
+      <article class="rate-card" aria-labelledby="rate-op">
+        <h3 id="rate-op">Open play</h3>
+        <p class="rate-card__price"><span class="tbc">₱ per player per session</span></p>
+        <dl class="info info--plain">
+          <div><dt>Schedule</dt><dd><span class="tbc">open play days and times</span></dd></div>
+          <div><dt>Players per session</dt><dd><span class="tbc">cap per session</span></dd></div>
+          <div><dt>Coffee sessions</dt><dd>Buy a drink, play free · <span class="tbc">days and terms</span></dd></div>
+          <div><dt>How to pay</dt><dd>GCash, through Reclub</dd></div>
+        </dl>
+        <a class="btn btn--ball btn--block" href="https://reclub.co/clubs/@saranay-pickleball-club">Join open play</a>
+      </article>
+      <article class="rate-card" aria-labelledby="rate-rent">
+        <h3 id="rate-rent">Private court rental</h3>
+        <p class="rate-card__price"><span class="tbc">₱ per hour</span></p>
+        <dl class="info info--plain">
+          <div><dt>What's included</dt><dd><span class="tbc">paddles and balls, lights, minimum hours</span></dd></div>
+          <div><dt>Food for groups</dt><dd><span class="tbc">café add-ons for events</span></dd></div>
+          <div><dt>How to book</dt><dd>Message us or call</dd></div>
+        </dl>
+        <a class="btn btn--block" href="https://m.me/61589930970148">Message us to rent</a>
+      </article>
+      <article class="rate-card" aria-labelledby="rate-hours">
+        <h3 id="rate-hours">Hours</h3>
+        <table class="hours">
+          <caption class="visually-hidden">Court and café opening hours</caption>
+          <thead><tr><th scope="col">Day</th><th scope="col">Court</th><th scope="col">Café</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Mon to Fri</th><td><span class="tbc">hours</span></td><td><span class="tbc">hours</span></td></tr>
+            <tr><th scope="row">Sat and Sun</th><td><span class="tbc">hours</span></td><td><span class="tbc">hours</span></td></tr>
+          </tbody>
+        </table>
+        <p class="note">Rows are a layout placeholder: hours may be the same every day.</p>
+        <a class="btn btn--outline btn--block" href="#find-us">Directions and parking</a>
+      </article>
+    </div>
+  </div>
+</section>
+<!-- /COPY: 3b rates and hours -->
 <!-- COPY: 4 private rental -->
 <section class="section" id="rent" aria-labelledby="rent-title">
   <div class="container split split--flip">
@@ -184,10 +246,12 @@
       <p class="eyebrow">Private court rental</p>
       <h2 id="rent-title">Rent the court for your group</h2>
       <p>Have the whole court to yourselves. Book it for a game with friends, a family afternoon, a team practice or a birthday. We've hosted private events on the court and in the café, so ask us if you want food and drinks for your group.</p>
-      <dl class="info">
-        <div><dt>Rate</dt><dd><span class="tbc">₱ per hour</span></dd></div>
-        <div><dt>What's included</dt><dd><span class="tbc">paddles and balls, lights, minimum hours, café add-ons for events</span></dd></div>
-      </dl>
+      <ul class="ticks">
+        <li>Friends' games and barkada nights</li>
+        <li>Family afternoons and kids' birthdays</li>
+        <li>Team practice and company events</li>
+      </ul>
+      <p>Rate and inclusions: see <a href="#rates">Rates and hours</a>. Questions about parties and food are in the <a href="#faq">FAQ</a>.</p>
       <p><strong>How to ask:</strong> Message us on Facebook or Instagram with your date, time, how many hours, and how many people. You can also call or text +63 906 545 8384. We'll confirm the slot and tell you how to pay.</p>
       <div class="btn-row">
         <a class="btn" href="https://m.me/61589930970148">Message us to rent</a>
@@ -196,36 +260,49 @@
       <p class="note mt-3"><span class="tbc">Messenger link to confirm</span></p>
     </div>
     <div class="rent-art" aria-hidden="true">
-      <svg viewBox="0 0 400 300" class="court-art"><rect width="400" height="300" rx="24" fill="#EAD9C6"/><g transform="translate(200 150)"><rect x="-150" y="-95" width="300" height="190" rx="6" fill="#1E5B45"/><g fill="none" stroke="#F5F1E6" stroke-width="3"><rect x="-150" y="-95" width="300" height="190" rx="6"/><line x1="0" y1="-95" x2="0" y2="95" stroke-width="5"/><line x1="-45" y1="-95" x2="-45" y2="95"/><line x1="45" y1="-95" x2="45" y2="95"/><line x1="-150" y1="0" x2="-45" y2="0"/><line x1="45" y1="0" x2="150" y2="0"/></g><circle cx="80" cy="-40" r="10" fill="#D9F24B"/></g><g fill="#5E3B22"><rect x="24" y="24" width="88" height="30" rx="15"/></g><text x="68" y="44" fill="#FBF7EF" font-family="Inter, sans-serif" font-size="14" font-weight="600" text-anchor="middle">Yours</text></svg>
+      <svg viewBox="0 0 400 300" class="court-art"><rect width="400" height="300" rx="24" style="fill:var(--c-coffee-soft)"/><g transform="translate(200 150)"><rect x="-150" y="-95" width="300" height="190" rx="6" style="fill:var(--c-court)"/><g fill="none" style="stroke:var(--c-court-line)" stroke-width="3"><rect x="-150" y="-95" width="300" height="190" rx="6"/><line x1="0" y1="-95" x2="0" y2="95" stroke-width="5"/><line x1="-45" y1="-95" x2="-45" y2="95"/><line x1="45" y1="-95" x2="45" y2="95"/><line x1="-150" y1="0" x2="-45" y2="0"/><line x1="45" y1="0" x2="150" y2="0"/></g><circle cx="80" cy="-40" r="10" style="fill:var(--c-ball)"/></g><g style="fill:var(--c-coffee)"><rect x="24" y="24" width="88" height="30" rx="15"/></g><text x="68" y="44" style="fill:var(--c-bg)" font-family="Inter, sans-serif" font-size="14" font-weight="600" text-anchor="middle">Yours</text></svg>
     </div>
   </div>
 </section>
 <!-- /COPY: 4 private rental -->
-
-<!-- COPY: 5 new to pickleball -->
-<section class="section section--alt" id="new" aria-labelledby="new-title">
+<!-- COPY: 5 new to pickleball (first-timer hook idea from The Fort) -->
+<section class="section" id="new" aria-labelledby="new-title">
   <div class="container">
-    <div class="section-head">
-      <p class="eyebrow">New to pickleball?</p>
-      <h2 id="new-title">First time? You're welcome here</h2>
-      <p class="lede">Pickleball is played with a paddle and a light plastic ball on a small court, so it's easy on beginners. Kids, parents and older players all play here, and nobody expects you to be good on day one.</p>
+    <div class="welcome">
+      <div class="welcome__intro">
+        <p class="eyebrow">New to pickleball?</p>
+        <h2 id="new-title">First time? You're welcome here</h2>
+        <p class="lede">Pickleball is played with a paddle and a light plastic ball on a small court, so it's easy on beginners. Kids, parents and older players all play here, and nobody expects you to be good on day one.</p>
+        <ul class="promise" role="list">
+          <li><strong>No partner needed.</strong> Come alone and we'll rotate you into games.</li>
+          <li><strong>No experience needed.</strong> Pick a session marked "all levels".</li>
+          <li><strong>No paddle?</strong> <span class="tbc">can beginners borrow or rent a paddle and balls?</span></li>
+        </ul>
+        <div class="btn-row">
+          <a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club">Find an all-levels session</a>
+          <a class="btn btn--outline" href="https://m.me/61589930970148">Ask us a question</a>
+        </div>
+      </div>
+      <div class="welcome__card">
+        <h3>Your first visit</h3>
+        <ol class="steps steps--compact steps--light">
+          <li><p>Join our club on Reclub and request a spot in an all-levels session.</p></li>
+          <li><p>Wear comfortable clothes and rubber-soled sports shoes.</p></li>
+          <li><p>Come a few minutes early and tell the organizer it's your first time. They'll help you find a game.</p></li>
+          <li><p>Stay after for a coffee at D' Rafael's Cafe.</p></li>
+        </ol>
+      </div>
     </div>
-    <ol class="steps">
-      <li><h3>Pick an all-levels session</h3><p>The easiest way in is an open play session marked "all levels". Tell the organizer it's your first time and they'll help you find a game.</p>
-        <a class="btn btn--outline" href="https://reclub.co/clubs/@saranay-pickleball-club">Find an all-levels session</a></li>
-      <li><h3>Paddles</h3><p><span class="tbc">can beginners borrow or rent a paddle and balls?</span></p></li>
-      <li><h3>What to wear</h3><p>Comfortable clothes and rubber-soled sports shoes.</p></li>
-    </ol>
   </div>
 </section>
 <!-- /COPY: 5 new to pickleball -->
-
 <!-- COPY: 6 cafe -->
-<section class="section" id="cafe" aria-labelledby="cafe-title">
+<section class="section section--cafe" id="cafe" aria-labelledby="cafe-title">
   <div class="container split">
     <div>
       <p class="eyebrow">The café</p>
       <h2 id="cafe-title">D' Rafael's Cafe</h2>
+      <p class="lede">Not here to play? Come for the café.</p>
       <p>Our café is right at the court. Grab a coffee before an early game, or stay after for something to eat while the next group plays.</p>
       <p>On the menu, from our posts:</p>
       <ul class="ticks">
@@ -238,27 +315,78 @@
         <div><dt>Café hours</dt><dd><span class="tbc">café hours, if different from the court</span></dd></div>
       </dl>
       <p><strong>Planning a party?</strong> Message us about food and drinks for your group.</p>
-      <a class="btn" href="https://m.me/61589930970148">Ask about the café</a>
-      <p class="note mt-3"><span class="tbc">Messenger link to confirm</span></p>
+      <div class="btn-row">
+        <a class="btn" href="https://m.me/61589930970148">Ask about the café</a>
+        <a class="btn btn--outline" href="https://maps.app.goo.gl/ZfC7mDdgYcpLxBRT7">Directions in Google Maps</a>
+      </div>
     </div>
     <div class="cafe-photos">
       <!-- PHOTO 2 placeholder -->
       <figure class="photo-ph photo-ph--cafe" role="img" data-alt="Coffee being served at the counter of D' Rafael's Cafe beside the Saranay pickleball court." aria-label="Photo placeholder: coffee being served at the café counter beside the court.">
-        <svg viewBox="0 0 200 120" aria-hidden="true"><g fill="none" stroke="#F5F1E6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M62 50h64v22a26 26 0 0 1-26 26h-12a26 26 0 0 1-26-26z"/><path d="M126 56h8a11 11 0 0 1 0 22h-9"/><path d="M78 22c0 7 7 7 7 14M98 22c0 7 7 7 7 14"/><path d="M50 106h100"/></g></svg>
+        <svg viewBox="0 0 200 120" aria-hidden="true"><g fill="none" style="stroke:var(--c-court-line)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M62 50h64v22a26 26 0 0 1-26 26h-12a26 26 0 0 1-26-26z"/><path d="M126 56h8a11 11 0 0 1 0 22h-9"/><path d="M78 22c0 7 7 7 7 14M98 22c0 7 7 7 7 14"/><path d="M50 106h100"/></g></svg>
         <figcaption>Photo placeholder · café counter</figcaption>
       </figure>
       <!-- PHOTO 3 placeholder -->
       <figure class="photo-ph photo-ph--cafe" role="img" data-alt="A plate of fishball, kwek-kwek and kikiam from the Tusok-Tusok Treat at D' Rafael's Cafe." aria-label="Photo placeholder: a plate of fishball, kwek-kwek and kikiam.">
-        <svg viewBox="0 0 200 120" aria-hidden="true"><g fill="none" stroke="#F5F1E6" stroke-width="3" stroke-linecap="round"><ellipse cx="100" cy="80" rx="70" ry="18"/><circle cx="78" cy="66" r="9"/><circle cx="100" cy="62" r="9"/><circle cx="122" cy="66" r="9"/><path d="M60 30l32 40M150 26l-30 44"/></g><circle cx="100" cy="62" r="5" fill="#D9F24B"/></svg>
+        <svg viewBox="0 0 200 120" aria-hidden="true"><g fill="none" style="stroke:var(--c-court-line)" stroke-width="3" stroke-linecap="round"><ellipse cx="100" cy="80" rx="70" ry="18"/><circle cx="78" cy="66" r="9"/><circle cx="100" cy="62" r="9"/><circle cx="122" cy="66" r="9"/><path d="M60 30l32 40M150 26l-30 44"/></g><circle cx="100" cy="62" r="5" style="fill:var(--c-ball)"/></svg>
         <figcaption>Photo placeholder · Tusok-Tusok Treat</figcaption>
       </figure>
     </div>
   </div>
 </section>
 <!-- /COPY: 6 cafe -->
-
+<!-- COPY: 8 location and hours -->
+<section class="section" id="find-us" aria-labelledby="find-title">
+  <div class="container split">
+    <div>
+      <p class="eyebrow">Location and hours</p>
+      <h2 id="find-title">Find us</h2>
+      <address class="address">Saranay Homes, Block 5 Lot 13 Saranay Road, Bagumbong North, Caloocan, Metro Manila</address>
+      <p><strong>Directions:</strong> <span class="tbc">route from Malapitan Road and a landmark to look for at the entrance</span>. A short drive from Quezon City and the rest of North Caloocan.</p>
+      <p><strong>Parking:</strong> <span class="tbc">parking details</span></p>
+      <dl class="info">
+        <div><dt>Court hours</dt><dd><span class="tbc">court hours per day</span></dd></div>
+        <div><dt>Café hours</dt><dd><span class="tbc">café hours per day</span></dd></div>
+        <div><dt>Plus code</dt><dd>Q24G+FX Caloocan</dd></div>
+      </dl>
+      <div class="btn-row">
+        <a class="btn" href="https://maps.app.goo.gl/ZfC7mDdgYcpLxBRT7">Open in Google Maps</a>
+        <button class="btn btn--outline" type="button" id="copy-pin" data-copy="Saranay Pickleball Court, Saranay Homes, Block 5 Lot 13 Saranay Road, Bagumbong North, Caloocan. Map: https://maps.app.goo.gl/ZfC7mDdgYcpLxBRT7">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          Copy location pin</button>
+        <a class="btn btn--outline" href="tel:+639065458384">Call us</a>
+      </div>
+      <p class="note copy-status" id="copy-status" role="status" aria-live="polite">For Grab or a tricycle: copies our name, address and map link.</p>
+    </div>
+    <figure class="map-fig">
+      <div class="map-frame">
+        <iframe title="Map: Saranay Pickleball Court and Cafe, Saranay Homes, Bagumbong North, Caloocan" src="https://www.google.com/maps?q=Saranay%20Pickleball%20Court%2C%20Saranay%20Road%2C%20Bagumbong%2C%20Caloocan&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+      <figcaption class="note mt-3">Saranay Pickleball Court and Cafe, inside Saranay Homes, Bagumbong North, Caloocan.</figcaption>
+    </figure>
+  </div>
+</section>
+<!-- /COPY: 8 location and hours -->
+<!-- COPY: 2 about -->
+<section class="section" id="about" aria-labelledby="about-title">
+  <div class="container split">
+    <div>
+      <p class="eyebrow">About the court</p>
+      <h2 id="about-title">A court with a café, not just a court</h2>
+      <p>We're a single pickleball court in Caloocan with our own café, D' Rafael's Cafe, inside Saranay Homes in North Caloocan. It's the first pickleball court in Saranay, and we built it as a place to stay a while.</p>
+      <p>Play a few games, then sit down for coffee or a plate of fishball and kwek-kwek. Bring the barkada, the family or the kids. Players of every level share this court, and 584 of them have joined our club on Reclub.</p>
+      <p>There's a dartboard too, for when you're waiting for the next game.</p>
+    </div>
+    <!-- PHOTO 4 placeholder -->
+    <figure class="photo-ph" role="img" data-alt="An all-levels open play group posing with paddles on the court at Saranay Pickleball Court." aria-label="Photo placeholder: an all-levels open play group posing with paddles on the court.">
+      <svg viewBox="0 0 200 120" aria-hidden="true"><g fill="none" style="stroke:var(--c-court-line)" stroke-width="3" stroke-linecap="round"><circle cx="50" cy="40" r="12"/><path d="M30 95c0-16 9-28 20-28s20 12 20 28"/><circle cx="100" cy="34" r="13"/><path d="M78 95c0-18 10-31 22-31s22 13 22 31"/><circle cx="150" cy="40" r="12"/><path d="M130 95c0-16 9-28 20-28s20 12 20 28"/></g><g transform="translate(176 60) rotate(20)"><rect x="-9" y="-12" width="18" height="22" rx="8" style="fill:var(--c-ball)"/><rect x="-2.5" y="9" width="5" height="13" rx="2" style="fill:var(--c-ball)"/></g></svg>
+      <figcaption>Photo placeholder · open play group</figcaption>
+    </figure>
+  </div>
+</section>
+<!-- /COPY: 2 about -->
 <!-- COPY: 7 how to book -->
-<section class="section section--alt" id="book" aria-labelledby="book-title">
+<section class="section" id="book" aria-labelledby="book-title">
   <div class="container">
     <div class="section-head">
       <p class="eyebrow">How to book</p>
@@ -280,42 +408,13 @@
   </div>
 </section>
 <!-- /COPY: 7 how to book -->
-
-<!-- COPY: 8 location and hours -->
-<section class="section" id="find-us" aria-labelledby="find-title">
-  <div class="container split">
-    <div>
-      <p class="eyebrow">Location and hours</p>
-      <h2 id="find-title">Find us</h2>
-      <address class="address">Saranay Homes, Block 5 Lot 13 Saranay Road, Bagumbong North, Caloocan, Metro Manila</address>
-      <p><strong>Directions:</strong> <span class="tbc">route from Malapitan Road and a landmark to look for at the entrance</span>. A short drive from Quezon City and the rest of North Caloocan.</p>
-      <p><strong>Parking:</strong> <span class="tbc">parking details</span></p>
-      <h3>Hours</h3>
-      <dl class="info">
-        <div><dt>Court · Monday to Sunday</dt><dd><span class="tbc">court hours per day</span></dd></div>
-        <div><dt>Café · Monday to Sunday</dt><dd><span class="tbc">café hours per day</span></dd></div>
-      </dl>
-      <div class="btn-row">
-        <a class="btn" href="https://maps.app.goo.gl/ZfC7mDdgYcpLxBRT7">Open in Google Maps</a>
-        <a class="btn btn--outline" href="tel:+639065458384">Call us</a>
-      </div>
-    </div>
-    <figure class="map-fig">
-      <div class="map-frame">
-        <iframe title="Map: Saranay Pickleball Court and Cafe, Saranay Homes, Bagumbong North, Caloocan" src="https://www.google.com/maps?q=Saranay%20Pickleball%20Court%2C%20Saranay%20Road%2C%20Bagumbong%2C%20Caloocan&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
-      </div>
-      <figcaption class="note mt-3">Saranay Pickleball Court and Cafe, inside Saranay Homes, Bagumbong North, Caloocan.</figcaption>
-    </figure>
-  </div>
-</section>
-<!-- /COPY: 8 location and hours -->
-
 <!-- COPY: 9 faq -->
 <section class="section section--alt" id="faq" aria-labelledby="faq-title">
   <div class="container">
     <div class="section-head">
       <p class="eyebrow">FAQ</p>
       <h2 id="faq-title">Questions we get</h2>
+      <p class="lede">The things people ask us on Messenger, answered here first.</p>
     </div>
     <div class="faq">
       <details><summary>Do I need to be good to join open play?</summary><div><p>No. All our open play sessions are for all levels. If it's your first time, tell the organizer and they'll help you find a game.</p></div></details>
@@ -324,7 +423,22 @@
       <details><summary>How do I rent the whole court?</summary><div><p>Message us on Facebook or Instagram, or call <a href="tel:+639065458384">+63 906 545 8384</a>, with your date, time and number of people. Rental is <span class="tbc">₱ per hour</span>.</p></div></details>
       <details><summary>Can I borrow a paddle?</summary><div><p><span class="tbc">paddle and ball loan or rental answer</span></p></div></details>
       <details><summary>Can we hold a party or private event here?</summary><div><p>Yes. We've hosted private events on the court and in the café. Message us with your date and headcount and we'll work out the court time and the food.</p></div></details>
+      <details><summary>What are your hours?</summary><div><p>Court: <span class="tbc">court hours</span>. Café: <span class="tbc">café hours</span>. See <a href="#rates">Rates and hours</a>.</p></div></details>
+      <details><summary>How many players per open play session?</summary><div><p><span class="tbc">cap per session</span>. If a session is full on Reclub, you go on the waitlist.</p></div></details>
+      <details><summary>How do I pay?</summary><div><p>Open play: through Reclub, by GCash. Court rental: we'll tell you how to pay when we confirm your slot. <span class="tbc">is cash accepted on site?</span></p></div></details>
+      <details><summary>What should I bring or wear?</summary><div><p>Comfortable clothes and rubber-soled sports shoes. Paddles: <span class="tbc">loan or rental answer</span></p></div></details>
+      <details><summary>Is there parking?</summary><div><p><span class="tbc">parking details</span>. For a Grab or tricycle, use the <a href="#find-us">Copy location pin</a> button.</p></div></details>
+      <details><summary>Can I come just for the café?</summary><div><p><span class="tbc">confirm the café is open to non-players</span>. Our menu includes coffee, the Tusok-Tusok Treat and enoki crispy fries.</p></div></details>
+      <details><summary>Can we bring outside food?</summary><div><p><span class="tbc">outside food and drinks rule</span></p></div></details>
       <details><summary>Are kids welcome?</summary><div><p>Yes. Kids and families play here. <span class="tbc">any age rule or supervision rule</span></p></div></details>
+    </div>
+    <div class="faq-more">
+      <p><strong>Still have a question?</strong> Message us and we'll get back to you.</p>
+      <div class="btn-row">
+        <a class="btn" href="https://m.me/61589930970148">Message us on Messenger</a>
+        <a class="btn btn--outline" href="https://ig.me/m/saranaypickleballcourt">Instagram DM</a>
+        <a class="btn btn--outline" href="tel:+639065458384">Call +63 906 545 8384</a>
+      </div>
     </div>
   </div>
 </section>
@@ -360,14 +474,16 @@
         </ul>
       </nav>
     </div>
-    <p class="footer__fine">Book open play on Reclub. Rentals by message or phone. No bookings or payments on this site.<br>Demo preview v1 · illustrations are placeholders for real venue photos.</p>
+    <p class="footer__fine">Book open play on Reclub. Rentals by message or phone. No bookings or payments on this site.<br>Demo preview v1.1 · illustrations are placeholders for real venue photos.</p>
   </div>
 </footer>
 <!-- /COPY: 10 footer -->
 
-<div class="cta-bar is-hidden" id="cta-bar" role="region" aria-label="Quick booking">
+<div class="cta-bar" id="cta-bar" role="region" aria-label="Quick booking">
   <a class="btn btn--ball btn--block" href="https://reclub.co/clubs/@saranay-pickleball-club" data-cta="join-open-play">Join open play</a>
-  <a class="btn btn--outline-light btn--block" href="https://m.me/61589930970148" data-cta="rent-a-court">Rent a court</a>
+  <a class="btn btn--outline-light btn--block" href="https://m.me/61589930970148" data-cta="message-us">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C7 3 3 6.7 3 11.3c0 2.6 1.3 4.9 3.3 6.4V21l3-1.7c.9.3 1.8.4 2.7.4 5 0 9-3.7 9-8.3S17 3 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+    Message us</a>
 </div>
 
 <script src="main.js" defer></script>

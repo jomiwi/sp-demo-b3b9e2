@@ -1,4 +1,4 @@
-# Saranay Pickleball Court and Cafe: one-page demo site (v1)
+# Saranay Pickleball Court and Cafe: one-page demo site (v1.1)
 
 **Status:** DEMO. Unlisted and `noindex, nofollow`. Not the official site; not for promotion.
 **Built by:** Jared (UX/UI) for Jon Miller · brief from Ling · CHOAM asset `aeafee96-740a-4803-a7ce-9050ec2fd0d7` · 30 Oct 2026
@@ -9,7 +9,7 @@
 | --- | --- |
 | `index.html` | The whole page. Each section is wrapped in `COPY: n name` / `/COPY: n name` comments. |
 | `styles.css` | Design tokens in `:root` (colour, type, spacing, radius, motion), then components. No colours or spacing outside tokens. |
-| `main.js` | Mobile menu toggle and sticky mobile CTA bar. No tracking, no dependencies. |
+| `main.js` | Mobile menu toggle and the "Copy location pin" button (clipboard + aria-live status). No tracking, no dependencies. The mobile CTA bar is pinned with CSS. |
 | `robots.txt` | Allows crawling, so crawlers can see the noindex tag. |
 | `_headers` | `X-Robots-Tag: noindex, nofollow` (applied on Cloudflare Pages / Netlify; GitHub Pages ignores it). |
 | `favicon.svg`, `.nojekyll` | Icon; tells GitHub Pages to serve files as-is. |
@@ -36,3 +36,23 @@ Official hours (court and café) · open play schedule · open play rate · coff
 
 ## Standards
 Mobile-first; WCAG 2.1 AA colour contrast (all text pairs ≥ 5.9:1); visible focus rings; 44px+ targets; semantic landmarks; skip link; `prefers-reduced-motion` respected; no Open Graph / Twitter tags; no booking or payment on the site.
+
+## Page order (v1.1, persona-led)
+Hero (Join open play + Rent a court, "Next open play" chip) → Coming up (dated strip) → Open play → Rates and hours → Private rental → First time? (welcome block) → Café → Find us (Maps, Copy location pin, Call) → About → How to book → FAQ (+ Messenger / IG / Call) → Footer. Pinned mobile bar: Join open play (Reclub) + Message us (Messenger).
+
+| Persona | Where they land |
+| --- | --- |
+| Paolo, weekend open-play regular | Hero CTA, Next open play chip, Coming up, Open play, Rates |
+| Friend groups, families, event hosts | Rent a court (hero, Messenger), Private rental, FAQ, Call |
+| Bea, first-timer | First time? welcome block and "Your first visit" steps |
+| Tita Rose, café-goer | Café section (Directions button) and Find us (Maps, Copy location pin) |
+
+## Borrowed from the reference sites (site-examples brief, 30 Oct 2026)
+- Pickle Up (SG): pinned two-button mobile bar (book + chat); dated event strip.
+- Vanda (Manila): "Copy location pin" button for ride-hailing.
+- PickleBOS (Boston): rates-and-hours cards near the top.
+- Astra (Cainta): FAQ that answers the usual Messenger questions (hours, cap, payment, what to bring, parking, café, outside food).
+- The Fort (Fort Lauderdale): first-timer hook ("No partner / no experience / no paddle?").
+- The Jar (Melbourne): quality bar for type, spacing and photo framing; "What's on" list; real photos still needed.
+
+Reclub member count: 584 (per the brief, 30 Oct 2026).
