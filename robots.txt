@@ -1,0 +1,3 @@
+# Demo site: crawling is allowed so search engines can read the noindex tag and header.
+User-agent: *
+Allow: /
