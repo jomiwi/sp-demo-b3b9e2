@@ -1,4 +1,4 @@
-# Saranay Pickleball Court and Cafe: one-page demo site (v1.4)
+# Saranay Pickleball Court and Cafe: one-page demo site (v1.5)
 
 **Status:** DEMO. Unlisted and `noindex, nofollow`. Not the official site; not for promotion.
 **Built by:** Jared (UX/UI) for Jon Miller · brief from Ling · CHOAM asset `aeafee96-740a-4803-a7ce-9050ec2fd0d7` · 30 Oct 2026
@@ -56,7 +56,7 @@ Hero (Join open play + Book a court on Sports360, "Next open play" chip) → Com
 - The Fort (Fort Lauderdale): first-timer hook ("No partner / no experience / no paddle?").
 - The Jar (Melbourne): quality bar for type, spacing and photo framing; "What's on" list; real photos still needed.
 
-Reclub member count: 585 (updated 31 Oct 2026).
+Reclub member count: 586 (updated 31 Oct 2026).
 
 ## v1.2 (30 Oct 2026)
 
@@ -67,3 +67,5 @@ v1.2.1 (30 Oct 2026): added Martha's optional "Good for:" label above the rental
 v1.3 (31 Oct 2026): court rentals moved to Sports360 on 9 Oct, so "Book a court on Sports360" is now the main rental button (hero, rental section, rates card, How to book, FAQ, footer), with Messenger second ("Message us for groups or booking help"). Reclub is open play only. Sports360 URL https://app.sports360.ph/sportshub/saranay-pickleball-court verified 31 Oct 2026 in headless Chromium: the page shows SARANAY PICKLEBALL COURT and our phone, 0906-545-8384. Member count 584 to 585.
 
 v1.4 (31 Oct 2026): court rates, court hours (6am to 2am daily), player caps per booking and paddle/ball prices copied exactly from the Sports360 page https://app.sports360.ph/sportshub/saranay-pickleball-court (read 31 Oct 2026, headless Chrome), with a "Rates as listed on Sports360, Oct 31 2026" source note by the rates. Rates: 6:00 AM – 10:00 AM ₱300/hour; 10:00 AM – 4:00 PM ₱200/hour; 4:00 PM – 2:00 AM ₱300/hour. Caps: 1 hr up to 4, 2 hrs up to 8, 3+ hrs up to 12, additional player ₱100/person. Paddle ₱100 rent per session; ball ₱100 for sale. TBC kept on café hours, seating, open-play fees/schedule/cap, plus code and everything else Sports360 does not list. Meta description unchanged (Martha to supply).
+
+v1.5 (31 Oct 2026): Martha's Sports360 copy fixes (`/002/CHOAM/saranay/saranay-sports360-copy-fixes-2026-10-31.md`). New meta description (146 chars). Second button now "Message us for groups or help booking" (rental section, How to book) and added back to the footer Book list. Rental paragraph: "Pick a time and book the court on Sports360. Coming as a big group or planning an event? Message us and we'll sort it out." FAQ rewrites in Martha's wording: rent, paddle, hours, pay (full payment, non-refundable, 24h reschedule), bring/wear, and outside food (Sports360: no outside food or drinks). Members 585 to 586 (Reclub, 31 Oct 2026). TBC kept on café hours, seating, open-play rate/schedule/cap, coffee sessions, inclusions, parking, directions, plus code, kids rule, café payment, Messenger/IG links.
