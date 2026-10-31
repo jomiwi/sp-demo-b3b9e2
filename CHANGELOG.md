@@ -3,6 +3,40 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.4.1 · 2026-10-31
+
+**Change**
+- **Real share image.** `img/og-share-1200x630.jpg`: 1200x630 JPEG, 161 KB (161,329 bytes). It uses Saranay's court photo (court-sky, their Sports360 gallery) with the hero headline "PICKLEBALL / AND COFFEE / in Saranay" set in Archivo (wght 900) and Instrument Serif italic. Palette tokens: `--c-ink` field and scrim, `--c-on-dark` and `--c-sky` type, `--c-ball` dot, `--c-on-dark-muted` footer line. `og:image`, `og:image:secure_url`, `twitter:image` and the JSON-LD `image` now point at it with an absolute URL. Added `og:image:type`, `og:image:width` (1200), `og:image:height` (630), `og:image:alt` and `twitter:image:alt`. This replaces the v3.4 limitation (SVG og:image).
+  - How the binary was published: the publishing connector is text-only, so the JPEG was committed as base64 (`img/og-share-1200x630.jpg.b64`) together with a one-shot GitHub Actions workflow. The workflow decoded it to the real file, then deleted both the .b64 and itself (commits b3292ba, 928a903). The SHA-256 of the committed JPEG matches the local file: c5d6720f…43aac0.
+- **Consent: Accept grants `analytics_storage` only.** `ad_storage`, `ad_user_data` and `ad_personalization` stay `denied` always, both in the `<head>` replay of a stored "yes" and on the Accept button. The `consent_update` dataLayer push now carries the four states explicitly. Banner text is now "We'd like to count visits and booking clicks to improve this site. We only do this if you say yes." (was "… Only if you say yes."). The Privacy notice now says "no analytics cookies are set" (was "no analytics or advertising cookies are set").
+- **Copy (Martha's copy-read, exact wording):** the About photo wall heading is now "On court with our open play crowd" (was "Open play nights"), and the line under it is unchanged. The logo caption "Our logo." is unchanged. The footer reads "Demo preview v3.4.1 · Photos are Saranay's own, from their Sports360 page and Instagram accounts."
+- **Café menu: "Nachos"** added with a TBC price badge, like the other items. Evidence: the café's own nachos photo (cafe-nachos-03, @drafaelscafe).
+- **Photo credits corrected.** v3.4 listed the café photos (01, 02, 03) as Saranay's court account with "MISSING" URLs. They are from the café's account, **@drafaelscafe**. Post URLs below come from Ling via Jon (31 Oct).
+
+**Photo credits (Instagram)**
+
+| # | file | used | handle | post |
+|---|---|---|---|---|
+| 01 | cafe-patio-night-guests | café (consent flag) | @drafaelscafe | https://www.instagram.com/drafaelscafe/p/DdMbk9uSF7P/ |
+| 02 | cafe-logo-wall-patio | café | @drafaelscafe | https://www.instagram.com/drafaelscafe/p/DcXS5fCEgc5/ |
+| 03 | cafe-nachos | café | @drafaelscafe | https://www.instagram.com/drafaelscafe/p/DcVoxuJS5W3/ |
+| 04 | cafe-interior-event-group | not used | @drafaelscafe | https://www.instagram.com/drafaelscafe/p/DcU2nP6El7w/ |
+| 05 | cafe-interior-table-paddle-wall | not used (not in the repo) | @drafaelscafe | https://www.instagram.com/drafaelscafe/p/DcQWZYeyOTT/ |
+| 06 | court-night-group | photo wall | @saranaypickleballcourt | https://www.instagram.com/saranaypickleballcourt/p/Dd2nuxLEnnu/ |
+| 07 | court-night-group-portrait | photo wall (consent flag) | @saranaypickleballcourt | https://www.instagram.com/saranaypickleballcourt/p/DcSjHdOkuGB/ |
+| 08 | court-dusk-group | photo wall | @saranaypickleballcourt | https://www.instagram.com/saranaypickleballcourt/p/Dc2rVvHkui5/ |
+| 09 | court-group-open-play | photo wall (consent flag) | @saranaypickleballcourt | https://www.instagram.com/saranaypickleballcourt/p/DdTXV86yf2f/ |
+| 11 | court-paddles-on-bench | photo wall | @saranaypickleballcourt | https://www.instagram.com/saranaypickleballcourt/p/DdTXM7sEg5n/ |
+| 12 | entrance-player-dRafaels-mural | photo wall (consent flag) | @saranaypickleballcourt | https://www.instagram.com/saranaypickleballcourt/p/DdTXM7sEg5n/ (same post as 11) |
+
+10 (court-kids-group) is never used and isn't in the repo. It shows children, so no credit is needed. Consent flags are unchanged from v3.4: 01, 07, 09 and 12 still need the owners' OK before any public use. The share image uses court-sky (Saranay's Sports360 gallery), not an Instagram photo.
+
+**Owners to confirm (added in v3.4.1)**
+- Nachos: price, and that it's a regular menu item.
+- Still open from v3.4: the GTM container ID, privacy controller name, privacy contact, the final notice wording, and photo consent for 01, 07, 09 and 12.
+
+**Why**: Ling approved the UTM pattern as built and asked for a real share image, post-level photo credits and Martha's copy-read. Accept covering analytics only, the consent wording and the Nachos item are from Martha's copy-read.
+
 ## v3.4 · 2026-10-31
 
 **Change (Ling's conversion tracking brief, built from the Saranay conversion tracking plan, 31 Oct 2026)**

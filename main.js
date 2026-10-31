@@ -93,8 +93,10 @@ function saranayTag(href, loc) {
   function show() { box.hidden = false; }
   function choose(v) {
     try { localStorage.setItem(KEY, v); } catch (e) {}
-    if (typeof gtag === 'function') gtag('consent', 'update', { ad_storage: v, ad_user_data: v, ad_personalization: v, analytics_storage: v });
-    (window.dataLayer = window.dataLayer || []).push({ event: 'consent_update', consent: v });
+    /* v3.4.1: Accept grants analytics_storage ONLY. Ad storage, ad user data and ad personalization stay denied always. */
+    var state = { analytics_storage: v, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' };
+    if (typeof gtag === 'function') gtag('consent', 'update', state);
+    (window.dataLayer = window.dataLayer || []).push({ event: 'consent_update', consent: v, analytics_storage: state.analytics_storage, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
     var had = box.contains(document.activeElement);
     box.hidden = true;
     if (had) { var nx = document.querySelector('.brand'); if (nx) nx.focus(); }

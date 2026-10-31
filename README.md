@@ -14,6 +14,21 @@
 | `_headers` | `X-Robots-Tag: noindex, nofollow` (applied on Cloudflare Pages / Netlify; GitHub Pages ignores it). |
 | `favicon.svg`, `.nojekyll` | Icon; tells GitHub Pages to serve files as-is. |
 
+## Photo credits (v3.4.1)
+
+- Court photos (court-sky, court-shade, court-crop) and the logo: Saranay Pickleball Court, from its Sports360 Sports Hub gallery (app.sports360.ph/sportshub/saranay-pickleball-court). The share image `img/og-share-1200x630.jpg` is built from court-sky.
+- Café photos: D' Rafael's Cafe on Instagram, @drafaelscafe.
+  - 01 patio night guests: https://www.instagram.com/drafaelscafe/p/DdMbk9uSF7P/
+  - 02 logo wall: https://www.instagram.com/drafaelscafe/p/DcXS5fCEgc5/
+  - 03 nachos: https://www.instagram.com/drafaelscafe/p/DcVoxuJS5W3/
+- Photo wall ("On court with our open play crowd"): Saranay Pickleball Court on Instagram, @saranaypickleballcourt.
+  - 06: https://www.instagram.com/saranaypickleballcourt/p/Dd2nuxLEnnu/
+  - 07: https://www.instagram.com/saranaypickleballcourt/p/DcSjHdOkuGB/
+  - 08: https://www.instagram.com/saranaypickleballcourt/p/Dc2rVvHkui5/
+  - 09: https://www.instagram.com/saranaypickleballcourt/p/DdTXV86yf2f/
+  - 11 and 12: https://www.instagram.com/saranaypickleballcourt/p/DdTXM7sEg5n/
+- Photos 01, 07, 09 and 12 need the owners' consent before any public use. See CHANGELOG v3.4.1.
+
 ## Editing copy
 - Unconfirmed facts are `<span class="tbc">…</span>` and render as a yellow **TBC** badge. When Raf and Rhema lock a fact, replace the whole span with plain text.
 - Photo slots are `<figure class="photo-ph" data-alt="…">`. Swap each for `<img src="…" alt="(the data-alt text)" width height loading="lazy">` using real venue photos (with rights).
