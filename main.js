@@ -166,9 +166,9 @@
   var RECLUB = 'https://reclub.co/clubs/@saranay-pickleball-club';
   var MSG = 'https://m.me/61589930970148';
   var CTX = {
-    play: { big: 'Open play', small: 'All levels · on Reclub', label: 'Join open play', href: RECLUB, cta: 'join-open-play' },
-    court: { big: 'From ₱200/hour', small: 'Whole court · book on Sports360', label: 'Book a court', href: S360, cta: 'book-a-court', ext: true },
-    cafe: { big: "D' Rafael's Cafe", small: 'At the court · hours TBC', label: 'Message us', href: MSG, cta: 'message-us' }
+    play: { big: 'Open play', small: 'Join on Reclub', label: 'Join open play', href: RECLUB, cta: 'join-open-play' },
+    court: { big: 'From ₱200/hour', small: 'Whole court · Book on Sports360', label: 'Book a court', href: S360, cta: 'book-a-court', ext: true },
+    cafe: { big: "D' Rafael's Cafe", small: 'At the court · Hours TBC', label: 'Message us', href: MSG, cta: 'message-us' }
   };
   var BY_SECTION = { 'coming-up': 'play', 'open-play': 'play', 'new': 'play', 'rates': 'court', 'rent': 'court', 'cafe': 'cafe', 'find-us': 'cafe' };
   var BY_PATH = { open: 'play', first: 'play', rent: 'court', cafe: 'cafe' };
@@ -206,4 +206,23 @@
     refresh();
   }
   refresh();
+})();
+
+/* v2.5.1 · Keep --cta-bar-h equal to the pinned bar's real height, so page padding and scroll clearance always match */
+(function () {
+  var bar = document.getElementById('cta-bar');
+  if (!bar || !('ResizeObserver' in window)) return;
+  var root = document.documentElement;
+  new ResizeObserver(function () {
+    var h = bar.offsetHeight;
+    if (h > 0) root.style.setProperty('--cta-bar-h', h + 'px');
+    else root.style.removeProperty('--cta-bar-h');
+  }).observe(bar);
+  /* Keyboard focus moving into the map embed: bring the whole map clear of the bar */
+  window.addEventListener('blur', function () {
+    setTimeout(function () {
+      var f = document.activeElement;
+      if (f && f.tagName === 'IFRAME' && bar.offsetHeight) f.scrollIntoView({ block: 'nearest' });
+    }, 0);
+  });
 })();

@@ -40,3 +40,22 @@ Facts used are only those already on the site (Sports360 rates and caps, hours, 
 - **Persona:** Bea (first-timer: sees open play is solo-friendly before tapping), the barkada (sees the payment and reschedule rules before going to Sports360), Paolo.
 - **Expected effect on bookings:** a clear either/or at the decision point instead of six competing buttons. The two booking buttons get the visual weight, and the policies people usually ask about in Messenger are answered beside the button.
 - **Pattern borrowed:** Mobbin: Neo Financial "Choose your membership" plan cards (title, price line, check list, one button per card), Brilliant Free vs Premium comparison.
+
+## v2.5.1 · Fix: no button sits under the mobile booking bar, plus final copy (Ling and Martha follow-ups)
+- **Bug fixed:** at 390px, a reader scrolling down (or a keyboard user tabbing) could stop with a button such as "Book a court on Sports360" in Split the court hidden under the pinned bottom bar. Now:
+  - `--cta-bar-h` tracks the bar's real height (ResizeObserver; the 4.75rem token stays as the no-JS fallback).
+  - Under 60rem, body bottom padding is the bar height plus `--s-3`, `html` has `scroll-padding-bottom: var(--cta-bar-h)`, and every focusable (links, buttons, inputs, summaries, the map embed) has `scroll-margin-bottom: var(--s-3)`.
+  - When keyboard focus enters the map embed, the map scrolls clear of the bar.
+  - The bar summary now always reserves two lines, so the bar keeps one height in every section and the clearance doesn't shift mid-scroll. "Whole court · Book on Sports360" now wraps instead of being cut off.
+  - Checked with Playwright at 390px and 360px: 0 of 36 section buttons and 0 keyboard tab stops overlap the bar. Before the fix: 34 of 36 and 12 tab stops.
+- **Copy (Martha's final wording):**
+  - Day strip: "Per hour, whole court · Open daily, 6 AM to 2 AM"
+  - Split tool: "Rough cost per person, based on our posted rates."
+  - Bar: "Open play · Join on Reclub", "From ₱200/hour · Whole court · Book on Sports360" and "D' Rafael's Cafe · At the court · Hours TBC"
+  - Menu board: "D' Rafael's Cafe · Courtside"
+  - Booking cards: "Have the court to yourselves" and "Groups or help booking"
+- **Sources checked:**
+  - "D' Rafael's Cafe" is confirmed on Saranay's own Reclub page (https://reclub.co/clubs/@saranay-pickleball-club), in the coffee open play event: "This amount is 100% consumable at D’ Rafael’s Cafe".
+  - "All levels" is confirmed by the same page's session titles, e.g. "SATURDAY OPEN PLAY | ALL LEVELS | 4HRS".
+  - Both are kept.
+- **Split tool math:** checked against the Sports360 caps (4 players for 1 hour, 8 for 2 hours, 12 for 3 hours or more, ₱100 per extra player). All 12 test cases match, so there was no change.

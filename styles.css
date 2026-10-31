@@ -531,3 +531,14 @@ button.btn { font-family: var(--font-body); }
 .helpdesk__label { margin: 0; font-weight: var(--fw-semibold); }
 .helpdesk__links { display: flex; flex-wrap: wrap; gap: var(--s-2); }
 .helpdesk .note { margin: 0; }
+
+/* v2.5.1 · Nothing sits under the pinned bar: page padding, scroll padding and focus clearance all use the bar height token */
+:root { --cta-bar-clear: calc(var(--cta-bar-h) + var(--s-3)); }
+@media (max-width: 59.99rem) {
+  html { scroll-padding-bottom: var(--cta-bar-h); }
+  body { padding-bottom: var(--cta-bar-clear); }
+  :is(a, button, input, select, textarea, summary, iframe, [tabindex]):not(.cta-bar *) { scroll-margin-bottom: var(--s-3); }
+}
+/* v2.5.1 · Bar summary wraps instead of cutting off ("Whole court · Book on Sports360") */
+/* Two lines are always reserved, so the bar keeps one height in every section and the clearance never shifts mid-scroll */
+.dock__small { white-space: normal; overflow: hidden; text-overflow: clip; line-height: 1.35; min-block-size: 2.7em; max-block-size: 2.7em; }
