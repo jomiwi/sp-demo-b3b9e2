@@ -3,6 +3,18 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.6.1 · 2026-10-31
+
+**Change (Martha's copy-read, plus Ling's share-image fixes, both relayed)**
+- **Hero eyebrow** is now "North Caloocan" (was "Saranay · North Caloocan"). The headline already says Saranay.
+- **Footer** now reads exactly: "Demo preview v3.6.1 · Court and café photos are Saranay's own, from their Sports360 page and Instagram accounts. The hero image is a placeholder." It used to say "Photos are Saranay's own…", but the phone hero is Studio-generated (CHOAM 1db9830a).
+- **Share image regenerated:** `img/og-hero-1200x630.jpg` (1200x630 JPEG, 112.9 KB, SHA-256 5c450763…5001d29e7).
+  - Eyebrow: "North Caloocan".
+  - Location line: "North Caloocan" (was "Bagumbong North, Caloocan").
+  - Hours line: "Open till 2 AM" (was "Court open 6 AM to 2 AM"). This matches the site's open-now chip.
+  - `og:image`, `og:image:secure_url` and `twitter:image` now end in `?v=3.6.1`.
+- No other copy changed. The meta, og and twitter descriptions still say "Court open 6 AM to 2 AM" (left for Ling).
+
 ## v3.6 · 2026-10-31
 
 **Change (brand headline, approved by Jon in the Saranay room at 11:20 PM, relayed by Sage):** "Saranay is the place. Saranay Pickleball is the thing of importance." The brand is **Saranay Pickleball**.
