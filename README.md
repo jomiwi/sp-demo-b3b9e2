@@ -1,4 +1,4 @@
-# Saranay Pickleball Court and Cafe: one-page demo site (v1.3)
+# Saranay Pickleball Court and Cafe: one-page demo site (v1.4)
 
 **Status:** DEMO. Unlisted and `noindex, nofollow`. Not the official site; not for promotion.
 **Built by:** Jared (UX/UI) for Jon Miller · brief from Ling · CHOAM asset `aeafee96-740a-4803-a7ce-9050ec2fd0d7` · 30 Oct 2026
@@ -65,3 +65,5 @@ Applied Martha's copy review (`/002/CHOAM/saranay/saranay-demo-copy-review-2026-
 v1.2.1 (30 Oct 2026): added Martha's optional "Good for:" label above the rental list (approved by Ling).
 
 v1.3 (31 Oct 2026): court rentals moved to Sports360 on 9 Oct, so "Book a court on Sports360" is now the main rental button (hero, rental section, rates card, How to book, FAQ, footer), with Messenger second ("Message us for groups or booking help"). Reclub is open play only. Sports360 URL https://app.sports360.ph/sportshub/saranay-pickleball-court verified 31 Oct 2026 in headless Chromium: the page shows SARANAY PICKLEBALL COURT and our phone, 0906-545-8384. Member count 584 to 585.
+
+v1.4 (31 Oct 2026): court rates, court hours (6am to 2am daily), player caps per booking and paddle/ball prices copied exactly from the Sports360 page https://app.sports360.ph/sportshub/saranay-pickleball-court (read 31 Oct 2026, headless Chrome), with a "Rates as listed on Sports360, Oct 31 2026" source note by the rates. Rates: 6:00 AM – 10:00 AM ₱300/hour; 10:00 AM – 4:00 PM ₱200/hour; 4:00 PM – 2:00 AM ₱300/hour. Caps: 1 hr up to 4, 2 hrs up to 8, 3+ hrs up to 12, additional player ₱100/person. Paddle ₱100 rent per session; ball ₱100 for sale. TBC kept on café hours, seating, open-play fees/schedule/cap, plus code and everything else Sports360 does not list. Meta description unchanged (Martha to supply).
