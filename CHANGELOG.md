@@ -3,6 +3,16 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.3 · 2026-10-31
+
+**Change (phone hero only, 360 to 959px; desktop at 60rem+ unchanged)**
+- "PICKLEBALL" now fills the content width: fluid `clamp(3.4rem, 21.9vw - 0.38rem, 11.5rem)`, Archivo wght 900 at wdth 62 (was 850 at 68), leading 0.82 (was 0.84). Measured 346px of 347px content at 390 (88.6% of the viewport).
+- "AND COFFEE" is a size step up (12.6vw, was 9.4vw: 49px vs 37px at 390), same 900/62 cut, on its own line; "in Saranay" up to 11.6vw.
+- Taller photo with the type set over it: photo 46svh (was 40svh), type overlaps it by 9.5rem (was 3.25rem), so the dark gap under the court is gone. New token `--c-scrim-hero` (ink at 82%) sits under every glyph on the photo: on-dark text 10.15:1 and sky 6.09:1 even over pure white.
+- Both booking buttons stay fully on the first screen: bottoms 761/844 at 390x844 and 701/740 at 360x740.
+
+**Why**: Jon (via Ling): v3 is "MUCH better", the desktop looks handsome, but the phone first screen had too much empty space; type larger, taller and at least as bold. Palette unchanged (Saranay chose it). No copy changes.
+
 ## v3.2.1 · 2026-10-31
 
 **Change**: About section: "Bring the barkada, the family or the kids." is now "Bring your friends and family, from the kids to the grandparents." (Martha's exact wording). "North Caloocan" unchanged.

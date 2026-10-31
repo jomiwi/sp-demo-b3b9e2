@@ -25,6 +25,7 @@
   --c-on-ball: #0B0F1A;
   --c-scrim: rgb(11 15 26 / 0.92);
   --c-scrim-0: rgb(11 15 26 / 0);
+  --c-scrim-hero: rgb(11 15 26 / 0.82); /* v3.3: floor under phone hero type on the photo (keeps on-dark and sky at 4.5:1+ over pure white) */
   --c-success: #1F4FD1;
   /* legacy names still read by inline SVG art and JS-built markup */
   --c-bg: var(--c-paper);
@@ -181,6 +182,18 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 .hero__and { display: inline; font-size: var(--fs-hero-2); color: var(--c-on-dark); }
 .hero__title em { display: inline; font-size: calc(var(--fs-hero-2) * 0.92); color: var(--c-sky); line-height: 1; }
 .hero__sub { font-size: var(--fs-sm); line-height: 1.5; color: var(--c-on-dark-muted); max-width: 30rem; margin-bottom: var(--s-4); }
+/* v3.3 phone hero (Jon: more weight, less empty space). PICKLEBALL fills the content width: 4.357em is its advance at wdth 62 / wght 900, content = 95.6vw - 1.6rem. Type sits on the photo over a token scrim. Desktop (60rem+) untouched. */
+@media (max-width: 59.99rem) {
+  .hero { --hero-overlap: 9.5rem; }
+  .hero__media { height: 46svh; min-height: 18rem; }
+  .hero__media img { object-position: 50% 70%; }
+  .hero__media::after { background: linear-gradient(0deg, var(--c-ink) 0, var(--c-scrim-hero) 2.5rem, var(--c-scrim-hero) calc(var(--hero-overlap) + 0.75rem), var(--c-scrim-0) calc(var(--hero-overlap) + 7rem)); }
+  .hero__lead { margin-top: calc(var(--hero-overlap) * -1); }
+  .hero__title { line-height: 0.82; }
+  .hero__big { font-size: clamp(3.4rem, 21.9vw - 0.38rem, 11.5rem); font-weight: 900; font-stretch: 62%; letter-spacing: -0.02em; margin-left: -0.035em; }
+  .hero__and { display: block; font-size: clamp(2.6rem, 12.6vw, 5.75rem); font-weight: 900; font-stretch: 62%; margin-top: 0.06em; }
+  .hero__title em { font-size: clamp(2.4rem, 11.6vw, 5.3rem); }
+}
 
 /* v3.1 open-now chip over the photo (ref: Monte "Open today til..." hero corner) */
 .hero__status { position: absolute; z-index: 2; top: var(--s-4); left: var(--gutter); margin: 0; display: inline-flex; align-items: center; gap: var(--s-2); padding: var(--s-2) var(--s-4); border-radius: var(--r-pill); background: var(--c-scrim); color: var(--c-on-dark); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: 0.02em; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
