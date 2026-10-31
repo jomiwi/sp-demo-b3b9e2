@@ -478,3 +478,16 @@ button.btn { font-family: var(--font-body); }
 .splitter__each span { font-size: var(--fs-md); color: var(--c-on-dark-muted); }
 .splitter__break { margin: var(--s-2) 0 0; font-size: var(--fs-sm); color: var(--c-on-dark); }
 .splitter__cta { inline-size: 100%; }
+
+/* v2.3 · Context dock: the sticky bar follows what you are reading */
+.cta-bar.dock { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--s-3); }
+.dock__sum { min-inline-size: 0; color: var(--c-on-dark); }
+.dock__big { display: block; font: var(--fw-bold) var(--fs-lg)/var(--lh-tight) var(--font-display); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dock__small { display: block; margin-top: var(--s-1); font-size: var(--fs-xs); color: var(--c-on-dark-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cta-bar.dock .btn { padding-inline: var(--s-5); white-space: nowrap; }
+.dock__ctx { display: inline-block; inline-size: var(--s-2); block-size: var(--s-2); margin-right: var(--s-2); border-radius: var(--r-pill); background: var(--c-ball); vertical-align: middle; }
+.dock[data-ctx="cafe"] .dock__ctx { background: var(--c-coffee-soft); }
+@media (prefers-reduced-motion: no-preference) {
+  .dock.is-swapping .dock__sum, .dock.is-swapping .btn { animation: dock-in var(--dur) var(--ease); }
+  @keyframes dock-in { from { opacity: 0; transform: translateY(var(--s-1)); } to { opacity: 1; transform: none; } }
+}

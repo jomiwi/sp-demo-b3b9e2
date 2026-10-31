@@ -157,3 +157,53 @@
   form.addEventListener('submit', function (e) { e.preventDefault(); });
   update();
 })();
+
+/* v2.3 · Context dock: the sticky bar swaps its summary and main action for the section in view */
+(function () {
+  var bar = document.getElementById('cta-bar');
+  if (!bar || !('IntersectionObserver' in window)) return;
+  var S360 = 'https://app.sports360.ph/sportshub/saranay-pickleball-court';
+  var RECLUB = 'https://reclub.co/clubs/@saranay-pickleball-club';
+  var MSG = 'https://m.me/61589930970148';
+  var CTX = {
+    play: { big: 'Open play', small: 'All levels · 586 members on Reclub', label: 'Join open play', href: RECLUB, cta: 'join-open-play' },
+    court: { big: 'From ₱200/hour', small: 'Whole court · book on Sports360', label: 'Book a court', href: S360, cta: 'book-a-court', ext: true },
+    cafe: { big: "D' Rafael's Cafe", small: 'At the court · hours TBC', label: 'Message us', href: MSG, cta: 'message-us' }
+  };
+  var BY_SECTION = { 'coming-up': 'play', 'open-play': 'play', 'new': 'play', 'rates': 'court', 'rent': 'court', 'cafe': 'cafe', 'find-us': 'cafe' };
+  var BY_PATH = { open: 'play', first: 'play', rent: 'court', cafe: 'cafe' };
+  var base = 'play';
+  try { base = BY_PATH[new URL(location.href).searchParams.get('play')] || 'play'; } catch (e) {}
+  bar.classList.add('dock');
+  bar.innerHTML = '<p class="dock__sum" style="margin:0"><span class="dock__big"><span class="dock__ctx" aria-hidden="true"></span><span data-dock="big"></span></span><span class="dock__small" data-dock="small"></span></p><a class="btn btn--ball" data-dock="btn"></a>';
+  var big = bar.querySelector('[data-dock="big"]'), small = bar.querySelector('[data-dock="small"]'), btn = bar.querySelector('[data-dock="btn"]');
+  var split = null, cur = null, inView = null;
+  function render(key) {
+    var c = CTX[key];
+    var b = c.big, sm = c.small;
+    if (key === 'court' && split) { b = split.each + ' each'; sm = split.players + ' players · ' + split.hours + (split.hours > 1 ? ' hours' : ' hour') + ' · estimate'; }
+    var changed = key !== cur;
+    cur = key;
+    bar.dataset.ctx = key;
+    big.textContent = b; small.textContent = sm;
+    btn.textContent = c.label; btn.href = c.href; btn.dataset.cta = c.cta;
+    if (c.ext) { btn.target = '_blank'; btn.rel = 'noopener'; btn.setAttribute('aria-label', c.label + ' on Sports360 (opens in a new tab)'); }
+    else { btn.removeAttribute('target'); btn.removeAttribute('rel'); btn.removeAttribute('aria-label'); }
+    if (changed) { bar.classList.remove('is-swapping'); void bar.offsetWidth; bar.classList.add('is-swapping'); }
+  }
+  function refresh() { render(inView || base); }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) inView = BY_SECTION[e.target.id] || null; });
+    refresh();
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  ['top', 'coming-up', 'open-play', 'rates', 'rent', 'new', 'cafe', 'find-us', 'about', 'book', 'faq'].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  document.addEventListener('saranay:path', function (e) { base = BY_PATH[e.detail] || 'play'; refresh(); });
+  var form = document.getElementById('split');
+  if (form) form.addEventListener('input', sync), form.addEventListener('click', function () { setTimeout(sync, 0); });
+  function sync() {
+    var each = document.getElementById('split-each');
+    split = { each: each.textContent, players: form.querySelector('#split-players').value, hours: +form.querySelector('#split-hours').value };
+    refresh();
+  }
+  refresh();
+})();
