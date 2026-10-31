@@ -3,6 +3,24 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.2 · 2026-10-31
+
+**Change (Martha's copy read, her exact wording)**
+- Hero subline: "Come for the coffee. Stay for the game. One cozy court, D' Rafael's Cafe and open play for every level, right here in North Caloocan."
+- "enoki fries" is now "enoki crispy fries" in the hero café tile (the menu list already said it).
+- Beginners paragraph now ends at "nobody expects you to be good on day one." ("Promise, walang judgment." removed.)
+- Rental "Good for": "Games with the barkada" is now "Games with friends".
+- Hero strip: "Court open 6 AM to 2 AM daily". All times now use "6 AM to 2 AM" (hours table, Find us, footer). No lowercase am/pm left on the page.
+- Hero live chip: the Manila hour is normalised to 0-23 so it reads Asia/Manila time on any device. Tested from New York, London, UTC and Manila device clocks at 5:59, 6:00, 9:59, 10:00, 3:59 PM, 4:00 PM, 12:30 AM, 1:59 and 2:00 AM Manila: the chip and the day bar agree at every edge.
+
+**Why**: Martha's copy read. Café prices, menu, seating and hours stay TBC.
+
+**Verified (Oct 31 2026)**
+- Location: Reclub's Saranay sessions list the venue as "Saranay Road, Barangay 171, Caloocan, Metro Manila" (reclub.co/m/VZ24AJ). Sources say "Caloocan"; Barangay 171 (Bagumbong) is in North Caloocan.
+- Rate bands, from the Sports360 page (app.sports360.ph/sportshub/saranay-pickleball-court): 6:00 AM to 10:00 AM ₱300/hour, 10:00 AM to 4:00 PM ₱200/hour, 4:00 PM to 2:00 AM ₱300/hour; open 6am to 2am every day.
+
+**Photos**: no new photos. Court photos are Saranay's own, from their Sports360 page.
+
 ## v3.1 · 2026-10-31
 
 **Change**

@@ -243,7 +243,7 @@
   if (!el || !window.Intl) return;
   function tick() {
     var parts = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Manila', hour: 'numeric', hourCycle: 'h23' }).formatToParts(new Date());
-    var h = +parts.filter(function (p) { return p.type === 'hour'; })[0].value;
+    var h = parseInt(parts.filter(function (p) { return p.type === 'hour'; })[0].value, 10) % 24; // Manila hour 0-23 on any device timezone
     var open = h >= 6 || h < 2;
     var rate = h >= 10 && h < 16 ? 200 : 300;
     el.classList.toggle('is-closed', !open);
