@@ -3,6 +3,16 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.6.2 · 2026-10-31
+
+**Change (Ling's answers, relayed): share image only**
+- `img/og-hero-1200x630.jpg` regenerated as a 1200x630 JPEG, 112.1 KB:
+  - The bottom location line is removed (it was "North Caloocan" in v3.6.1).
+  - The hours line is back to "Court open 6 AM to 2 AM" (it was "Open till 2 AM" in v3.6.1).
+  - The eyebrow "North Caloocan" and the headline are unchanged.
+- `og:image`, `og:image:secure_url` and `twitter:image` now end in `?v=3.6.2`.
+- Footer: "Demo preview v3.6.2". No other page copy changed. Court hours are unchanged everywhere.
+
 ## v3.6.1 · 2026-10-31
 
 **Change (Martha's copy-read, plus Ling's share-image fixes, both relayed)**
