@@ -62,6 +62,18 @@
       <p class="eyebrow">Saranay · North Caloocan</p>
       <h1 id="hero-title">Pickleball and coffee <em>in Saranay</em></h1>
       <p class="hero__sub">One cozy court, an in-house café, and open play for every level. Right here in North Caloocan.</p>
+      <!-- v2.0 "How are you playing?" chooser. Without JS the four cards are plain links to each section. -->
+      <div class="chooser" id="chooser">
+        <p class="chooser__q" id="chooser-q">How are you playing?</p>
+        <div class="chooser__opts" role="group" aria-labelledby="chooser-q">
+          <a class="chooser__opt" href="#open-play" data-path="open"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M12 20c0-3.3 1.8-6 4-6s6 2.7 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="chooser__label">Open play</span><span class="chooser__hint">All levels · Reclub</span></a>
+          <a class="chooser__opt" href="#rates" data-path="rent"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="chooser__label">Rent the court</span><span class="chooser__hint">From ₱200/hour</span></a>
+          <a class="chooser__opt" href="#cafe" data-path="cafe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h12v5a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5z M16 11h1.5a2.5 2.5 0 0 1 0 5H16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 3c0 1.5 1.5 1.5 1.5 3M12 3c0 1.5 1.5 1.5 1.5 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="chooser__label">Just the café</span><span class="chooser__hint">No need to play</span></a>
+          <a class="chooser__opt" href="#new" data-path="first"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="chooser__label">First time</span><span class="chooser__hint">No partner needed</span></a>
+        </div>
+      </div>
+      <div class="chooser__panels" id="chooser-panels" aria-live="polite">
+        <div class="chooser__panel" data-panel="all">
       <div class="btn-row hero__ctas" id="hero-ctas">
         <a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club" data-cta="join-open-play">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/><circle cx="14" cy="9" r="1.2" fill="currentColor"/><circle cx="15" cy="14" r="1.2" fill="currentColor"/><circle cx="10" cy="15" r="1.2" fill="currentColor"/></svg>
@@ -70,6 +82,24 @@
         <a class="btn" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab)" data-cta="book-a-court">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           Book a court on Sports360</a>
+      </div>
+        </div>
+        <div class="chooser__panel" data-panel="open" hidden>
+          <ul class="chooser__facts" role="list"><li>All levels, every session</li><li>Come solo, we rotate you in</li><li>Pay by GCash on Reclub</li></ul>
+          <div class="btn-row hero__ctas"><a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club" data-cta="join-open-play">Join open play on Reclub</a><a class="btn btn--outline" href="#coming-up">See what's coming up</a></div>
+        </div>
+        <div class="chooser__panel" data-panel="rent" hidden>
+          <ul class="chooser__facts" role="list"><li>₱200/hour, 10 AM to 4 PM</li><li>₱300/hour, other hours</li><li>Open 6 AM to 2 AM daily</li></ul>
+          <div class="btn-row hero__ctas"><a class="btn" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab)" data-cta="book-a-court">Book a court on Sports360</a><a class="btn btn--outline" href="https://m.me/61589930970148" data-cta="message-us">Message us for groups</a></div>
+        </div>
+        <div class="chooser__panel" data-panel="cafe" hidden>
+          <ul class="chooser__facts" role="list"><li>D' Rafael's Cafe, right at the court</li><li>Coffee, Tusok-Tusok Treat, enoki fries</li><li>Café hours <span class="tbc">hours</span></li></ul>
+          <div class="btn-row hero__ctas"><a class="btn" href="https://m.me/61589930970148" data-cta="message-us">Ask about the café</a><a class="btn btn--outline" href="#find-us">How to get here</a></div>
+        </div>
+        <div class="chooser__panel" data-panel="first" hidden>
+          <ul class="chooser__facts" role="list"><li>No partner or experience needed</li><li>Paddle rent ₱100 per session</li><li>Every open play is all levels</li></ul>
+          <div class="btn-row hero__ctas"><a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club" data-cta="join-open-play">Find an all-levels session</a><a class="btn btn--outline" href="#new">Your first visit</a></div>
+        </div>
       </div>
       <a class="next-play" href="https://reclub.co/clubs/@saranay-pickleball-club" aria-label="Next open play: date and time to be confirmed. All levels. See sessions on Reclub.">
         <span class="next-play__label">Next open play</span>
@@ -484,7 +514,7 @@
         </ul>
       </nav>
     </div>
-    <p class="footer__fine">Book open play on Reclub. Court rentals on Sports360. No bookings or payments on this site.<br>Demo preview v1.5 · illustrations are placeholders for real venue photos.</p>
+    <p class="footer__fine">Book open play on Reclub. Court rentals on Sports360. No bookings or payments on this site.<br>Demo preview v2.0 · illustrations are placeholders for real venue photos.</p>
   </div>
 </footer>
 <!-- /COPY: 10 footer -->
