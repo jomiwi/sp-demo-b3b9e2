@@ -3,6 +3,22 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.6 · 2026-10-31
+
+**Change (brand headline, approved by Jon in the Saranay room at 11:20 PM, relayed by Sage):** "Saranay is the place. Saranay Pickleball is the thing of importance." The brand is **Saranay Pickleball**.
+- **Hero headline** (was "PICKLEBALL / AND COFFEE / *in Saranay*"):
+  - Line 1, big: **SARANAY**
+  - Line 2, big: **PICKLEBALL**
+  - Line 3, script (Instrument Serif italic, `--c-sky`): *Court & Café*
+  - The supporting line is unchanged: "Come for the coffee. Stay for the game. One cozy court, D' Rafael's Cafe and open play for every level, right here in North Caloocan."
+  - Both big lines use `.hero__big` (Archivo wght 900, wdth 62 on phones). The size is the v3.3 rule that fits PICKLEBALL, the longer line, to the content width: 88.6% of the screen at 390, 88.1% at 360. No overflow. SARANAY is the same size. `.hero__and` is no longer used in the markup.
+- **Same name everywhere: "Saranay Pickleball Court & Café"** in the `<title>`, `og:site_name`, `og:title`, `twitter:title`, JSON-LD `name`, the header brand (Saranay / Pickleball Court & Café), the footer brand, the map figcaption and the map iframe title. The meta description, `og:description` and `twitter:description` now open "Saranay Pickleball: a pickleball court in North Caloocan with its own café." (was "Pickleball court in Caloocan with its own café, in Saranay."). "in Saranay" is no longer used as a brand. "The first pickleball court in Saranay" stays as a place fact. Addresses (Saranay Road, Saranay Homes) are unchanged.
+  - Kept as is, on purpose: the copy-pin text and the Google Maps embed query still say "Saranay Pickleball Court and Cafe". That is how the place is listed on Maps and Facebook, so search and pasting keep working. The Facebook URL is unchanged.
+- **Share image regenerated:** `img/og-hero-1200x630.jpg`, same file name. It's a 1200x630 JPEG (116 KB) with eyebrow "Saranay · North Caloocan" and the headline SARANAY / PICKLEBALL / *Court & Café*. Big lines are 98px, so PICKLEBALL clears the faces. `og:image`, `og:image:secure_url` and `twitter:image` now have `?v=3.6` so link previews refresh. The image alt is updated. The JSON-LD `image` is still the real-court `og-share-1200x630.jpg`.
+- Footer: "Demo preview v3.6".
+
+**Unchanged:** design, palette and tokens, golden-hour phone hero (Studio-generated, CHOAM 1db9830a, demo only), real court photo on desktop, both booking buttons on the first phone screen with the consent banner showing, noindex, tracking and consent, TBC badges.
+
 ## v3.5 · 2026-10-31
 
 **Change (new phone hero, picked by Jon, via Ling)**
