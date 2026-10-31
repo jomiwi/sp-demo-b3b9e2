@@ -105,3 +105,55 @@
   }
   update(); setInterval(update, 60000);
 })();
+
+/* v2.2 · Split the court: per-person estimate from posted rates and player caps */
+(function () {
+  var form = document.getElementById('split');
+  if (!form) return;
+  var art = document.querySelector('[data-split-fallback]');
+  form.hidden = false;
+  if (art) art.hidden = true;
+  var players = form.querySelector('#split-players');
+  var hours = form.querySelector('#split-hours');
+  var paddles = form.querySelector('#split-paddles');
+  var each = form.querySelector('#split-each');
+  var brk = form.querySelector('#split-break');
+  var peso = function (n) { return '₱' + Math.round(n).toLocaleString('en-PH'); };
+  var clamp = function (el) {
+    var v = parseInt(el.value, 10), mn = +el.min, mx = +el.max;
+    if (isNaN(v)) v = mn;
+    return Math.min(mx, Math.max(mn, v));
+  };
+  function update() {
+    var p = clamp(players), h = clamp(hours), pad = Math.min(clamp(paddles), p);
+    if (+paddles.value > p) paddles.value = pad;
+    var rate = +(form.querySelector('input[name="split-rate"]:checked') || {}).value || 200;
+    var cap = h >= 3 ? 12 : h * 4;
+    var extra = Math.max(0, p - cap);
+    var court = rate * h, total = court + extra * 100 + pad * 100;
+    each.textContent = peso(total / p);
+    var parts = ['Court ' + peso(court)];
+    if (extra) parts.push(extra + ' extra player' + (extra > 1 ? 's' : '') + ' ' + peso(extra * 100));
+    if (pad) parts.push(pad + ' paddle' + (pad > 1 ? 's' : '') + ' ' + peso(pad * 100));
+    parts.push('Total ' + peso(total));
+    brk.textContent = parts.join(' · ') + '. ' + h + (h > 1 ? ' hours cover' : ' hour covers') + ' up to ' + cap + ' players.';
+    form.querySelectorAll('.stepper__btn').forEach(function (b) {
+      var el = form.querySelector('#' + b.dataset.for), v = clamp(el);
+      var mx = el === paddles ? Math.min(+el.max, p) : +el.max;
+      b.disabled = b.dataset.step < 0 ? v <= +el.min : v >= mx;
+    });
+  }
+  form.addEventListener('click', function (e) {
+    var b = e.target.closest('.stepper__btn');
+    if (!b) return;
+    var el = form.querySelector('#' + b.dataset.for);
+    el.value = clamp(el) + (+b.dataset.step);
+    el.value = clamp(el);
+    if (el !== paddles && +paddles.value > clamp(players)) paddles.value = clamp(players);
+    update();
+  });
+  form.addEventListener('input', update);
+  form.addEventListener('change', function (e) { if (e.target.type === 'number') e.target.value = clamp(e.target); update(); });
+  form.addEventListener('submit', function (e) { e.preventDefault(); });
+  update();
+})();

@@ -16,3 +16,9 @@ Facts used are only those already on the site (Sports360 rates and caps, hours, 
 - **Persona:** the barkada of court renters (price-sensitive organiser), and Bea or families who can play daytime.
 - **Expected effect on bookings:** makes the cheaper band visible at a glance instead of in a text list, so more rentals land in the 10 AM–4 PM band that is otherwise hardest to fill, and price-checkers get a direct Sports360 button.
 - **Pattern borrowed:** Mobbin: WHOOP Sleep Planner span bar (time range as a proportional bar) and Structured timeline "now" line.
+
+## v2.2 · Split the court: a per-person cost tool for groups
+- **Change:** The decorative court drawing next to "Rent the court for your group" is replaced by a working "Split the court" card. Steppers for players, hours and paddles, plus a 10 AM–4 PM (₱200/hour) or other hours (₱300/hour) choice, give a big "₱X each" figure. The breakdown line covers court, extra players at ₱100 each above the posted cap (1 hour up to 4, 2 hours up to 8, 3+ hours up to 12) and paddles at ₱100. It is labelled "Estimate only. Sports360 shows the final price." and ends in a full-width "Book a court on Sports360" button. Uses only the posted rates. Without JS the drawing stays.
+- **Persona:** the barkada of renters (the organiser who has to tell the group chat what each person owes), Paolo when he books private games.
+- **Expected effect on bookings:** turns "how much is it?" into a number that can be pasted into the group chat (₱100 each for 4 players for 2 daytime hours), removing the main stall before booking. The Sports360 button sits right under the answer.
+- **Pattern borrowed:** Mobbin: Monzo "Split bill" (per-person amounts), BitePal servings stepper (− value + control).

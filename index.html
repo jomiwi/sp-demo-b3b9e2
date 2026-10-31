@@ -314,8 +314,49 @@
       </div>
       <p class="note mt-3"><span class="tbc">Messenger link to confirm</span></p>
     </div>
-    <div class="rent-art" aria-hidden="true">
+    <div class="rent-side">
+    <div class="rent-art" aria-hidden="true" data-split-fallback>
       <svg viewBox="0 0 400 300" class="court-art"><rect width="400" height="300" rx="24" style="fill:var(--c-coffee-soft)"/><g transform="translate(200 150)"><rect x="-150" y="-95" width="300" height="190" rx="6" style="fill:var(--c-court)"/><g fill="none" style="stroke:var(--c-court-line)" stroke-width="3"><rect x="-150" y="-95" width="300" height="190" rx="6"/><line x1="0" y1="-95" x2="0" y2="95" stroke-width="5"/><line x1="-45" y1="-95" x2="-45" y2="95"/><line x1="45" y1="-95" x2="45" y2="95"/><line x1="-150" y1="0" x2="-45" y2="0"/><line x1="45" y1="0" x2="150" y2="0"/></g><circle cx="80" cy="-40" r="10" style="fill:var(--c-ball)"/></g><g style="fill:var(--c-coffee)"><rect x="24" y="24" width="88" height="30" rx="15"/></g><text x="68" y="44" style="fill:var(--c-bg)" font-family="Inter, sans-serif" font-size="14" font-weight="600" text-anchor="middle">Yours</text></svg>
+    </div>
+      <form class="splitter" id="split" hidden aria-labelledby="split-title">
+        <h3 id="split-title">Split the court</h3>
+        <p class="splitter__sub">Rough cost per person from our posted rates.</p>
+        <div class="splitter__row">
+          <label class="splitter__label" for="split-players">Players</label>
+          <div class="stepper">
+            <button type="button" class="stepper__btn" data-step="-1" data-for="split-players" aria-label="Fewer players">&minus;</button>
+            <input class="stepper__val" id="split-players" name="split-players" type="number" inputmode="numeric" min="1" max="20" value="4">
+            <button type="button" class="stepper__btn" data-step="1" data-for="split-players" aria-label="More players">+</button>
+          </div>
+        </div>
+        <div class="splitter__row">
+          <label class="splitter__label" for="split-hours">Hours</label>
+          <div class="stepper">
+            <button type="button" class="stepper__btn" data-step="-1" data-for="split-hours" aria-label="Fewer hours">&minus;</button>
+            <input class="stepper__val" id="split-hours" name="split-hours" type="number" inputmode="numeric" min="1" max="8" value="2">
+            <button type="button" class="stepper__btn" data-step="1" data-for="split-hours" aria-label="More hours">+</button>
+          </div>
+        </div>
+        <div class="splitter__row">
+          <label class="splitter__label" for="split-paddles">Paddles to rent</label>
+          <div class="stepper">
+            <button type="button" class="stepper__btn" data-step="-1" data-for="split-paddles" aria-label="Fewer paddles">&minus;</button>
+            <input class="stepper__val" id="split-paddles" name="split-paddles" type="number" inputmode="numeric" min="0" max="20" value="0">
+            <button type="button" class="stepper__btn" data-step="1" data-for="split-paddles" aria-label="More paddles">+</button>
+          </div>
+        </div>
+        <fieldset class="splitter__time">
+          <legend class="splitter__label">Time</legend>
+          <label class="splitter__opt"><input type="radio" name="split-rate" value="200" checked> <span>10 AM–4 PM<small>₱200/hour</small></span></label>
+          <label class="splitter__opt"><input type="radio" name="split-rate" value="300"> <span>Other hours<small>₱300/hour</small></span></label>
+        </fieldset>
+        <div class="splitter__result" aria-live="polite">
+          <p class="splitter__each"><output id="split-each" for="split-players split-hours split-paddles">₱100</output> <span>each</span></p>
+          <p class="splitter__break" id="split-break">Court ₱400 · Total ₱400</p>
+        </div>
+        <p class="splitter__note">Estimate only. Sports360 shows the final price.</p>
+        <a class="btn btn--ball splitter__cta" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" data-cta="book-a-court" aria-label="Book a court on Sports360 (opens in a new tab)">Book a court on Sports360</a>
+      </form>
     </div>
   </div>
 </section>
@@ -533,7 +574,7 @@
         </ul>
       </nav>
     </div>
-    <p class="footer__fine">Book open play on Reclub. Court rentals on Sports360. No bookings or payments on this site.<br>Demo preview v2.1 · illustrations are placeholders for real venue photos.</p>
+    <p class="footer__fine">Book open play on Reclub. Court rentals on Sports360. No bookings or payments on this site.<br>Demo preview v2.2 · illustrations are placeholders for real venue photos.</p>
   </div>
 </footer>
 <!-- /COPY: 10 footer -->
