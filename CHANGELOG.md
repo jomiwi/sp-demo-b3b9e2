@@ -3,6 +3,43 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.4 · 2026-10-31
+
+**Change (Ling's conversion tracking brief, built from the Saranay conversion tracking plan, 31 Oct 2026)**
+- **Every exit is labelled.** All 37 Reclub, Sports360 and Messenger exits from v3.3 now carry `data-cta` (a unique snake_case link location, e.g. `hero_join_open_play`) and `data-dest`. Was 13 of 37. Call, Instagram, IG DM and Maps links are labelled the same way.
+- **dataLayer events.** `click_reclub`, `click_sports360` and `click_messenger` fire on every exit with `cta_location`, `link_url` and `play_context` (the chooser path or `none`). Sports360 clicks also carry `split_estimate` once the Split calculator is used. Other events: `chooser_select` (`path`, `selection_method`: `deep_link` or `chip`), `split_calc_use` (once), `cafe_menu_view` (café section at least 50% on screen for 2s, once), `scroll_depth` (25/50/75/90, once each), `faq_open`, `sticky_bar_click`, `click_call`, `click_ig_dm`, `click_directions` (Maps links and Copy location pin), `click_instagram` (new: the plan has no name for Instagram profile links, Ling named it), `consent_update`.
+- **GTM snippet with the placeholder `GTM-XXXXXXX`.** It's guarded: the loader returns early (it pushes `gtm_skipped` instead) unless the ID is a real container ID, so no Google script is requested. The `<noscript>` iframe stays commented out until launch.
+- **UTMs on every Reclub and Sports360 link**: `utm_source=saranay_site&utm_medium=referral&utm_campaign=site_booking&utm_content=<cta_location>`. The plan's convention (lowercase, underscores) with our own source value, because the plan's source list covers inbound traffic only. Messenger links get `?ref=<cta_location>`. The JS dock adds the same tags. All Reclub and Sports360 links now open in a new tab (`target="_blank" rel="noopener"`, with "(opens in a new tab)" in the accessible name). Messenger stays in the same tab.
+- **`?play=` deep links still work with UTMs.** For example, `?play=rent&utm_source=facebook&utm_medium=paid_social&utm_campaign=…` preselects the path, keeps every UTM in the address bar and records `chooser_select` with `selection_method: deep_link`.
+- **Open Graph, Twitter card and JSON-LD.** `LocalBusiness` + `SportsActivityLocation`, verified facts only: name, phone, street (Saranay Road, Saranay Homes, Bagumbong North, Caloocan), hours 06:00 to 02:00 daily, and the official profiles. No plus code, no geo, no café hours (all still TBC).
+- **Cookie banner (Consent Mode v2, RA 10173).** Everything is denied by default. Decline and Accept have equal weight; the choice is kept on the device; "Change cookie choice" in the new Privacy and cookies notice reopens the banner. On phones the banner pins to the top (over the ribbon and header), so it never covers the hero booking buttons. On desktop it's a bottom bar. Controller name, privacy contact and the final notice wording are TBC placeholders for the owners.
+- **Next open play chip** on the hero photo under the open-now chip, from the Manila clock: Fri to Sun, ~6 PM, ₱150/player ("Today", "Tomorrow" or e.g. "Fri Nov 6"). It never says anything about free spots.
+- **Saranay's Instagram photos** (Ling, 31 Oct): 3 café photos replace the 2 café placeholders. There's a new "Open play nights" wall under About. Both Instagram handles (@saranaypickleballcourt, @drafaelscafe) are in Find us and the footer. "The café also takes private events" comes from the café's Instagram bio. Café hours stay TBC because the sources conflict.
+
+**Copy touched outside new elements**: the About logo caption ("Photos of open play nights are still to come") is now "Our logo.", and the footer line "Café photos to come" is now "Photos are Saranay's own, from their Sports360 page and Instagram". Both were made untrue by the new photos.
+
+**Why**: Ling's tracking brief. Tracking has to be ready before the owners' Meta ads go live. The photos and handles were added on Ling's steer.
+
+**Photos (noindex demo only; any public use waits for the owners' permission)**
+All are re-encoded to WebP at q52 in 480w and 800w with `srcset`, and all EXIF, XMP, GPS and IPTC metadata is stripped. Like the earlier photos, each one is wrapped in an SVG because the publishing connector is text-only. All are `loading="lazy"` and below the fold, so the first screen loads nothing new.
+
+| file | used in | owner consent | source account | post URL |
+|---|---|---|---|---|
+| cafe-logo-wall-patio-02 | café | not needed (no people) | Saranay's Instagram per Ling (@saranaypickleballcourt; possibly @drafaelscafe) | MISSING |
+| cafe-nachos-03 | café | not needed | same | MISSING |
+| court-night-group-06 | Open play nights | cleared by Ling | @saranaypickleballcourt per Ling | MISSING |
+| court-dusk-group-08 | Open play nights | cleared by Ling | same | MISSING |
+| court-paddles-on-bench-11 | Open play nights | cleared by Ling | same | MISSING |
+| **cafe-patio-night-guests-01** | café (large) | **NEEDS OWNER CONSENT (identifiable guests)** | Saranay's Instagram per Ling | MISSING |
+| **court-group-open-play-09** | Open play nights | **NEEDS OWNER CONSENT** | same | MISSING |
+| **court-night-group-portrait-07** | Open play nights | **NEEDS OWNER CONSENT** | same | MISSING |
+| **entrance-player-dRafaels-mural-12** | Open play nights | **NEEDS OWNER CONSENT** | same | MISSING |
+
+Not used: cafe-interior-event-group-04 (OK'd with consent, but it appears to include a small child, so it's left out to be safe) and cafe-interior-table-paddle-wall-05 (OK'd with consent; not needed). **court-kids-group-10 is never used and isn't in the repo.**
+No post URLs were in the file names or metadata. The IPTC block holds only a Facebook/Instagram upload ID (`FBMD…`), not a link. Nothing was invented.
+
+**Known limitation**: `og:image` points to the court photo at an absolute URL (`img/court-sky-780.svg`), but Facebook and Messenger don't render SVG previews. Before launch, upload a 1200x630 JPG of the court and change the two `og:image`/`twitter:image` lines.
+
 ## v3.3 · 2026-10-31
 
 **Change (phone hero only, 360 to 959px; desktop at 60rem+ unchanged)**

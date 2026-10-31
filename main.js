@@ -1,4 +1,135 @@
-/* Saranay demo: menu toggle + copy location pin. The mobile CTA bar is pinned in CSS. No tracking, no dependencies. */
+/* Saranay demo: menu toggle, copy location pin, chooser, dock, clocks, and (v3.4) consent + dataLayer events.
+   No dependencies. Tracking only pushes to window.dataLayer; nothing is sent anywhere until the owners add a real
+   GTM container ID in index.html AND the visitor accepts cookies (Consent Mode v2, denied by default). */
+
+/* v3.4 · dataLayer events, per the Saranay conversion tracking plan (31 Oct 2026). Must run before the chooser so
+   a ?play= deep link is recorded as chooser_select with selection_method "deep_link". */
+var SARANAY_UTM = 'utm_source=saranay_site&utm_medium=referral&utm_campaign=site_booking&utm_content=';
+function saranayTag(href, loc) {
+  if (/^https:\/\/(reclub\.co|app\.sports360\.ph)\//.test(href)) return href + (href.indexOf('?') < 0 ? '?' : '&') + SARANAY_UTM + loc;
+  if (/^https:\/\/m\.me\//.test(href)) return href + '?ref=' + loc;
+  return href;
+}
+(function () {
+  var dl = window.dataLayer = window.dataLayer || [];
+  var booting = true, play = null, split = null;
+  try { play = new URL(location.href).searchParams.get('play'); } catch (e) {}
+  setTimeout(function () { booting = false; }, 0);
+  document.addEventListener('saranay:path', function (e) {
+    play = e.detail || null;
+    dl.push({ event: 'chooser_select', path: e.detail || 'none', selection_method: booting ? 'deep_link' : 'chip' });
+  });
+  var EVENTS = { reclub: 'click_reclub', sports360: 'click_sports360', messenger: 'click_messenger', instagram: 'click_instagram',
+    ig_dm: 'click_ig_dm', call: 'click_call', directions: 'click_directions' };
+  function destOf(a) {
+    if (a.dataset.dest) return a.dataset.dest;
+    var h = a.href;
+    if (/reclub\.co/.test(h)) return 'reclub';
+    if (/app\.sports360\.ph/.test(h)) return 'sports360';
+    if (/^https:\/\/m\.me\//.test(h)) return 'messenger';
+    if (/ig\.me\//.test(h)) return 'ig_dm';
+    if (/instagram\.com/.test(h)) return 'instagram';
+    if (/^tel:/.test(h)) return 'call';
+    if (/maps\.app\.goo\.gl|google\.com\/maps/.test(h)) return 'directions';
+    return null;
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href]');
+    if (!a) return;
+    var d = destOf(a), ev = d && EVENTS[d];
+    if (!ev) return;
+    var p = { event: ev, cta_location: a.dataset.cta || 'unlabeled', link_url: a.href, play_context: play || 'none' };
+    if (d === 'sports360' && split) p.split_estimate = split;
+    dl.push(p);
+    var bar = a.closest('#cta-bar');
+    if (bar) dl.push({ event: 'sticky_bar_click', bar_context: bar.dataset.ctx || 'none', cta_location: p.cta_location });
+  }, true);
+  var pin = document.getElementById('copy-pin');
+  if (pin) pin.addEventListener('click', function () { dl.push({ event: 'click_directions', cta_location: 'find_us_copy_pin', link_url: 'copy-pin', play_context: play || 'none' }); });
+  [].forEach.call(document.querySelectorAll('#faq details'), function (d) {
+    d.addEventListener('toggle', function () { if (d.open) dl.push({ event: 'faq_open', faq_question: d.querySelector('summary').textContent.trim() }); });
+  });
+  var form = document.getElementById('split');
+  if (form) {
+    var used = false;
+    var mark = function (e) {
+      if (e.type === 'click' && !(e.target.closest && e.target.closest('.stepper__btn'))) return;
+      setTimeout(function () {
+        var each = document.getElementById('split-each');
+        split = each ? each.textContent.trim() : null;
+        if (!used) { used = true; dl.push({ event: 'split_calc_use', split_estimate: split }); }
+      }, 0);
+    };
+    form.addEventListener('input', mark); form.addEventListener('click', mark);
+  }
+  var marks = [25, 50, 75, 90], ticking = false;
+  function depth() {
+    ticking = false;
+    var doc = document.documentElement, pct = (window.scrollY + window.innerHeight) / doc.scrollHeight * 100;
+    while (marks.length && pct >= marks[0]) dl.push({ event: 'scroll_depth', percent_scrolled: marks.shift() });
+    if (!marks.length) window.removeEventListener('scroll', onScroll);
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(depth); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  var cafe = document.getElementById('cafe');
+  if (cafe && 'IntersectionObserver' in window) {
+    var t = null;
+    var io = new IntersectionObserver(function (es) {
+      var vis = es[0].intersectionRatio >= 0.5 || es[0].intersectionRect.height >= window.innerHeight * 0.5;
+      if (vis && !t) t = setTimeout(function () { dl.push({ event: 'cafe_menu_view', play_context: play || 'none' }); io.disconnect(); }, 2000);
+      if (!vis && t) { clearTimeout(t); t = null; }
+    }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+    io.observe(cafe);
+  }
+})();
+
+/* v3.4 · Cookie consent banner (RA 10173 + Consent Mode v2). Default is denied (set in <head>). The choice is kept in
+   localStorage; "Change cookie choice" in the privacy notice reopens the banner. */
+(function () {
+  var box = document.getElementById('consent');
+  if (!box) return;
+  var KEY = 'saranay_consent', stored = null;
+  try { stored = localStorage.getItem(KEY); } catch (e) {}
+  function show() { box.hidden = false; }
+  function choose(v) {
+    try { localStorage.setItem(KEY, v); } catch (e) {}
+    if (typeof gtag === 'function') gtag('consent', 'update', { ad_storage: v, ad_user_data: v, ad_personalization: v, analytics_storage: v });
+    (window.dataLayer = window.dataLayer || []).push({ event: 'consent_update', consent: v });
+    var had = box.contains(document.activeElement);
+    box.hidden = true;
+    if (had) { var nx = document.querySelector('.brand'); if (nx) nx.focus(); }
+  }
+  [].forEach.call(box.querySelectorAll('[data-consent]'), function (b) { b.addEventListener('click', function () { choose(b.dataset.consent); }); });
+  var reopen = document.getElementById('consent-open');
+  if (reopen) reopen.addEventListener('click', function () { show(); box.querySelector('[data-consent]').focus(); });
+  if (stored !== 'granted' && stored !== 'denied') show();
+})();
+
+/* v3.4 · Next open play chip: Fri to Sun, about 6 PM, ₱150 per player (posted pattern). Manila clock. Never availability. */
+(function () {
+  var el = document.getElementById('hero-next');
+  if (!el || !window.Intl) return;
+  var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  function tick() {
+    var parts = {};
+    new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Manila', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
+      .formatToParts(new Date()).forEach(function (p) { parts[p.type] = p.value; });
+    var base = Date.UTC(+parts.year, +parts.month - 1, +parts.day);  // Manila calendar date, held in UTC
+    var mins = (+parts.hour % 24) * 60 + +parts.minute;
+    for (var i = 0; i < 8; i++) {
+      var d = new Date(base + i * 864e5), wd = d.getUTCDay();
+      if ((wd === 5 || wd === 6 || wd === 0) && (i > 0 || mins < 18 * 60)) break;
+    }
+    var when = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : DAYS[wd] + ' ' + d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' });
+    el.innerHTML = '';
+    var b = document.createElement('b'); b.textContent = 'Next open play';
+    el.appendChild(b); el.appendChild(document.createTextNode(': ' + when + ' · ~6 PM · ₱150/player'));
+    el.hidden = false;
+  }
+  tick(); setInterval(tick, 60000);
+})();
+
+/* Menu toggle + copy location pin */
 (function () {
   var toggle = document.querySelector('.nav-toggle');
   var nav = document.getElementById('site-nav');
@@ -166,9 +297,9 @@
   var RECLUB = 'https://reclub.co/clubs/@saranay-pickleball-club';
   var MSG = 'https://m.me/61589930970148';
   var CTX = {
-    play: { big: 'Open play', small: 'All levels · Join on Reclub', label: 'Join open play', href: RECLUB, cta: 'join-open-play' },
-    court: { big: 'From ₱200/hour', small: 'Whole court · Book on Sports360', label: 'Book a court', href: S360, cta: 'book-a-court', ext: true },
-    cafe: { big: "D' Rafael's Cafe", small: 'At the court · Hours TBC', label: 'Message us', href: MSG, cta: 'message-us' }
+    play: { big: 'Open play', small: 'All levels · Join on Reclub', label: 'Join open play', href: RECLUB, cta: 'sticky_bar_join_open_play', dest: 'reclub', ext: ' on Reclub (opens in a new tab)' },
+    court: { big: 'From ₱200/hour', small: 'Whole court · Book on Sports360', label: 'Book a court', href: S360, cta: 'sticky_bar_book_a_court', dest: 'sports360', ext: ' on Sports360 (opens in a new tab)' },
+    cafe: { big: "D' Rafael's Cafe", small: 'At the court · Hours TBC', label: 'Message us', href: MSG, cta: 'sticky_bar_message_us', dest: 'messenger' }
   };
   var BY_SECTION = { 'coming-up': 'play', 'open-play': 'play', 'new': 'play', 'rates': 'court', 'rent': 'court', 'cafe': 'cafe', 'find-us': 'cafe' };
   var BY_PATH = { open: 'play', first: 'play', rent: 'court', cafe: 'cafe' };
@@ -186,8 +317,8 @@
     cur = key;
     bar.dataset.ctx = key;
     big.textContent = b; small.textContent = sm;
-    btn.textContent = c.label; btn.href = c.href; btn.dataset.cta = c.cta;
-    if (c.ext) { btn.target = '_blank'; btn.rel = 'noopener'; btn.setAttribute('aria-label', c.label + ' on Sports360 (opens in a new tab)'); }
+    btn.textContent = c.label; btn.href = saranayTag(c.href, c.cta); btn.dataset.cta = c.cta; btn.dataset.dest = c.dest;
+    if (c.ext) { btn.target = '_blank'; btn.rel = 'noopener'; btn.setAttribute('aria-label', c.label + c.ext); }
     else { btn.removeAttribute('target'); btn.removeAttribute('rel'); btn.removeAttribute('aria-label'); }
     if (changed) { bar.classList.remove('is-swapping'); void bar.offsetWidth; bar.classList.add('is-swapping'); }
   }

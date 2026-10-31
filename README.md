@@ -9,7 +9,7 @@
 | --- | --- |
 | `index.html` | The whole page. Each section is wrapped in `COPY: n name` / `/COPY: n name` comments. |
 | `styles.css` | Design tokens in `:root` (colour, type, spacing, radius, motion), then components. No colours or spacing outside tokens. |
-| `main.js` | Mobile menu toggle and the "Copy location pin" button (clipboard + aria-live status). No tracking, no dependencies. The mobile CTA bar is pinned with CSS. |
+| `main.js` | Mobile menu, "Copy location pin", hero chooser, context dock, open-now and next-open-play chips, and (v3.4) the cookie banner and dataLayer events (see CHANGELOG v3.4). No dependencies. Google Tag Manager stays off until the placeholder `GTM-XXXXXXX` in index.html is replaced with the real container ID, and then it only measures after the visitor accepts cookies. |
 | `robots.txt` | Allows crawling, so crawlers can see the noindex tag. |
 | `_headers` | `X-Robots-Tag: noindex, nofollow` (applied on Cloudflare Pages / Netlify; GitHub Pages ignores it). |
 | `favicon.svg`, `.nojekyll` | Icon; tells GitHub Pages to serve files as-is. |

@@ -514,3 +514,43 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
     @keyframes reveal { from { opacity: 0; transform: translateY(1.5rem); } to { opacity: 1; transform: none; } }
   }
 }
+
+/* ===== v3.4: consent banner, next-session chip, Instagram photos, privacy notice ===== */
+/* Consent (RA 10173, Consent Mode v2). Phones: pinned to the TOP over the ribbon and header so it never covers the hero booking buttons.
+   Desktop: bottom bar. Accept and Decline have identical weight. */
+.consent { position: fixed; inset: 0 0 auto 0; z-index: 90; background: var(--c-ink-2); color: var(--c-on-dark); border-bottom: 1px solid var(--c-line-dark); box-shadow: var(--shadow-md); padding: var(--s-2) var(--gutter) var(--s-3); padding-top: max(var(--s-2), env(safe-area-inset-top)); }
+.consent[hidden] { display: none; }
+.consent__inner { display: grid; gap: var(--s-2); max-width: var(--container, 72rem); margin-inline: auto; }
+.consent__text { margin: 0; font-size: var(--fs-xs); line-height: 1.4; color: var(--c-on-dark); }
+.consent__text strong { color: var(--c-on-dark); margin-right: var(--s-1, 0.25rem); }
+.consent__text a { color: var(--c-sky); }
+.consent__btns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2); }
+.consent__btn { min-height: var(--tap); padding: var(--s-2) var(--s-3); font-size: var(--fs-sm); background: var(--c-paper); color: var(--c-ink); border: 2px solid var(--c-paper); }
+.consent__btn:hover { background: var(--c-paper-2); border-color: var(--c-paper-2); }
+.consent :focus-visible { outline: 3px solid var(--c-focus-dark); outline-offset: 2px; }
+@media (min-width: 60rem) {
+  .consent { inset: auto 0 0 0; border-bottom: 0; border-top: 1px solid var(--c-line-dark); padding: var(--s-3) var(--gutter); }
+  .consent__inner { grid-template-columns: 1fr auto; align-items: center; gap: var(--s-6); }
+  .consent__text { font-size: var(--fs-sm); }
+  .consent__btns { grid-template-columns: repeat(2, 9rem); }
+}
+/* Next open play chip: sits on the photo under the open-now chip (absolute, so it costs no layout height). */
+.hero__next { position: absolute; z-index: 2; top: calc(var(--s-4) + 2.5rem); left: var(--gutter); max-width: calc(100% - 2 * var(--gutter)); margin: 0; padding: var(--s-2) var(--s-3); border-radius: var(--r-lg); background: var(--c-scrim); color: var(--c-on-dark); font-size: var(--fs-xs); font-weight: var(--fw-semibold); line-height: 1.3; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.hero__next[hidden] { display: none; }
+.hero__next b { color: var(--c-ball); font-weight: var(--fw-bold); }
+@media (min-width: 60rem) { .hero__next { left: auto; right: var(--gutter); top: calc(var(--s-6) + 2.5rem); } }
+/* Instagram photos */
+.photo--ig img { aspect-ratio: auto; height: auto; display: block; }
+.cafe-photos--3 { grid-template-columns: 1fr 1fr; }
+.cafe-photos--3 .photo:first-child { grid-column: 1 / -1; }
+.cafe-photos--3 .photo:first-child img { aspect-ratio: 4 / 3; object-fit: cover; object-position: 50% 60%; }
+@media (min-width: 60rem) { .cafe-photos--3 .photo:first-child img { aspect-ratio: 4 / 5; } }
+.ig-wall { margin-top: var(--s-12); }
+.ig-wall__title { margin: 0 0 var(--s-1, 0.25rem); }
+.ig-wall__sub { margin: 0 0 var(--s-4); color: var(--c-muted); font-size: var(--fs-sm); }
+.ig-wall__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); }
+.ig-wall__grid img { aspect-ratio: 4 / 3; width: 100%; object-fit: cover; object-position: 50% 35%; }
+@media (min-width: 60rem) { .ig-wall__grid { grid-template-columns: repeat(3, 1fr); } }
+/* Privacy notice */
+.privacy { max-width: 46rem; }
+.privacy .info dd { text-align: right; }
