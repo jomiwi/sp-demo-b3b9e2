@@ -1,3 +1,27 @@
+# Saranay demo site · v3 changelog (visual identity)
+
+Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
+Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
+
+## v3.0 · New identity: real court photos, big editorial type, a palette taken from the venue
+- **Change:** Full rebuild of the stylesheet and the hero.
+  - First screen: Saranay's own court photo, edge to edge, then a giant condensed headline ("PICKLEBALL and coffee *in Saranay*"), one line of story, and both booking buttons (Join open play on Reclub, Book a court on Sports360) fully visible at 390x844 and 360x740. The chooser is now a row of chips under the buttons. A dotted amber ball arc draws in over the photo.
+  - Desktop: giant type on the left, the full court photo filling the right half.
+  - Palette from the venue, not a template: night ink #0B0F1A, warm paper #F4F2EC, one accent (court blue #1F4FD1, taken from the court surface), kitchen sky blue #6CC8F8 for accents on dark only, and the logo ball amber #FFB502 for the open play button, the Now marker and TBC. Forest green and lime are gone.
+  - Type: Archivo (variable, condensed 850) for display, Instrument Serif italic for accents, Archivo for body. Google Fonts, no cost.
+  - Photo-led sections: a full-bleed shaded-court band opens Open play; the two booking cards ("How to book") sit on court photos; Coming up is an editorial hairline list, not cards; Split the court is a night scoreboard with a big amber figure; the at-a-glance facts run as a slow blue ticker under the hero.
+  - Motion: CSS scroll-driven reveals and a gentle photo drift, only when the browser supports them and the visitor has not asked for reduced motion. With reduced motion everything is static (the ticker becomes a wrapped list).
+  - The mobile booking bar tucks away (and is inert, so focus skips it) while the hero buttons are on screen, then slides in. The `--cta-bar-h` clearance and scroll padding from v2.5.1 are kept; no button sits under the bar in any section at 390 or 360.
+- **Reason:** Jon's feedback (not modern, generic colors, not enough visual stimulus above the fold). Real photos of the actual court do more than illustrations, and a palette sampled from the court and logo can't be mistaken for a template.
+- **Patterns borrowed (Mobbin):** Performance Lab and Rains (giant tight headline over a full-bleed photo), Escape Cafe (headline split around a photo), adidas (two CTAs on a photo, condensed caps labels), VanMoof (short confident line, minimal CTA), Fresha and ClassPass (chip rows), Airbnb Experiences and Sweatpals (photo-topped cards, event list), Monte (utility info in the hero).
+- **Open play facts (Martha, checked on Reclub Oct 31 2026: club page reclub.co/clubs/@saranay-pickleball-club and its session pages reclub.co/m/VZ24AJ, /m/KVSOKA, /m/ZIMNYS):**
+  - ₱150 per player, up to 12 players, 4 hours, Friday to Sunday from 6 PM (shown as "usually 6 PM"). These replace the open play price, cap and schedule TBCs.
+  - How to join, as Reclub states it: request to join; wait until you're on the waitlist and don't pay before; pay by GCash, first to pay gets the slot; post proof of payment in the session's Game Chat; come a little early.
+  - Cancelling: at least 24 hours before; no cash refund; slot can be transferred or kept as credit.
+  - Mobile bar now reads "Open play · All levels · Join on Reclub".
+  - Still TBC: coffee open play days and times (sources conflict). Street kept as Saranay Road until the owners confirm (one Reclub session lists Malapitan Road). One-off sessions (e.g. a single 6-hour night) are not listed, so dates don't go stale. Member count: 586, as Reclub shows on Oct 31 2026.
+- **Photo credits:** Photos: Saranay Pickleball Court, from their Sports360 Sports Hub gallery (app.sports360.ph/sportshub/saranay-pickleball-court): the sunny court with the teal building, the shaded court, and the Saranay logo. Resized and converted to WebP; served inside SVG wrappers in /img/ because the publishing tool only writes text files. No café or people photos yet, so the café keeps honest empty photo slots.
+
 # Saranay demo site · v2 changelog
 
 Brief (Jon, Oct 31 2026, via Ling): one bold UX or visual change per version, shipped live, up to 10 versions.

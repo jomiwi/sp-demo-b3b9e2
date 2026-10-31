@@ -166,7 +166,7 @@
   var RECLUB = 'https://reclub.co/clubs/@saranay-pickleball-club';
   var MSG = 'https://m.me/61589930970148';
   var CTX = {
-    play: { big: 'Open play', small: 'Join on Reclub', label: 'Join open play', href: RECLUB, cta: 'join-open-play' },
+    play: { big: 'Open play', small: 'All levels · Join on Reclub', label: 'Join open play', href: RECLUB, cta: 'join-open-play' },
     court: { big: 'From ₱200/hour', small: 'Whole court · Book on Sports360', label: 'Book a court', href: S360, cta: 'book-a-court', ext: true },
     cafe: { big: "D' Rafael's Cafe", small: 'At the court · Hours TBC', label: 'Message us', href: MSG, cta: 'message-us' }
   };
@@ -225,4 +225,14 @@
       if (f && f.tagName === 'IFRAME' && bar.offsetHeight) f.scrollIntoView({ block: 'nearest' });
     }, 0);
   });
+})();
+
+/* v3.0 · Tuck the mobile bar while the hero's own booking buttons are on screen, so the first screen shows them once, uncovered.
+   While tucked the bar is inert, so keyboard focus skips it. */
+(function () {
+  var bar = document.getElementById('cta-bar');
+  var lead = document.getElementById('chooser-panels');
+  if (!bar || !lead || !('IntersectionObserver' in window)) return;
+  function set(tuck) { bar.classList.toggle('is-tucked', tuck); if (tuck) bar.setAttribute('inert', ''); else bar.removeAttribute('inert'); }
+  new IntersectionObserver(function (es) { set(es[0].isIntersecting); }, { threshold: 0.35 }).observe(lead);
 })();
