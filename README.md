@@ -1,4 +1,4 @@
-# Saranay Pickleball Court and Cafe: one-page demo site (v1.2.1)
+# Saranay Pickleball Court and Cafe: one-page demo site (v1.3)
 
 **Status:** DEMO. Unlisted and `noindex, nofollow`. Not the official site; not for promotion.
 **Built by:** Jared (UX/UI) for Jon Miller · brief from Ling · CHOAM asset `aeafee96-740a-4803-a7ce-9050ec2fd0d7` · 30 Oct 2026
@@ -22,7 +22,8 @@
 | Purpose | URL |
 | --- | --- |
 | Join open play (primary CTA) | https://reclub.co/clubs/@saranay-pickleball-club |
-| Rent a court / café / Messenger | https://m.me/61589930970148 (TBC: confirm it opens the page chat) |
+| Book a court (Sports360) | https://app.sports360.ph/sportshub/saranay-pickleball-court (verified 31 Oct 2026) |
+| Groups / booking help / café / Messenger | https://m.me/61589930970148 (TBC: confirm it opens the page chat) |
 | Instagram DM | https://ig.me/m/saranaypickleballcourt (TBC) |
 | Phone | tel:+639065458384 |
 | Google Maps | https://maps.app.goo.gl/ZfC7mDdgYcpLxBRT7 |
@@ -32,18 +33,18 @@
 | TikTok | https://www.tiktok.com/@saranay.picklebal |
 
 ## Placeholders still on the page (Martha's "Facts to confirm")
-Official hours (court and café) · open play schedule · open play rate · coffee + free open play terms · players per session · court rental rate · what a rental includes · Messenger link · Instagram DM link · paddle and ball loan · full café menu and café hours · parking and directions · kids age/supervision rule · real venue photos. Pets are not mentioned on the page until a rule is confirmed. "Rent a court" goes to Messenger until a rental calendar exists.
+Official hours (court and café) · open play schedule · open play rate · coffee + free open play terms · players per session · court rental rate · what a rental includes · Messenger link · Instagram DM link · paddle and ball loan · full café menu and café hours · parking and directions · kids age/supervision rule · real venue photos. Pets are not mentioned on the page until a rule is confirmed. Court rentals go to Sports360 (since 9 Oct 2026); Messenger is the second option for groups or booking help.
 
 ## Standards
 Mobile-first; WCAG 2.1 AA colour contrast (all text pairs ≥ 5.9:1); visible focus rings; 44px+ targets; semantic landmarks; skip link; `prefers-reduced-motion` respected; no Open Graph / Twitter tags; no booking or payment on the site.
 
 ## Page order (v1.1, persona-led)
-Hero (Join open play + Rent a court, "Next open play" chip) → Coming up (dated strip) → Open play → Rates and hours → Private rental → First time? (welcome block) → Café → Find us (Maps, Copy location pin, Call) → About → How to book → FAQ (+ Messenger / IG / Call) → Footer. Pinned mobile bar: Join open play (Reclub) + Message us (Messenger).
+Hero (Join open play + Book a court on Sports360, "Next open play" chip) → Coming up (dated strip) → Open play → Rates and hours → Private rental → First time? (welcome block) → Café → Find us (Maps, Copy location pin, Call) → About → How to book → FAQ (+ Messenger / IG / Call) → Footer. Pinned mobile bar: Join open play (Reclub) + Message us (Messenger).
 
 | Persona | Where they land |
 | --- | --- |
 | Paolo, weekend open-play regular | Hero CTA, Next open play chip, Coming up, Open play, Rates |
-| Friend groups, families, event hosts | Rent a court (hero, Messenger), Private rental, FAQ, Call |
+| Friend groups, families, event hosts | Book a court on Sports360 (hero), Private rental, FAQ, Messenger, Call |
 | Bea, first-timer | First time? welcome block and "Your first visit" steps |
 | Tita Rose, café-goer | Café section (Directions button) and Find us (Maps, Copy location pin) |
 
@@ -55,10 +56,12 @@ Hero (Join open play + Rent a court, "Next open play" chip) → Coming up (dated
 - The Fort (Fort Lauderdale): first-timer hook ("No partner / no experience / no paddle?").
 - The Jar (Melbourne): quality bar for type, spacing and photo framing; "What's on" list; real photos still needed.
 
-Reclub member count: 584 (per the brief, 30 Oct 2026).
+Reclub member count: 585 (updated 31 Oct 2026).
 
 ## v1.2 (30 Oct 2026)
 
 Applied Martha's copy review (`/002/CHOAM/saranay/saranay-demo-copy-review-2026-10-30.md`): call line, café lede and seating row, rental ticks, no-partner list, first-visit steps, FAQ intro and 3 FAQ answers, event cards (days, "Request a spot on Reclub"), "584 members", rates lede, plus code now TBC, full official name in the copy-pin text and map embed.
 
 v1.2.1 (30 Oct 2026): added Martha's optional "Good for:" label above the rental list (approved by Ling).
+
+v1.3 (31 Oct 2026): court rentals moved to Sports360 on 9 Oct, so "Book a court on Sports360" is now the main rental button (hero, rental section, rates card, How to book, FAQ, footer), with Messenger second ("Message us for groups or booking help"). Reclub is open play only. Sports360 URL https://app.sports360.ph/sportshub/saranay-pickleball-court verified 31 Oct 2026 in headless Chromium: the page shows SARANAY PICKLEBALL COURT and our phone, 0906-545-8384. Member count 584 to 585.
