@@ -3,6 +3,17 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.1 · 2026-10-31
+
+**Change**
+- Night café band: the café section is now ink, with "D' Rafael's Cafe" set huge in Instrument Serif italic and the menu laid out as type rows (no card). Photo slots are staggered on desktop and compact (4:3) on mobile, still honestly marked as coming.
+- Open-now chip on the hero photo: reads the Manila clock against the posted hours (6 AM to 2 AM) and the Sports360 rate for that hour, e.g. "Open now · court ₱300/hour · till 2 AM". It never claims a slot is free. The dot pulses only when motion is allowed.
+- Fixed the door checkmarks and menu icons, which rendered as filled blobs in v3.0 (stroke rules restored; amber on the open play door).
+
+**Why**: v3.0 still had a long run of light sections after the rates; the café was the flattest block. A dark serif band breaks the run and gives the café its own voice. The clock chip adds a live, true signal above the fold (pattern from Monte's "Open today til…" hero on Mobbin).
+
+**Photos**: no new photos. Court photos are Saranay's own, from their Sports360 page.
+
 ## v3.0 · New identity: real court photos, big editorial type, a palette taken from the venue
 - **Change:** Full rebuild of the stylesheet and the hero.
   - First screen: Saranay's own court photo, edge to edge, then a giant condensed headline ("PICKLEBALL and coffee *in Saranay*"), one line of story, and both booking buttons (Join open play on Reclub, Book a court on Sports360) fully visible at 390x844 and 360x740. The chooser is now a row of chips under the buttons. A dotted amber ball arc draws in over the photo.

@@ -182,6 +182,14 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 .hero__title em { display: inline; font-size: calc(var(--fs-hero-2) * 0.92); color: var(--c-sky); line-height: 1; }
 .hero__sub { font-size: var(--fs-sm); line-height: 1.5; color: var(--c-on-dark-muted); max-width: 30rem; margin-bottom: var(--s-4); }
 
+/* v3.1 open-now chip over the photo (ref: Monte "Open today til..." hero corner) */
+.hero__status { position: absolute; z-index: 2; top: var(--s-4); left: var(--gutter); margin: 0; display: inline-flex; align-items: center; gap: var(--s-2); padding: var(--s-2) var(--s-4); border-radius: var(--r-pill); background: var(--c-scrim); color: var(--c-on-dark); font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: 0.02em; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+.hero__status[hidden] { display: none; }
+.hero__status::before { content: ""; inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%; background: var(--c-ball); box-shadow: 0 0 0 0 var(--c-ball); }
+.hero__status.is-closed::before { background: var(--c-on-dark-muted); }
+@media (prefers-reduced-motion: no-preference) { .hero__status:not(.is-closed)::before { animation: pulse 2.4s var(--ease) infinite; } @keyframes pulse { 70% { box-shadow: 0 0 0 0.5rem rgb(255 181 2 / 0); } 100% { box-shadow: 0 0 0 0 rgb(255 181 2 / 0); } } }
+@media (min-width: 60rem) { .hero__status { left: auto; right: var(--gutter); top: var(--s-6); } }
+
 /* chooser: compact chips in the hero (refs: Fresha time chips, ClassPass date chips) */
 .chooser { margin: var(--s-5) 0 0; }
 .chooser__q { font: var(--fw-bold) var(--fs-xs)/1.3 var(--font-body); letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--c-on-dark-muted); margin: 0 0 var(--s-2); }
@@ -374,23 +382,27 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 .steps--light li::before { color: var(--c-ball); }
 .welcome__card a { color: var(--c-on-court); }
 
-/* café · typographic, honest empty photo slots */
-.menuboard { background: var(--c-ink); color: var(--c-on-dark); border-radius: var(--r-lg); padding: var(--s-6); margin: var(--s-6) 0; }
+/* café · v3.1 night café band: giant serif name, the menu as type (ref: Escape Cafe, Monte on Mobbin) */
+.section--cafe { background: var(--c-ink); overflow: hidden; }
+.section--cafe h2 { font-family: var(--font-serif); font-style: italic; font-weight: var(--fw-regular); font-stretch: 100%; text-transform: none; letter-spacing: -0.02em; line-height: 0.95; font-size: clamp(3.5rem, 1rem + 12vw, 9rem); margin-bottom: var(--s-6); }
+.section--cafe .lede { color: var(--c-on-dark); font-size: var(--fs-xl); }
+.menuboard { margin: var(--s-8) 0; padding: var(--s-6) 0 0; border-top: 2px solid var(--c-on-dark); }
 .menuboard__kicker { font: var(--fw-bold) var(--fs-xs)/1.3 var(--font-body); letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--c-sky); margin-bottom: var(--s-2); }
-.menuboard__title { font-family: var(--font-serif); font-style: italic; font-weight: var(--fw-regular); font-size: var(--fs-2xl); font-stretch: 100%; margin-bottom: var(--s-4); }
+.menuboard__title { font: var(--fw-black) var(--fs-2xl)/var(--lh-tight) var(--font-display); font-stretch: var(--wdth-display); text-transform: uppercase; margin-bottom: var(--s-4); }
 .menuboard__list { list-style: none; margin: 0; padding: 0; }
-.menuboard__list li { display: grid; grid-template-columns: auto 1fr auto; gap: var(--s-3); align-items: center; padding: var(--s-3) 0; border-top: 1px dashed var(--c-line-dark); }
-.menuboard__ico { width: 1.75rem; height: 1.75rem; color: var(--c-ball); }
-.menuboard__ico svg { width: 100%; height: 100%; }
-.menuboard__item { font-weight: var(--fw-semibold); }
-.menuboard__item small { display: block; font-weight: var(--fw-regular); font-size: var(--fs-xs); color: var(--c-on-dark-muted); }
+.menuboard__list li { display: grid; grid-template-columns: auto 1fr auto; gap: var(--s-4); align-items: center; padding: var(--s-4) 0; border-bottom: 1px solid var(--c-line-dark); }
+.menuboard__ico { width: 2rem; height: 2rem; color: var(--c-ball); }
+.menuboard__ico svg { display: block; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.menuboard__item { font: var(--fw-bold) var(--fs-lg)/1.2 var(--font-body); }
+.menuboard__item small { display: block; margin-top: var(--s-1); font-weight: var(--fw-regular); font-size: var(--fs-sm); color: var(--c-on-dark-muted); }
 .menuboard__foot { margin: var(--s-3) 0 0; font-size: var(--fs-sm); color: var(--c-on-dark-muted); }
 .cafe-photos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3); align-content: start; }
-.photo-ph { position: relative; margin: 0; width: 100%; aspect-ratio: 3 / 4; border-radius: var(--r-lg); overflow: hidden; display: grid; place-items: center; background: repeating-linear-gradient(135deg, rgb(11 15 26 / 0.06) 0 2px, transparent 2px 14px), var(--c-paper); border: 1px dashed var(--c-line-strong); color: var(--c-muted); }
-.photo-ph svg { width: 45%; height: auto; opacity: 0.35; filter: grayscale(1); }
-.photo-ph figcaption { position: absolute; left: var(--s-3); right: var(--s-3); bottom: var(--s-3); font-size: var(--fs-xs); font-weight: var(--fw-semibold); color: var(--c-muted); }
+.photo-ph { position: relative; margin: 0; width: 100%; aspect-ratio: 3 / 4; border-radius: var(--r-lg); overflow: hidden; display: grid; place-items: center; background: repeating-linear-gradient(135deg, rgb(244 242 236 / 0.05) 0 2px, transparent 2px 14px), var(--c-ink-2); border: 1px dashed var(--c-line-dark); color: var(--c-on-dark-muted); }
+.photo-ph svg { width: 45%; height: auto; opacity: 0.3; filter: grayscale(1); }
+.photo-ph figcaption { position: absolute; left: var(--s-3); right: var(--s-3); bottom: var(--s-3); font-size: var(--fs-xs); font-weight: var(--fw-semibold); color: var(--c-on-dark-muted); }
 .cafe-photos .photo-ph:nth-child(2) { margin-top: var(--s-12); }
-@media (max-width: 59.99rem) { .photo-ph { aspect-ratio: 1; } .cafe-photos .photo-ph:nth-child(2) { margin-top: 0; } }
+@media (max-width: 59.99rem) { .photo-ph { aspect-ratio: 4 / 3; } .cafe-photos .photo-ph:nth-child(2) { margin-top: 0; } }
+@media (min-width: 60rem) { .section--cafe .split { align-items: start; } .cafe-photos { position: sticky; top: calc(var(--header-h) + var(--s-8)); } }
 
 /* find us */
 .address { font-style: normal; font: var(--fw-black) var(--fs-xl)/1.15 var(--font-display); font-stretch: var(--wdth-display); text-transform: uppercase; margin-bottom: var(--s-4); }
@@ -419,7 +431,8 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 .door__price { font-weight: var(--fw-semibold); color: var(--c-on-dark); margin-bottom: var(--s-4); }
 .door__list { list-style: none; padding: 0; margin: 0 0 var(--s-6); }
 .door__list li { display: flex; gap: var(--s-3); align-items: flex-start; padding: var(--s-2) 0; border-top: 1px solid var(--c-line-dark); color: var(--c-on-dark-muted); }
-.door__list svg { width: 1.125rem; height: 1.125rem; flex: none; margin-top: 0.2em; color: var(--c-sky); }
+.door__list svg { width: 1.125rem; height: 1.125rem; flex: none; margin-top: 0.2em; color: var(--c-sky); fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.door--open .door__list svg { color: var(--c-ball); }
 .helpdesk { margin-top: var(--s-8); display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6); align-items: center; border-top: 2px solid var(--c-ink); padding-top: var(--s-6); }
 .helpdesk__label { margin: 0; font-weight: var(--fw-bold); }
 .helpdesk__links { display: flex; flex-wrap: wrap; gap: var(--s-3); }

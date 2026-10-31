@@ -236,3 +236,19 @@
   function set(tuck) { bar.classList.toggle('is-tucked', tuck); if (tuck) bar.setAttribute('inert', ''); else bar.removeAttribute('inert'); }
   new IntersectionObserver(function (es) { set(es[0].isIntersecting); }, { threshold: 0.35 }).observe(lead);
 })();
+
+/* v3.1 · Open-now chip: Manila clock vs posted hours (6 AM to 2 AM daily) and Sports360 rates. Never shows availability. */
+(function () {
+  var el = document.getElementById('hero-status');
+  if (!el || !window.Intl) return;
+  function tick() {
+    var parts = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Manila', hour: 'numeric', hourCycle: 'h23' }).formatToParts(new Date());
+    var h = +parts.filter(function (p) { return p.type === 'hour'; })[0].value;
+    var open = h >= 6 || h < 2;
+    var rate = h >= 10 && h < 16 ? 200 : 300;
+    el.classList.toggle('is-closed', !open);
+    el.textContent = open ? 'Open now · court ₱' + rate + '/hour · till 2 AM' : 'Closed now · opens 6 AM';
+    el.hidden = false;
+  }
+  tick(); setInterval(tick, 60000);
+})();
