@@ -14,6 +14,36 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
+  <!-- v3.4 social previews. og:image is the court photo (SVG-wrapped WebP: see CHANGELOG, Facebook/Messenger need a JPG here before launch). -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Saranay Pickleball Court and Cafe">
+  <meta property="og:title" content="Saranay Pickleball Court and Cafe | Pickleball Court Caloocan">
+  <meta property="og:description" content="Pickleball court in Caloocan with its own café, in Saranay. Court open 6 AM to 2 AM. Book court rentals on Sports360 and join open play on Reclub.">
+  <meta property="og:url" content="https://jomiwi.github.io/sp-demo-b3b9e2/">
+  <meta property="og:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/court-sky-780.svg">
+  <meta property="og:image:width" content="780">
+  <meta property="og:image:height" content="1040">
+  <meta property="og:image:alt" content="The blue Saranay pickleball court under a clear sky.">
+  <meta property="og:locale" content="en_PH">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Saranay Pickleball Court and Cafe | Pickleball Court Caloocan">
+  <meta name="twitter:description" content="Pickleball court in Caloocan with its own café, in Saranay. Court open 6 AM to 2 AM. Book court rentals on Sports360 and join open play on Reclub.">
+  <meta name="twitter:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/court-sky-780.svg">
+  <!-- v3.4 structured data: verified facts only (no plus code, no geo, no café hours: still TBC) -->
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": ["LocalBusiness", "SportsActivityLocation"], "name": "Saranay Pickleball Court and Cafe", "url": "https://jomiwi.github.io/sp-demo-b3b9e2/", "image": "https://jomiwi.github.io/sp-demo-b3b9e2/img/court-sky-780.svg", "telephone": "+63 906 545 8384", "address": {"@type": "PostalAddress", "streetAddress": "Saranay Road, Saranay Homes", "addressLocality": "Bagumbong North, Caloocan", "addressRegion": "Metro Manila", "addressCountry": "PH"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], "opens": "06:00", "closes": "02:00"}], "sameAs": ["https://www.facebook.com/people/Saranay-Pickleball-Court-and-Cafe/61589930970148/", "https://www.instagram.com/saranaypickleballcourt/", "https://www.tiktok.com/@saranay.picklebal", "https://reclub.co/clubs/@saranay-pickleball-club", "https://app.sports360.ph/sportshub/saranay-pickleball-court"]}</script>
+  <!-- v3.4 Consent Mode v2 (all denied by default) + Google Tag Manager.
+       GTM-XXXXXXX is a PLACEHOLDER: the loader below refuses to run until the owners paste their real container ID. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500});
+    (function () { try { if (localStorage.getItem('saranay_consent') === 'granted') gtag('consent', 'update', {ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted'}); } catch (e) {} })();
+    (function (w, d, s, l, i) {
+      if (!/^GTM-[A-Z0-9]{4,}$/.test(i) || i === 'GTM-XXXXXXX') { w[l].push({event: 'gtm_skipped', reason: 'placeholder container ID'}); return; }
+      w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+      var f = d.getElementsByTagName(s)[0], j = d.createElement(s); j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-XXXXXXX');
+  </script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -25,6 +55,20 @@
   Photo slots are figure class="photo-ph" with data-alt; swap each for an img whose alt is that data-alt.
 -->
 <a class="skip-link" href="#main">Skip to content</a>
+
+<!-- GTM noscript: enable with the real container ID at launch.
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+-->
+<!-- v3.4 cookie consent (RA 10173). Hidden until JS shows it; no choice stored = nothing but the denied defaults. -->
+<section class="consent" id="consent" aria-labelledby="consent-title" hidden>
+  <div class="consent__inner">
+    <p class="consent__text"><strong id="consent-title">Cookies</strong> We'd like to count visits and booking clicks to improve this site. Only if you say yes. <a href="#privacy">Privacy notice</a></p>
+    <div class="consent__btns">
+      <button class="btn consent__btn" type="button" data-consent="denied">Decline</button>
+      <button class="btn consent__btn" type="button" data-consent="granted">Accept</button>
+    </div>
+  </div>
+</section>
 
 <p class="demo-ribbon"><strong>Demo preview</strong> · not the official site yet. Items marked TBC are still being confirmed.</p>
 
@@ -48,7 +92,7 @@
         <li><a href="#find-us">Find us</a></li>
         <li><a href="#faq">FAQ</a></li>
       </ul>
-      <a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club" data-cta="join-open-play">Join open play</a>
+      <a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=nav_join_open_play" target="_blank" rel="noopener" aria-label="Join open play (opens in a new tab)" data-cta="nav_join_open_play" data-dest="reclub">Join open play</a>
     </nav>
   </div>
 </header>
@@ -66,6 +110,8 @@
   </figure>
   <!-- v3.1 open-now chip: Manila clock against the posted hours (6 AM to 2 AM) and Sports360 rates. Clock only, never availability. -->
   <p class="hero__status" id="hero-status" hidden></p>
+  <!-- v3.4 next open play: Manila clock against the posted pattern (Fri to Sun, about 6 PM, ₱150). Never availability. -->
+  <p class="hero__next" id="hero-next" hidden></p>
   <svg class="hero__arc" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path class="hero__arc-path" d="M-10 260 C 90 40, 250 10, 410 70"/></svg>
   <div class="container hero__inner">
     <div class="hero__lead">
@@ -75,30 +121,30 @@
       <div class="chooser__panels" id="chooser-panels" aria-live="polite">
         <div class="chooser__panel" data-panel="all">
       <div class="btn-row hero__ctas" id="hero-ctas">
-        <a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club" data-cta="join-open-play">
+        <a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=hero_join_open_play" target="_blank" rel="noopener" aria-label="Join open play (opens in a new tab)" data-cta="hero_join_open_play" data-dest="reclub">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/><circle cx="14" cy="9" r="1.2" fill="currentColor"/><circle cx="15" cy="14" r="1.2" fill="currentColor"/><circle cx="10" cy="15" r="1.2" fill="currentColor"/></svg>
           Join open play</a>
         <!-- Sports360 court booking URL, verified 31 Oct 2026 -->
-        <a class="btn" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab)" data-cta="book-a-court">
+        <a class="btn" href="https://app.sports360.ph/sportshub/saranay-pickleball-court?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=hero_book_a_court_on_sports360" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab) (opens in a new tab)" data-cta="hero_book_a_court_on_sports360" data-dest="sports360">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           Book a court on Sports360</a>
       </div>
         </div>
         <div class="chooser__panel" data-panel="open" hidden>
           <ul class="chooser__facts" role="list"><li>All levels, every session</li><li>Come solo, we rotate you in</li><li>Pay by GCash on Reclub</li></ul>
-          <div class="btn-row hero__ctas"><a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club" data-cta="join-open-play">Join open play on Reclub</a><a class="btn btn--outline" href="#coming-up">See what's coming up</a></div>
+          <div class="btn-row hero__ctas"><a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=hero_open_join_open_play_on_reclub" target="_blank" rel="noopener" aria-label="Join open play on Reclub (opens in a new tab)" data-cta="hero_open_join_open_play_on_reclub" data-dest="reclub">Join open play on Reclub</a><a class="btn btn--outline" href="#coming-up">See what's coming up</a></div>
         </div>
         <div class="chooser__panel" data-panel="rent" hidden>
           <ul class="chooser__facts" role="list"><li>₱200/hour, 10 AM to 4 PM</li><li>₱300/hour, other hours</li><li>Open 6 AM to 2 AM daily</li></ul>
-          <div class="btn-row hero__ctas"><a class="btn" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab)" data-cta="book-a-court">Book a court on Sports360</a><a class="btn btn--outline" href="https://m.me/61589930970148" data-cta="message-us">Message us for groups</a></div>
+          <div class="btn-row hero__ctas"><a class="btn" href="https://app.sports360.ph/sportshub/saranay-pickleball-court?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=hero_rent_book_a_court_on_sports360" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab) (opens in a new tab)" data-cta="hero_rent_book_a_court_on_sports360" data-dest="sports360">Book a court on Sports360</a><a class="btn btn--outline" href="https://m.me/61589930970148?ref=hero_rent_message_us_for_groups" data-cta="hero_rent_message_us_for_groups" data-dest="messenger">Message us for groups</a></div>
         </div>
         <div class="chooser__panel" data-panel="cafe" hidden>
           <ul class="chooser__facts" role="list"><li>D' Rafael's Cafe, right at the court</li><li>Coffee, Tusok-Tusok Treat, enoki crispy fries</li><li>Café hours <span class="tbc">hours</span></li></ul>
-          <div class="btn-row hero__ctas"><a class="btn" href="https://m.me/61589930970148" data-cta="message-us">Ask about the café</a><a class="btn btn--outline" href="#find-us">How to get here</a></div>
+          <div class="btn-row hero__ctas"><a class="btn" href="https://m.me/61589930970148?ref=hero_cafe_ask_about_the_cafe" data-cta="hero_cafe_ask_about_the_cafe" data-dest="messenger">Ask about the café</a><a class="btn btn--outline" href="#find-us">How to get here</a></div>
         </div>
         <div class="chooser__panel" data-panel="first" hidden>
           <ul class="chooser__facts" role="list"><li>No partner or experience needed</li><li>Paddle rent ₱100 per session</li><li>Every open play is all levels</li></ul>
-          <div class="btn-row hero__ctas"><a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club" data-cta="join-open-play">Find an all-levels session</a><a class="btn btn--outline" href="#new">Your first visit</a></div>
+          <div class="btn-row hero__ctas"><a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=hero_first_find_an_all_levels_session" target="_blank" rel="noopener" aria-label="Find an all-levels session (opens in a new tab)" data-cta="hero_first_find_an_all_levels_session" data-dest="reclub">Find an all-levels session</a><a class="btn btn--outline" href="#new">Your first visit</a></div>
         </div>
       </div>
       <!-- v2.0 "How are you playing?" chooser, now compact chips under the booking buttons. Without JS they are plain links to each section. -->
@@ -113,12 +159,12 @@
       </div>
     </div>
     <div class="hero__more">
-      <a class="next-play" href="https://reclub.co/clubs/@saranay-pickleball-club" aria-label="Open play: Friday to Sunday, usually from 6 PM. All levels, ₱150 per player. See sessions on Reclub.">
+      <a class="next-play" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=hero_next_play_card" aria-label="Open play: Friday to Sunday, usually from 6 PM. All levels, ₱150 per player. See sessions on Reclub (opens in a new tab)" target="_blank" rel="noopener" data-cta="hero_next_play_card" data-dest="reclub">
         <span class="next-play__label">Open play</span>
         <span class="next-play__when">Fri to Sun · usually 6 PM · ₱150 · All levels</span>
         <span class="next-play__go" aria-hidden="true">See sessions on Reclub →</span>
       </a>
-      <p class="hero__alt">Court open 6 AM to 2 AM daily · Block 5 Lot 13 Saranay Road, Bagumbong North, Caloocan · <a href="tel:+639065458384">+63 906 545 8384</a></p>
+      <p class="hero__alt">Court open 6 AM to 2 AM daily · Block 5 Lot 13 Saranay Road, Bagumbong North, Caloocan · <a href="tel:+639065458384" data-cta="hero_card_63_906_545_8384" data-dest="call">+63 906 545 8384</a></p>
     </div>
   </div>
 </section>
@@ -145,26 +191,26 @@
         <p class="eyebrow">On court soon</p>
         <h2 id="coming-title">Coming up</h2>
       </div>
-      <p class="note">Our regular open play, from our session listings on Reclub. Times can change. <a href="https://reclub.co/clubs/@saranay-pickleball-club">Reclub</a> always has the live list.</p>
+      <p class="note">Our regular open play, from our session listings on Reclub. Times can change. <a href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=coming_up_reclub" target="_blank" rel="noopener" aria-label="Reclub (opens in a new tab)" data-cta="coming_up_reclub" data-dest="reclub">Reclub</a> always has the live list.</p>
     </div>
     <ol class="events" role="list">
       <li class="event">
         <p class="event__date">Fridays</p>
         <h3 class="event__title">Open play · all levels</h3>
         <p class="event__meta">Usually 6 PM · 4 hours · ₱150 per player · up to 12</p>
-        <a class="btn btn--outline btn--sm" href="https://reclub.co/clubs/@saranay-pickleball-club" aria-label="Request a spot in open play, all levels, on Reclub">Request a spot on Reclub</a>
+        <a class="btn btn--outline btn--sm" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=coming_up_request_a_spot_on_reclub" aria-label="Request a spot in open play, all levels, on Reclub (opens in a new tab)" target="_blank" rel="noopener" data-cta="coming_up_request_a_spot_on_reclub" data-dest="reclub">Request a spot on Reclub</a>
       </li>
       <li class="event">
         <p class="event__date"><span class="tbc">day</span></p>
         <h3 class="event__title">Coffee open play</h3>
         <p class="event__meta">Buy a drink at D' Rafael's Cafe and play free. <span class="tbc">time and terms</span></p>
-        <a class="btn btn--outline btn--sm" href="https://reclub.co/clubs/@saranay-pickleball-club" aria-label="Request a spot in coffee open play on Reclub">Request a spot on Reclub</a>
+        <a class="btn btn--outline btn--sm" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=coming_up_request_a_spot_on_reclub_2" aria-label="Request a spot in coffee open play on Reclub (opens in a new tab)" target="_blank" rel="noopener" data-cta="coming_up_request_a_spot_on_reclub_2" data-dest="reclub">Request a spot on Reclub</a>
       </li>
       <li class="event">
         <p class="event__date">Saturdays and Sundays</p>
         <h3 class="event__title">Open play · all levels</h3>
         <p class="event__meta">Usually 6 PM · 4 hours · ₱150 per player · up to 12</p>
-        <a class="btn btn--outline btn--sm" href="https://reclub.co/clubs/@saranay-pickleball-club" aria-label="Request a spot in a second open play session on Reclub">Request a spot on Reclub</a>
+        <a class="btn btn--outline btn--sm" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=coming_up_request_a_spot_on_reclub_3" aria-label="Request a spot in a second open play session on Reclub (opens in a new tab)" target="_blank" rel="noopener" data-cta="coming_up_request_a_spot_on_reclub_3" data-dest="reclub">Request a spot on Reclub</a>
       </li>
     </ol>
   </div>
@@ -199,7 +245,7 @@
         <p>Buy a drink at D' Rafael's Cafe and your open play session is free.</p>
         <p><span class="tbc">days, times and terms of the coffee sessions</span></p>
       </div>
-      <p class="mt-6"><a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club">See this week's sessions</a> <a class="btn btn--outline-light" href="#rates">Rates and hours</a></p>
+      <p class="mt-6"><a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=open_play_see_this_weeks_sessions" target="_blank" rel="noopener" aria-label="See this week&#x27;s sessions (opens in a new tab)" data-cta="open_play_see_this_weeks_sessions" data-dest="reclub">See this week's sessions</a> <a class="btn btn--outline-light" href="#rates">Rates and hours</a></p>
     </div>
   </div>
 </section>
@@ -228,7 +274,7 @@
       </div>
       <p class="daystrip__foot">Per hour, whole court · Open daily, 6 AM to 2 AM</p>
       <div class="btn-row">
-        <a class="btn" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" aria-label="Book a ₱200 daytime hour on Sports360 (opens in a new tab)" data-cta="book-a-court">Book a ₱200 daytime hour on Sports360</a>
+        <a class="btn" href="https://app.sports360.ph/sportshub/saranay-pickleball-court?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=rates_book_a_200_daytime_hour" target="_blank" rel="noopener" aria-label="Book a ₱200 daytime hour on Sports360 (opens in a new tab) (opens in a new tab)" data-cta="rates_book_a_200_daytime_hour" data-dest="sports360">Book a ₱200 daytime hour on Sports360</a>
       </div>
     </div>
     <div class="rates">
@@ -242,7 +288,7 @@
           <div><dt>Coffee sessions</dt><dd>Buy a drink, play free · <span class="tbc">days and terms</span></dd></div>
           <div><dt>How to pay</dt><dd>GCash, through Reclub</dd></div>
         </dl>
-        <a class="btn btn--ball btn--block" href="https://reclub.co/clubs/@saranay-pickleball-club">Join open play</a>
+        <a class="btn btn--ball btn--block" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=rates_join_open_play" target="_blank" rel="noopener" aria-label="Join open play (opens in a new tab)" data-cta="rates_join_open_play" data-dest="reclub">Join open play</a>
       </article>
       <article class="rate-card" aria-labelledby="rate-rent">
         <h3 id="rate-rent">Private court rental</h3>
@@ -255,8 +301,8 @@
           <div><dt>Food for groups</dt><dd><span class="tbc">café add-ons for events</span></dd></div>
           <div><dt>How to book</dt><dd>On Sports360</dd></div>
         </dl>
-        <p class="note mt-3 rates-source">Rates as listed on <a href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener">Sports360<span class="visually-hidden"> (opens in a new tab)</span></a>, Oct 31 2026</p>
-        <a class="btn btn--block" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab)">Book a court on Sports360</a>
+        <p class="note mt-3 rates-source">Rates as listed on <a href="https://app.sports360.ph/sportshub/saranay-pickleball-court?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=rates_sports360" target="_blank" rel="noopener" data-cta="rates_sports360" data-dest="sports360">Sports360<span class="visually-hidden"> (opens in a new tab)</span></a>, Oct 31 2026</p>
+        <a class="btn btn--block" href="https://app.sports360.ph/sportshub/saranay-pickleball-court?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=rates_book_a_court_on_sports360" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab) (opens in a new tab)" data-cta="rates_book_a_court_on_sports360" data-dest="sports360">Book a court on Sports360</a>
       </article>
       <article class="rate-card" aria-labelledby="rate-hours">
         <h3 id="rate-hours">Hours</h3>
@@ -267,7 +313,7 @@
             <tr><th scope="row">Mon to Sun</th><td>6 AM to 2 AM</td><td><span class="tbc">hours</span></td></tr>
           </tbody>
         </table>
-        <p class="note mt-3 rates-source">Rates as listed on <a href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener">Sports360<span class="visually-hidden"> (opens in a new tab)</span></a>, Oct 31 2026</p>
+        <p class="note mt-3 rates-source">Rates as listed on <a href="https://app.sports360.ph/sportshub/saranay-pickleball-court?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=rates_sports360_2" target="_blank" rel="noopener" data-cta="rates_sports360_2" data-dest="sports360">Sports360<span class="visually-hidden"> (opens in a new tab)</span></a>, Oct 31 2026</p>
         <a class="btn btn--outline btn--block" href="#find-us">Directions and parking</a>
       </article>
     </div>
@@ -290,9 +336,9 @@
       <p>Rate and inclusions: see <a href="#rates">Rates and hours</a>. Questions about parties and food are in the <a href="#faq">FAQ</a>.</p>
       <p>Pick a time and book the court on Sports360. Coming as a big group or planning an event? Message us and we'll sort it out.</p>
       <div class="btn-row">
-        <a class="btn" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab)">Book a court on Sports360</a>
-        <a class="btn btn--outline" href="https://m.me/61589930970148">Message us for groups or help booking</a>
-        <a class="btn btn--outline" href="tel:+639065458384">Call +63 906 545 8384</a>
+        <a class="btn" href="https://app.sports360.ph/sportshub/saranay-pickleball-court?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=rent_book_a_court_on_sports360" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab) (opens in a new tab)" data-cta="rent_book_a_court_on_sports360" data-dest="sports360">Book a court on Sports360</a>
+        <a class="btn btn--outline" href="https://m.me/61589930970148?ref=rent_message_us_for_groups_or" data-cta="rent_message_us_for_groups_or" data-dest="messenger">Message us for groups or help booking</a>
+        <a class="btn btn--outline" href="tel:+639065458384" data-cta="rent_call_63_906_545_8384" data-dest="call">Call +63 906 545 8384</a>
       </div>
       <p class="note mt-3"><span class="tbc">Messenger link to confirm</span></p>
     </div>
@@ -337,7 +383,7 @@
           <p class="splitter__break" id="split-break">Court ₱400 · Total ₱400</p>
         </div>
         <p class="splitter__note">Estimate only. Sports360 shows the final price.</p>
-        <a class="btn btn--ball splitter__cta" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" data-cta="book-a-court" aria-label="Book a court on Sports360 (opens in a new tab)">Book a court on Sports360</a>
+        <a class="btn btn--ball splitter__cta" href="https://app.sports360.ph/sportshub/saranay-pickleball-court?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=rent_book_a_court_on_sports360_2" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab) (opens in a new tab)" data-cta="rent_book_a_court_on_sports360_2" data-dest="sports360">Book a court on Sports360</a>
       </form>
     </div>
   </div>
@@ -357,8 +403,8 @@
           <li><strong>No paddle?</strong> Rent one here for ₱100 per session.</li>
         </ul>
         <div class="btn-row">
-          <a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club">Find an all-levels session</a>
-          <a class="btn btn--outline" href="https://m.me/61589930970148">Ask us a question</a>
+          <a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=new_find_an_all_levels_session" target="_blank" rel="noopener" aria-label="Find an all-levels session (opens in a new tab)" data-cta="new_find_an_all_levels_session" data-dest="reclub">Find an all-levels session</a>
+          <a class="btn btn--outline" href="https://m.me/61589930970148?ref=new_ask_us_a_question" data-cta="new_ask_us_a_question" data-dest="messenger">Ask us a question</a>
         </div>
       </div>
       <div class="welcome__card">
@@ -399,21 +445,15 @@
       </dl>
       <p><strong>Planning a party?</strong> Message us about food and drinks for your group.</p>
       <div class="btn-row">
-        <a class="btn" href="https://m.me/61589930970148">Ask about the café</a>
-        <a class="btn btn--outline" href="https://maps.app.goo.gl/ZfC7mDdgYcpLxBRT7">Directions in Google Maps</a>
+        <a class="btn" href="https://m.me/61589930970148?ref=cafe_ask_about_the_cafe" data-cta="cafe_ask_about_the_cafe" data-dest="messenger">Ask about the café</a>
+        <a class="btn btn--outline" href="https://maps.app.goo.gl/ZfC7mDdgYcpLxBRT7" data-cta="cafe_directions_in_google_maps" data-dest="directions">Directions in Google Maps</a>
       </div>
     </div>
-    <div class="cafe-photos">
-      <!-- PHOTO 2 placeholder -->
-      <figure class="photo-ph photo-ph--cafe" role="img" data-alt="Coffee being served at the counter of D' Rafael's Cafe beside the Saranay pickleball court." aria-label="Photo placeholder: coffee being served at the café counter beside the court.">
-        <svg viewBox="0 0 200 120" aria-hidden="true"><g fill="none" style="stroke:var(--c-court-line)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M62 50h64v22a26 26 0 0 1-26 26h-12a26 26 0 0 1-26-26z"/><path d="M126 56h8a11 11 0 0 1 0 22h-9"/><path d="M78 22c0 7 7 7 7 14M98 22c0 7 7 7 7 14"/><path d="M50 106h100"/></g></svg>
-        <figcaption>Photo placeholder · café counter</figcaption>
-      </figure>
-      <!-- PHOTO 3 placeholder -->
-      <figure class="photo-ph photo-ph--cafe" role="img" data-alt="A plate of fishball, kwek-kwek and kikiam from the Tusok-Tusok Treat at D' Rafael's Cafe." aria-label="Photo placeholder: a plate of fishball, kwek-kwek and kikiam.">
-        <svg viewBox="0 0 200 120" aria-hidden="true"><g fill="none" style="stroke:var(--c-court-line)" stroke-width="3" stroke-linecap="round"><ellipse cx="100" cy="80" rx="70" ry="18"/><circle cx="78" cy="66" r="9"/><circle cx="100" cy="62" r="9"/><circle cx="122" cy="66" r="9"/><path d="M60 30l32 40M150 26l-30 44"/></g><circle cx="100" cy="62" r="5" style="fill:var(--c-ball)"/></svg>
-        <figcaption>Photo placeholder · Tusok-Tusok Treat</figcaption>
-      </figure>
+    <!-- v3.4 café photos from Saranay's Instagram (noindex demo only; public use waits for the owners' OK). -->
+    <div class="cafe-photos cafe-photos--3">
+      <figure class="photo photo--ig"><img src="img/cafe-patio-night-guests-800.svg" srcset="img/cafe-patio-night-guests-480.svg 480w, img/cafe-patio-night-guests-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="1000" loading="lazy" decoding="async" alt="Friends sharing a table on the café patio at night, under the umbrellas beside the court."></figure>
+      <figure class="photo photo--ig"><img src="img/cafe-logo-wall-patio-800.svg" srcset="img/cafe-logo-wall-patio-480.svg 480w, img/cafe-logo-wall-patio-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="1000" loading="lazy" decoding="async" alt="The D' Rafael's Cafe logo painted on a white wall, with folding chairs and a table on the patio."></figure>
+      <figure class="photo photo--ig"><img src="img/cafe-nachos-800.svg" srcset="img/cafe-nachos-480.svg 480w, img/cafe-nachos-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="1000" loading="lazy" decoding="async" alt="A plate of nachos with cheese sauce on a café table beside the court."></figure>
     </div>
   </div>
 </section>
@@ -426,6 +466,7 @@
       <h2 id="find-title">Find us</h2>
       <address class="address">Saranay Homes, Block 5 Lot 13 Saranay Road, Bagumbong North, Caloocan, Metro Manila</address>
       <p><strong>Directions:</strong> <span class="tbc">route from Malapitan Road and a landmark to look for at the entrance</span>. A short drive from Quezon City and the rest of North Caloocan.</p>
+      <p><strong>Instagram:</strong> <a href="https://www.instagram.com/saranaypickleballcourt/" target="_blank" rel="noopener" data-cta="find_us_instagram_court" data-dest="instagram">@saranaypickleballcourt<span class="visually-hidden"> (opens in a new tab)</span></a> for the court, <a href="https://www.instagram.com/drafaelscafe/" target="_blank" rel="noopener" data-cta="find_us_instagram_cafe" data-dest="instagram">@drafaelscafe<span class="visually-hidden"> (opens in a new tab)</span></a> for the café. The café also takes private events.</p>
       <p><strong>Parking:</strong> <span class="tbc">parking details</span></p>
       <dl class="info">
         <div><dt>Court hours</dt><dd>6 AM to 2 AM, Monday to Sunday</dd></div>
@@ -433,11 +474,11 @@
         <div><dt>Plus code</dt><dd><span class="tbc">confirm Q24G+FX against the Google Maps pin</span></dd></div>
       </dl>
       <div class="btn-row">
-        <a class="btn" href="https://maps.app.goo.gl/ZfC7mDdgYcpLxBRT7">Open in Google Maps</a>
+        <a class="btn" href="https://maps.app.goo.gl/ZfC7mDdgYcpLxBRT7" data-cta="find_us_open_in_google_maps" data-dest="directions">Open in Google Maps</a>
         <button class="btn btn--outline" type="button" id="copy-pin" data-copy="Saranay Pickleball Court and Cafe, Saranay Homes, Block 5 Lot 13 Saranay Road, Bagumbong North, Caloocan. Map: https://maps.app.goo.gl/ZfC7mDdgYcpLxBRT7">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="2"/></svg>
           Copy location pin</button>
-        <a class="btn btn--outline" href="tel:+639065458384">Call us</a>
+        <a class="btn btn--outline" href="tel:+639065458384" data-cta="find_us_call_us" data-dest="call">Call us</a>
       </div>
       <p class="note copy-status" id="copy-status" role="status" aria-live="polite">For Grab or a tricycle: copies our name, address and map link.</p>
     </div>
@@ -460,11 +501,24 @@
       <p>Play a few games, then sit down for coffee or a plate of fishball and kwek-kwek. Bring your friends and family, from the kids to the grandparents. Players of every level share this court, and 586 of them have joined our club on Reclub.</p>
       <p>There's a dartboard too, for when you're waiting for the next game.</p>
     </div>
-    <!-- PHOTO 4: Saranay's own logo (Sports360 gallery). An open play group photo is still to come. -->
+    <!-- PHOTO 4: Saranay's own logo (Sports360 gallery). -->
     <figure class="photo photo--logo">
       <img src="img/logo-480.svg" width="480" height="303" loading="lazy" decoding="async" alt="The Saranay Pickleball Court logo: a pickleball and paddle under a rainbow arc.">
-      <figcaption>Our logo. Photos of open play nights are still to come.</figcaption>
+      <figcaption>Our logo.</figcaption>
     </figure>
+  </div>
+  <!-- v3.4 social proof: open play nights, from Saranay's Instagram (noindex demo only). -->
+  <div class="container ig-wall">
+    <h3 class="ig-wall__title" id="ig-wall-title">Open play nights</h3>
+    <p class="ig-wall__sub">From our Instagram, <a href="https://www.instagram.com/saranaypickleballcourt/" target="_blank" rel="noopener" data-cta="about_instagram_wall" data-dest="instagram">@saranaypickleballcourt<span class="visually-hidden"> (opens in a new tab)</span></a></p>
+    <ul class="ig-wall__grid" role="list" aria-labelledby="ig-wall-title">
+      <li><figure class="photo photo--ig"><img src="img/court-night-group-800.svg" srcset="img/court-night-group-480.svg 480w, img/court-night-group-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="600" loading="lazy" decoding="async" alt="A group of players with paddles posing on the blue court under the lights at night."></figure></li>
+      <li><figure class="photo photo--ig"><img src="img/court-dusk-group-800.svg" srcset="img/court-dusk-group-480.svg 480w, img/court-dusk-group-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="600" loading="lazy" decoding="async" alt="Players lined up on the court at dusk after a session."></figure></li>
+      <li><figure class="photo photo--ig"><img src="img/court-group-open-play-800.svg" srcset="img/court-group-open-play-480.svg 480w, img/court-group-open-play-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="600" loading="lazy" decoding="async" alt="A big open play group standing together on the court in the afternoon."></figure></li>
+      <li><figure class="photo photo--ig"><img src="img/court-night-group-portrait-800.svg" srcset="img/court-night-group-portrait-480.svg 480w, img/court-night-group-portrait-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="1000" loading="lazy" decoding="async" alt="Players posing at the net on a night session, with the café lights behind them."></figure></li>
+      <li><figure class="photo photo--ig"><img src="img/court-paddles-on-bench-800.svg" srcset="img/court-paddles-on-bench-480.svg 480w, img/court-paddles-on-bench-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="1000" loading="lazy" decoding="async" alt="Two paddles resting on a wooden bench, with a game going on the court behind."></figure></li>
+      <li><figure class="photo photo--ig"><img src="img/entrance-player-dRafaels-mural-800.svg" srcset="img/entrance-player-dRafaels-mural-480.svg 480w, img/entrance-player-dRafaels-mural-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="1000" loading="lazy" decoding="async" alt="A player with a paddle at the court entrance, next to the D' Rafael's Cafe mural."></figure></li>
+    </ul>
   </div>
 </section>
 <!-- /COPY: 2 about -->
@@ -486,7 +540,7 @@
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>On the waitlist? Pay by GCash, then post proof in the Game Chat</span></li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>₱150 per player · up to 12 · 4 hours</span></li>
         </ul>
-        <a class="btn btn--ball btn--block" href="https://reclub.co/clubs/@saranay-pickleball-club" data-cta="join-open-play">Join open play on Reclub</a>
+        <a class="btn btn--ball btn--block" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=book_join_open_play_on_reclub" target="_blank" rel="noopener" aria-label="Join open play on Reclub (opens in a new tab)" data-cta="book_join_open_play_on_reclub" data-dest="reclub">Join open play on Reclub</a>
       </article>
       <article class="door door--court" aria-labelledby="door-court-title">
         <p class="door__kicker">Have the court to yourselves</p>
@@ -498,15 +552,15 @@
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Non-refundable. To move it, ask at least 24 hours ahead</span></li>
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg><span>Paddle rent ₱100 per session</span></li>
         </ul>
-        <a class="btn btn--block" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" data-cta="book-a-court" aria-label="Book a court on Sports360 (opens in a new tab)">Book a court on Sports360</a>
+        <a class="btn btn--block" href="https://app.sports360.ph/sportshub/saranay-pickleball-court?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=book_book_a_court_on_sports360" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab) (opens in a new tab)" data-cta="book_book_a_court_on_sports360" data-dest="sports360">Book a court on Sports360</a>
       </article>
     </div>
     <div class="helpdesk">
       <p class="helpdesk__label">Groups or help booking</p>
       <div class="helpdesk__links">
-        <a class="btn btn--outline btn--sm" href="https://m.me/61589930970148">Messenger</a>
-        <a class="btn btn--outline btn--sm" href="https://ig.me/m/saranaypickleballcourt">Instagram</a>
-        <a class="btn btn--outline btn--sm" href="tel:+639065458384">Call +63 906 545 8384</a>
+        <a class="btn btn--outline btn--sm" href="https://m.me/61589930970148?ref=book_messenger" data-cta="book_messenger" data-dest="messenger">Messenger</a>
+        <a class="btn btn--outline btn--sm" href="https://ig.me/m/saranaypickleballcourt" data-cta="book_instagram" data-dest="ig_dm">Instagram</a>
+        <a class="btn btn--outline btn--sm" href="tel:+639065458384" data-cta="book_call_63_906_545_8384" data-dest="call">Call +63 906 545 8384</a>
       </div>
       <p class="note"><span class="tbc">Messenger and Instagram links to confirm</span></p>
     </div>
@@ -524,9 +578,9 @@
     </div>
     <div class="faq">
       <details><summary>Do I need to be good to join open play?</summary><div><p>No. All our open play sessions are for all levels. If it's your first time, tell the organizer and they'll help you find a game.</p></div></details>
-      <details><summary>How do I join open play?</summary><div><p>Join our club on <a href="https://reclub.co/clubs/@saranay-pickleball-club">Reclub</a>, request to join a session and wait until you're on the waitlist. Then pay by GCash (the first to pay gets the slot) and post your proof of payment in the session's Game Chat. Need to cancel? Tell us at least 24 hours before. There's no cash refund, but you can transfer your slot or keep it as credit.</p></div></details>
+      <details><summary>How do I join open play?</summary><div><p>Join our club on <a href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=faq_reclub" target="_blank" rel="noopener" aria-label="Reclub (opens in a new tab)" data-cta="faq_reclub" data-dest="reclub">Reclub</a>, request to join a session and wait until you're on the waitlist. Then pay by GCash (the first to pay gets the slot) and post your proof of payment in the session's Game Chat. Need to cancel? Tell us at least 24 hours before. There's no cash refund, but you can transfer your slot or keep it as credit.</p></div></details>
       <details><summary>How much is open play?</summary><div><p>₱150 per player for a 4-hour session. On coffee open play sessions, buying a drink at D' Rafael's Cafe gets you in free. <span class="tbc">coffee session days and times</span></p></div></details>
-      <details><summary>How do I rent the whole court?</summary><div><p>Book it on <a href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener">Sports360</a>. It's ₱300 per hour from 6 AM to 10 AM, ₱200 from 10 AM to 4 PM, and ₱300 from 4 PM to 2 AM. Coming as a big group or planning an event? Message us on Facebook or Instagram, or call <a href="tel:+639065458384">+63 906 545 8384</a>, and we'll sort it out.</p></div></details>
+      <details><summary>How do I rent the whole court?</summary><div><p>Book it on <a href="https://app.sports360.ph/sportshub/saranay-pickleball-court?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=faq_sports360" target="_blank" rel="noopener" aria-label="Sports360 (opens in a new tab)" data-cta="faq_sports360" data-dest="sports360">Sports360</a>. It's ₱300 per hour from 6 AM to 10 AM, ₱200 from 10 AM to 4 PM, and ₱300 from 4 PM to 2 AM. Coming as a big group or planning an event? Message us on Facebook or Instagram, or call <a href="tel:+639065458384" data-cta="faq_63_906_545_8384" data-dest="call">+63 906 545 8384</a>, and we'll sort it out.</p></div></details>
       <details><summary>Can I rent a paddle?</summary><div><p>Yes. Paddles are ₱100 per session. We also sell tournament-grade balls for ₱100.</p></div></details>
       <details><summary>Can we hold a party or private event here?</summary><div><p>Yes. We've hosted private events on the court and in the café. Message us with your date and headcount and we'll work out the court time and the food.</p></div></details>
       <details><summary>What are your hours?</summary><div><p>Court: 6 AM to 2 AM, every day. Café: <span class="tbc">café hours</span>. See <a href="#rates">Rates and hours</a>.</p></div></details>
@@ -541,14 +595,29 @@
     <div class="faq-more">
       <p><strong>Still have a question?</strong> Message us and we'll get back to you.</p>
       <div class="btn-row">
-        <a class="btn" href="https://m.me/61589930970148">Message us on Messenger</a>
-        <a class="btn btn--outline" href="https://ig.me/m/saranaypickleballcourt">Instagram DM</a>
-        <a class="btn btn--outline" href="tel:+639065458384">Call +63 906 545 8384</a>
+        <a class="btn" href="https://m.me/61589930970148?ref=faq_message_us_on_messenger" data-cta="faq_message_us_on_messenger" data-dest="messenger">Message us on Messenger</a>
+        <a class="btn btn--outline" href="https://ig.me/m/saranaypickleballcourt" data-cta="faq_instagram_dm" data-dest="ig_dm">Instagram DM</a>
+        <a class="btn btn--outline" href="tel:+639065458384" data-cta="faq_call_63_906_545_8384" data-dest="call">Call +63 906 545 8384</a>
       </div>
     </div>
   </div>
 </section>
 <!-- /COPY: 9 faq -->
+<!-- COPY: 11 privacy notice (v3.4, RA 10173). Draft: the owners must fill the controller and contact, and approve the wording. -->
+<section class="section section--tight" id="privacy" aria-labelledby="privacy-title">
+  <div class="container privacy">
+    <p class="eyebrow">Privacy</p>
+    <h2 id="privacy-title">Privacy and cookies</h2>
+    <p>We don't take bookings or payments on this site. If you choose <strong>Accept</strong>, we count visits and clicks to Reclub, Sports360 and Messenger with Google Tag Manager, so we know what helps players book. If you choose <strong>Decline</strong>, no analytics or advertising cookies are set. Your choice is saved on this device and you can change it any time.</p>
+    <dl class="info">
+      <div><dt>Data controller</dt><dd><span class="tbc">business owner's registered name</span></dd></div>
+      <div><dt>Privacy contact</dt><dd><span class="tbc">contact person and email for privacy requests</span></dd></div>
+    </dl>
+    <p>Under the Data Privacy Act of 2012 (RA 10173), you can ask us what we keep about you, and ask us to correct or delete it. You can also complain to the National Privacy Commission. <span class="tbc">full notice wording, for the owners to approve</span></p>
+    <button class="btn btn--outline" type="button" id="consent-open">Change cookie choice</button>
+  </div>
+</section>
+<!-- /COPY: 11 privacy notice -->
 
 </main>
 
@@ -559,36 +628,37 @@
       <div>
         <p class="footer__brand">Saranay Pickleball Court and Cafe</p>
         <p>Saranay Homes, Block 5 Lot 13 Saranay Road, Bagumbong North, Caloocan</p>
-        <p>Phone: <a href="tel:+639065458384">+63 906 545 8384</a></p>
+        <p>Phone: <a href="tel:+639065458384" data-cta="footer_63_906_545_8384" data-dest="call">+63 906 545 8384</a></p>
         <p>Court hours: 6 AM to 2 AM daily</p>
       </div>
       <nav aria-labelledby="follow-title">
         <h2 id="follow-title">Follow us</h2>
         <ul>
-          <li><a href="https://www.facebook.com/people/Saranay-Pickleball-Court-and-Cafe/61589930970148/">Facebook</a></li>
-          <li><a href="https://www.instagram.com/saranaypickleballcourt/">Instagram</a></li>
-          <li><a href="https://www.tiktok.com/@saranay.picklebal">TikTok</a></li>
-          <li><a href="https://reclub.co/clubs/@saranay-pickleball-club">Reclub</a></li>
+          <li><a href="https://www.facebook.com/people/Saranay-Pickleball-Court-and-Cafe/61589930970148/" data-cta="footer_follow_facebook" data-dest="facebook">Facebook</a></li>
+          <li><a href="https://www.instagram.com/drafaelscafe/" target="_blank" rel="noopener" data-cta="footer_follow_instagram_cafe" data-dest="instagram">Instagram: @drafaelscafe (café)<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+          <li><a href="https://www.instagram.com/saranaypickleballcourt/" target="_blank" rel="noopener" data-cta="footer_follow_instagram" data-dest="instagram">Instagram: @saranaypickleballcourt<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+          <li><a href="https://www.tiktok.com/@saranay.picklebal" data-cta="footer_follow_tiktok" data-dest="tiktok">TikTok</a></li>
+          <li><a href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=footer_follow_reclub" target="_blank" rel="noopener" aria-label="Reclub (opens in a new tab)" data-cta="footer_follow_reclub" data-dest="reclub">Reclub</a></li>
         </ul>
       </nav>
       <nav aria-labelledby="book-foot-title">
         <h2 id="book-foot-title">Book</h2>
         <ul>
-          <li><a href="https://reclub.co/clubs/@saranay-pickleball-club">Join open play on Reclub</a></li>
-          <li><a href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener">Book a court on Sports360</a></li>
-          <li><a href="https://m.me/61589930970148">Message us for groups or help booking</a></li>
-          <li><a href="https://ig.me/m/saranaypickleballcourt">Message on Instagram</a></li>
+          <li><a href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=footer_book_join_open_play_on_reclub" target="_blank" rel="noopener" aria-label="Join open play on Reclub (opens in a new tab)" data-cta="footer_book_join_open_play_on_reclub" data-dest="reclub">Join open play on Reclub</a></li>
+          <li><a href="https://app.sports360.ph/sportshub/saranay-pickleball-court?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=footer_book_book_a_court_on_sports360" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab)" data-cta="footer_book_book_a_court_on_sports360" data-dest="sports360">Book a court on Sports360</a></li>
+          <li><a href="https://m.me/61589930970148?ref=footer_book_message_us_for_groups_or" data-cta="footer_book_message_us_for_groups_or" data-dest="messenger">Message us for groups or help booking</a></li>
+          <li><a href="https://ig.me/m/saranaypickleballcourt" data-cta="footer_book_message_on_instagram" data-dest="ig_dm">Message on Instagram</a></li>
         </ul>
       </nav>
     </div>
-    <p class="footer__fine">Book open play on Reclub. Court rentals on Sports360. No bookings or payments on this site.<br>Demo preview v3.3 · Court photos are Saranay's own, from their Sports360 page. Café photos to come.</p>
+    <p class="footer__fine">Book open play on Reclub. Court rentals on Sports360. No bookings or payments on this site.<br>Demo preview v3.4 · Photos are Saranay's own, from their Sports360 page and Instagram. <a href="#privacy">Privacy and cookies</a></p>
   </div>
 </footer>
 <!-- /COPY: 10 footer -->
 
 <div class="cta-bar" id="cta-bar" role="region" aria-label="Quick booking">
-  <a class="btn btn--ball btn--block" href="https://reclub.co/clubs/@saranay-pickleball-club" data-cta="join-open-play">Join open play</a>
-  <a class="btn btn--outline-light btn--block" href="https://m.me/61589930970148" data-cta="message-us">
+  <a class="btn btn--ball btn--block" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=sticky_bar_join_open_play" target="_blank" rel="noopener" aria-label="Join open play (opens in a new tab)" data-cta="sticky_bar_join_open_play" data-dest="reclub">Join open play</a>
+  <a class="btn btn--outline-light btn--block" href="https://m.me/61589930970148?ref=sticky_bar_message_us" data-cta="sticky_bar_message_us" data-dest="messenger">
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C7 3 3 6.7 3 11.3c0 2.6 1.3 4.9 3.3 6.4V21l3-1.7c.9.3 1.8.4 2.7.4 5 0 9-3.7 9-8.3S17 3 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
     Message us</a>
 </div>
