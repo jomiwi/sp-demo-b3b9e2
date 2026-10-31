@@ -3,6 +3,14 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.2.1 · 2026-10-31
+
+**Change**: About section: "Bring the barkada, the family or the kids." is now "Bring your friends and family, from the kids to the grandparents." (Martha's exact wording). "North Caloocan" unchanged.
+
+**Why**: Martha's copy request.
+
+**Photos**: no new photos.
+
 ## v3.2 · 2026-10-31
 
 **Change (Martha's copy read, her exact wording)**
