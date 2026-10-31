@@ -3,6 +3,21 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.5 · 2026-10-31
+
+**Change (new phone hero, picked by Jon, via Ling)**
+- **Phone hero (under 60rem) is now Option 1, "court at golden hour".** Source: `hero-gen/saranay-hero-opt1-court-golden-1080x1600.jpg`. It's cropped tighter on the group: a square cut (x 20–1000, y 100–1080 of the 1080x1600 source). In the ~390x388 hero box the five friends fill the width, their faces sit in the upper half clear of the open-now and next-play chips, and the teal building and the blue court read behind them. The headline sits over the darker lower part on the existing `--c-scrim-hero` token, so the v3.3 AA floor (on-dark 10.15:1, sky 6.09:1 even over pure white) still holds. `object-position: 50% 45%` keeps faces in frame on wider phones and tablets.
+  - Files: `img/hero-golden-480.webp` (29.6 KB) and `img/hero-golden-800.webp` (56.0 KB), real WebP with `srcset`/`sizes="100vw"`, `fetchpriority="high"`, no EXIF. Committed via the same base64 + one-shot decode workflow as the v3.4.1 share image. They replace the 126 KB SVG-wrapped court crop on phones, so the first load gets lighter.
+- **Desktop (60rem+) keeps Saranay's real court photo** (court-sky, Sports360 gallery). Why: the desktop hero photo is a half-width portrait panel (640x917 at 1280x800, 720x1017 at 1440). A 16:9 frame covering that panel shows only about 39% of its width, which cuts two or three of the five people. The 800px-wide headline also runs into the panel's left edge (to x≈857 at 1280), right where the faces would be. The 16:9 doesn't hold up beside the headline in this layout.
+- **The real venue still shows:** the desktop hero, the full-width court band at the top of Open play (court-shade, every width), and the logo and Instagram photos further down.
+- **Share image** is now `img/og-hero-1200x630.jpg` (1200x630, 113 KB): a crop of the new hero (16:9 source) with the headline in Archivo/Instrument Serif on `--c-ink`, with `--c-on-dark`, `--c-sky`, `--c-ball` and `--c-on-dark-muted`. `og:image`, `og:image:secure_url` and `twitter:image` point at it; its alt text is updated. The v3.4.1 court share image `img/og-share-1200x630.jpg` stays in the repo and is still used as the JSON-LD `image`, because structured data for the business should show the real venue, not a generated scene.
+- The hero `<img>` alt is now "The blue Saranay court beside the teal café building.", which is true for both the phone image and the desktop photo (one `<picture>`, one alt).
+- Footer: "Demo preview v3.5".
+
+**Image status: STUDIO-GENERATED, DEMO ONLY.** The phone hero and the share image are a Studio-generated lifestyle image (CHOAM 1db9830a, "Saranay demo: mobile hero lifestyle image", owner studio). They aren't photos of real Saranay customers. Use them only in this noindex demo until the owners sign off. Before any public launch: owners' sign-off, or swap in a real photo.
+
+**Why**: Jon picked Option 1 for the hero. The phone first screen gets people and warmth; desktop keeps the real court because the 16:9 doesn't fit the split layout.
+
 ## v3.4.1 · 2026-10-31
 
 **Change**

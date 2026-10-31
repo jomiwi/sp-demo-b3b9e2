@@ -14,24 +14,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=Instrument+Serif:ital@0;1&amp;display=swap">
-  <!-- v3.4 social previews. v3.4.1: og:image is a real 1200x630 JPG (court photo + headline in Archivo and palette tokens). -->
+  <!-- v3.4 social previews. v3.5: og:image is a 1200x630 JPG crop of the new golden-hour hero (Studio-generated, demo only) with the headline in Archivo and palette tokens. -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Saranay Pickleball Court and Cafe">
   <meta property="og:title" content="Saranay Pickleball Court and Cafe | Pickleball Court Caloocan">
   <meta property="og:description" content="Pickleball court in Caloocan with its own café, in Saranay. Court open 6 AM to 2 AM. Book court rentals on Sports360 and join open play on Reclub.">
   <meta property="og:url" content="https://jomiwi.github.io/sp-demo-b3b9e2/">
-  <meta property="og:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg">
-  <meta property="og:image:secure_url" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg">
+  <meta property="og:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg">
+  <meta property="og:image:secure_url" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Saranay Pickleball Court and Cafe: Pickleball and coffee in Saranay, beside a photo of the blue court.">
+  <meta property="og:image:alt" content="Saranay Pickleball Court and Cafe: Pickleball and coffee in Saranay, beside friends toasting with iced coffees on the court at golden hour.">
   <meta property="og:locale" content="en_PH">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Saranay Pickleball Court and Cafe | Pickleball Court Caloocan">
   <meta name="twitter:description" content="Pickleball court in Caloocan with its own café, in Saranay. Court open 6 AM to 2 AM. Book court rentals on Sports360 and join open play on Reclub.">
-  <meta name="twitter:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg">
-  <meta name="twitter:image:alt" content="Saranay Pickleball Court and Cafe: Pickleball and coffee in Saranay, beside a photo of the blue court.">
+  <meta name="twitter:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg">
+  <meta name="twitter:image:alt" content="Saranay Pickleball Court and Cafe: Pickleball and coffee in Saranay, beside friends toasting with iced coffees on the court at golden hour.">
   <!-- v3.4 structured data: verified facts only (no plus code, no geo, no café hours: still TBC) -->
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": ["LocalBusiness", "SportsActivityLocation"], "name": "Saranay Pickleball Court and Cafe", "url": "https://jomiwi.github.io/sp-demo-b3b9e2/", "image": "https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg", "telephone": "+63 906 545 8384", "address": {"@type": "PostalAddress", "streetAddress": "Saranay Road, Saranay Homes", "addressLocality": "Bagumbong North, Caloocan", "addressRegion": "Metro Manila", "addressCountry": "PH"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], "opens": "06:00", "closes": "02:00"}], "sameAs": ["https://www.facebook.com/people/Saranay-Pickleball-Court-and-Cafe/61589930970148/", "https://www.instagram.com/saranaypickleballcourt/", "https://www.tiktok.com/@saranay.picklebal", "https://reclub.co/clubs/@saranay-pickleball-club", "https://app.sports360.ph/sportshub/saranay-pickleball-court"]}</script>
   <!-- v3.4 Consent Mode v2 (all denied by default; v3.4.1: Accept grants analytics_storage only, ad_* stay denied always) + Google Tag Manager.
@@ -103,12 +103,15 @@
 <main id="main">
 
 <!-- COPY: 1 hero -->
-<!-- v3.0 hero: full-bleed court photo (Saranay's own Sports360 gallery), big type, both booking buttons above the fold at 390x844 -->
+<!-- v3.0 hero: big type, both booking buttons above the fold at 390x844.
+     v3.5: phones show the golden-hour group image (Studio-generated, CHOAM 1db9830a; demo only until the owners sign off), cropped tight on the group.
+     Desktop (60rem+) keeps Saranay's real court photo (Sports360 gallery): the 16:9 crop does not fit the half-width portrait panel. -->
 <section class="hero" id="top" aria-labelledby="hero-title">
   <figure class="hero__media">
     <picture>
       <source media="(min-width: 60rem)" type="image/svg+xml" srcset="img/court-sky-480.svg 480w, img/court-sky-780.svg 780w" sizes="50vw">
-      <img src="img/court-crop-780.svg" srcset="img/court-crop-480.svg 480w, img/court-crop-780.svg 780w" sizes="100vw" width="780" height="624" fetchpriority="high" decoding="async" alt="The blue Saranay pickleball court on green turf, beside a teal building, on a sunny day.">
+      <source type="image/webp" srcset="img/hero-golden-480.webp 480w, img/hero-golden-800.webp 800w" sizes="100vw">
+      <img src="img/hero-golden-800.webp" width="800" height="800" fetchpriority="high" decoding="async" alt="The blue Saranay court beside the teal café building.">
     </picture>
   </figure>
   <!-- v3.1 open-now chip: Manila clock against the posted hours (6 AM to 2 AM) and Sports360 rates. Clock only, never availability. -->
@@ -655,7 +658,7 @@
         </ul>
       </nav>
     </div>
-    <p class="footer__fine">Book open play on Reclub. Court rentals on Sports360. No bookings or payments on this site.<br>Demo preview v3.4.1 · Photos are Saranay's own, from their Sports360 page and Instagram accounts. <a href="#privacy">Privacy and cookies</a></p>
+    <p class="footer__fine">Book open play on Reclub. Court rentals on Sports360. No bookings or payments on this site.<br>Demo preview v3.5 · Photos are Saranay's own, from their Sports360 page and Instagram accounts. <a href="#privacy">Privacy and cookies</a></p>
   </div>
 </footer>
 <!-- /COPY: 10 footer -->

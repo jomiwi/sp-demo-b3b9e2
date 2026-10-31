@@ -554,3 +554,7 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 /* Privacy notice */
 .privacy { max-width: 46rem; }
 .privacy .info dd { text-align: right; }
+
+/* v3.5 · phone hero is the golden-hour group image (square crop, faces in the upper half, clear of the open-now and next-play chips).
+   The type still sits on --c-scrim-hero over the lower part, so the v3.3 AA floor is unchanged. Desktop keeps the court photo. */
+@media (max-width: 59.99rem) { .hero__media img { object-position: 50% 45%; } }

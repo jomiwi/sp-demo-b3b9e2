@@ -14,8 +14,9 @@
 | `_headers` | `X-Robots-Tag: noindex, nofollow` (applied on Cloudflare Pages / Netlify; GitHub Pages ignores it). |
 | `favicon.svg`, `.nojekyll` | Icon; tells GitHub Pages to serve files as-is. |
 
-## Photo credits (v3.4.1)
+## Photo credits (v3.4.1, v3.5)
 
+- Phone hero `img/hero-golden-*.webp` and share image `img/og-hero-1200x630.jpg` (v3.5): Studio-generated lifestyle image (CHOAM 1db9830a), not a real customer photo. Demo only until the owners sign off.
 - Court photos (court-sky, court-shade, court-crop) and the logo: Saranay Pickleball Court, from its Sports360 Sports Hub gallery (app.sports360.ph/sportshub/saranay-pickleball-court). The share image `img/og-share-1200x630.jpg` is built from court-sky.
 - Café photos: D' Rafael's Cafe on Instagram, @drafaelscafe.
   - 01 patio night guests: https://www.instagram.com/drafaelscafe/p/DdMbk9uSF7P/
