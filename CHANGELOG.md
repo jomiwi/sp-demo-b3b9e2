@@ -28,3 +28,9 @@ Facts used are only those already on the site (Sports360 rates and caps, hours, 
 - **Persona:** all four. Mainly the barkada (the estimate follows them to the button) and Paolo (Reclub always one tap away in the open play sections).
 - **Expected effect on bookings:** the button under the thumb always matches the intent of the section being read, so Sports360 is one tap away while comparing prices, where before only Reclub and Messenger were in the bar.
 - **Pattern borrowed:** Mobbin: Insight Timer and Tripadvisor listing footers ("From $950 · Reserve now"), Trainline price + Continue bar, Swiggy pay bar.
+
+## v2.4 · Courtside menu board
+- **Change:** The café's plain tick list is replaced by a chalkboard-style menu card in deep coffee. It has a court-green net-line strip across the top (the court-plus-café motif), line icons in ball lime, and the three items we have verified: coffee and other drinks, Tusok-Tusok Treat (fishball, kwek-kwek, kikiam and more) and enoki crispy fries. Prices and the full menu stay as visible TBC tags. No new claims. Also in this release: the mobile dock's open play line is shortened to "All levels · on Reclub" so it no longer truncates at 390px.
+- **Persona:** Tita Rose (café-first, may not play), and players' families.
+- **Expected effect on bookings:** gives the café a real presence on the page instead of a bullet list, so the "pickleball and coffee" promise in the hero is visible further down. That supports visits and Messenger questions, and makes the page feel like a place rather than a booking form. Prices drop straight into the board once confirmed.
+- **Pattern borrowed:** Mobbin: talabat "Cup & Go Coffee" menu rows (item + short description + price) and the Swiggy dark menu sheet, restyled as a physical café chalkboard. The court net-line strip is our own motif.

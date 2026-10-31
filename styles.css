@@ -491,3 +491,16 @@ button.btn { font-family: var(--font-body); }
   .dock.is-swapping .dock__sum, .dock.is-swapping .btn { animation: dock-in var(--dur) var(--ease); }
   @keyframes dock-in { from { opacity: 0; transform: translateY(var(--s-1)); } to { opacity: 1; transform: none; } }
 }
+
+/* v2.4 · Courtside menu board: the café as a chalkboard with a net-line header */
+.menuboard { position: relative; margin-block: var(--s-6); padding: var(--s-8) var(--gutter) var(--s-6); color: var(--c-on-dark); background: radial-gradient(120% 90% at 0% 0%, rgb(255 255 255 / 0.06), transparent 60%), var(--c-coffee); border-radius: var(--r-lg); box-shadow: var(--shadow-lg), inset 0 0 0 var(--s-2) rgb(0 0 0 / 0.12); overflow: hidden; }
+.menuboard::before { content: ""; position: absolute; inset: 0 0 auto 0; block-size: var(--s-3); background: repeating-linear-gradient(90deg, var(--c-court-line) 0 var(--s-2), transparent var(--s-2) var(--s-3)), var(--c-court); opacity: 0.95; }
+.menuboard__kicker { margin: 0; font-size: var(--fs-xs); font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-coffee-soft); }
+.menuboard__title { margin: var(--s-1) 0 var(--s-4); font: var(--fw-bold) var(--fs-xl)/var(--lh-tight) var(--font-display); font-style: italic; color: var(--c-on-dark); }
+.menuboard__list { list-style: none; margin: 0; padding: 0; display: grid; }
+.menuboard__list li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--s-3); padding-block: var(--s-3); border-top: 1px dashed rgb(251 247 239 / 0.28); }
+.menuboard__ico svg { inline-size: var(--s-8); block-size: var(--s-8); fill: none; stroke: var(--c-ball); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.menuboard__item { font: var(--fw-semibold) var(--fs-md)/var(--lh-snug) var(--font-body); }
+.menuboard__item small { display: block; font-size: var(--fs-xs); font-weight: var(--fw-regular); color: var(--c-coffee-soft); }
+.menuboard__price .tbc { font-size: var(--fs-xs); white-space: nowrap; }
+.menuboard__foot { margin: var(--s-3) 0 0; padding-top: var(--s-3); border-top: 1px dashed rgb(251 247 239 / 0.28); font-size: var(--fs-sm); color: var(--c-coffee-soft); }

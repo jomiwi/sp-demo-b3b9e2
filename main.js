@@ -166,7 +166,7 @@
   var RECLUB = 'https://reclub.co/clubs/@saranay-pickleball-club';
   var MSG = 'https://m.me/61589930970148';
   var CTX = {
-    play: { big: 'Open play', small: 'All levels · 586 members on Reclub', label: 'Join open play', href: RECLUB, cta: 'join-open-play' },
+    play: { big: 'Open play', small: 'All levels · on Reclub', label: 'Join open play', href: RECLUB, cta: 'join-open-play' },
     court: { big: 'From ₱200/hour', small: 'Whole court · book on Sports360', label: 'Book a court', href: S360, cta: 'book-a-court', ext: true },
     cafe: { big: "D' Rafael's Cafe", small: 'At the court · hours TBC', label: 'Message us', href: MSG, cta: 'message-us' }
   };
