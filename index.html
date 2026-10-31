@@ -231,6 +231,25 @@
       <h2 id="rates-title">What it costs, and when we're open</h2>
       <p class="lede">Court rates and hours are from our Sports360 page. Open play and café details go up here as soon as they're set.</p>
     </div>
+    <!-- v2.1 day strip: court price by time of day. Bands are from Sports360 (Oct 31 2026). The "now" marker is the visitor's clock in Manila time, not availability. -->
+    <div class="daystrip" role="group" aria-labelledby="daystrip-title">
+      <div class="daystrip__head">
+        <h3 id="daystrip-title">Court price by time of day</h3>
+        <p class="daystrip__now" id="daystrip-now" hidden></p>
+      </div>
+      <div class="daystrip__track">
+        <ol class="daystrip__bar" role="list">
+          <li class="daystrip__band daystrip__band--peak"><span class="daystrip__price">₱300<span class="visually-hidden"> per hour</span></span><span class="daystrip__time">6–10 AM</span></li>
+          <li class="daystrip__band daystrip__band--off"><span class="daystrip__tag">Lowest</span><span class="daystrip__price">₱200<span class="visually-hidden"> per hour</span></span><span class="daystrip__time">10 AM–4 PM</span></li>
+          <li class="daystrip__band daystrip__band--peak"><span class="daystrip__price">₱300<span class="visually-hidden"> per hour</span></span><span class="daystrip__time">4 PM–2 AM</span></li>
+        </ol>
+        <span class="daystrip__marker" id="daystrip-marker" aria-hidden="true" hidden><span>Now</span></span>
+      </div>
+      <p class="daystrip__foot">Per hour, whole court · Open 6 AM to 2 AM daily · Closed 2 AM to 6 AM</p>
+      <div class="btn-row">
+        <a class="btn" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" aria-label="Book a ₱200 daytime hour on Sports360 (opens in a new tab)" data-cta="book-a-court">Book a ₱200 daytime hour on Sports360</a>
+      </div>
+    </div>
     <div class="rates">
       <article class="rate-card" aria-labelledby="rate-op">
         <h3 id="rate-op">Open play</h3>
@@ -514,7 +533,7 @@
         </ul>
       </nav>
     </div>
-    <p class="footer__fine">Book open play on Reclub. Court rentals on Sports360. No bookings or payments on this site.<br>Demo preview v2.0 · illustrations are placeholders for real venue photos.</p>
+    <p class="footer__fine">Book open play on Reclub. Court rentals on Sports360. No bookings or payments on this site.<br>Demo preview v2.1 · illustrations are placeholders for real venue photos.</p>
   </div>
 </footer>
 <!-- /COPY: 10 footer -->

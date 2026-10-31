@@ -81,3 +81,27 @@
   var q = null; try { q = new URL(location.href).searchParams.get('play'); } catch (e) {}
   if (q && MOVE[q]) pick(q, false);
 })();
+
+/* v2.1 day strip: place a "Now" marker at the current Manila time on the 6 AM to 2 AM price bar.
+   This is the clock only. It says nothing about whether the court is free. */
+(function () {
+  var marker = document.getElementById('daystrip-marker');
+  var now = document.getElementById('daystrip-now');
+  if (!marker || !now || !window.Intl) return;
+  function update() {
+    var parts = {};
+    new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Manila', hour: 'numeric', minute: 'numeric', hour12: false })
+      .formatToParts(new Date()).forEach(function (p) { parts[p.type] = p.value; });
+    var h = (parseInt(parts.hour, 10) % 24) + parseInt(parts.minute, 10) / 60;
+    var label = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Manila', hour: 'numeric', minute: '2-digit' }).format(new Date());
+    var open = h >= 6 || h < 2;
+    if (!open) { marker.hidden = true; now.textContent = 'Now in Manila, ' + label + ': closed. Opens 6 AM.'; now.hidden = false; return; }
+    var pos = h >= 6 ? h - 6 : h + 18; // hours since 6 AM, 0 to 20
+    var rate = (h >= 10 && h < 16) ? '₱200' : '₱300';
+    marker.style.setProperty('--now', (pos / 20 * 100).toFixed(2) + '%');
+    marker.hidden = false;
+    now.textContent = 'Now in Manila, ' + label + ': ' + rate + '/hour';
+    now.hidden = false;
+  }
+  update(); setInterval(update, 60000);
+})();
