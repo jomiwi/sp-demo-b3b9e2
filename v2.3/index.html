@@ -1,0 +1,1298 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!-- DEMO ONLY: keep out of search until Jon approves launch -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <!-- Frozen copy of v2.3. The site root always shows the latest version. -->
+  <!-- SEO copy (Martha, 30 Oct 2026) -->
+  <title>Saranay Pickleball Court and Cafe | Pickleball Court Caloocan</title>
+  <meta name="description" content="Pickleball court in Caloocan with its own café, in Saranay. Court open 6 AM to 2 AM. Book court rentals on Sports360 and join open play on Reclub.">
+  <meta name="theme-color" content="#123A2C">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&amp;family=Inter:wght@400;500;600;700&amp;display=swap">
+  <style>
+/* =========================================================
+   Saranay Pickleball Court & Café — demo v1
+   All colour, type and spacing values live in :root tokens.
+   ========================================================= */
+:root {
+  /* Colour — warm café cream, deep court green, ball lime, coffee */
+  --c-bg: #FBF7EF;
+  --c-bg-alt: #F3ECDD;
+  --c-surface: #FFFFFF;
+  --c-ink: #1C2621;
+  --c-ink-muted: #49554E;
+  --c-line: #E3DACA;
+  --c-court: #1E5B45;
+  --c-court-deep: #123A2C;
+  --c-court-line: #F5F1E6;
+  --c-ball: #D9F24B;
+  --c-ball-deep: #B9D12A;
+  --c-coffee: #5E3B22;
+  --c-coffee-soft: #EAD9C6;
+  --c-clay: #B4532A;
+  --c-on-dark: #FBF7EF;
+  --c-on-dark-muted: #CFE0D7;
+  --c-tbc-bg: #FFF1BF;
+  --c-tbc-ink: #5C4100;
+  --c-tbc-line: #E2C35C;
+  --c-focus: #0B57D0;
+  --c-focus-on-dark: #D9F24B;
+
+  /* Type */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.9375rem;
+  --fs-md: 1.0625rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --fs-2xl: clamp(1.875rem, 1.4rem + 2vw, 2.75rem);
+  --fs-hero: clamp(2.375rem, 1.6rem + 3.6vw, 4.25rem);
+  --lh-tight: 1.1;
+  --lh-snug: 1.3;
+  --lh-body: 1.6;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* Space */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.25rem;
+  --s-6: 1.5rem;
+  --s-8: 2rem;
+  --s-10: 2.5rem;
+  --s-12: 3rem;
+  --s-16: 4rem;
+  --s-20: 5rem;
+  --section-y: clamp(3.5rem, 2.5rem + 4vw, 6.5rem);
+  --gutter: clamp(1.125rem, 0.75rem + 2vw, 2rem);
+  --max-w: 72rem;
+  --max-w-text: 38rem;
+
+  /* Shape, depth, motion */
+  --r-sm: 0.5rem;
+  --r-md: 0.875rem;
+  --r-lg: 1.5rem;
+  --r-pill: 999px;
+  --border: 1px solid var(--c-line);
+  --shadow-sm: 0 1px 2px rgb(28 38 33 / 0.06), 0 2px 8px rgb(28 38 33 / 0.05);
+  --shadow-md: 0 6px 24px rgb(28 38 33 / 0.10);
+  --shadow-lg: 0 18px 48px rgb(18 58 44 / 0.18);
+  --tap: 2.75rem; /* 44px minimum target */
+  --header-h: 4rem;
+  --cta-bar-h: 4.75rem;
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --dur: 220ms;
+  /* Derived translucent tones */
+  --c-glass: rgb(251 247 239 / 0.06);
+  --c-glass-line: rgb(251 247 239 / 0.16);
+  --c-glass-hover: rgb(251 247 239 / 0.1);
+  --c-header-bg: rgb(251 247 239 / 0.92);
+  --c-ctabar-bg: rgb(18 58 44 / 0.97);
+  --c-caption-bg: rgb(18 58 44 / 0.85);
+  --c-ctabar-shadow: rgb(18 58 44 / 0.25);
+  --c-stripe: rgb(255 255 255 / 0.05);
+  --c-stripe-strong: rgb(255 255 255 / 0.06);
+  --c-hero-glow: rgb(217 242 75 / 0.22);
+  --c-hero-warm: rgb(234 217 198 / 0.6);
+  --c-coffee-light: #7A5133;
+  --c-court-light: #2F7A5D;
+  --c-court-mid: #22664D;
+  --c-ball-seam: #7E9216;
+  --c-cafe-bg: #F1E4D3;
+  --c-success: #1E5B45;
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h) + var(--s-4)); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--fs-md);
+  line-height: var(--lh-body);
+  color: var(--c-ink);
+  background: var(--c-bg);
+  text-rendering: optimizeLegibility;
+  padding-bottom: var(--cta-bar-h);
+}
+@media (min-width: 60rem) { body { padding-bottom: 0; } }
+img, svg { display: block; max-width: 100%; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: var(--fw-semibold); line-height: var(--lh-tight); margin: 0 0 var(--s-4); letter-spacing: -0.01em; font-optical-sizing: auto; }
+h2 { font-size: var(--fs-2xl); }
+h3 { font-size: var(--fs-lg); line-height: var(--lh-snug); }
+p { margin: 0 0 var(--s-4); }
+a { color: var(--c-court); text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 3px; border-radius: var(--r-sm); }
+.on-dark :focus-visible { outline-color: var(--c-focus-on-dark); }
+ul { padding-left: var(--s-5); }
+
+.skip-link {
+  position: absolute; left: var(--s-4); top: -10rem; z-index: 100;
+  background: var(--c-ink); color: var(--c-on-dark); padding: var(--s-3) var(--s-5);
+  border-radius: var(--r-sm); font-weight: var(--fw-semibold);
+}
+.skip-link:focus { top: var(--s-4); }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.container { width: 100%; max-width: var(--max-w); margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: var(--section-y); }
+.section--alt { background: var(--c-bg-alt); }
+.section--dark { background: var(--c-court-deep); color: var(--c-on-dark); }
+.section--dark a:not(.btn) { color: var(--c-ball); }
+.eyebrow {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  font-size: var(--fs-xs); font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--c-court); margin: 0 0 var(--s-3);
+}
+.eyebrow::before { content: ""; width: 0.625rem; height: 0.625rem; border-radius: 50%; background: var(--c-ball-deep); box-shadow: inset 0 0 0 2px var(--c-court); }
+.section--dark .eyebrow { color: var(--c-ball); }
+.section--dark .eyebrow::before { background: var(--c-ball); box-shadow: none; }
+.lede { font-size: var(--fs-lg); color: var(--c-ink-muted); max-width: var(--max-w-text); }
+.section--dark .lede { color: var(--c-on-dark-muted); }
+.section-head { max-width: var(--max-w-text); margin-bottom: var(--s-10); }
+
+/* ---------- Placeholder marker (hours, prices, unconfirmed details) ---------- */
+.tbc {
+  display: inline; -webkit-box-decoration-break: clone; box-decoration-break: clone; line-height: 1.9;
+  background: var(--c-tbc-bg); color: var(--c-tbc-ink);
+  border: 1px dashed var(--c-tbc-line); border-radius: var(--r-sm);
+  padding: 0.125rem var(--s-2); font-size: var(--fs-sm); font-weight: var(--fw-semibold);
+}
+.tbc::before { content: "TBC"; display: inline-block; margin-right: var(--s-2); line-height: 1.4; vertical-align: 0.08em; font-size: 0.6875rem; letter-spacing: 0.08em; background: var(--c-tbc-ink); color: var(--c-tbc-bg); border-radius: 0.25rem; padding: 0 0.3rem; }
+
+/* ---------- Demo ribbon ---------- */
+.demo-ribbon { background: var(--c-ink); color: var(--c-on-dark); font-size: var(--fs-xs); text-align: center; padding: var(--s-2) var(--gutter); }
+.demo-ribbon strong { color: var(--c-ball); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  --btn-bg: var(--c-court); --btn-ink: var(--c-on-dark); --btn-border: var(--c-court);
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+  min-height: var(--tap); padding: var(--s-3) var(--s-6);
+  font: var(--fw-semibold) var(--fs-md)/1.2 var(--font-body);
+  color: var(--btn-ink); background: var(--btn-bg); border: 2px solid var(--btn-border);
+  border-radius: var(--r-pill); text-decoration: none; cursor: pointer;
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), background-color var(--dur) var(--ease);
+}
+.btn:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); text-decoration: none; }
+.btn svg { width: 1.25rem; height: 1.25rem; flex: none; }
+.btn--ball { --btn-bg: var(--c-ball); --btn-ink: var(--c-court-deep); --btn-border: var(--c-ball); }
+.btn--ball:hover { --btn-bg: var(--c-ball-deep); --btn-border: var(--c-ball-deep); }
+.btn--outline { --btn-bg: transparent; --btn-ink: var(--c-court); --btn-border: var(--c-court); }
+.btn--outline:hover { --btn-bg: var(--c-surface); }
+.btn--outline-light { --btn-bg: transparent; --btn-ink: var(--c-on-dark); --btn-border: var(--c-on-dark); }
+.btn--outline-light:hover { --btn-bg: var(--c-glass-hover); }
+.btn--block { width: 100%; }
+.btn-row { display: flex; flex-wrap: wrap; gap: var(--s-3); }
+@media (prefers-reduced-motion: reduce) { .btn, .btn:hover { transition: none; transform: none; } }
+
+/* ---------- Header ---------- */
+.site-header { position: sticky; top: 0; z-index: 50; background: var(--c-header-bg); backdrop-filter: saturate(1.4) blur(10px); border-bottom: var(--border); }
+.site-header__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); min-height: var(--header-h); }
+.brand { display: inline-flex; align-items: center; gap: var(--s-3); text-decoration: none; color: var(--c-ink); min-height: var(--tap); }
+.brand__mark { width: 2.25rem; height: 2.25rem; }
+.brand__name { font-family: var(--font-display); font-weight: var(--fw-semibold); font-size: var(--fs-lg); line-height: 1; }
+.brand__name small { display: block; font-family: var(--font-body); font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-ink-muted); margin-top: 0.25rem; font-weight: var(--fw-medium); }
+.nav-toggle { display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2); min-width: var(--tap); min-height: var(--tap); padding: 0 var(--s-3); background: transparent; border: 1px solid var(--c-line); border-radius: var(--r-pill); color: var(--c-ink); font: var(--fw-semibold) var(--fs-sm) var(--font-body); cursor: pointer; }
+.nav-toggle svg { width: 1.25rem; height: 1.25rem; }
+.site-nav { position: absolute; inset: 100% 0 auto 0; background: var(--c-bg); border-bottom: var(--border); box-shadow: var(--shadow-md); padding: var(--s-2) var(--gutter) var(--s-6); }
+.site-nav[hidden] { display: none; }
+.site-nav ul { list-style: none; margin: 0; padding: 0; }
+.site-nav a { display: flex; align-items: center; min-height: 3rem; color: var(--c-ink); text-decoration: none; font-weight: var(--fw-medium); border-bottom: var(--border); }
+.site-nav a:hover { color: var(--c-court); }
+.site-nav .btn { margin-top: var(--s-4); }
+.site-nav a.btn { border-bottom: 2px solid var(--btn-border); color: var(--btn-ink); justify-content: center; }
+@media (min-width: 60rem) {
+  .nav-toggle { display: none; }
+  .site-nav, .site-nav[hidden] { display: flex; position: static; background: none; border: 0; box-shadow: none; padding: 0; align-items: center; gap: var(--s-6); }
+  .site-nav ul { display: flex; gap: var(--s-5); }
+  .site-nav a { border: 0; min-height: var(--tap); font-size: var(--fs-sm); }
+  .site-nav .btn { margin-top: 0; padding-inline: var(--s-5); }
+}
+
+/* ---------- Hero ---------- */
+.hero { position: relative; overflow: hidden; padding-block: var(--s-12) var(--section-y); background:
+  radial-gradient(60rem 30rem at 100% 0%, var(--c-hero-glow), transparent 60%),
+  radial-gradient(40rem 30rem at 0% 100%, var(--c-hero-warm), transparent 60%), var(--c-bg); }
+.hero__grid { display: grid; gap: var(--s-10); align-items: center; }
+.hero h1 { font-size: var(--fs-hero); font-weight: var(--fw-semibold); margin-bottom: var(--s-5); }
+.hero h1 em { font-style: italic; color: var(--c-court); }
+.hero__sub { font-size: var(--fs-lg); color: var(--c-ink-muted); max-width: 34rem; margin-bottom: var(--s-8); }
+.hero__ctas .btn { flex: 1 1 13rem; }
+@media (min-width: 36rem) { .hero__ctas .btn { flex: 0 0 auto; } }
+.hero__alt { margin-top: var(--s-4); font-size: var(--fs-sm); color: var(--c-ink-muted); }
+.hero__alt a { font-weight: var(--fw-semibold); display: inline-flex; align-items: center; min-height: var(--tap); }
+.hero__art { position: relative; }
+.court-art { width: 100%; height: auto; border-radius: var(--r-lg); box-shadow: var(--shadow-lg); }
+.hero__badge { position: absolute; left: var(--s-4); bottom: calc(-1 * var(--s-5)); background: var(--c-surface); border-radius: var(--r-md); box-shadow: var(--shadow-md); padding: var(--s-3) var(--s-4); display: flex; align-items: center; gap: var(--s-3); max-width: 17rem; font-size: var(--fs-sm); line-height: var(--lh-snug); }
+.hero__badge svg { width: 2.25rem; height: 2.25rem; flex: none; }
+@media (min-width: 60rem) {
+  .hero { padding-top: var(--s-20); }
+  .hero__grid { grid-template-columns: 1.1fr 0.9fr; gap: var(--s-16); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ball-bounce { animation: bounce 2.6s var(--ease) infinite; transform-origin: center; transform-box: fill-box; }
+  @keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+}
+
+/* Facts strip */
+.facts { display: grid; gap: var(--s-3); grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); margin-top: var(--s-16); padding: 0; list-style: none; }
+.facts li { background: var(--c-surface); border: var(--border); border-radius: var(--r-md); padding: var(--s-4) var(--s-5); font-size: var(--fs-sm); color: var(--c-ink-muted); }
+.facts strong { display: block; font-family: var(--font-display); font-size: var(--fs-lg); color: var(--c-ink); font-weight: var(--fw-semibold); }
+
+/* ---------- Generic layouts ---------- */
+.split { display: grid; gap: var(--s-10); align-items: center; }
+@media (min-width: 60rem) { .split { grid-template-columns: 1fr 1fr; gap: var(--s-16); } .split--flip > :first-child { order: 2; } }
+.cards { display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+.card { background: var(--c-surface); border: var(--border); border-radius: var(--r-lg); padding: var(--s-6); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: var(--s-2); }
+.card p:last-child { margin-bottom: 0; }
+.card__icon { width: 3rem; height: 3rem; border-radius: var(--r-md); display: grid; place-items: center; background: var(--c-coffee-soft); color: var(--c-coffee); margin-bottom: var(--s-2); }
+.card__icon svg { width: 1.5rem; height: 1.5rem; }
+.card .btn { margin-top: auto; align-self: flex-start; }
+.section--dark .card { background: var(--c-glass); border-color: var(--c-glass-line); box-shadow: none; color: var(--c-on-dark); }
+.section--dark .card p { color: var(--c-on-dark-muted); }
+
+/* Photo placeholder frame — swap for real venue photos */
+.photo-ph { position: relative; aspect-ratio: 4 / 3; border-radius: var(--r-lg); overflow: hidden; background:
+  repeating-linear-gradient(135deg, var(--c-stripe) 0 12px, transparent 12px 24px), linear-gradient(160deg, var(--c-court), var(--c-court-deep));
+  display: grid; place-items: center; color: var(--c-on-dark); box-shadow: var(--shadow-md); }
+.photo-ph--cafe { background: repeating-linear-gradient(135deg, var(--c-stripe-strong) 0 12px, transparent 12px 24px), linear-gradient(160deg, var(--c-coffee-light), var(--c-coffee)); }
+.photo-ph svg { width: 55%; height: auto; opacity: 0.95; }
+.photo-ph figcaption { position: absolute; left: var(--s-3); bottom: var(--s-3); background: var(--c-caption-bg); color: var(--c-on-dark); font-size: var(--fs-xs); padding: var(--s-1) var(--s-3); border-radius: var(--r-pill); }
+
+.ticks { list-style: none; padding: 0; margin: 0 0 var(--s-6); display: grid; gap: var(--s-3); }
+.ticks li { display: grid; grid-template-columns: 1.5rem 1fr; gap: var(--s-3); align-items: start; }
+.ticks li::before { content: ""; width: 1.25rem; height: 1.25rem; margin-top: 0.2rem; border-radius: 50%; background: var(--c-ball) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3 3 7-7' fill='none' stroke='%23123A2C' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/80% no-repeat; }
+
+/* Info table (rates, sessions) */
+.info { background: var(--c-surface); border: var(--border); border-radius: var(--r-lg); padding: var(--s-2) var(--s-6); margin: 0 0 var(--s-6); }
+.info div { display: flex; justify-content: space-between; align-items: center; gap: var(--s-4); padding-block: var(--s-4); border-bottom: var(--border); flex-wrap: wrap; }
+.info div:last-child { border-bottom: 0; }
+.info dt { font-weight: var(--fw-semibold); }
+.info dd { margin: 0; color: var(--c-ink-muted); text-align: right; }
+.section--dark .info { background: var(--c-glass); border-color: var(--c-glass-line); }
+.section--dark .info div { border-color: var(--c-glass-line); }
+.section--dark .info dd { color: var(--c-on-dark-muted); }
+.note { font-size: var(--fs-sm); color: var(--c-ink-muted); }
+.section--dark .note { color: var(--c-on-dark-muted); }
+
+/* Steps (new players, how to book) */
+.steps { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-4); counter-reset: step; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+.steps > li { counter-increment: step; background: var(--c-surface); border: var(--border); border-radius: var(--r-lg); padding: var(--s-6); position: relative; display: flex; flex-direction: column; gap: var(--s-2); }
+.steps > li::before { content: counter(step); font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); width: 2.75rem; height: 2.75rem; display: grid; place-items: center; border-radius: 50%; background: var(--c-ball); color: var(--c-court-deep); margin-bottom: var(--s-2); }
+.steps p { margin: 0; color: var(--c-ink-muted); }
+.steps .btn { margin-top: auto; align-self: flex-start; }
+.steps p + .btn { margin-top: var(--s-4); }
+
+/* Location */
+.map-frame { border-radius: var(--r-lg); overflow: hidden; border: var(--border); box-shadow: var(--shadow-md); aspect-ratio: 4 / 3; background: var(--c-bg-alt); }
+.map-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+.address { font-style: normal; font-size: var(--fs-lg); line-height: var(--lh-snug); margin-bottom: var(--s-4); }
+.contact-list { list-style: none; padding: 0; margin: 0 0 var(--s-6); display: grid; gap: var(--s-1); }
+.contact-list a { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--tap); font-weight: var(--fw-semibold); }
+.contact-list svg { width: 1.25rem; height: 1.25rem; }
+
+/* FAQ */
+.faq { max-width: 48rem; display: grid; gap: var(--s-3); }
+.faq details { background: var(--c-surface); border: var(--border); border-radius: var(--r-md); }
+.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: var(--s-4); min-height: 3.5rem; padding: var(--s-3) var(--s-5); font-weight: var(--fw-semibold); }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: ""; flex: none; width: 1.5rem; height: 1.5rem; border-radius: 50%; background: var(--c-bg-alt) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M10 5v10M5 10h10' stroke='%231E5B45' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center/70% no-repeat; transition: transform var(--dur) var(--ease); }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details > div { padding: 0 var(--s-5) var(--s-5); color: var(--c-ink-muted); }
+.faq details > div p:last-child { margin-bottom: 0; }
+@media (prefers-reduced-motion: reduce) { .faq summary::after { transition: none; } }
+
+/* Footer */
+.site-footer { background: var(--c-ink); color: var(--c-on-dark); padding-block: var(--s-16) var(--s-10); }
+.site-footer a:not(.btn) { color: var(--c-on-dark); }
+.footer__grid { display: grid; gap: var(--s-10); grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+.site-footer h2 { font-size: var(--fs-md); font-family: var(--font-body); font-weight: var(--fw-semibold); letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-ball); }
+.site-footer ul { list-style: none; padding: 0; margin: 0; }
+.site-footer li a { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--tap); }
+.site-footer li svg { width: 1.25rem; height: 1.25rem; }
+.footer__fine { margin-top: var(--s-12); padding-top: var(--s-6); border-top: 1px solid var(--c-glass-line); font-size: var(--fs-xs); color: var(--c-on-dark-muted); }
+.footer__brand { font-family: var(--font-display); font-size: var(--fs-xl); margin-bottom: var(--s-3); }
+.footer__brand + p { color: var(--c-on-dark-muted); }
+
+/* Sticky mobile CTA bar */
+.cta-bar { position: fixed; inset: auto 0 0 0; z-index: 60; display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2); padding: var(--s-3) var(--gutter) calc(var(--s-3) + env(safe-area-inset-bottom)); background: var(--c-ctabar-bg); box-shadow: 0 -8px 24px var(--c-ctabar-shadow); transition: transform var(--dur) var(--ease); }
+.cta-bar .btn { padding-inline: var(--s-3); font-size: var(--fs-sm); }
+@media (min-width: 60rem) { .cta-bar { display: none; } }
+@media (prefers-reduced-motion: reduce) { .cta-bar { transition: none; } }
+
+/* Steps inside dark sections */
+.section--dark .steps > li { background: var(--c-glass); border-color: var(--c-glass-line); }
+.section--dark .steps p { color: var(--c-on-dark); }
+.steps--compact { grid-template-columns: 1fr; gap: var(--s-3); }
+.steps--compact > li { flex-direction: row; align-items: center; gap: var(--s-4); padding: var(--s-4) var(--s-5); }
+.steps--compact > li::before { margin: 0; flex: none; width: 2.25rem; height: 2.25rem; font-size: var(--fs-lg); }
+.section--dark .card h3 { color: var(--c-on-dark); }
+.mt-3 { margin-top: var(--s-3); }
+.mt-6 { margin-top: var(--s-6); }
+
+.cafe-photos { display: grid; gap: var(--s-4); grid-template-columns: 1fr 1fr; }
+.cafe-photos .photo-ph { aspect-ratio: 3 / 4; }
+.cafe-photos .photo-ph svg { width: 75%; }
+.cafe-photos .photo-ph:nth-child(2) { margin-top: var(--s-10); }
+.info dd .tbc { text-align: left; }
+.map-fig { margin: 0; }
+.cafe-photos { width: 100%; align-self: center; }
+@media (max-width: 39.99rem) { .cafe-photos .photo-ph:nth-child(2) { margin-top: 0; } }
+
+/* ---- v1.1: persona-led additions ---- */
+.section--tight { padding-block: var(--s-12); }
+.btn--sm { font-size: var(--fs-sm); padding-inline: var(--s-4); }
+
+/* Hero: next open play chip */
+.next-play { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: var(--s-1) var(--s-4); margin-top: var(--s-5); padding: var(--s-3) var(--s-5); min-height: var(--tap); max-width: 34rem; background: var(--c-surface); border: var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-sm); color: var(--c-ink); text-decoration: none; }
+.next-play:hover { box-shadow: var(--shadow-md); }
+.next-play__label { grid-column: 1; font-size: var(--fs-xs); font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-court); }
+.next-play__when { grid-column: 1; font-weight: var(--fw-semibold); }
+.next-play__go { grid-column: 2; grid-row: 1 / span 2; font-size: var(--fs-sm); font-weight: var(--fw-semibold); color: var(--c-court); }
+@media (max-width: 29.99rem) { .next-play { grid-template-columns: 1fr; } .next-play__go { grid-column: 1; grid-row: auto; } }
+
+/* Coming up strip */
+.strip-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--s-2) var(--s-8); margin-bottom: var(--s-6); }
+.strip-head h2 { margin: 0; }
+.strip-head .note { margin: 0; max-width: 28rem; }
+.events { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+.event { background: var(--c-surface); border: var(--border); border-left: 6px solid var(--c-ball-deep); border-radius: var(--r-md); padding: var(--s-5); display: flex; flex-direction: column; gap: var(--s-2); }
+.event__date { margin: 0; font-size: var(--fs-xs); font-weight: var(--fw-semibold); letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-court); }
+.event__title { margin: 0; }
+.event__meta { margin: 0 0 var(--s-2); color: var(--c-ink-muted); font-size: var(--fs-sm); }
+.event .btn { margin-top: auto; align-self: flex-start; }
+
+/* Rates and hours */
+.rates { display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); align-items: stretch; }
+.rate-card { background: var(--c-surface); border: var(--border); border-radius: var(--r-lg); padding: var(--s-6); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: var(--s-3); }
+.rate-card h3 { margin: 0; }
+.rate-card__price { margin: 0; font-family: var(--font-display); font-size: var(--fs-xl); }
+.rate-card .btn { margin-top: auto; }
+.info--plain { background: transparent; border: 0; padding: 0; margin: 0 0 var(--s-2); }
+.info--plain div { padding-block: var(--s-3); }
+.hours { width: 100%; border-collapse: collapse; font-size: var(--fs-sm); }
+.hours th, .hours td { text-align: left; padding: var(--s-3) var(--s-2) var(--s-3) 0; border-bottom: var(--border); vertical-align: top; }
+.hours thead th { font-size: var(--fs-xs); letter-spacing: 0.08em; text-transform: uppercase; color: var(--c-ink-muted); }
+.hours tbody th { font-weight: var(--fw-semibold); }
+
+/* First-timer welcome */
+.welcome { display: grid; gap: var(--s-8); align-items: start; }
+@media (min-width: 60rem) { .welcome { grid-template-columns: 1.15fr 1fr; gap: var(--s-12); } }
+.welcome__card { background: var(--c-court-deep); color: var(--c-on-dark); border-radius: var(--r-lg); padding: var(--s-8) var(--s-6); box-shadow: var(--shadow-lg); }
+.welcome__card h3 { color: var(--c-on-dark); margin-bottom: var(--s-4); }
+.steps--light > li { background: var(--c-glass); border-color: var(--c-glass-line); }
+.steps--light p { color: var(--c-on-dark); }
+.promise { list-style: none; padding: 0; margin: var(--s-6) 0; display: grid; gap: var(--s-3); }
+.promise li { padding: var(--s-4) var(--s-5); background: var(--c-surface); border: var(--border); border-radius: var(--r-md); }
+
+/* Café as a full section */
+.section--cafe { background: var(--c-cafe-bg); }
+.section--cafe .info { background: var(--c-surface); }
+
+/* Copy location pin */
+.copy-status { min-height: 1.5em; }
+.copy-status.is-done { color: var(--c-success); font-weight: var(--fw-semibold); }
+button.btn { font-family: var(--font-body); }
+
+/* FAQ follow-up */
+.faq-more { margin-top: var(--s-8); padding: var(--s-6); background: var(--c-surface); border: var(--border); border-radius: var(--r-lg); max-width: 48rem; }
+.faq-more p { margin-top: 0; }
+.info--plain div { flex-direction: column; align-items: flex-start; gap: var(--s-1); }
+.info--plain dd { text-align: left; }
+.hours .tbc { white-space: nowrap; font-size: var(--fs-xs); }
+.hours th, .hours td { padding-right: var(--s-3); }
+.photo-ph { margin: 0; width: 100%; }
+
+/* ---------- v2.0 "How are you playing?" chooser (pattern: Phantom / Lemonade intent picker, Mobbin) ---------- */
+.hero__sub { margin-bottom: var(--s-6); }
+.chooser { max-width: 34rem; margin-bottom: var(--s-4); }
+.chooser__q { font-family: var(--font-display); font-size: var(--fs-lg); font-weight: var(--fw-semibold); margin-bottom: var(--s-3); }
+.chooser__opts { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-2); }
+.chooser__opt {
+  display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: var(--s-3); align-items: center;
+  min-height: var(--tap); padding: var(--s-3); border: 2px solid var(--c-line); border-radius: var(--r-md);
+  background: var(--c-surface); color: var(--c-ink); text-decoration: none; box-shadow: var(--shadow-sm); cursor: pointer;
+  transition: border-color var(--dur) var(--ease), background-color var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.chooser__opt svg { grid-row: 1 / span 2; width: 1.5rem; height: 1.5rem; color: var(--c-court); }
+.chooser__label { font-weight: var(--fw-semibold); font-size: var(--fs-sm); line-height: var(--lh-snug); }
+.chooser__hint { font-size: var(--fs-xs); color: var(--c-ink-muted); line-height: var(--lh-snug); }
+.chooser__opt:hover { border-color: var(--c-court); text-decoration: none; }
+.chooser__opt[aria-pressed="true"] { border-color: var(--c-court); background: var(--c-court); color: var(--c-on-dark); box-shadow: var(--shadow-md); }
+.chooser__opt[aria-pressed="true"] svg { color: var(--c-ball); }
+.chooser__opt[aria-pressed="true"] .chooser__hint { color: var(--c-on-dark-muted); }
+@media (min-width: 36rem) { .chooser__opts { grid-template-columns: repeat(4, 1fr); } .chooser__opt { grid-template-columns: 1fr; text-align: left; } .chooser__opt svg { grid-row: auto; margin-bottom: var(--s-2); } }
+.chooser__panels { max-width: 34rem; }
+.chooser__panel[hidden] { display: none; }
+.chooser__facts { list-style: none; padding: 0; margin: 0 0 var(--s-4); display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.chooser__facts li { font-size: var(--fs-sm); font-weight: var(--fw-medium); background: var(--c-surface); border: var(--border); border-radius: var(--r-pill); padding: var(--s-1) var(--s-3); }
+.is-picked { animation: picked 900ms var(--ease) 1; }
+@keyframes picked { from { box-shadow: inset 0 0 0 4px var(--c-ball); } to { box-shadow: inset 0 0 0 0 transparent; } }
+@media (prefers-reduced-motion: reduce) { .chooser__opt { transition: none; } .is-picked { animation: none; } }
+
+/* ---------- v2.1 day strip: price by time of day (pattern: WHOOP sleep-planner span bar + Structured "now" line, Mobbin) ---------- */
+.daystrip { background: var(--c-surface); border: var(--border); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); padding: var(--s-6) var(--gutter); margin-bottom: var(--s-8); }
+.daystrip__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s-2) var(--s-4); margin-bottom: var(--s-5); }
+.daystrip__head h3 { margin: 0; }
+.daystrip__now { margin: 0; font-size: var(--fs-sm); font-weight: var(--fw-semibold); color: var(--c-court); }
+.daystrip__track { position: relative; padding-top: var(--s-6); }
+.daystrip__bar { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 4fr 6fr 10fr; gap: var(--s-1); }
+.daystrip__band { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 5.5rem; padding: var(--s-2) var(--s-3); border-radius: var(--r-sm); }
+.daystrip__band:first-child { border-radius: var(--r-md) var(--r-sm) var(--r-sm) var(--r-md); }
+.daystrip__band:last-child { border-radius: var(--r-sm) var(--r-md) var(--r-md) var(--r-sm); }
+.daystrip__band--peak { background: var(--c-court); color: var(--c-on-dark); }
+.daystrip__band--off { background: var(--c-ball); color: var(--c-court-deep); min-height: 7rem; align-self: end; box-shadow: var(--shadow-md); }
+.daystrip__bar { align-items: end; }
+.daystrip__price { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: var(--fw-semibold); line-height: var(--lh-tight); }
+.daystrip__time { font-size: var(--fs-xs); font-weight: var(--fw-semibold); line-height: var(--lh-snug); }
+.daystrip__tag { align-self: flex-start; margin-bottom: auto; font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: 0.08em; text-transform: uppercase; background: var(--c-court-deep); color: var(--c-ball); border-radius: var(--r-pill); padding: 0 var(--s-2); }
+.daystrip__marker { position: absolute; top: 0; height: var(--s-6); left: var(--now, 0%); width: 0; pointer-events: none; }
+.daystrip__marker::after { content: ""; position: absolute; bottom: calc(-1 * var(--s-1)); left: calc(-1 * var(--s-2)); border: var(--s-2) solid transparent; border-top-color: var(--c-ink); border-bottom-width: 0; }
+.daystrip__marker[hidden] { display: none; }
+.daystrip__marker span { position: absolute; top: 0; transform: translateX(-50%); font-size: var(--fs-xs); font-weight: var(--fw-bold); background: var(--c-ink); color: var(--c-on-dark); border-radius: var(--r-pill); padding: 0 var(--s-2); line-height: 1.5; }
+.daystrip__foot { margin: var(--s-4) 0; font-size: var(--fs-sm); color: var(--c-ink-muted); }
+@media (max-width: 29.99rem) { .daystrip__price { font-size: var(--fs-lg); } .daystrip__band { padding: var(--s-2); } }
+
+/* v2.2 · Split the court: barkada per-person estimate */
+.rent-side { display: grid; gap: var(--s-4); }
+.splitter { background: var(--c-court-deep); color: var(--c-on-dark); border-radius: var(--r-lg); box-shadow: var(--shadow-lg); padding: var(--s-6) var(--gutter); display: grid; gap: var(--s-4); }
+.splitter[hidden] { display: none; }
+.splitter h3 { margin: 0; color: var(--c-on-dark); }
+.splitter__sub, .splitter__note { margin: 0; font-size: var(--fs-sm); color: var(--c-on-dark-muted); }
+.splitter__row { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); padding-block: var(--s-1); border-bottom: 1px solid rgb(251 247 239 / 0.14); }
+.splitter__label { font-weight: var(--fw-semibold); font-size: var(--fs-md); }
+.stepper { display: inline-flex; align-items: center; gap: var(--s-2); }
+.stepper__btn { inline-size: var(--tap); block-size: var(--tap); border-radius: var(--r-pill); border: 2px solid var(--c-on-dark-muted); background: transparent; color: var(--c-on-dark); font: var(--fw-bold) var(--fs-lg)/1 var(--font-body); cursor: pointer; }
+.stepper__btn:hover { background: rgb(251 247 239 / 0.1); }
+.stepper__btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.stepper__val { inline-size: 3.25rem; min-block-size: var(--tap); text-align: center; font: var(--fw-bold) var(--fs-lg)/1 var(--font-body); color: var(--c-on-dark); background: transparent; border: 0; border-radius: var(--r-sm); -moz-appearance: textfield; appearance: textfield; }
+.stepper__val::-webkit-inner-spin-button, .stepper__val::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.splitter :focus-visible { outline: 3px solid var(--c-focus-on-dark); outline-offset: 2px; }
+.splitter__time { border: 0; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-2); }
+.splitter__time legend { margin-bottom: var(--s-2); padding: 0; }
+.splitter__opt { position: relative; display: block; cursor: pointer; }
+.splitter__opt input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.splitter__opt span { display: grid; gap: var(--s-1); min-block-size: var(--tap); padding: var(--s-3); border: 2px solid var(--c-on-dark-muted); border-radius: var(--r-md); font-weight: var(--fw-semibold); }
+.splitter__opt small { font-size: var(--fs-xs); font-weight: var(--fw-medium); color: inherit; }
+.splitter__opt input:checked + span { background: var(--c-ball); border-color: var(--c-ball); color: var(--c-court-deep); }
+.splitter__opt input:focus-visible + span { outline: 3px solid var(--c-focus-on-dark); outline-offset: 2px; }
+.splitter__result { background: rgb(251 247 239 / 0.08); border-radius: var(--r-md); padding: var(--s-4); }
+.splitter__each { margin: 0; display: flex; align-items: baseline; gap: var(--s-2); }
+.splitter__each output { font: var(--fw-bold) var(--fs-2xl)/1 var(--font-display); color: var(--c-ball); }
+.splitter__each span { font-size: var(--fs-md); color: var(--c-on-dark-muted); }
+.splitter__break { margin: var(--s-2) 0 0; font-size: var(--fs-sm); color: var(--c-on-dark); }
+.splitter__cta { inline-size: 100%; }
+
+/* v2.3 · Context dock: the sticky bar follows what you are reading */
+.cta-bar.dock { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--s-3); }
+.dock__sum { min-inline-size: 0; color: var(--c-on-dark); }
+.dock__big { display: block; font: var(--fw-bold) var(--fs-lg)/var(--lh-tight) var(--font-display); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dock__small { display: block; margin-top: var(--s-1); font-size: var(--fs-xs); color: var(--c-on-dark-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cta-bar.dock .btn { padding-inline: var(--s-5); white-space: nowrap; }
+.dock__ctx { display: inline-block; inline-size: var(--s-2); block-size: var(--s-2); margin-right: var(--s-2); border-radius: var(--r-pill); background: var(--c-ball); vertical-align: middle; }
+.dock[data-ctx="cafe"] .dock__ctx { background: var(--c-coffee-soft); }
+@media (prefers-reduced-motion: no-preference) {
+  .dock.is-swapping .dock__sum, .dock.is-swapping .btn { animation: dock-in var(--dur) var(--ease); }
+  @keyframes dock-in { from { opacity: 0; transform: translateY(var(--s-1)); } to { opacity: 1; transform: none; } }
+}
+
+</style>
+</head>
+<body>
+<!--
+  HOW TO EDIT COPY
+  Every section is wrapped in COPY: name ... /COPY: name comment markers.
+  Unconfirmed facts use span class="tbc" (yellow TBC badge). When a fact is
+  locked, replace the whole span with plain text. Links are listed in README.md.
+  Photo slots are figure class="photo-ph" with data-alt; swap each for an img whose alt is that data-alt.
+-->
+<a class="skip-link" href="#main">Skip to content</a>
+
+<p class="demo-ribbon"><strong>Demo preview</strong> · not the official site yet. Items marked TBC are still being confirmed.</p>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="#top" aria-label="Saranay Pickleball Court and Cafe, back to top">
+      <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" style="fill:var(--c-court)"/><circle cx="20" cy="20" r="11" style="fill:var(--c-ball)"/><g style="fill:var(--c-court)"><circle cx="16" cy="16" r="1.6"/><circle cx="23" cy="15" r="1.6"/><circle cx="25" cy="22" r="1.6"/><circle cx="18" cy="24" r="1.6"/><circle cx="20" cy="19.5" r="1.6"/></g></svg>
+      <span class="brand__name">Saranay<small>Pickleball Court &amp; Cafe</small></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <span>Menu</span>
+    </button>
+    <nav class="site-nav" id="site-nav" aria-label="Main" hidden>
+      <ul>
+        <li><a href="#open-play">Open play</a></li>
+        <li><a href="#rates">Rates &amp; hours</a></li>
+        <li><a href="#rent">Rent the court</a></li>
+        <li><a href="#new">New here?</a></li>
+        <li><a href="#cafe">Café</a></li>
+        <li><a href="#find-us">Find us</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club" data-cta="join-open-play">Join open play</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- COPY: 1 hero -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="container hero__grid">
+    <div>
+      <p class="eyebrow">Saranay · North Caloocan</p>
+      <h1 id="hero-title">Pickleball and coffee <em>in Saranay</em></h1>
+      <p class="hero__sub">One cozy court, an in-house café, and open play for every level. Right here in North Caloocan.</p>
+      <!-- v2.0 "How are you playing?" chooser. Without JS the four cards are plain links to each section. -->
+      <div class="chooser" id="chooser">
+        <p class="chooser__q" id="chooser-q">How are you playing?</p>
+        <div class="chooser__opts" role="group" aria-labelledby="chooser-q">
+          <a class="chooser__opt" href="#open-play" data-path="open"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M12 20c0-3.3 1.8-6 4-6s6 2.7 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="chooser__label">Open play</span><span class="chooser__hint">All levels · Reclub</span></a>
+          <a class="chooser__opt" href="#rates" data-path="rent"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="chooser__label">Rent the court</span><span class="chooser__hint">From ₱200/hour</span></a>
+          <a class="chooser__opt" href="#cafe" data-path="cafe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h12v5a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5z M16 11h1.5a2.5 2.5 0 0 1 0 5H16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 3c0 1.5 1.5 1.5 1.5 3M12 3c0 1.5 1.5 1.5 1.5 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="chooser__label">Just the café</span><span class="chooser__hint">No need to play</span></a>
+          <a class="chooser__opt" href="#new" data-path="first"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="chooser__label">First time</span><span class="chooser__hint">No partner needed</span></a>
+        </div>
+      </div>
+      <div class="chooser__panels" id="chooser-panels" aria-live="polite">
+        <div class="chooser__panel" data-panel="all">
+      <div class="btn-row hero__ctas" id="hero-ctas">
+        <a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club" data-cta="join-open-play">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/><circle cx="14" cy="9" r="1.2" fill="currentColor"/><circle cx="15" cy="14" r="1.2" fill="currentColor"/><circle cx="10" cy="15" r="1.2" fill="currentColor"/></svg>
+          Join open play</a>
+        <!-- Sports360 court booking URL, verified 31 Oct 2026 -->
+        <a class="btn" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab)" data-cta="book-a-court">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Book a court on Sports360</a>
+      </div>
+        </div>
+        <div class="chooser__panel" data-panel="open" hidden>
+          <ul class="chooser__facts" role="list"><li>All levels, every session</li><li>Come solo, we rotate you in</li><li>Pay by GCash on Reclub</li></ul>
+          <div class="btn-row hero__ctas"><a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club" data-cta="join-open-play">Join open play on Reclub</a><a class="btn btn--outline" href="#coming-up">See what's coming up</a></div>
+        </div>
+        <div class="chooser__panel" data-panel="rent" hidden>
+          <ul class="chooser__facts" role="list"><li>₱200/hour, 10 AM to 4 PM</li><li>₱300/hour, other hours</li><li>Open 6 AM to 2 AM daily</li></ul>
+          <div class="btn-row hero__ctas"><a class="btn" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab)" data-cta="book-a-court">Book a court on Sports360</a><a class="btn btn--outline" href="https://m.me/61589930970148" data-cta="message-us">Message us for groups</a></div>
+        </div>
+        <div class="chooser__panel" data-panel="cafe" hidden>
+          <ul class="chooser__facts" role="list"><li>D' Rafael's Cafe, right at the court</li><li>Coffee, Tusok-Tusok Treat, enoki fries</li><li>Café hours <span class="tbc">hours</span></li></ul>
+          <div class="btn-row hero__ctas"><a class="btn" href="https://m.me/61589930970148" data-cta="message-us">Ask about the café</a><a class="btn btn--outline" href="#find-us">How to get here</a></div>
+        </div>
+        <div class="chooser__panel" data-panel="first" hidden>
+          <ul class="chooser__facts" role="list"><li>No partner or experience needed</li><li>Paddle rent ₱100 per session</li><li>Every open play is all levels</li></ul>
+          <div class="btn-row hero__ctas"><a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club" data-cta="join-open-play">Find an all-levels session</a><a class="btn btn--outline" href="#new">Your first visit</a></div>
+        </div>
+      </div>
+      <a class="next-play" href="https://reclub.co/clubs/@saranay-pickleball-club" aria-label="Next open play: date and time to be confirmed. All levels. See sessions on Reclub.">
+        <span class="next-play__label">Next open play</span>
+        <span class="next-play__when"><span class="tbc">date and time</span> · All levels</span>
+        <span class="next-play__go" aria-hidden="true">See sessions on Reclub →</span>
+      </a>
+      <p class="hero__alt">Courts open 6am to 2am daily · Block 5 Lot 13 Saranay Road, Bagumbong North, Caloocan · <a href="tel:+639065458384">+63 906 545 8384</a></p>
+    </div>
+    <div class="hero__art">
+      <!-- PHOTO 1 placeholder. Real photo alt: "Players in a doubles game of pickleball on the single court at Saranay Pickleball Court, North Caloocan." -->
+      <svg class="court-art" viewBox="0 0 560 460" role="img" aria-label="Illustration of a pickleball court with a ball in play. Placeholder for a real photo of the Saranay court.">
+        <defs>
+          <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--c-court)"/><stop offset="1" style="stop-color:var(--c-court-deep)"/></linearGradient>
+          <linearGradient id="g-court" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--c-court-light)"/><stop offset="1" style="stop-color:var(--c-court-mid)"/></linearGradient>
+        </defs>
+        <rect width="560" height="460" rx="28" fill="url(#g-sky)"/>
+        <g transform="translate(280 250)">
+          <polygon points="-170,-150 170,-150 250,150 -250,150" fill="url(#g-court)"/>
+          <g fill="none" style="stroke:var(--c-court-line)" stroke-width="4" stroke-linejoin="round">
+            <polygon points="-170,-150 170,-150 250,150 -250,150"/>
+            <line x1="-200" y1="-40" x2="200" y2="-40"/>
+            <line x1="-222" y1="45" x2="222" y2="45"/>
+            <line x1="0" y1="-150" x2="0" y2="-40"/>
+            <line x1="0" y1="45" x2="0" y2="150"/>
+          </g>
+          <!-- net -->
+          <g>
+            <line x1="-214" y1="2" x2="214" y2="2" style="stroke:var(--c-court-line)" stroke-width="5"/>
+            <rect x="-214" y="-22" width="428" height="24" style="fill:var(--c-court-line)" opacity=".16"/>
+            <line x1="-214" y1="-22" x2="214" y2="-22" style="stroke:var(--c-court-line)" stroke-width="3"/>
+            <line x1="-214" y1="-24" x2="-214" y2="6" style="stroke:var(--c-court-line)" stroke-width="6"/>
+            <line x1="214" y1="-24" x2="214" y2="6" style="stroke:var(--c-court-line)" stroke-width="6"/>
+          </g>
+        </g>
+        <path d="M120 360 C 210 170, 330 150, 410 120" fill="none" style="stroke:var(--c-ball)" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round" opacity=".8"/>
+        <g class="ball-bounce">
+          <circle cx="420" cy="112" r="24" style="fill:var(--c-ball)"/>
+          <g style="fill:var(--c-ball-seam)"><circle cx="412" cy="104" r="3.4"/><circle cx="426" cy="102" r="3.4"/><circle cx="430" cy="116" r="3.4"/><circle cx="416" cy="122" r="3.4"/><circle cx="420" cy="112" r="3.4"/></g>
+        </g>
+        <g transform="translate(70 70) rotate(-24)">
+          <rect x="-26" y="-34" width="52" height="64" rx="22" style="fill:var(--c-clay)"/>
+          <rect x="-7" y="26" width="14" height="40" rx="6" style="fill:var(--c-coffee)"/>
+        </g>
+      </svg>
+      <div class="hero__badge">
+        <svg viewBox="0 0 36 36" aria-hidden="true"><rect width="36" height="36" rx="10" style="fill:var(--c-coffee-soft)"/><path d="M9 14h15v6a7 7 0 0 1-7 7h-1a7 7 0 0 1-7-7z" style="fill:var(--c-coffee)"/><path d="M24 16h2a3 3 0 0 1 0 6h-2" fill="none" style="stroke:var(--c-coffee)" stroke-width="2"/><path d="M13 8c0 2 2 2 2 4M18 8c0 2 2 2 2 4" style="stroke:var(--c-coffee)" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+        <span><strong>D' Rafael's Cafe</strong><br>right at the court</span>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <ul class="facts" aria-label="At a glance">
+      <li><strong>The first</strong>pickleball court in Saranay</li>
+      <li><strong>One court</strong>with its own café</li>
+      <li><strong>586 members</strong>in our Reclub club</li>
+      <li><strong>All levels</strong>at every open play</li>
+    </ul>
+  </div>
+</section>
+<!-- /COPY: 1 hero -->
+<!-- COPY: 1b coming up (dated strip, idea from Pickle Up / The Jar "What's on") -->
+<section class="section section--tight" id="coming-up" aria-labelledby="coming-title">
+  <div class="container">
+    <div class="strip-head">
+      <div>
+        <p class="eyebrow">On court soon</p>
+        <h2 id="coming-title">Coming up</h2>
+      </div>
+      <p class="note">Days and times below are placeholders until the schedule is set. <a href="https://reclub.co/clubs/@saranay-pickleball-club">Reclub</a> always has the live list.</p>
+    </div>
+    <ol class="events" role="list">
+      <li class="event">
+        <p class="event__date"><span class="tbc">day</span></p>
+        <h3 class="event__title">Open play · all levels</h3>
+        <p class="event__meta"><span class="tbc">time</span> · <span class="tbc">₱ per player</span></p>
+        <a class="btn btn--outline btn--sm" href="https://reclub.co/clubs/@saranay-pickleball-club" aria-label="Request a spot in open play, all levels, on Reclub">Request a spot on Reclub</a>
+      </li>
+      <li class="event">
+        <p class="event__date"><span class="tbc">day</span></p>
+        <h3 class="event__title">Coffee open play</h3>
+        <p class="event__meta">Buy a drink at D' Rafael's Cafe and play free. <span class="tbc">time and terms</span></p>
+        <a class="btn btn--outline btn--sm" href="https://reclub.co/clubs/@saranay-pickleball-club" aria-label="Request a spot in coffee open play on Reclub">Request a spot on Reclub</a>
+      </li>
+      <li class="event">
+        <p class="event__date"><span class="tbc">day</span></p>
+        <h3 class="event__title">Open play · all levels</h3>
+        <p class="event__meta"><span class="tbc">time</span> · <span class="tbc">₱ per player</span></p>
+        <a class="btn btn--outline btn--sm" href="https://reclub.co/clubs/@saranay-pickleball-club" aria-label="Request a spot in a second open play session on Reclub">Request a spot on Reclub</a>
+      </li>
+    </ol>
+  </div>
+</section>
+<!-- /COPY: 1b coming up -->
+<!-- COPY: 3 open play -->
+<section class="section section--dark on-dark" id="open-play" aria-labelledby="op-title">
+  <div class="container split">
+    <div>
+      <p class="eyebrow">Open play</p>
+      <h2 id="op-title">Open play</h2>
+      <p class="lede">Open play is how most people start here. You sign up for a session, show up, and we rotate everyone into games. You don't need a partner or a group.</p>
+      <h3>How it works</h3>
+      <ol class="steps steps--compact">
+        <li><p>Open our club on Reclub and pick a session.</p></li>
+        <li><p>Request a spot. Reclub shows how to pay to confirm it (we use GCash). If the session is full, you go on the waitlist.</p></li>
+        <li><p>Come a few minutes early, say hi at the counter, and get on the court.</p></li>
+      </ol>
+    </div>
+    <div>
+      <dl class="info">
+        <div><dt>Levels</dt><dd>All sessions are open to all levels</dd></div>
+        <div><dt>Partner needed?</dt><dd>No. Come solo and we rotate you in.</dd></div>
+        <div><dt>Payment</dt><dd>On Reclub, by GCash</dd></div>
+      </dl>
+      <div class="card">
+        <h3>Coffee + free open play</h3>
+        <p>Buy a drink at D' Rafael's Cafe and your open play session is free.</p>
+        <p><span class="tbc">days, times and terms of the coffee sessions</span></p>
+      </div>
+      <p class="mt-6"><a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club">See this week's sessions</a> <a class="btn btn--outline-light" href="#rates">Rates and hours</a></p>
+    </div>
+  </div>
+</section>
+<!-- /COPY: 3 open play -->
+<!-- COPY: 3b rates and hours (layout idea from PickleBOS) -->
+<section class="section section--alt" id="rates" aria-labelledby="rates-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Rates and hours</p>
+      <h2 id="rates-title">What it costs, and when we're open</h2>
+      <p class="lede">Court rates and hours are from our Sports360 page. Open play and café details go up here as soon as they're set.</p>
+    </div>
+    <!-- v2.1 day strip: court price by time of day. Bands are from Sports360 (Oct 31 2026). The "now" marker is the visitor's clock in Manila time, not availability. -->
+    <div class="daystrip" role="group" aria-labelledby="daystrip-title">
+      <div class="daystrip__head">
+        <h3 id="daystrip-title">Court price by time of day</h3>
+        <p class="daystrip__now" id="daystrip-now" hidden></p>
+      </div>
+      <div class="daystrip__track">
+        <ol class="daystrip__bar" role="list">
+          <li class="daystrip__band daystrip__band--peak"><span class="daystrip__price">₱300<span class="visually-hidden"> per hour</span></span><span class="daystrip__time">6–10 AM</span></li>
+          <li class="daystrip__band daystrip__band--off"><span class="daystrip__tag">Lowest</span><span class="daystrip__price">₱200<span class="visually-hidden"> per hour</span></span><span class="daystrip__time">10 AM–4 PM</span></li>
+          <li class="daystrip__band daystrip__band--peak"><span class="daystrip__price">₱300<span class="visually-hidden"> per hour</span></span><span class="daystrip__time">4 PM–2 AM</span></li>
+        </ol>
+        <span class="daystrip__marker" id="daystrip-marker" aria-hidden="true" hidden><span>Now</span></span>
+      </div>
+      <p class="daystrip__foot">Per hour, whole court · Open 6 AM to 2 AM daily · Closed 2 AM to 6 AM</p>
+      <div class="btn-row">
+        <a class="btn" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" aria-label="Book a ₱200 daytime hour on Sports360 (opens in a new tab)" data-cta="book-a-court">Book a ₱200 daytime hour on Sports360</a>
+      </div>
+    </div>
+    <div class="rates">
+      <article class="rate-card" aria-labelledby="rate-op">
+        <h3 id="rate-op">Open play</h3>
+        <p class="rate-card__price"><span class="tbc">₱ per player per session</span></p>
+        <dl class="info info--plain">
+          <div><dt>Schedule</dt><dd><span class="tbc">open play days and times</span></dd></div>
+          <div><dt>Players per session</dt><dd><span class="tbc">cap per session</span></dd></div>
+          <div><dt>Coffee sessions</dt><dd>Buy a drink, play free · <span class="tbc">days and terms</span></dd></div>
+          <div><dt>How to pay</dt><dd>GCash, through Reclub</dd></div>
+        </dl>
+        <a class="btn btn--ball btn--block" href="https://reclub.co/clubs/@saranay-pickleball-club">Join open play</a>
+      </article>
+      <article class="rate-card" aria-labelledby="rate-rent">
+        <h3 id="rate-rent">Private court rental</h3>
+        <p class="rate-card__price">₱200–₱300 per hour</p>
+        <dl class="info info--plain">
+          <div><dt>Court rates</dt><dd>6:00 AM – 10:00 AM: ₱300/hour<br>10:00 AM – 4:00 PM: ₱200/hour<br>4:00 PM – 2:00 AM: ₱300/hour</dd></div>
+          <div><dt>Players per booking</dt><dd>1 hour: up to 4 players<br>2 hours: up to 8 players<br>3 hours or more: up to 12 players<br>Additional player: ₱100/person</dd></div>
+          <div><dt>Paddle and ball</dt><dd>Paddle: ₱100 rent per session<br>Ball: ₱100 for sale (tournament grade)</dd></div>
+          <div><dt>What's included</dt><dd><span class="tbc">paddles and balls, lights, minimum hours</span></dd></div>
+          <div><dt>Food for groups</dt><dd><span class="tbc">café add-ons for events</span></dd></div>
+          <div><dt>How to book</dt><dd>On Sports360</dd></div>
+        </dl>
+        <p class="note mt-3 rates-source">Rates as listed on <a href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener">Sports360<span class="visually-hidden"> (opens in a new tab)</span></a>, Oct 31 2026</p>
+        <a class="btn btn--block" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab)">Book a court on Sports360</a>
+      </article>
+      <article class="rate-card" aria-labelledby="rate-hours">
+        <h3 id="rate-hours">Hours</h3>
+        <table class="hours">
+          <caption class="visually-hidden">Court and café opening hours</caption>
+          <thead><tr><th scope="col">Day</th><th scope="col">Court</th><th scope="col">Café</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Mon to Sun</th><td>6am to 2am</td><td><span class="tbc">hours</span></td></tr>
+          </tbody>
+        </table>
+        <p class="note mt-3 rates-source">Rates as listed on <a href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener">Sports360<span class="visually-hidden"> (opens in a new tab)</span></a>, Oct 31 2026</p>
+        <a class="btn btn--outline btn--block" href="#find-us">Directions and parking</a>
+      </article>
+    </div>
+  </div>
+</section>
+<!-- /COPY: 3b rates and hours -->
+<!-- COPY: 4 private rental -->
+<section class="section" id="rent" aria-labelledby="rent-title">
+  <div class="container split split--flip">
+    <div>
+      <p class="eyebrow">Private court rental</p>
+      <h2 id="rent-title">Rent the court for your group</h2>
+      <p>Have the whole court to yourselves. Book it for a game with friends, a family afternoon, a team practice or a birthday. We've hosted private events on the court and in the café, so ask us if you want food and drinks for your group.</p>
+      <p><strong>Good for:</strong></p>
+      <ul class="ticks">
+        <li>Games with the barkada</li>
+        <li>Family get-togethers and birthdays</li>
+        <li>Team practice and group events</li>
+      </ul>
+      <p>Rate and inclusions: see <a href="#rates">Rates and hours</a>. Questions about parties and food are in the <a href="#faq">FAQ</a>.</p>
+      <p>Pick a time and book the court on Sports360. Coming as a big group or planning an event? Message us and we'll sort it out.</p>
+      <div class="btn-row">
+        <a class="btn" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab)">Book a court on Sports360</a>
+        <a class="btn btn--outline" href="https://m.me/61589930970148">Message us for groups or help booking</a>
+        <a class="btn btn--outline" href="tel:+639065458384">Call +63 906 545 8384</a>
+      </div>
+      <p class="note mt-3"><span class="tbc">Messenger link to confirm</span></p>
+    </div>
+    <div class="rent-side">
+    <div class="rent-art" aria-hidden="true" data-split-fallback>
+      <svg viewBox="0 0 400 300" class="court-art"><rect width="400" height="300" rx="24" style="fill:var(--c-coffee-soft)"/><g transform="translate(200 150)"><rect x="-150" y="-95" width="300" height="190" rx="6" style="fill:var(--c-court)"/><g fill="none" style="stroke:var(--c-court-line)" stroke-width="3"><rect x="-150" y="-95" width="300" height="190" rx="6"/><line x1="0" y1="-95" x2="0" y2="95" stroke-width="5"/><line x1="-45" y1="-95" x2="-45" y2="95"/><line x1="45" y1="-95" x2="45" y2="95"/><line x1="-150" y1="0" x2="-45" y2="0"/><line x1="45" y1="0" x2="150" y2="0"/></g><circle cx="80" cy="-40" r="10" style="fill:var(--c-ball)"/></g><g style="fill:var(--c-coffee)"><rect x="24" y="24" width="88" height="30" rx="15"/></g><text x="68" y="44" style="fill:var(--c-bg)" font-family="Inter, sans-serif" font-size="14" font-weight="600" text-anchor="middle">Yours</text></svg>
+    </div>
+      <form class="splitter" id="split" hidden aria-labelledby="split-title">
+        <h3 id="split-title">Split the court</h3>
+        <p class="splitter__sub">Rough cost per person from our posted rates.</p>
+        <div class="splitter__row">
+          <label class="splitter__label" for="split-players">Players</label>
+          <div class="stepper">
+            <button type="button" class="stepper__btn" data-step="-1" data-for="split-players" aria-label="Fewer players">&minus;</button>
+            <input class="stepper__val" id="split-players" name="split-players" type="number" inputmode="numeric" min="1" max="20" value="4">
+            <button type="button" class="stepper__btn" data-step="1" data-for="split-players" aria-label="More players">+</button>
+          </div>
+        </div>
+        <div class="splitter__row">
+          <label class="splitter__label" for="split-hours">Hours</label>
+          <div class="stepper">
+            <button type="button" class="stepper__btn" data-step="-1" data-for="split-hours" aria-label="Fewer hours">&minus;</button>
+            <input class="stepper__val" id="split-hours" name="split-hours" type="number" inputmode="numeric" min="1" max="8" value="2">
+            <button type="button" class="stepper__btn" data-step="1" data-for="split-hours" aria-label="More hours">+</button>
+          </div>
+        </div>
+        <div class="splitter__row">
+          <label class="splitter__label" for="split-paddles">Paddles to rent</label>
+          <div class="stepper">
+            <button type="button" class="stepper__btn" data-step="-1" data-for="split-paddles" aria-label="Fewer paddles">&minus;</button>
+            <input class="stepper__val" id="split-paddles" name="split-paddles" type="number" inputmode="numeric" min="0" max="20" value="0">
+            <button type="button" class="stepper__btn" data-step="1" data-for="split-paddles" aria-label="More paddles">+</button>
+          </div>
+        </div>
+        <fieldset class="splitter__time">
+          <legend class="splitter__label">Time</legend>
+          <label class="splitter__opt"><input type="radio" name="split-rate" value="200" checked> <span>10 AM–4 PM<small>₱200/hour</small></span></label>
+          <label class="splitter__opt"><input type="radio" name="split-rate" value="300"> <span>Other hours<small>₱300/hour</small></span></label>
+        </fieldset>
+        <div class="splitter__result" aria-live="polite">
+          <p class="splitter__each"><output id="split-each" for="split-players split-hours split-paddles">₱100</output> <span>each</span></p>
+          <p class="splitter__break" id="split-break">Court ₱400 · Total ₱400</p>
+        </div>
+        <p class="splitter__note">Estimate only. Sports360 shows the final price.</p>
+        <a class="btn btn--ball splitter__cta" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" data-cta="book-a-court" aria-label="Book a court on Sports360 (opens in a new tab)">Book a court on Sports360</a>
+      </form>
+    </div>
+  </div>
+</section>
+<!-- /COPY: 4 private rental -->
+<!-- COPY: 5 new to pickleball (first-timer hook idea from The Fort) -->
+<section class="section" id="new" aria-labelledby="new-title">
+  <div class="container">
+    <div class="welcome">
+      <div class="welcome__intro">
+        <p class="eyebrow">New to pickleball?</p>
+        <h2 id="new-title">First time? You're welcome here</h2>
+        <p class="lede">Pickleball is played with a paddle and a light plastic ball on a small court, so it's easy on beginners. Kids, parents and older players all play here, and nobody expects you to be good on day one. Promise, walang judgment.</p>
+        <ul class="promise" role="list">
+          <li><strong>No partner needed.</strong> Come solo and we'll rotate you into games.</li>
+          <li><strong>No experience needed.</strong> Every open play session is for all levels.</li>
+          <li><strong>No paddle?</strong> Rent one here for ₱100 per session.</li>
+        </ul>
+        <div class="btn-row">
+          <a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club">Find an all-levels session</a>
+          <a class="btn btn--outline" href="https://m.me/61589930970148">Ask us a question</a>
+        </div>
+      </div>
+      <div class="welcome__card">
+        <h3>Your first visit</h3>
+        <ol class="steps steps--compact steps--light">
+          <li><p>Join our club on Reclub and request a spot in an all-levels session. Reclub shows you how to pay to confirm (GCash).</p></li>
+          <li><p>Wear comfortable clothes and rubber-soled sports shoes. Bring water and a small towel. Paddle: bring your own, or rent one here for ₱100 per session.</p></li>
+          <li><p>Come a few minutes early and tell the organizer it's your first time. They'll help you find a game.</p></li>
+          <li><p>Take breaks whenever you like. Stay after for a coffee at D' Rafael's Cafe.</p></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /COPY: 5 new to pickleball -->
+<!-- COPY: 6 cafe -->
+<section class="section section--cafe" id="cafe" aria-labelledby="cafe-title">
+  <div class="container split">
+    <div>
+      <p class="eyebrow">The café</p>
+      <h2 id="cafe-title">D' Rafael's Cafe</h2>
+      <p class="lede">Not here to play? You're welcome too.</p>
+      <p>Our café is right at the court. You don't have to play to stay. Came with a player in the family, or just want a merienda? Sit, eat and watch the games.</p>
+      <p>Players stop by too: a coffee before an early game, or something to eat while the next group plays.</p>
+      <p>On the menu, from our posts:</p>
+      <ul class="ticks">
+        <li>Coffee and other drinks</li>
+        <li>Tusok-Tusok Treat (fishball, kwek-kwek, kikiam and more)</li>
+        <li>Enoki crispy fries</li>
+        <li><span class="tbc">full menu or a few more items with prices</span></li>
+      </ul>
+      <dl class="info">
+        <div><dt>Seating</dt><dd><span class="tbc">café seating, and whether it has a fan, aircon or shade</span></dd></div>
+        <div><dt>Café hours</dt><dd><span class="tbc">café hours, if different from the court</span></dd></div>
+      </dl>
+      <p><strong>Planning a party?</strong> Message us about food and drinks for your group.</p>
+      <div class="btn-row">
+        <a class="btn" href="https://m.me/61589930970148">Ask about the café</a>
+        <a class="btn btn--outline" href="https://maps.app.goo.gl/ZfC7mDdgYcpLxBRT7">Directions in Google Maps</a>
+      </div>
+    </div>
+    <div class="cafe-photos">
+      <!-- PHOTO 2 placeholder -->
+      <figure class="photo-ph photo-ph--cafe" role="img" data-alt="Coffee being served at the counter of D' Rafael's Cafe beside the Saranay pickleball court." aria-label="Photo placeholder: coffee being served at the café counter beside the court.">
+        <svg viewBox="0 0 200 120" aria-hidden="true"><g fill="none" style="stroke:var(--c-court-line)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M62 50h64v22a26 26 0 0 1-26 26h-12a26 26 0 0 1-26-26z"/><path d="M126 56h8a11 11 0 0 1 0 22h-9"/><path d="M78 22c0 7 7 7 7 14M98 22c0 7 7 7 7 14"/><path d="M50 106h100"/></g></svg>
+        <figcaption>Photo placeholder · café counter</figcaption>
+      </figure>
+      <!-- PHOTO 3 placeholder -->
+      <figure class="photo-ph photo-ph--cafe" role="img" data-alt="A plate of fishball, kwek-kwek and kikiam from the Tusok-Tusok Treat at D' Rafael's Cafe." aria-label="Photo placeholder: a plate of fishball, kwek-kwek and kikiam.">
+        <svg viewBox="0 0 200 120" aria-hidden="true"><g fill="none" style="stroke:var(--c-court-line)" stroke-width="3" stroke-linecap="round"><ellipse cx="100" cy="80" rx="70" ry="18"/><circle cx="78" cy="66" r="9"/><circle cx="100" cy="62" r="9"/><circle cx="122" cy="66" r="9"/><path d="M60 30l32 40M150 26l-30 44"/></g><circle cx="100" cy="62" r="5" style="fill:var(--c-ball)"/></svg>
+        <figcaption>Photo placeholder · Tusok-Tusok Treat</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+<!-- /COPY: 6 cafe -->
+<!-- COPY: 8 location and hours -->
+<section class="section" id="find-us" aria-labelledby="find-title">
+  <div class="container split">
+    <div>
+      <p class="eyebrow">Location and hours</p>
+      <h2 id="find-title">Find us</h2>
+      <address class="address">Saranay Homes, Block 5 Lot 13 Saranay Road, Bagumbong North, Caloocan, Metro Manila</address>
+      <p><strong>Directions:</strong> <span class="tbc">route from Malapitan Road and a landmark to look for at the entrance</span>. A short drive from Quezon City and the rest of North Caloocan.</p>
+      <p><strong>Parking:</strong> <span class="tbc">parking details</span></p>
+      <dl class="info">
+        <div><dt>Court hours</dt><dd>6am to 2am, Monday to Sunday</dd></div>
+        <div><dt>Café hours</dt><dd><span class="tbc">café hours per day</span></dd></div>
+        <div><dt>Plus code</dt><dd><span class="tbc">confirm Q24G+FX against the Google Maps pin</span></dd></div>
+      </dl>
+      <div class="btn-row">
+        <a class="btn" href="https://maps.app.goo.gl/ZfC7mDdgYcpLxBRT7">Open in Google Maps</a>
+        <button class="btn btn--outline" type="button" id="copy-pin" data-copy="Saranay Pickleball Court and Cafe, Saranay Homes, Block 5 Lot 13 Saranay Road, Bagumbong North, Caloocan. Map: https://maps.app.goo.gl/ZfC7mDdgYcpLxBRT7">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+          Copy location pin</button>
+        <a class="btn btn--outline" href="tel:+639065458384">Call us</a>
+      </div>
+      <p class="note copy-status" id="copy-status" role="status" aria-live="polite">For Grab or a tricycle: copies our name, address and map link.</p>
+    </div>
+    <figure class="map-fig">
+      <div class="map-frame">
+        <iframe title="Map: Saranay Pickleball Court and Cafe, Saranay Homes, Bagumbong North, Caloocan" src="https://www.google.com/maps?q=Saranay%20Pickleball%20Court%20and%20Cafe%2C%20Block%205%20Lot%2013%20Saranay%20Road%2C%20Bagumbong%20North%2C%20Caloocan&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+      <figcaption class="note mt-3">Saranay Pickleball Court and Cafe, inside Saranay Homes, Bagumbong North, Caloocan.</figcaption>
+    </figure>
+  </div>
+</section>
+<!-- /COPY: 8 location and hours -->
+<!-- COPY: 2 about -->
+<section class="section" id="about" aria-labelledby="about-title">
+  <div class="container split">
+    <div>
+      <p class="eyebrow">About the court</p>
+      <h2 id="about-title">A court with a café, not just a court</h2>
+      <p>We're a single pickleball court in Caloocan with our own café, D' Rafael's Cafe, inside Saranay Homes in North Caloocan. It's the first pickleball court in Saranay, and we built it as a place to stay a while.</p>
+      <p>Play a few games, then sit down for coffee or a plate of fishball and kwek-kwek. Bring the barkada, the family or the kids. Players of every level share this court, and 586 of them have joined our club on Reclub.</p>
+      <p>There's a dartboard too, for when you're waiting for the next game.</p>
+    </div>
+    <!-- PHOTO 4 placeholder -->
+    <figure class="photo-ph" role="img" data-alt="An all-levels open play group posing with paddles on the court at Saranay Pickleball Court." aria-label="Photo placeholder: an all-levels open play group posing with paddles on the court.">
+      <svg viewBox="0 0 200 120" aria-hidden="true"><g fill="none" style="stroke:var(--c-court-line)" stroke-width="3" stroke-linecap="round"><circle cx="50" cy="40" r="12"/><path d="M30 95c0-16 9-28 20-28s20 12 20 28"/><circle cx="100" cy="34" r="13"/><path d="M78 95c0-18 10-31 22-31s22 13 22 31"/><circle cx="150" cy="40" r="12"/><path d="M130 95c0-16 9-28 20-28s20 12 20 28"/></g><g transform="translate(176 60) rotate(20)"><rect x="-9" y="-12" width="18" height="22" rx="8" style="fill:var(--c-ball)"/><rect x="-2.5" y="9" width="5" height="13" rx="2" style="fill:var(--c-ball)"/></g></svg>
+      <figcaption>Photo placeholder · open play group</figcaption>
+    </figure>
+  </div>
+</section>
+<!-- /COPY: 2 about -->
+<!-- COPY: 7 how to book -->
+<section class="section" id="book" aria-labelledby="book-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">How to book</p>
+      <h2 id="book-title">How to book</h2>
+    </div>
+    <ol class="steps">
+      <li><h3>Open play</h3><p>Book on Reclub. Pick a session, request a spot, and pay to confirm.</p>
+        <a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club">Join open play</a></li>
+      <li><h3>Court rental and café orders for groups</h3><p>Pick a time and book the court on Sports360. For groups, café orders or help booking, message us on Facebook or Instagram.</p>
+        <div class="btn-row mt-3">
+          <a class="btn" href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener" aria-label="Book a court on Sports360 (opens in a new tab)">Book a court on Sports360</a>
+          <a class="btn btn--outline" href="https://m.me/61589930970148">Message us for groups or help booking</a>
+          <a class="btn btn--outline" href="https://ig.me/m/saranaypickleballcourt">Message on Instagram</a>
+        </div>
+        <p class="note mt-3"><span class="tbc">Messenger and Instagram links to confirm</span></p></li>
+      <li><h3>Prefer to call?</h3><p>Call or text us for rentals, groups or a quick question.</p>
+        <a class="btn btn--outline" href="tel:+639065458384">+63 906 545 8384</a></li>
+    </ol>
+    <p class="note mt-6">We don't take bookings or payments on this website.</p>
+  </div>
+</section>
+<!-- /COPY: 7 how to book -->
+<!-- COPY: 9 faq -->
+<section class="section section--alt" id="faq" aria-labelledby="faq-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">FAQ</p>
+      <h2 id="faq-title">Questions we get</h2>
+      <p class="lede">Quick answers, so you don't have to wait for a reply.</p>
+    </div>
+    <div class="faq">
+      <details><summary>Do I need to be good to join open play?</summary><div><p>No. All our open play sessions are for all levels. If it's your first time, tell the organizer and they'll help you find a game.</p></div></details>
+      <details><summary>How do I join open play?</summary><div><p>Join our club on <a href="https://reclub.co/clubs/@saranay-pickleball-club">Reclub</a>, pick a session and request a spot. You pay to confirm, and if it's full you go on the waitlist.</p></div></details>
+      <details><summary>How much is open play?</summary><div><p><span class="tbc">₱ per player</span>. On coffee open play sessions, buying a drink at D' Rafael's Cafe gets you in free. <span class="tbc">coffee session days and times</span></p></div></details>
+      <details><summary>How do I rent the whole court?</summary><div><p>Book it on <a href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener">Sports360</a>. It's ₱300 per hour from 6 AM to 10 AM, ₱200 from 10 AM to 4 PM, and ₱300 from 4 PM to 2 AM. Coming as a big group or planning an event? Message us on Facebook or Instagram, or call <a href="tel:+639065458384">+63 906 545 8384</a>, and we'll sort it out.</p></div></details>
+      <details><summary>Can I rent a paddle?</summary><div><p>Yes. Paddles are ₱100 per session. We also sell tournament-grade balls for ₱100.</p></div></details>
+      <details><summary>Can we hold a party or private event here?</summary><div><p>Yes. We've hosted private events on the court and in the café. Message us with your date and headcount and we'll work out the court time and the food.</p></div></details>
+      <details><summary>What are your hours?</summary><div><p>Court: 6 AM to 2 AM, every day. Café: <span class="tbc">café hours</span>. See <a href="#rates">Rates and hours</a>.</p></div></details>
+      <details><summary>How many players per open play session?</summary><div><p><span class="tbc">cap per session</span>. If a session is full on Reclub, you go on the waitlist.</p></div></details>
+      <details><summary>How do I pay?</summary><div><p>Open play: through Reclub, by GCash. Court rental: you pay in full on Sports360 when you book, and bookings are non-refundable. Need to move it? Ask at least 24 hours ahead. Café: <span class="tbc">cash, GCash or both at the counter?</span></p></div></details>
+      <details><summary>What should I bring or wear?</summary><div><p>Comfortable clothes, rubber-soled sports shoes, water and a small towel. Paddles: bring your own, or rent one here for ₱100.</p></div></details>
+      <details><summary>Is there parking?</summary><div><p><span class="tbc">parking details</span>. For a Grab or tricycle, use the <a href="#find-us">Copy location pin</a> button.</p></div></details>
+      <details><summary>Can I come just for the café?</summary><div><p>Yes. You don't have to play. Sit, eat and watch the games. Our menu includes coffee, the Tusok-Tusok Treat (fishball, kwek-kwek, kikiam) and enoki crispy fries. <span class="tbc">café hours</span></p></div></details>
+      <details><summary>Can we bring outside food?</summary><div><p>Sorry, no outside food or drinks. Our café is right inside, so you won't go hungry.</p></div></details>
+      <details><summary>Are kids welcome?</summary><div><p>Yes. Kids and families play here. <span class="tbc">any age rule or supervision rule</span></p></div></details>
+    </div>
+    <div class="faq-more">
+      <p><strong>Still have a question?</strong> Message us and we'll get back to you.</p>
+      <div class="btn-row">
+        <a class="btn" href="https://m.me/61589930970148">Message us on Messenger</a>
+        <a class="btn btn--outline" href="https://ig.me/m/saranaypickleballcourt">Instagram DM</a>
+        <a class="btn btn--outline" href="tel:+639065458384">Call +63 906 545 8384</a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /COPY: 9 faq -->
+
+</main>
+
+<!-- COPY: 10 footer -->
+<footer class="site-footer on-dark">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <p class="footer__brand">Saranay Pickleball Court and Cafe</p>
+        <p>Saranay Homes, Block 5 Lot 13 Saranay Road, Bagumbong North, Caloocan</p>
+        <p>Phone: <a href="tel:+639065458384">+63 906 545 8384</a></p>
+        <p>Court hours: 6am to 2am daily</p>
+      </div>
+      <nav aria-labelledby="follow-title">
+        <h2 id="follow-title">Follow us</h2>
+        <ul>
+          <li><a href="https://www.facebook.com/people/Saranay-Pickleball-Court-and-Cafe/61589930970148/">Facebook</a></li>
+          <li><a href="https://www.instagram.com/saranaypickleballcourt/">Instagram</a></li>
+          <li><a href="https://www.tiktok.com/@saranay.picklebal">TikTok</a></li>
+          <li><a href="https://reclub.co/clubs/@saranay-pickleball-club">Reclub</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="book-foot-title">
+        <h2 id="book-foot-title">Book</h2>
+        <ul>
+          <li><a href="https://reclub.co/clubs/@saranay-pickleball-club">Join open play on Reclub</a></li>
+          <li><a href="https://app.sports360.ph/sportshub/saranay-pickleball-court" target="_blank" rel="noopener">Book a court on Sports360</a></li>
+          <li><a href="https://m.me/61589930970148">Message us for groups or help booking</a></li>
+          <li><a href="https://ig.me/m/saranaypickleballcourt">Message on Instagram</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer__fine">Book open play on Reclub. Court rentals on Sports360. No bookings or payments on this site.<br>Demo preview v2.3 · illustrations are placeholders for real venue photos.</p>
+  </div>
+</footer>
+<!-- /COPY: 10 footer -->
+
+<div class="cta-bar" id="cta-bar" role="region" aria-label="Quick booking">
+  <a class="btn btn--ball btn--block" href="https://reclub.co/clubs/@saranay-pickleball-club" data-cta="join-open-play">Join open play</a>
+  <a class="btn btn--outline-light btn--block" href="https://m.me/61589930970148" data-cta="message-us">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3C7 3 3 6.7 3 11.3c0 2.6 1.3 4.9 3.3 6.4V21l3-1.7c.9.3 1.8.4 2.7.4 5 0 9-3.7 9-8.3S17 3 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+    Message us</a>
+</div>
+
+<script>
+/* Saranay demo: menu toggle + copy location pin. The mobile CTA bar is pinned in CSS. No tracking, no dependencies. */
+(function () {
+  var toggle = document.querySelector('.nav-toggle');
+  var nav = document.getElementById('site-nav');
+  var desktop = window.matchMedia('(min-width: 60rem)');
+
+  function setOpen(open) {
+    toggle.setAttribute('aria-expanded', String(open));
+    if (open || desktop.matches) nav.removeAttribute('hidden'); else nav.setAttribute('hidden', '');
+  }
+  function sync() { setOpen(false); }
+  sync();
+  desktop.addEventListener ? desktop.addEventListener('change', sync) : desktop.addListener(sync);
+
+  toggle.addEventListener('click', function () { setOpen(toggle.getAttribute('aria-expanded') !== 'true'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a') && !desktop.matches) setOpen(false); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') { setOpen(false); toggle.focus(); }
+  });
+
+  // Copy location pin (for Grab / tricycle), with an aria-live confirmation.
+  var pin = document.getElementById('copy-pin');
+  var status = document.getElementById('copy-status');
+  if (pin && status) {
+    var text = pin.getAttribute('data-copy');
+    function done(ok) {
+      status.textContent = ok ? 'Copied. Paste it into Grab, Maps or a message.' : 'Could not copy. Our address: ' + text;
+      status.classList.toggle('is-done', ok);
+    }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta); done(ok);
+    }
+    pin.addEventListener('click', function () {
+      if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(function () { done(true); }, fallback);
+      else fallback();
+    });
+  }
+})();
+
+/* v2.0 "How are you playing?" chooser.
+   Enhances four plain links into toggle buttons. Picking one swaps the hero buttons for that path
+   and moves the matching sections to just under the hero (real DOM order, so focus order matches).
+   ?play=open|rent|cafe|first preselects a path, for ad links. Pick again to undo. */
+(function () {
+  var box = document.getElementById('chooser');
+  var panels = document.getElementById('chooser-panels');
+  if (!box || !panels) return;
+  var opts = [].slice.call(box.querySelectorAll('.chooser__opt'));
+  var hero = document.getElementById('top');
+  var main = document.getElementById('main');
+  var order = [].slice.call(main.children); // original order, for undo
+  var MOVE = { open: ['coming-up', 'open-play'], rent: ['rates', 'rent'], cafe: ['cafe', 'find-us'], first: ['new', 'open-play'] };
+  var current = null;
+
+  function restore() { order.forEach(function (n) { main.appendChild(n); }); }
+  function pick(path, fromUser) {
+    if (path === current) path = null;
+    current = path;
+    opts.forEach(function (o) { o.setAttribute('aria-pressed', String(o.dataset.path === path)); });
+    [].forEach.call(panels.children, function (p) { p.hidden = p.dataset.panel !== (path || 'all'); });
+    restore();
+    if (path) {
+      var anchor = hero.nextSibling;
+      MOVE[path].forEach(function (id) { var el = document.getElementById(id); if (el) { main.insertBefore(el, anchor); anchor = el.nextSibling; } });
+      if (fromUser) { var first = document.getElementById(MOVE[path][0]); first.classList.remove('is-picked'); void first.offsetWidth; first.classList.add('is-picked'); }
+    }
+    try { var u = new URL(location.href); if (path) u.searchParams.set('play', path); else u.searchParams.delete('play'); history.replaceState(null, '', u); } catch (e) {}
+    document.dispatchEvent(new CustomEvent('saranay:path', { detail: path }));
+  }
+  opts.forEach(function (o) {
+    o.setAttribute('role', 'button');
+    o.setAttribute('aria-pressed', 'false');
+    o.setAttribute('aria-controls', 'chooser-panels');
+    o.addEventListener('click', function (e) { e.preventDefault(); pick(o.dataset.path, true); });
+    o.addEventListener('keydown', function (e) { if (e.key === ' ') { e.preventDefault(); pick(o.dataset.path, true); } });
+  });
+  var q = null; try { q = new URL(location.href).searchParams.get('play'); } catch (e) {}
+  if (q && MOVE[q]) pick(q, false);
+})();
+
+/* v2.1 day strip: place a "Now" marker at the current Manila time on the 6 AM to 2 AM price bar.
+   This is the clock only. It says nothing about whether the court is free. */
+(function () {
+  var marker = document.getElementById('daystrip-marker');
+  var now = document.getElementById('daystrip-now');
+  if (!marker || !now || !window.Intl) return;
+  function update() {
+    var parts = {};
+    new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Manila', hour: 'numeric', minute: 'numeric', hour12: false })
+      .formatToParts(new Date()).forEach(function (p) { parts[p.type] = p.value; });
+    var h = (parseInt(parts.hour, 10) % 24) + parseInt(parts.minute, 10) / 60;
+    var label = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Manila', hour: 'numeric', minute: '2-digit' }).format(new Date());
+    var open = h >= 6 || h < 2;
+    if (!open) { marker.hidden = true; now.textContent = 'Now in Manila, ' + label + ': closed. Opens 6 AM.'; now.hidden = false; return; }
+    var pos = h >= 6 ? h - 6 : h + 18; // hours since 6 AM, 0 to 20
+    var rate = (h >= 10 && h < 16) ? '₱200' : '₱300';
+    marker.style.setProperty('--now', (pos / 20 * 100).toFixed(2) + '%');
+    marker.hidden = false;
+    now.textContent = 'Now in Manila, ' + label + ': ' + rate + '/hour';
+    now.hidden = false;
+  }
+  update(); setInterval(update, 60000);
+})();
+
+/* v2.2 · Split the court: per-person estimate from posted rates and player caps */
+(function () {
+  var form = document.getElementById('split');
+  if (!form) return;
+  var art = document.querySelector('[data-split-fallback]');
+  form.hidden = false;
+  if (art) art.hidden = true;
+  var players = form.querySelector('#split-players');
+  var hours = form.querySelector('#split-hours');
+  var paddles = form.querySelector('#split-paddles');
+  var each = form.querySelector('#split-each');
+  var brk = form.querySelector('#split-break');
+  var peso = function (n) { return '₱' + Math.round(n).toLocaleString('en-PH'); };
+  var clamp = function (el) {
+    var v = parseInt(el.value, 10), mn = +el.min, mx = +el.max;
+    if (isNaN(v)) v = mn;
+    return Math.min(mx, Math.max(mn, v));
+  };
+  function update() {
+    var p = clamp(players), h = clamp(hours), pad = Math.min(clamp(paddles), p);
+    if (+paddles.value > p) paddles.value = pad;
+    var rate = +(form.querySelector('input[name="split-rate"]:checked') || {}).value || 200;
+    var cap = h >= 3 ? 12 : h * 4;
+    var extra = Math.max(0, p - cap);
+    var court = rate * h, total = court + extra * 100 + pad * 100;
+    each.textContent = peso(total / p);
+    var parts = ['Court ' + peso(court)];
+    if (extra) parts.push(extra + ' extra player' + (extra > 1 ? 's' : '') + ' ' + peso(extra * 100));
+    if (pad) parts.push(pad + ' paddle' + (pad > 1 ? 's' : '') + ' ' + peso(pad * 100));
+    parts.push('Total ' + peso(total));
+    brk.textContent = parts.join(' · ') + '. ' + h + (h > 1 ? ' hours cover' : ' hour covers') + ' up to ' + cap + ' players.';
+    form.querySelectorAll('.stepper__btn').forEach(function (b) {
+      var el = form.querySelector('#' + b.dataset.for), v = clamp(el);
+      var mx = el === paddles ? Math.min(+el.max, p) : +el.max;
+      b.disabled = b.dataset.step < 0 ? v <= +el.min : v >= mx;
+    });
+  }
+  form.addEventListener('click', function (e) {
+    var b = e.target.closest('.stepper__btn');
+    if (!b) return;
+    var el = form.querySelector('#' + b.dataset.for);
+    el.value = clamp(el) + (+b.dataset.step);
+    el.value = clamp(el);
+    if (el !== paddles && +paddles.value > clamp(players)) paddles.value = clamp(players);
+    update();
+  });
+  form.addEventListener('input', update);
+  form.addEventListener('change', function (e) { if (e.target.type === 'number') e.target.value = clamp(e.target); update(); });
+  form.addEventListener('submit', function (e) { e.preventDefault(); });
+  update();
+})();
+
+/* v2.3 · Context dock: the sticky bar swaps its summary and main action for the section in view */
+(function () {
+  var bar = document.getElementById('cta-bar');
+  if (!bar || !('IntersectionObserver' in window)) return;
+  var S360 = 'https://app.sports360.ph/sportshub/saranay-pickleball-court';
+  var RECLUB = 'https://reclub.co/clubs/@saranay-pickleball-club';
+  var MSG = 'https://m.me/61589930970148';
+  var CTX = {
+    play: { big: 'Open play', small: 'All levels · 586 members on Reclub', label: 'Join open play', href: RECLUB, cta: 'join-open-play' },
+    court: { big: 'From ₱200/hour', small: 'Whole court · book on Sports360', label: 'Book a court', href: S360, cta: 'book-a-court', ext: true },
+    cafe: { big: "D' Rafael's Cafe", small: 'At the court · hours TBC', label: 'Message us', href: MSG, cta: 'message-us' }
+  };
+  var BY_SECTION = { 'coming-up': 'play', 'open-play': 'play', 'new': 'play', 'rates': 'court', 'rent': 'court', 'cafe': 'cafe', 'find-us': 'cafe' };
+  var BY_PATH = { open: 'play', first: 'play', rent: 'court', cafe: 'cafe' };
+  var base = 'play';
+  try { base = BY_PATH[new URL(location.href).searchParams.get('play')] || 'play'; } catch (e) {}
+  bar.classList.add('dock');
+  bar.innerHTML = '<p class="dock__sum" style="margin:0"><span class="dock__big"><span class="dock__ctx" aria-hidden="true"></span><span data-dock="big"></span></span><span class="dock__small" data-dock="small"></span></p><a class="btn btn--ball" data-dock="btn"></a>';
+  var big = bar.querySelector('[data-dock="big"]'), small = bar.querySelector('[data-dock="small"]'), btn = bar.querySelector('[data-dock="btn"]');
+  var split = null, cur = null, inView = null;
+  function render(key) {
+    var c = CTX[key];
+    var b = c.big, sm = c.small;
+    if (key === 'court' && split) { b = split.each + ' each'; sm = split.players + ' players · ' + split.hours + (split.hours > 1 ? ' hours' : ' hour') + ' · estimate'; }
+    var changed = key !== cur;
+    cur = key;
+    bar.dataset.ctx = key;
+    big.textContent = b; small.textContent = sm;
+    btn.textContent = c.label; btn.href = c.href; btn.dataset.cta = c.cta;
+    if (c.ext) { btn.target = '_blank'; btn.rel = 'noopener'; btn.setAttribute('aria-label', c.label + ' on Sports360 (opens in a new tab)'); }
+    else { btn.removeAttribute('target'); btn.removeAttribute('rel'); btn.removeAttribute('aria-label'); }
+    if (changed) { bar.classList.remove('is-swapping'); void bar.offsetWidth; bar.classList.add('is-swapping'); }
+  }
+  function refresh() { render(inView || base); }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) inView = BY_SECTION[e.target.id] || null; });
+    refresh();
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  ['top', 'coming-up', 'open-play', 'rates', 'rent', 'new', 'cafe', 'find-us', 'about', 'book', 'faq'].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  document.addEventListener('saranay:path', function (e) { base = BY_PATH[e.detail] || 'play'; refresh(); });
+  var form = document.getElementById('split');
+  if (form) form.addEventListener('input', sync), form.addEventListener('click', function () { setTimeout(sync, 0); });
+  function sync() {
+    var each = document.getElementById('split-each');
+    split = { each: each.textContent, players: form.querySelector('#split-players').value, hours: +form.querySelector('#split-hours').value };
+    refresh();
+  }
+  refresh();
+})();
+
+</script>
+</body>
+</html>
