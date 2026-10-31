@@ -504,3 +504,30 @@ button.btn { font-family: var(--font-body); }
 .menuboard__item small { display: block; font-size: var(--fs-xs); font-weight: var(--fw-regular); color: var(--c-coffee-soft); }
 .menuboard__price .tbc { font-size: var(--fs-xs); white-space: nowrap; }
 .menuboard__foot { margin: var(--s-3) 0 0; padding-top: var(--s-3); border-top: 1px dashed rgb(251 247 239 / 0.28); font-size: var(--fs-sm); color: var(--c-coffee-soft); }
+
+/* v2.5 · Two doors: How to book as two side-by-side choices */
+.doors { display: grid; gap: var(--s-5); }
+@media (min-width: 48rem) { .doors { grid-template-columns: 1fr 1fr; align-items: stretch; } }
+.door { display: flex; flex-direction: column; gap: var(--s-3); padding: var(--s-8) var(--gutter) var(--s-6); border-radius: var(--r-lg); box-shadow: var(--shadow-md); position: relative; overflow: hidden; }
+.door::before { content: ""; position: absolute; inset: 0 0 auto 0; block-size: var(--s-2); }
+.door--open { background: var(--c-court-deep); color: var(--c-on-dark); }
+.door--open::before { background: var(--c-ball); }
+.door--court { background: var(--c-surface); color: var(--c-ink); border: var(--border); }
+.door--court::before { background: var(--c-court); }
+.door__kicker { margin: 0; font-size: var(--fs-xs); font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; }
+.door--open .door__kicker { color: var(--c-ball); }
+.door--court .door__kicker { color: var(--c-court); }
+.door__title { margin: 0; font: var(--fw-bold) var(--fs-2xl)/var(--lh-tight) var(--font-display); color: inherit; }
+.door__price { margin: 0; font-weight: var(--fw-semibold); font-size: var(--fs-md); }
+.door--open .door__price { color: var(--c-on-dark-muted); }
+.door--court .door__price { color: var(--c-ink-muted); }
+.door__list { list-style: none; margin: var(--s-2) 0 var(--s-4); padding: 0; display: grid; gap: var(--s-3); flex: 1; }
+.door__list li { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: start; line-height: var(--lh-snug); }
+.door__list svg { inline-size: var(--s-5); block-size: var(--s-5); margin-top: 0.1em; fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.door--open .door__list svg { stroke: var(--c-ball); }
+.door--court .door__list svg { stroke: var(--c-court); }
+.door--open :focus-visible { outline-color: var(--c-focus-on-dark); }
+.helpdesk { margin-top: var(--s-6); padding: var(--s-5) var(--gutter); border: 1px dashed var(--c-line); border-radius: var(--r-lg); display: grid; gap: var(--s-3); }
+.helpdesk__label { margin: 0; font-weight: var(--fw-semibold); }
+.helpdesk__links { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.helpdesk .note { margin: 0; }
