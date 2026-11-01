@@ -3,6 +3,20 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.7a / v3.7b · desktop hero previews · 2026-11-01
+
+**Not live at the root.** The root stays v3.6.2 until Jon picks an option. Both options are frozen and noindex, at `/v3.7a/` and `/v3.7b/`.
+
+**Why:** Jon wants the toast photo, which shows people having fun, as the desktop hero, and asked to see two layouts. The source is the 1920x1080 16:9 hero, the highest-resolution wide version (placeholder, Studio-generated, as the footer says).
+
+- **v3.7a, split layout:** the toast photo is in the right half-panel. The panel takes the photo's own 25:18 crop (source x 420 to 1920), so all five people stay whole. Its left and bottom edges fade into ink. The desktop headline is `clamp(5rem, 8.4vw, 9.5rem)`, so PICKLEBALL ends left of the panel. Images: `img/hero-toast-split-800.webp` (45.5 KB) and `-1500.webp` (119 KB), sizes 50vw.
+- **v3.7b, full-bleed banner:** the 16:9 photo is anchored right at `--banner-h: clamp(25rem, 62vw - 13rem, 41.5rem)`. The lockup (North Caloocan / SARANAY / PICKLEBALL / Court & Café) sits on an ink to `--c-scrim-hero` to `--c-scrim-0` gradient. The headline is `clamp(4.5rem, 7.6vw, 8.5rem)`. Images: `img/hero-toast-wide-1280.webp` (63 KB) and `-1920.webp` (126 KB), sizes 82vw.
+- **Both options:**
+  - Desktop CSS (60rem and up) only, with tokens only. Phones are byte-for-byte the v3.6.2 hero.
+  - Both booking buttons are above the fold, with the consent banner showing, at 1024x768, 1280x800 and 1440x900.
+  - The worst headline pixel passes AA at every size (checks in `checks-v3.7-preview.md`).
+  - Footer reads "Demo preview v3.7a" or "v3.7b". All other copy is unchanged.
+
 ## v3.6.2 · 2026-10-31
 
 **Change (Ling's answers, relayed): share image only**
