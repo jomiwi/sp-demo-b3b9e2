@@ -3,6 +3,15 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.7 · 2026-11-01
+
+**Jon picked option B ("Go with Option B").** v3.7 promotes the `/v3.7b/` preview to the root. `/v3.7a/` and `/v3.7b/` stay in place as previews.
+- **Desktop hero (60rem and up):** a full-bleed banner of the 16:9 toast photo (`img/hero-toast-wide-1280.webp` / `-1920.webp`, sizes 82vw), the same CSS as v3.7b (see below), now at the end of `styles.css`. Phones are unchanged.
+- **Hero image alt text, phone and desktop:** "Five friends raise iced coffees on the Saranay court at golden hour." It replaces the old court description.
+- **Footer:** "Demo preview v3.7". The rest of the footer text is unchanged.
+- **Share image:** the same file (`img/og-hero-1200x630.jpg`). Only the query changes, to `?v=3.7`, in og:image, og:image:secure_url and twitter:image.
+- No other copy changes.
+
 ## v3.7a / v3.7b · desktop hero previews · 2026-11-01
 
 **Not live at the root.** The root stays v3.6.2 until Jon picks an option. Both options are frozen and noindex, at `/v3.7a/` and `/v3.7b/`.

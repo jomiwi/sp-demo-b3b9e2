@@ -558,3 +558,14 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 /* v3.5 · phone hero is the golden-hour group image (square crop, faces in the upper half, clear of the open-now and next-play chips).
    The type still sits on --c-scrim-hero over the lower part, so the v3.3 AA floor is unchanged. Desktop keeps the court photo. */
 @media (max-width: 59.99rem) { .hero__media img { object-position: 50% 45%; } }
+/* v3.7 (desktop only, option B picked by Jon): full-bleed banner like the share image. The 16:9 toast photo is anchored right at the banner height, so all five people stay whole; the lockup sits on the dark left over an ink gradient. Phones unchanged. */
+@media (min-width: 60rem) {
+  .hero { --banner-h: clamp(25rem, 62vw - 13rem, 41.5rem); }
+  .hero__media { inset: 0 0 auto auto; width: auto; max-width: 100%; height: var(--banner-h); aspect-ratio: 16 / 9; }
+  .hero__media img { object-position: 100% 50%; }
+  .hero__media::after { background: linear-gradient(90deg, var(--c-ink) 0%, var(--c-scrim-hero) 16%, var(--c-scrim-0) 34%), linear-gradient(0deg, var(--c-ink) 0%, var(--c-scrim-0) 20%); }
+  .hero__arc { inset: 6% 0 auto 55%; width: 45%; height: 30%; }
+  .hero__lead { min-height: var(--banner-h); max-height: none; padding-block: var(--s-8) var(--s-6); max-width: 42rem; }
+  .hero__big { font-size: clamp(4.5rem, 7.6vw, 8.5rem); }
+  .hero__sub { max-width: 26rem; }
+}
