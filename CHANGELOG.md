@@ -3,6 +3,15 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.15 RC3 · 2026-11-02 · Martha's RC2 re-read (LOCAL ONLY, not published)
+
+Still local on `release/v3.15`: not pushed, not deployed, noindex stays on. Details in `_docs/rc2-changes.md` (RC3 section).
+- **Home FAQ "How do I rent the whole court?":** the booking link now says "Book a court" (aria "Book a court (opens in a new tab)") and reads "Book a court online and pick your time."
+- **Privacy notice:** "clicks to Reclub, Sports360 and Facebook" (was Messenger).
+- **Lessons heading:** "Lessons for beginners" (was "Learn to play with us").
+- **Tracking:** the two "Rates as listed on Sports360" citations push click_sports360 only (cta_location `rates_citation`), no book_court_click. book_court_click now comes only from /book.
+- `/v3.15/` regenerated; `/v3.15/book/` and `/book/` unchanged.
+
 ## v3.15 RC2 · 2026-11-02 · Martha's copy read + beginners v6 (LOCAL ONLY, not published)
 
 Still local on `release/v3.15`: not pushed, not deployed, noindex stays on. The item-by-item map is in `_docs/rc2-changes.md`.

@@ -1145,14 +1145,15 @@ function saranayTag(href, loc) {
     }
     if (!ev) return;
     var p = { event: ev, cta_location: a.dataset.cta || 'unlabeled', link_url: a.href, play_context: play || 'none' };
+    if (d === 'sports360') p.cta_location = 'rates_citation';
     if (d === 'sports360' && split) p.split_estimate = split;
     dlEvent(p);
     saranayGA(ev, { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context });
     /* v3.8 · one named event per goal, so each booking button can be measured on its own.
        RC2: booking buttons now go to the site's /book page (data-dest="book"), which is not in EVENTS, so nothing is pushed here for them.
        /book pushes book_court_click ONCE, with cta_location and rate_band taken from ?cta= and ?rate_band= on the link.
-       The two "Rates as listed on Sports360" citations stay raw Sports360 links and still fire click_sports360 + book_court_click here. */
-    if (d === 'sports360') { var bp = { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context, rate_band: a.dataset.band || 'none' }; dlEvent(Object.assign({ event: 'book_court_click' }, bp)); saranayGA('book_court_click', bp); }
+       RC3: the two "Rates as listed on Sports360" citations stay raw Sports360 links and fire click_sports360 ONLY
+       (cta_location=rates_citation, set above). They are not booking buttons, so they never fire book_court_click. */
     if (d === 'reclub') { var jp = { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context }; dlEvent(Object.assign({ event: 'join_open_play_click' }, jp)); saranayGA('join_open_play_click', jp); }
     /* v3.15 · lessons: any link marked data-lesson also fires lesson_click */
     if (a.dataset.lesson) { var lp = { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context, lesson_channel: d }; dlEvent(Object.assign({ event: 'lesson_click' }, lp)); saranayGA('lesson_click', lp); }
