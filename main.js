@@ -1,6 +1,10 @@
 /* Saranay demo: menu toggle, copy location pin, chooser, dock, clocks, and (v3.4) consent + dataLayer events.
-   No dependencies. Tracking only pushes to window.dataLayer; nothing is sent anywhere until the owners add a real
-   GTM container ID in index.html AND the visitor accepts cookies (Consent Mode v2, denied by default). */
+   No dependencies. Events are pushed to window.dataLayer and, v3.14, sent to Google Analytics 4 (G-Q9F8HPKEND) with
+   gtag('event', ...) ONLY after the visitor accepts cookies (Consent Mode v2, denied by default; gtag.js isn't loaded before). */
+/* v3.14 · GA4 events: same name and parameters as the dataLayer push. Sent only while analytics consent is granted. */
+function saranayGA(name, params) {
+  try { if (window.saranayGAOn && localStorage.getItem('saranay_consent') === 'granted' && typeof gtag === 'function') gtag('event', name, params); } catch (e) {}
+}
 
 /* v3.4 · dataLayer events, per the Saranay conversion tracking plan (31 Oct 2026). Must run before the chooser so
    a ?play= deep link is recorded as chooser_select with selection_method "deep_link". */
@@ -38,14 +42,19 @@ function saranayTag(href, loc) {
     if (!a) return;
     var d = destOf(a), ev = d && EVENTS[d];
     /* v3.14 · the café is its own page (cafe/); count which link sent people there */
-    if (!ev && /\/cafe\/$/.test(a.pathname) && a.origin === location.origin && !a.dataset.path && !/\/cafe\/$/.test(location.pathname)) { dl.push({ event: 'cafe_link_click', cta_location: a.dataset.cta || 'unlabeled', link_url: a.href, play_context: play || 'none' }); return; }
+    if (!ev && /\/cafe\/$/.test(a.pathname) && a.origin === location.origin && !a.dataset.path && !/\/cafe\/$/.test(location.pathname)) {
+      var cp = { cta_location: a.dataset.cta || 'unlabeled', link_url: a.href, play_context: play || 'none' };
+      dl.push({ event: 'cafe_link_click', cta_location: cp.cta_location, link_url: cp.link_url, play_context: cp.play_context });
+      saranayGA('cafe_link_click', cp); return;
+    }
     if (!ev) return;
     var p = { event: ev, cta_location: a.dataset.cta || 'unlabeled', link_url: a.href, play_context: play || 'none' };
     if (d === 'sports360' && split) p.split_estimate = split;
     dl.push(p);
+    saranayGA(ev, { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context });
     /* v3.8 · one named event per goal, so each booking button can be measured on its own */
-    if (d === 'sports360') dl.push({ event: 'book_court_click', cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context, rate_band: a.dataset.band || 'none' });
-    if (d === 'reclub') dl.push({ event: 'join_open_play_click', cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context });
+    if (d === 'sports360') { var bp = { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context, rate_band: a.dataset.band || 'none' }; dl.push(Object.assign({ event: 'book_court_click' }, bp)); saranayGA('book_court_click', bp); }
+    if (d === 'reclub') { var jp = { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context }; dl.push(Object.assign({ event: 'join_open_play_click' }, jp)); saranayGA('join_open_play_click', jp); }
     var bar = a.closest('#cta-bar');
     if (bar) dl.push({ event: 'sticky_bar_click', bar_context: bar.dataset.ctx || 'none', cta_location: p.cta_location });
   }, true);
@@ -101,6 +110,7 @@ function saranayTag(href, loc) {
     /* v3.4.1: Accept grants analytics_storage ONLY. Ad storage, ad user data and ad personalization stay denied always. */
     var state = { analytics_storage: v, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' };
     if (typeof gtag === 'function') gtag('consent', 'update', state);
+    if (v === 'granted' && typeof window.saranayLoadGA === 'function') window.saranayLoadGA(); /* v3.14: GA4 loads only now */
     (window.dataLayer = window.dataLayer || []).push({ event: 'consent_update', consent: v, analytics_storage: state.analytics_storage, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
     var had = box.contains(document.activeElement);
     box.hidden = true;

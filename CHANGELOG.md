@@ -3,7 +3,7 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
-## v3.14 · 2026-11-02 · the café gets its own page (local build, awaiting Jon's OK to publish)
+## v3.14 · 2026-11-02 · the café gets its own page, and GA4 (local build, awaiting Jon's OK to publish)
 
 **The café moves from a #cafe section to its own page at `cafe/`** (Jon, via Róen: GA can't count # anchors, so the café needs a real page view).
 - **New `cafe/index.html`**: same header, footer, tokens, consent banner, dataLayer and noindex as the home page. It opens with D' Rafael's Cafe and both money actions, **Book a court on Sports360 first, then Join open play** (`cafe_hero_book_a_court_on_sports360`, `cafe_hero_join_open_play`, firing `book_court_click` and `join_open_play_click`). Then the full menu board (prices TBC), seating and café hours (TBC), the party line, Ask about the café and Directions, the three café photos, a Find the café block (address, court hours, café hours TBC, Maps, Copy location pin, Call us), and the five café questions from the FAQ, word for word. The phone dock opens in café context. No new facts.
@@ -12,6 +12,13 @@ Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 - **New event `cafe_link_click`** (cta_location = which link sent people to the café page). The café page's own `cafe_menu_view` keeps working.
 - The LocalBusiness JSON-LD stays on the home page only. **Exits: home 42** (16 Sports360, 19 Reclub, 7 Messenger; the café's Messenger link moved to the café page), **café page 11** (4 Sports360, 5 Reclub, 2 Messenger).
 - Frozen copies: `/v3.14/` and `/v3.14/cafe/`. Footer: "Demo preview v3.14". Share image `?v=3.14`.
+
+**Google Analytics 4 is wired in (`G-Q9F8HPKEND`) on all four pages: home, `cafe/`, `/v3.14/` and `/v3.14/cafe/`.**
+- **Consent first.** Consent Mode v2 defaults are set in the `<head>` before any Google code, all denied (analytics_storage, ad_storage, ad_user_data, ad_personalization). The standard gtag.js loader (`googletagmanager.com/gtag/js?id=G-Q9F8HPKEND`) is only added after **Accept**, or on a later visit where Accept was already stored. This is "basic" consent mode: **before a choice, or after Decline, nothing is sent to Google**, not even cookieless pings, and no cookies are set.
+- **Accept grants analytics_storage only.** ad_storage, ad_user_data and ad_personalization stay denied (hits carry `gcs=G101`).
+- **The Tag Manager placeholder is gone.** The v3.4 GTM loader and its noscript comment were redundant with direct gtag, so they're removed. No Tag Manager container (`gtm.js`) is ever requested. No version folders were touched.
+- **Events go to GA4 through `gtag('event')`** with the same parameters as the dataLayer: `book_court_click` (cta_location, link_url, play_context, rate_band), `join_open_play_click` (cta_location, link_url, play_context) and `cafe_link_click` (cta_location, link_url, play_context), plus the `click_sports360`, `click_reclub` and `click_messenger` exits. The dataLayer pushes stay. Clicks made before Accept are never sent later.
+- **Copy:** the cookie banner and the privacy section now say plainly that Google Analytics (a Google service) is used, only if you accept, to count visits and clicks to Reclub, Sports360 and Messenger. It sets `_ga` cookies and sends that usage data to Google, and ad features stay off. The data controller and contact stay **TBC**. No new claims.
 
 ## v3.13 · 2026-11-02 · conversion round 6
 

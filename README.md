@@ -9,7 +9,7 @@
 | --- | --- |
 | `index.html` | The whole page. Each section is wrapped in `COPY: n name` / `/COPY: n name` comments. |
 | `styles.css` | Design tokens in `:root` (colour, type, spacing, radius, motion), then components. No colours or spacing outside tokens. |
-| `main.js` | Mobile menu, "Copy location pin", hero chooser, context dock, open-now and next-open-play chips, and (v3.4) the cookie banner and dataLayer events (see CHANGELOG v3.4). No dependencies. Google Tag Manager stays off until the placeholder `GTM-XXXXXXX` in index.html is replaced with the real container ID, and then it only measures after the visitor accepts cookies. |
+| `main.js` | Mobile menu, "Copy location pin", hero chooser, context dock, open-now and next-open-play chips, and (v3.4) the cookie banner and dataLayer events (see CHANGELOG v3.4). No dependencies. v3.14: Google Analytics 4 (G-Q9F8HPKEND) is tagged directly in each page's head (no GTM). gtag.js only loads after the visitor accepts cookies; Accept grants analytics_storage only. book_court_click, join_open_play_click, cafe_link_click and the click_* exit events go to GA4 via gtag('event') as well as the dataLayer. |
 | `robots.txt` | Allows crawling, so crawlers can see the noindex tag. |
 | `_headers` | `X-Robots-Tag: noindex, nofollow` (applied on Cloudflare Pages / Netlify; GitHub Pages ignores it). |
 | `favicon.svg`, `.nojekyll` | Icon; tells GitHub Pages to serve files as-is. |

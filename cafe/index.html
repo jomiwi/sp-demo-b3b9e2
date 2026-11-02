@@ -32,18 +32,25 @@
   <meta name="twitter:description" content="D' Rafael's Cafe, right at the Saranay Pickleball court in North Caloocan. Coffee, Tusok-Tusok Treat and enoki crispy fries. You don't have to play to stay.">
   <meta name="twitter:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg?v=3.14">
   <meta name="twitter:image:alt" content="Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball, Court &amp; Café, beside friends toasting with iced coffees on the court at golden hour.">
-  <!-- v3.4 Consent Mode v2 (all denied by default; v3.4.1: Accept grants analytics_storage only, ad_* stay denied always) + Google Tag Manager.
-       GTM-XXXXXXX is a PLACEHOLDER: the loader below refuses to run until the owners paste their real container ID. -->
+  <!-- v3.14 Google Analytics 4 (G-Q9F8HPKEND) with Consent Mode v2, basic mode.
+       Consent defaults come first: everything denied. gtag.js is NOT loaded until the visitor taps Accept (or accepted on an
+       earlier visit), so before consent nothing at all is sent to Google: no cookieless pings, no script request.
+       Accept grants analytics_storage only; ad_storage, ad_user_data and ad_personalization stay denied always.
+       v3.14: the Tag Manager placeholder loader was removed; GA4 is tagged directly, so no Tag Manager container request is ever made. -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('consent', 'default', {ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500});
-    (function () { try { if (localStorage.getItem('saranay_consent') === 'granted') gtag('consent', 'update', {analytics_storage: 'granted'}); } catch (e) {} })();
-    (function (w, d, s, l, i) {
-      if (!/^GTM-[A-Z0-9]{4,}$/.test(i) || i === 'GTM-XXXXXXX') { w[l].push({event: 'gtm_skipped', reason: 'placeholder container ID'}); return; }
-      w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-      var f = d.getElementsByTagName(s)[0], j = d.createElement(s); j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-XXXXXXX');
+    window.SARANAY_GA_ID = 'G-Q9F8HPKEND';
+    /* Standard gtag.js snippet, run only once analytics consent is granted. */
+    window.saranayLoadGA = function () {
+      if (window.saranayGAOn) return; window.saranayGAOn = true;
+      gtag('js', new Date());
+      gtag('config', window.SARANAY_GA_ID);
+      var j = document.createElement('script'); j.async = true; j.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.SARANAY_GA_ID;
+      document.head.appendChild(j);
+    };
+    (function () { try { if (localStorage.getItem('saranay_consent') === 'granted') { gtag('consent', 'update', {analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied'}); window.saranayLoadGA(); } } catch (e) {} })();
   </script>
   <link rel="stylesheet" href="../styles.css">
 </head>
@@ -57,13 +64,10 @@
 -->
 <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- GTM noscript: enable with the real container ID at launch.
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
--->
 <!-- v3.4 cookie consent (RA 10173). Hidden until JS shows it; no choice stored = nothing but the denied defaults. -->
 <section class="consent" id="consent" aria-labelledby="consent-title" hidden>
   <div class="consent__inner">
-    <p class="consent__text"><strong id="consent-title">Cookies</strong> We'd like to count visits and booking clicks to improve this site. We only do this if you say yes. <a href="../#privacy">Privacy notice</a></p>
+    <p class="consent__text"><strong id="consent-title">Cookies</strong> We'd like to use Google Analytics to count visits and booking clicks, so we can improve this site. It only turns on if you say yes. <a href="../#privacy">Privacy notice</a></p>
     <div class="consent__btns">
       <button class="btn consent__btn" type="button" data-consent="denied">Decline</button>
       <button class="btn consent__btn" type="button" data-consent="granted">Accept</button>

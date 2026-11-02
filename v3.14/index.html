@@ -35,18 +35,25 @@
   <meta name="twitter:image:alt" content="Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball, Court &amp; Café, beside friends toasting with iced coffees on the court at golden hour.">
   <!-- v3.4 structured data: verified facts only (no plus code, no geo, no café hours: still TBC) -->
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": ["LocalBusiness", "SportsActivityLocation"], "name": "Saranay Pickleball Court & Café", "url": "https://jomiwi.github.io/sp-demo-b3b9e2/", "image": "https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg", "telephone": "+63 906 545 8384", "address": {"@type": "PostalAddress", "streetAddress": "Saranay Road, Saranay Homes", "addressLocality": "Bagumbong North, Caloocan", "addressRegion": "Metro Manila", "addressCountry": "PH"}, "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], "opens": "06:00", "closes": "02:00"}], "sameAs": ["https://www.facebook.com/people/Saranay-Pickleball-Court-and-Cafe/61589930970148/", "https://www.instagram.com/saranaypickleballcourt/", "https://www.tiktok.com/@saranay.picklebal", "https://reclub.co/clubs/@saranay-pickleball-club", "https://app.sports360.ph/sportshub/saranay-pickleball-court"]}</script>
-  <!-- v3.4 Consent Mode v2 (all denied by default; v3.4.1: Accept grants analytics_storage only, ad_* stay denied always) + Google Tag Manager.
-       GTM-XXXXXXX is a PLACEHOLDER: the loader below refuses to run until the owners paste their real container ID. -->
+  <!-- v3.14 Google Analytics 4 (G-Q9F8HPKEND) with Consent Mode v2, basic mode.
+       Consent defaults come first: everything denied. gtag.js is NOT loaded until the visitor taps Accept (or accepted on an
+       earlier visit), so before consent nothing at all is sent to Google: no cookieless pings, no script request.
+       Accept grants analytics_storage only; ad_storage, ad_user_data and ad_personalization stay denied always.
+       v3.14: the Tag Manager placeholder loader was removed; GA4 is tagged directly, so no Tag Manager container request is ever made. -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('consent', 'default', {ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500});
-    (function () { try { if (localStorage.getItem('saranay_consent') === 'granted') gtag('consent', 'update', {analytics_storage: 'granted'}); } catch (e) {} })();
-    (function (w, d, s, l, i) {
-      if (!/^GTM-[A-Z0-9]{4,}$/.test(i) || i === 'GTM-XXXXXXX') { w[l].push({event: 'gtm_skipped', reason: 'placeholder container ID'}); return; }
-      w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-      var f = d.getElementsByTagName(s)[0], j = d.createElement(s); j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i; f.parentNode.insertBefore(j, f);
-    })(window, document, 'script', 'dataLayer', 'GTM-XXXXXXX');
+    window.SARANAY_GA_ID = 'G-Q9F8HPKEND';
+    /* Standard gtag.js snippet, run only once analytics consent is granted. */
+    window.saranayLoadGA = function () {
+      if (window.saranayGAOn) return; window.saranayGAOn = true;
+      gtag('js', new Date());
+      gtag('config', window.SARANAY_GA_ID);
+      var j = document.createElement('script'); j.async = true; j.src = 'https://www.googletagmanager.com/gtag/js?id=' + window.SARANAY_GA_ID;
+      document.head.appendChild(j);
+    };
+    (function () { try { if (localStorage.getItem('saranay_consent') === 'granted') { gtag('consent', 'update', {analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied'}); window.saranayLoadGA(); } } catch (e) {} })();
   </script>
   <style>
 /* Saranay Pickleball Court and Cafe · demo styles v3.0
@@ -726,13 +733,10 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 -->
 <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- GTM noscript: enable with the real container ID at launch.
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
--->
 <!-- v3.4 cookie consent (RA 10173). Hidden until JS shows it; no choice stored = nothing but the denied defaults. -->
 <section class="consent" id="consent" aria-labelledby="consent-title" hidden>
   <div class="consent__inner">
-    <p class="consent__text"><strong id="consent-title">Cookies</strong> We'd like to count visits and booking clicks to improve this site. We only do this if you say yes. <a href="#privacy">Privacy notice</a></p>
+    <p class="consent__text"><strong id="consent-title">Cookies</strong> We'd like to use Google Analytics to count visits and booking clicks, so we can improve this site. It only turns on if you say yes. <a href="#privacy">Privacy notice</a></p>
     <div class="consent__btns">
       <button class="btn consent__btn" type="button" data-consent="denied">Decline</button>
       <button class="btn consent__btn" type="button" data-consent="granted">Accept</button>
@@ -1251,7 +1255,7 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
   <div class="container privacy">
     <p class="eyebrow">Privacy</p>
     <h2 id="privacy-title">Privacy and cookies</h2>
-    <p>We don't take bookings or payments on this site. If you choose <strong>Accept</strong>, we count visits and clicks to Reclub, Sports360 and Messenger with Google Tag Manager, so we know what helps players book. If you choose <strong>Decline</strong>, no analytics cookies are set. Your choice is saved on this device and you can change it any time.</p>
+    <p>We don't take bookings or payments on this site. If you choose <strong>Accept</strong>, we use Google Analytics, a Google service, to count visits and clicks to Reclub, Sports360 and Messenger, so we know what helps players book. Google Analytics then sets its cookies (_ga) on this device and sends that usage data to Google. We don't turn on Google's advertising features: ad storage, ad user data and ad personalization stay off. If you choose <strong>Decline</strong>, or until you choose, Google Analytics isn't loaded and nothing is sent to Google. Your choice is saved on this device and you can change it any time.</p>
     <dl class="info">
       <div><dt>Data controller</dt><dd><span class="tbc">business owner's registered name</span></dd></div>
       <div><dt>Privacy contact</dt><dd><span class="tbc">contact person and email for privacy requests</span></dd></div>
@@ -1307,8 +1311,12 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 
 <script>
 /* Saranay demo: menu toggle, copy location pin, chooser, dock, clocks, and (v3.4) consent + dataLayer events.
-   No dependencies. Tracking only pushes to window.dataLayer; nothing is sent anywhere until the owners add a real
-   GTM container ID in index.html AND the visitor accepts cookies (Consent Mode v2, denied by default). */
+   No dependencies. Events are pushed to window.dataLayer and, v3.14, sent to Google Analytics 4 (G-Q9F8HPKEND) with
+   gtag('event', ...) ONLY after the visitor accepts cookies (Consent Mode v2, denied by default; gtag.js isn't loaded before). */
+/* v3.14 · GA4 events: same name and parameters as the dataLayer push. Sent only while analytics consent is granted. */
+function saranayGA(name, params) {
+  try { if (window.saranayGAOn && localStorage.getItem('saranay_consent') === 'granted' && typeof gtag === 'function') gtag('event', name, params); } catch (e) {}
+}
 
 /* v3.4 · dataLayer events, per the Saranay conversion tracking plan (31 Oct 2026). Must run before the chooser so
    a ?play= deep link is recorded as chooser_select with selection_method "deep_link". */
@@ -1346,14 +1354,19 @@ function saranayTag(href, loc) {
     if (!a) return;
     var d = destOf(a), ev = d && EVENTS[d];
     /* v3.14 · the café is its own page (cafe/); count which link sent people there */
-    if (!ev && /\/cafe\/$/.test(a.pathname) && a.origin === location.origin && !a.dataset.path && !/\/cafe\/$/.test(location.pathname)) { dl.push({ event: 'cafe_link_click', cta_location: a.dataset.cta || 'unlabeled', link_url: a.href, play_context: play || 'none' }); return; }
+    if (!ev && /\/cafe\/$/.test(a.pathname) && a.origin === location.origin && !a.dataset.path && !/\/cafe\/$/.test(location.pathname)) {
+      var cp = { cta_location: a.dataset.cta || 'unlabeled', link_url: a.href, play_context: play || 'none' };
+      dl.push({ event: 'cafe_link_click', cta_location: cp.cta_location, link_url: cp.link_url, play_context: cp.play_context });
+      saranayGA('cafe_link_click', cp); return;
+    }
     if (!ev) return;
     var p = { event: ev, cta_location: a.dataset.cta || 'unlabeled', link_url: a.href, play_context: play || 'none' };
     if (d === 'sports360' && split) p.split_estimate = split;
     dl.push(p);
+    saranayGA(ev, { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context });
     /* v3.8 · one named event per goal, so each booking button can be measured on its own */
-    if (d === 'sports360') dl.push({ event: 'book_court_click', cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context, rate_band: a.dataset.band || 'none' });
-    if (d === 'reclub') dl.push({ event: 'join_open_play_click', cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context });
+    if (d === 'sports360') { var bp = { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context, rate_band: a.dataset.band || 'none' }; dl.push(Object.assign({ event: 'book_court_click' }, bp)); saranayGA('book_court_click', bp); }
+    if (d === 'reclub') { var jp = { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context }; dl.push(Object.assign({ event: 'join_open_play_click' }, jp)); saranayGA('join_open_play_click', jp); }
     var bar = a.closest('#cta-bar');
     if (bar) dl.push({ event: 'sticky_bar_click', bar_context: bar.dataset.ctx || 'none', cta_location: p.cta_location });
   }, true);
@@ -1409,6 +1422,7 @@ function saranayTag(href, loc) {
     /* v3.4.1: Accept grants analytics_storage ONLY. Ad storage, ad user data and ad personalization stay denied always. */
     var state = { analytics_storage: v, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' };
     if (typeof gtag === 'function') gtag('consent', 'update', state);
+    if (v === 'granted' && typeof window.saranayLoadGA === 'function') window.saranayLoadGA(); /* v3.14: GA4 loads only now */
     (window.dataLayer = window.dataLayer || []).push({ event: 'consent_update', consent: v, analytics_storage: state.analytics_storage, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
     var had = box.contains(document.activeElement);
     box.hidden = true;
