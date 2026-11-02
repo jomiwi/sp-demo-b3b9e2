@@ -629,3 +629,13 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
   .hero__big { font-size: clamp(4.5rem, 7.6vw, 8.5rem); }
   .hero__sub { max-width: 26rem; }
 }
+
+/* v3.13 · Simplified header: desktop keeps four section links (Open play, Rates & hours, Café, Find us) and both actions, Book then Join.
+   Rent the court, New here? and FAQ stay in the phone menu and on the page. */
+.site-nav__ctas { display: grid; gap: var(--s-2); margin-top: var(--s-5); }
+.site-nav__ctas .btn { margin-top: 0; }
+@media (min-width: 60rem) {
+  .site-nav .nav__extra { display: none; }
+  .site-nav__ctas { display: flex; margin-top: 0; }
+  .site-nav__ctas .btn { min-height: var(--tap); padding-inline: var(--s-5); white-space: nowrap; }
+}

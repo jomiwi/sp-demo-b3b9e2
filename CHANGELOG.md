@@ -3,6 +3,19 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.13 · 2026-11-02 · conversion round 6
+
+**Bold change: a simpler header that carries both actions.** Desktop has no booking dock, so once visitors scroll past the hero, the sticky header was their only action, and it offered Join alone. The header is now:
+- brand
+- four section links: Open play, Rates & hours, Café, Find us
+- **Book a court** (court blue, Sports360, `nav_book_a_court`), then **Join open play** (amber, Reclub)
+
+Both buttons are 44px tall. On desktop the header goes from 8 items to 6 (7 links + 1 button before, 4 links + 2 buttons now).
+- "Rent the court", "New here?" and "FAQ" are hidden from the desktop bar only (`.nav__extra`). They stay in the phone menu and on the page, and nothing is deleted. The phone menu now ends with the same Book-then-Join pair, stacked.
+- Checked at 1024, 1280 and 1440 with no horizontal overflow. The header pair is visible at every scroll depth on desktop. **Exits: 43** (16 Sports360, 19 Reclub, 8 Messenger).
+- **Borrowed from Mobbin:** keep a persistent primary action in fixed chrome and trim the secondary navigation, as in Fresha (a fixed "Book now" across every tab) and Trainline (one dominant action, minimal chrome). On desktop we pair it the same way as the phone dock from v3.9.
+- Footer: "Demo preview v3.13". Share image `?v=3.13`.
+
 ## v3.12 · 2026-11-02 · conversion round 5
 
 **Bold change: the moving ticker is now a still proof bar, and the proof leads straight to booking.** The court-blue marquee under the hero scrolled four facts sideways, nonstop. It's replaced by four fixed cells: a 2×2 grid on phones, one row of four from 48rem up. The two cells that answer a buyer's question are also the actions:
