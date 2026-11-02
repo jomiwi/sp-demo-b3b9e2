@@ -3,6 +3,16 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.14 · 2026-11-02 · the café gets its own page (local build, awaiting Jon's OK to publish)
+
+**The café moves from a #cafe section to its own page at `cafe/`** (Jon, via Róen: GA can't count # anchors, so the café needs a real page view).
+- **New `cafe/index.html`**: same header, footer, tokens, consent banner, dataLayer and noindex as the home page. It opens with D' Rafael's Cafe and both money actions, **Book a court on Sports360 first, then Join open play** (`cafe_hero_book_a_court_on_sports360`, `cafe_hero_join_open_play`, firing `book_court_click` and `join_open_play_click`). Then the full menu board (prices TBC), seating and café hours (TBC), the party line, Ask about the café and Directions, the three café photos, a Find the café block (address, court hours, café hours TBC, Maps, Copy location pin, Call us), and the five café questions from the FAQ, word for word. The phone dock opens in café context. No new facts.
+- **Home page**: the #cafe section is now a short teaser (one photo, one line, "See the café" → `cafe/`).
+- **Every café link now points at `cafe/`** (relative, so it works under /sp-demo-b3b9e2/ and in /v3.14/): header and phone menu, the hero café panel ("See the café" replaces "How to get here"), the proof cell "One court with its own café", the FAQ answer, and a new footer link. The "Café" chip in the "How are you playing?" chooser still opens the café panel in place, as before (it falls back to `cafe/` without JS). No links to #cafe remain.
+- **New event `cafe_link_click`** (cta_location = which link sent people to the café page). The café page's own `cafe_menu_view` keeps working.
+- The LocalBusiness JSON-LD stays on the home page only. **Exits: home 42** (16 Sports360, 19 Reclub, 7 Messenger; the café's Messenger link moved to the café page), **café page 11** (4 Sports360, 5 Reclub, 2 Messenger).
+- Frozen copies: `/v3.14/` and `/v3.14/cafe/`. Footer: "Demo preview v3.14". Share image `?v=3.14`.
+
 ## v3.13 · 2026-11-02 · conversion round 6
 
 **Bold change: a simpler header that carries both actions.** Desktop has no booking dock, so once visitors scroll past the hero, the sticky header was their only action, and it offered Join alone. The header is now:

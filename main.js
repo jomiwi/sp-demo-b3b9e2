@@ -37,6 +37,8 @@ function saranayTag(href, loc) {
     var a = e.target.closest && e.target.closest('a[href]');
     if (!a) return;
     var d = destOf(a), ev = d && EVENTS[d];
+    /* v3.14 · the café is its own page (cafe/); count which link sent people there */
+    if (!ev && /\/cafe\/$/.test(a.pathname) && a.origin === location.origin && !a.dataset.path && !/\/cafe\/$/.test(location.pathname)) { dl.push({ event: 'cafe_link_click', cta_location: a.dataset.cta || 'unlabeled', link_url: a.href, play_context: play || 'none' }); return; }
     if (!ev) return;
     var p = { event: ev, cta_location: a.dataset.cta || 'unlabeled', link_url: a.href, play_context: play || 'none' };
     if (d === 'sports360' && split) p.split_estimate = split;
@@ -230,7 +232,7 @@ function saranayTag(href, loc) {
   var hero = document.getElementById('top');
   var main = document.getElementById('main');
   var order = [].slice.call(main.children); // original order, for undo
-  var MOVE = { open: ['coming-up', 'open-play'], rent: ['rates', 'rent'], cafe: ['cafe', 'find-us'], first: ['new', 'open-play'] };
+  var MOVE = { open: ['coming-up', 'open-play'], rent: ['rates', 'rent'], cafe: ['cafe-teaser', 'find-us'], first: ['new', 'open-play'] };
   var current = null;
 
   function restore() { order.forEach(function (n) { main.appendChild(n); }); }
@@ -350,10 +352,10 @@ function saranayTag(href, loc) {
     court: ['Court', '₱200–₱300/hour · 6 AM to 2 AM daily'],
     cafe: ["D' Rafael's Cafe", 'At the court · café hours TBC']
   };
-  var BY_SECTION = { 'coming-up': 'play', 'open-play': 'play', 'new': 'play', 'rates': 'court', 'rent': 'court', 'cafe': 'cafe', 'find-us': 'cafe' };
+  var BY_SECTION = { 'coming-up': 'play', 'open-play': 'play', 'new': 'play', 'rates': 'court', 'rent': 'court', 'cafe': 'cafe', 'cafe-teaser': 'cafe', 'find-us': 'cafe' };
   var BY_PATH = { open: 'play', first: 'play', rent: 'court', cafe: 'cafe' };
   var base = 'play';
-  try { base = BY_PATH[new URL(location.href).searchParams.get('play')] || 'play'; } catch (e) {}
+  try { base = BY_PATH[new URL(location.href).searchParams.get('play')] || document.body.dataset.dockBase || 'play'; } catch (e) {}
   var CAL = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
   var BALL = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/><circle cx="15" cy="10" r="1.2" fill="currentColor"/><circle cx="12" cy="15" r="1.2" fill="currentColor"/></svg>';
   bar.classList.add('dock', 'dock--duo');
@@ -376,9 +378,9 @@ function saranayTag(href, loc) {
       entries.forEach(function (e) { if (e.isIntersecting) inView = BY_SECTION[e.target.id] || null; });
       refresh();
     }, { rootMargin: '-45% 0px -50% 0px' });
-    ['top', 'coming-up', 'open-play', 'rates', 'rent', 'new', 'cafe', 'find-us', 'about', 'book', 'faq'].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+    ['top', 'coming-up', 'open-play', 'rates', 'rent', 'new', 'cafe', 'cafe-teaser', 'find-us', 'about', 'book', 'faq'].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
   }
-  document.addEventListener('saranay:path', function (e) { base = BY_PATH[e.detail] || 'play'; refresh(); });
+  document.addEventListener('saranay:path', function (e) { base = BY_PATH[e.detail] || document.body.dataset.dockBase || 'play'; refresh(); });
   var form = document.getElementById('split');
   if (form) form.addEventListener('input', sync), form.addEventListener('click', function () { setTimeout(sync, 0); });
   function sync() {
@@ -412,7 +414,7 @@ function saranayTag(href, loc) {
    While tucked the bar is inert, so keyboard focus skips it. */
 (function () {
   var bar = document.getElementById('cta-bar');
-  var lead = document.getElementById('chooser-panels');
+  var lead = document.getElementById('chooser-panels') || document.getElementById('hero-ctas'); /* v3.14: the café page has no chooser */
   if (!bar || !lead || !('IntersectionObserver' in window)) return;
   function set(tuck) { bar.classList.toggle('is-tucked', tuck); if (tuck) bar.setAttribute('inert', ''); else bar.removeAttribute('inert'); }
   new IntersectionObserver(function (es) { set(es[0].isIntersecting); }, { threshold: 0.35 }).observe(lead);
