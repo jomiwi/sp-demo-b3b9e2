@@ -242,6 +242,9 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 .next-play__when { margin: 0; font-weight: var(--fw-semibold); }
 .next-play__go { grid-column: 2; grid-row: 1 / span 2; }
 .next-play a:not(.btn) { color: var(--c-sky); }
+/* RC2 contrast fix: .next-play is itself the <a>, so the rule above never matched and the chip inherited the global link blue (#1F4FD1 on #161D30 = 2.47:1). */
+a.next-play { color: var(--c-on-dark); }
+a.next-play .next-play__go { color: var(--c-sky); }
 @media (max-width: 29.99rem) { .next-play { grid-template-columns: 1fr; } .next-play__go { grid-column: 1; grid-row: auto; } }
 .hero__alt { margin: 0; font-size: var(--fs-sm); color: var(--c-on-dark-muted); }
 .hero__alt a { color: var(--c-sky); }
@@ -688,6 +691,8 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 .beg-list { padding-left: 1.2em; }
 .beg-list li + li { margin-top: var(--s-2); }
 .beg-prose { max-width: 42rem; }
+/* RC2 (Martha #33): the lessons section is heading-left, prose-right from 60rem, so the prose keeps a readable measure without an empty right column */
+@media (min-width: 60rem) { .beg-lessons { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 42rem); gap: var(--s-16); align-items: start; } .beg-lessons > h2 { margin-top: 0; } }
 .beg-choices { list-style: none; padding: 0; margin: var(--s-6) 0 0; display: grid; gap: var(--s-4); }
 @media (min-width: 48rem) { .beg-choices { grid-template-columns: repeat(3, 1fr); } }
 .beg-choices .card p { margin: 0; }

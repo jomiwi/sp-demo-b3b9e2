@@ -3,6 +3,19 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.15 RC2 · 2026-11-02 · Martha's copy read + beginners v6 (LOCAL ONLY, not published)
+
+Still local on `release/v3.15`: not pushed, not deployed, noindex stays on. The item-by-item map is in `_docs/rc2-changes.md`.
+- **Booking buttons go to the site's /book page** (home 14, café 4, beginners 6): `book/?cta=<cta>` (`../book/` on sub-pages), with `&rate_band=` on the daystrip and ₱200 links. Nothing is pushed on the page; /book pushes the one `book_court_click` (cta_location and rate_band from the query, incoming utm_* as-is, none for on-site clicks) and forwards only the incoming utm_* to Sports360. The two rate citations stay raw Sports360 links. The dock Book button follows the static bar link and no longer pushes sticky_bar_click.
+- **Labels:** "Book a court on Sports360" → "Book a court" (labels and aria).
+- **Open play:** the 4-hour length and fixed "Fri–Sun 6 PM" schedule are gone ("Sessions run most Fridays, Saturdays and Sundays in the evening, and some weeknights. Reclub has the live schedule and each session's length.").
+- **Café:** never shown as open on its own; no parking promises.
+- **Lessons:** the "Learn to Play" name is replaced (it isn't on Saranay's own page).
+- **House style:** "to" instead of en dashes in prices and times; "rental"; "checked Nov 2, 2026"; Facebook instead of Messenger.
+- **Beginners page:** lessons layout at desktop; nbsp in the hours. Martha v6: title "Pickleball Caloocan: Lessons for Beginners | Saranay" (also OG/Twitter), hero "…message us about pickleball lessons for beginners", and a new FAQ "Ano ang pickleball?" before "Paano maglaro ng pickleball? Ano ang basic rules?".
+- **Contrast fix:** the hero next-play chip text (was link blue on dark, 2.47:1).
+- **GTM spec:** the `transport_type=beacon` event parameter is removed.
+
 ## v3.15 · 2026-11-02 · release candidate: beginners page, /book, GTM, no-TBC (LOCAL ONLY, not published)
 
 Built on `release/v3.15` from v3.14 (8d6e7a4). Not pushed, not deployed; noindex stays on. Publishing needs Jon's own OK.

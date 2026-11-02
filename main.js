@@ -56,7 +56,10 @@ function saranayTag(href, loc) {
     if (d === 'sports360' && split) p.split_estimate = split;
     dlEvent(p);
     saranayGA(ev, { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context });
-    /* v3.8 · one named event per goal, so each booking button can be measured on its own */
+    /* v3.8 · one named event per goal, so each booking button can be measured on its own.
+       RC2: booking buttons now go to the site's /book page (data-dest="book"), which is not in EVENTS, so nothing is pushed here for them.
+       /book pushes book_court_click ONCE, with cta_location and rate_band taken from ?cta= and ?rate_band= on the link.
+       The two "Rates as listed on Sports360" citations stay raw Sports360 links and still fire click_sports360 + book_court_click here. */
     if (d === 'sports360') { var bp = { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context, rate_band: a.dataset.band || 'none' }; dlEvent(Object.assign({ event: 'book_court_click' }, bp)); saranayGA('book_court_click', bp); }
     if (d === 'reclub') { var jp = { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context }; dlEvent(Object.assign({ event: 'join_open_play_click' }, jp)); saranayGA('join_open_play_click', jp); }
     /* v3.15 · lessons: any link marked data-lesson also fires lesson_click */
@@ -146,7 +149,7 @@ function saranayTag(href, loc) {
     var when = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : DAYS[wd] + ' ' + d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' });
     el.innerHTML = '';
     var b = document.createElement('b'); b.textContent = 'Next open play';
-    el.appendChild(b); el.appendChild(document.createTextNode(': ' + when + ' · ~6 PM · all levels'));
+    el.appendChild(b); el.appendChild(document.createTextNode(': ' + when + ' · usually 6 PM · all levels'));
     el.hidden = false;
   }
   tick(); setInterval(tick, 60000);
@@ -181,7 +184,7 @@ function saranayTag(href, loc) {
     li.className = 'event event--slot' + (n === 0 ? ' is-next' : '');
     li.innerHTML = '<p class="slot__cal" aria-hidden="true"><span class="slot__wd"></span><span class="slot__md"></span></p>' +
       '<p class="event__date"></p><h3 class="event__title">Open play · all levels</h3>' +
-      '<p class="event__meta">Usually 6 PM · 4 hours · fee on Reclub · up to 12</p>' +
+      '<p class="event__meta">Usually 6 PM · fee on Reclub · up to 12</p>' +
       '<a class="btn btn--ball btn--sm" target="_blank" rel="noopener" data-dest="reclub">Join open play</a>';
     li.querySelector('.slot__wd').textContent = DAYS[sl.wd].slice(0, 3);
     li.querySelector('.slot__md').textContent = md;
@@ -357,16 +360,19 @@ function saranayTag(href, loc) {
 })();
 
 /* v3.9 · Two-action dock (was the v2.3 single-action context dock).
-   Both money actions are always one tap away on phones: Book a court on Sports360 first, Join open play second.
+   Both money actions are always one tap away on phones: Book a court first (RC2: via the site's /book page), Join open play second.
    A one-line caption above them still follows the section in view (and the Split-the-court estimate). */
 (function () {
   var bar = document.getElementById('cta-bar');
   if (!bar) return;
-  var S360 = 'https://app.sports360.ph/sportshub/saranay-pickleball-court';
+  /* RC2 (Martha #1): the dock's Book link goes to the site's /book page. The page's own static bar link carries the right relative path
+     (book/ on home, ../book/ on sub-pages), so this works at the site root, in /v3.15/ and at saranaypickleball.com alike. */
+  var staticBook = bar.querySelector('a[data-dest="book"]');
+  var BOOK = staticBook ? staticBook.getAttribute('href') : 'book/?cta=sticky_bar_book_a_court';
   var RECLUB = 'https://reclub.co/clubs/@saranay-pickleball-club';
   var CAP = {
     play: ['Open play', 'All levels · come solo, we rotate you in'],
-    court: ['Court', '₱200–₱300/hour · 6 AM to 2 AM daily'],
+    court: ['Court', '₱200 to ₱300/hour · 6 AM to 2 AM daily'],
     cafe: ["D' Rafael's Cafe", 'Open during court bookings']
   };
   var BY_SECTION = { 'coming-up': 'play', 'open-play': 'play', 'new': 'play', 'rates': 'court', 'rent': 'court', 'cafe': 'cafe', 'lessons': 'play', 'find-us': 'court', 'welcome': 'play', 'start': 'play', 'family': 'court', 'getting-here': 'court', 'ready': 'play' };
@@ -377,7 +383,7 @@ function saranayTag(href, loc) {
   var BALL = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/><circle cx="15" cy="10" r="1.2" fill="currentColor"/><circle cx="12" cy="15" r="1.2" fill="currentColor"/></svg>';
   bar.classList.add('dock', 'dock--duo');
   bar.innerHTML = '<p class="dock__cap"><span class="dock__ctx" aria-hidden="true"></span><strong data-dock="big"></strong> <span data-dock="small"></span></p>' +
-    '<a class="btn" data-dock="book" target="_blank" rel="noopener" data-cta="sticky_bar_book_a_court" data-dest="sports360" aria-label="Book a court on Sports360 (opens in a new tab)" href="' + saranayTag(S360, 'sticky_bar_book_a_court') + '">' + CAL + 'Book a court</a>' +
+    '<a class="btn" data-dock="book" target="_blank" rel="noopener" data-cta="sticky_bar_book_a_court" data-dest="book" aria-label="Book a court (opens in a new tab)" href="' + BOOK + '">' + CAL + 'Book a court</a>' +
     '<a class="btn btn--ball" data-dock="join" target="_blank" rel="noopener" data-cta="sticky_bar_join_open_play" data-dest="reclub" aria-label="Join open play on Reclub (opens in a new tab)" href="' + saranayTag(RECLUB, 'sticky_bar_join_open_play') + '">' + BALL + 'Join open play</a>';
   var big = bar.querySelector('[data-dock="big"]'), small = bar.querySelector('[data-dock="small"]');
   var split = null, cur = null, inView = null;

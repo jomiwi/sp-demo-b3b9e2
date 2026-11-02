@@ -11,17 +11,32 @@
   <title>Book a court on Sports360 | Saranay Pickleball</title>
   <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
   <script>
-  /* v3.15 /book redirect.
+  /* v3.15 RC2 /book redirect: the ONE place book_court_click is pushed for booking buttons.
+     Site booking buttons link here as book/?cta=<cta_location>[&rate_band=early|midday|evening] and push nothing themselves.
+     Social bios and QR codes link here as /book?utm_source=...&utm_medium=...&utm_campaign=...[&utm_content=...].
      Consent Mode v2 BASIC, same as the rest of the site: nothing from Google loads without a stored Accept.
-     - Stored Accept (localStorage saranay_consent = 'granted'): load GTM-TZ4KN34J and push book_court_click with the incoming UTMs.
+     - Stored Accept (localStorage saranay_consent = 'granted'): load GTM-TZ4KN34J and push book_court_click with
+       cta_location (from ?cta, else 'book_redirect'), rate_band (from ?rate_band, else 'none') and the incoming utm_* as-is
+       (left empty when the link carried none; nothing is invented).
        The redirect runs ONLY from that push's eventCallback (eventTimeout 2000 ms is GTM's own fallback).
        Load fallback: if gtm.js hasn't loaded within 2000 ms (blocked or slow), or fails, forward anyway.
        A flag makes sure the redirect runs exactly once, whichever path fires first.
      - No stored choice, or Decline: redirect at once. Nothing is loaded, pushed or logged.
-     BOOK_DEST must stay the same Sports360 page as the site's main "Book a court on Sports360" button. */
+     Destination: the Sports360 booking page, plus the incoming utm_* forwarded unchanged (no utm added when none came in). */
   (function () {
-    var BOOK_DEST = 'https://app.sports360.ph/sportshub/saranay-pickleball-court?utm_source=saranay_site&utm_medium=referral&utm_campaign=site_booking&utm_content=book_redirect';
+    var S360 = 'https://app.sports360.ph/sportshub/saranay-pickleball-court';
     var GTM_ID = 'GTM-TZ4KN34J';
+    var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var sp = null; try { sp = new URLSearchParams(location.search); } catch (e) {}
+    function arg(k) { var v = sp && sp.get(k); return v ? v : undefined; }
+    var q = {}, fwd = [];
+    UTM.forEach(function (k) { var v = arg(k); q[k] = v; if (v) fwd.push(k + '=' + encodeURIComponent(v)); });
+    var cta = arg('cta'); if (!cta || !/^[a-z0-9_]{1,80}$/.test(cta)) cta = 'book_redirect';
+    var band = arg('rate_band'); if (!/^(early|midday|evening)$/.test(band || '')) band = 'none';
+    var BOOK_DEST = S360 + (fwd.length ? '?' + fwd.join('&') : '');
+    window.SARANAY_BOOK_DEST = BOOK_DEST;
+    function setLinks() { var l = document.getElementById('book-fallback'); if (l) l.href = BOOK_DEST; }
+    document.addEventListener('DOMContentLoaded', setLinks);
     var done = false, gtmLoaded = false;
     function go(via) { if (done) return; done = true; window.SARANAY_BOOK_VIA = via; location.replace(BOOK_DEST); }
     var consent = null;
@@ -31,11 +46,10 @@
     function gtag() { dataLayer.push(arguments); }
     gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
     gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
-    var q = {};
-    try { var sp = new URLSearchParams(location.search); ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'].forEach(function (k) { q[k] = sp.get(k) || undefined; }); } catch (e) {}
     dataLayer.push({
       event: 'book_court_click',
-      cta_location: 'book_redirect',
+      cta_location: cta,
+      rate_band: band,
       link_url: BOOK_DEST,
       play_context: 'book_redirect',
       page_location: location.href,
@@ -62,8 +76,8 @@
 <body>
   <main>
     <p>Taking you to Saranay Pickleball's booking page on Sports360…</p>
-    <p><a id="book-fallback" href="https://app.sports360.ph/sportshub/saranay-pickleball-court?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=book_redirect">Continue to Sports360 booking</a></p>
-    <noscript><p><a href="https://app.sports360.ph/sportshub/saranay-pickleball-court?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=book_redirect">Continue to Sports360 booking</a></p></noscript>
+    <p><a id="book-fallback" href="https://app.sports360.ph/sportshub/saranay-pickleball-court">Continue to Sports360 booking</a></p>
+    <noscript><p><a href="https://app.sports360.ph/sportshub/saranay-pickleball-court">Continue to Sports360 booking</a></p></noscript>
   </main>
 </body>
 </html>
