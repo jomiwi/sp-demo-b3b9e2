@@ -41,6 +41,9 @@ function saranayTag(href, loc) {
     var p = { event: ev, cta_location: a.dataset.cta || 'unlabeled', link_url: a.href, play_context: play || 'none' };
     if (d === 'sports360' && split) p.split_estimate = split;
     dl.push(p);
+    /* v3.8 · one named event per goal, so each booking button can be measured on its own */
+    if (d === 'sports360') dl.push({ event: 'book_court_click', cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context, rate_band: a.dataset.band || 'none' });
+    if (d === 'reclub') dl.push({ event: 'join_open_play_click', cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context });
     var bar = a.closest('#cta-bar');
     if (bar) dl.push({ event: 'sticky_bar_click', bar_context: bar.dataset.ctx || 'none', cta_location: p.cta_location });
   }, true);

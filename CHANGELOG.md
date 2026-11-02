@@ -3,6 +3,20 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.8 · 2026-11-02 · conversion round 1
+
+**Brief (Jon, via Róen):** get more clicks on "Book a court on Sports360" and "Join open play". Make one bold change each round, keep it clean, and ship every round.
+- **Book comes first everywhere the two appear as a pair:** the hero buttons, the two `#book` doors (court rental now comes first), the rates cards (court rental before open play) and the footer "Book" list (Sports360 before Reclub).
+- **Named click events:** `book_court_click` fires on every Sports360 link, with `cta_location`, `link_url`, `play_context` and `rate_band`. `join_open_play_click` fires on every Reclub link, with `cta_location`, `link_url` and `play_context`. Both fire after the existing `click_*` event, which is unchanged. Exits stay at 38 (12 Sports360, 17 Reclub, 9 Messenger, counting the dock's 3 contexts).
+- **Bold change: hero buttons become fact tiles.** Each hero button now has a second line with one verified fact:
+  - Book: "₱200–₱300/hour · 6 AM to 2 AM daily" (Sports360)
+  - Join: "All levels · 586 members on Reclub"
+  
+  The answer to "how much, and when?" now sits on the button itself. The aria-label carries the same facts, and the visual subline is aria-hidden. On desktop the sublines don't wrap.
+  - **Borrowed from Mobbin:** the price anchor beside the main action, as in Insight Timer ("From $950 · Reserve now"), Tripadvisor ("from $15 · Check availability") and Fresha ("57 services available · Book now"). Showing the cost and the open window next to the action takes away the main reason people hesitate before tapping out.
+- **Fix:** removed the duplicated "(opens in a new tab) (opens in a new tab)" from the accessible names.
+- Footer: "Demo preview v3.8". Share image `?v=3.8`. The image file is unchanged.
+
 ## v3.7 · 2026-11-01
 
 **Jon picked option B ("Go with Option B").** v3.7 promotes the `/v3.7b/` preview to the root. `/v3.7a/` and `/v3.7b/` stay in place as previews.
