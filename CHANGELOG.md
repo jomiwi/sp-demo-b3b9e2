@@ -3,6 +3,17 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.15 RC4 · 2026-11-02 · Ling's RC3 fact read (LOCAL ONLY, not published)
+
+Still local on `release/v3.15`: not pushed, not deployed, noindex stays on. Item map: `_docs/rc4-changes.md`.
+- **Go-live build:** `python3 _build/build-golive.py [--launch]` writes `../golive-build/` with only /, /cafe/, /pickleball-for-beginners/, /book/, robots, sitemap, CNAME and the files those pages reference. No /vX/ copies, README, CHANGELOG, comments, ribbon or unused images. The build fails if TBC, ₱150, m.me, Demo preview or placeholder survives. Deploying it to gh-pages removes the /vX/ demo URLs (Jon decides; history branch proposed in GOLIVE.md).
+- **Photos:** IG 01, 02, 03, 06, 07, 08, 09, 11, 12 and the Studio hero/OG images are held behind `_build/owner-ok.json` (one switch). The default hero is Saranay's own court photo (`img/hero-court-*.webp`), and the share image is og-share (owner photo, not AI). The café hero falls back to court-shade.
+- **Copy:** footer placeholder line and version label removed; café "Planning a party?" deleted; "Nearly 600 members"; "The first pickleball court in Saranay" cut; About ties coffee to booking the court; private-event answers are court-only; "Instagram" labels; FB /p/ URL everywhere (incl. JSON-LD); JSON-LD street adds Block 5 Lot 13.
+- **Open play:** the hero chip and Coming up are undated and link to Reclub (click_reclub + join_open_play_click); the date logic in main.js is gone.
+- **Tracking:** the footer Facebook link now fires click_messenger; TikTok fires click_tiktok (dataLayer only).
+- **Clean-up:** the `.tbc` CSS, the m.me code and the ₱150 comments are removed from the source. The data controller block is unchanged (DID-38).
+- `/v3.15/` regenerated; `/v3.15/book/` and `/book/` unchanged.
+
 ## v3.15 RC3 · 2026-11-02 · Martha's RC2 re-read (LOCAL ONLY, not published)
 
 Still local on `release/v3.15`: not pushed, not deployed, noindex stays on. Details in `_docs/rc2-changes.md` (RC3 section).

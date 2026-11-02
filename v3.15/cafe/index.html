@@ -15,24 +15,36 @@
   <!-- v3.15: fonts are self-hosted (fonts/, SIL OFL 1.1). No request to fonts.googleapis.com or fonts.gstatic.com. -->
   <link rel="preload" href="../../fonts/archivo-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../../fonts/fonts.css">
-  <!-- v3.4 social previews. v3.5: og:image is a 1200x630 JPG crop of the new golden-hour hero (Studio-generated, demo only) with the headline in Archivo and palette tokens. v3.6: share image regenerated with the new headline SARANAY / PICKLEBALL / Court &amp; Café (same file name). v3.6.1: eyebrow "North Caloocan" (Martha). v3.6.2: share image location line removed, hours line "Court open 6 AM to 2 AM" (Ling). -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Saranay Pickleball Court &amp; Café">
   <meta property="og:title" content="D' Rafael's Cafe | Saranay Pickleball Court &amp; Café">
   <meta property="og:description" content="D' Rafael's Cafe, right at the Saranay Pickleball court in North Caloocan. Coffee, Tusok-Tusok Treat and enoki crispy fries. Open during court bookings.">
   <meta property="og:url" content="https://jomiwi.github.io/sp-demo-b3b9e2/cafe/">
+  <!-- RC4 (Ling RC3 read): the share image is og-share-1200x630.jpg, built from Saranay's own court photo (court-sky, their Sports360 gallery). The Studio-generated og-hero set below returns only when ai_images is set in _build/owner-ok.json. -->
+  <!--rights-else:ai_images-->
+  <meta property="og:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg?v=3.15">
+  <meta property="og:image:secure_url" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg?v=3.15">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Saranay Pickleball Court &amp; Café: the headline Pickleball and Coffee in Saranay, beside a photo of the blue court on green turf.">
+  <meta name="twitter:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg?v=3.15">
+  <meta name="twitter:image:alt" content="Saranay Pickleball Court &amp; Café: the headline Pickleball and Coffee in Saranay, beside a photo of the blue court on green turf.">
+  <!--/rights-else-->
+  <!--rights-if:ai_images
   <meta property="og:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg?v=3.15">
   <meta property="og:image:secure_url" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg?v=3.15">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball, Court &amp; Café, beside friends toasting with iced coffees on the court at golden hour.">
+  <meta name="twitter:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg?v=3.15">
+  <meta name="twitter:image:alt" content="Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball, Court &amp; Café, beside friends toasting with iced coffees on the court at golden hour.">
+  rights-if-end-->
   <meta property="og:locale" content="en_PH">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="D' Rafael's Cafe | Saranay Pickleball Court &amp; Café">
   <meta name="twitter:description" content="D' Rafael's Cafe, right at the Saranay Pickleball court in North Caloocan. Coffee, Tusok-Tusok Treat and enoki crispy fries. Open during court bookings.">
-  <meta name="twitter:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg?v=3.15">
-  <meta name="twitter:image:alt" content="Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball, Court &amp; Café, beside friends toasting with iced coffees on the court at golden hour.">
   <!-- v3.15 tagging switch. ONE constant picks how Google tags load:
        SARANAY_TAG_MODE = 'gtm'  : Google Tag Manager container GTM-TZ4KN34J, which carries the GA4 Google tag G-Q9F8HPKEND (v3.15 default)
        SARANAY_TAG_MODE = 'gtag' : the v3.14 direct gtag.js load of G-Q9F8HPKEND (rollback only)
@@ -83,7 +95,7 @@
   --c-court: #1F4FD1;          /* THE accent: court blue. Buttons, links, active states */
   --c-court-deep: #14328A;     /* hover/pressed */
   --c-sky: #6CC8F8;            /* kitchen blue: accent text on ink only */
-  --c-ball: #FFB502;           /* logo ball amber: TBC badges, the Now marker, focus on dark. Never text on paper */
+  --c-ball: #FFB502;           /* logo ball amber: the Now marker, focus on dark. Never text on paper */
   --c-on-court: #FFFFFF;
   --c-on-dark: #F4F2EC;
   --c-on-dark-muted: #AEB3C0;
@@ -98,9 +110,6 @@
   --c-court-line: #FFFFFF;
   --c-coffee: #6B4A35;
   --c-coffee-soft: #C9A27E;
-  --c-tbc-bg: #FFF1CC;
-  --c-tbc-ink: #5C3D00;
-  --c-tbc-line: #C98F00;
   --c-focus: var(--c-court);
   --c-focus-dark: var(--c-ball);
 
@@ -177,10 +186,6 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 .on-dark .note { color: var(--c-on-dark-muted); }
 .on-dark { color: var(--c-on-dark); }
 .on-dark a:not(.btn) { color: var(--c-sky); }
-
-/* ---------- TBC badge: unverified facts stay visibly unverified ---------- */
-.tbc { display: inline; -webkit-box-decoration-break: clone; box-decoration-break: clone; line-height: 1.9; background: var(--c-tbc-bg); color: var(--c-tbc-ink); border: 1px dashed var(--c-tbc-line); border-radius: var(--r-sm); padding: 0.125rem var(--s-2); font-size: var(--fs-sm); font-weight: var(--fw-semibold); font-family: var(--font-body); font-stretch: 100%; letter-spacing: 0; text-transform: none; }
-.tbc::before { content: "TBC"; display: inline-block; margin-right: var(--s-2); line-height: 1.4; vertical-align: 0.08em; font-size: 0.6875rem; letter-spacing: 0.08em; background: var(--c-tbc-ink); color: var(--c-tbc-bg); border-radius: 0.25rem; padding: 0 0.3rem; }
 
 /* ---------- demo ribbon + header ---------- */
 .demo-ribbon { margin: 0; background: var(--c-ink); color: var(--c-on-dark-muted); font-size: var(--fs-xs); text-align: center; padding: var(--s-2) var(--gutter); border-bottom: 1px solid var(--c-line-dark); }
@@ -471,7 +476,6 @@ a.next-play .next-play__go { color: var(--c-sky); }
 .rate-card .info { margin-bottom: var(--s-5); }
 .hours { width: 100%; border-collapse: collapse; margin-bottom: var(--s-4); font-size: var(--fs-sm); }
 .hours th, .hours td { text-align: left; padding: var(--s-3) var(--s-3) var(--s-3) 0; border-bottom: 1px solid var(--c-line); }
-.hours .tbc { white-space: nowrap; font-size: var(--fs-xs); }
 
 /* rent · split-the-court tool as a night scoreboard */
 .rent-side { min-width: 0; }
@@ -731,9 +735,6 @@ a.next-play .next-play__go { color: var(--c-sky); }
 }
 .site-nav a[aria-current="page"] { color: var(--c-on-dark); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; text-decoration-color: var(--c-ball); }
 
-/* v3.15 · TBC badge never overflows a narrow column at 390px: the badge may wrap inside its own box */
-.tbc { overflow-wrap: anywhere; }
-.hours .tbc { white-space: normal; }
 .cafe-hero__note { overflow-wrap: anywhere; }
 /* v3.15 · café note on the booking path */
 .card--cafe-note { margin-top: var(--s-6); }
@@ -764,6 +765,26 @@ a.next-play .next-play__go { color: var(--c-sky); }
 .beg-photo { margin-bottom: var(--s-6); }
 .beg-photo img { aspect-ratio: 4 / 3; }
 @media (min-width: 48rem) { .beg-hero__h1 { font-size: var(--fs-xl); } .beg-hero__sub { font-size: var(--fs-md, 1.0625rem); } }
+
+/* ---------- RC4 (Ling RC3 read) ---------- */
+/* Real court hero (court-sky, Sports360 gallery). Phones: portrait photo, court and building in the top part, clear of the type. Desktop: native 16:9 crop. */
+@media (max-width: 59.99rem) { .hero__media img.hero__img--court { object-position: 50% 92%; } }
+@media (min-width: 60rem) { .hero__media img.hero__img--court { object-position: 50% 50%; } }
+/* The open play chip is now an undated link to Reclub: a full 44px tap target. */
+a.hero__next { display: inline-flex; align-items: center; min-height: var(--tap); padding-block: 0; text-decoration: none; color: var(--c-on-dark); }
+a.hero__next:hover { text-decoration: underline; color: var(--c-on-dark); }
+a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-offset: 2px; }
+/* Proof bar has three cells: on phones the third spans the row; from 48rem it is three equal columns. */
+@media (max-width: 47.99rem) { .proof__list li:nth-child(3):last-child { grid-column: 1 / -1; border-right: 0; border-top: 1px solid rgb(255 255 255 / 0.18); } .proof__list li:nth-child(-n+2) { border-bottom: 0; } }
+@media (min-width: 48rem) { .proof__list { grid-template-columns: repeat(3, 1fr); } }
+/* Coming up is one undated card. */
+.events--one .event .btn { min-height: var(--tap); }
+@media (min-width: 60rem) { .events--one .event { grid-template-columns: 16rem minmax(0, 1fr) minmax(0, 1fr) auto; } }
+/* Café: the right column always holds hours and actions; the two Instagram photos sit above them only when the owners OK them. */
+.cafe-side > .info:first-child { margin-top: 0; }
+@media (min-width: 60rem) { .section--cafe .split { align-items: center; } .cafe-side { align-self: center; } .cafe-side .cafe-photos { position: static; margin-bottom: var(--s-6); } }
+.cafe-side:not(:has(.cafe-photos)) { padding: var(--s-6); border: 1px solid var(--c-line-dark); border-radius: var(--r-lg); background: var(--c-ink-2); }
+.cafe-side .btn-row { margin-top: var(--s-5); }
 
 </style>
 </head>
@@ -831,13 +852,19 @@ a.next-play .next-play__go { color: var(--c-sky); }
         <a class="btn btn--tile" href="../book/?cta=cafe_hero_book_a_court_on_sports360" target="_blank" rel="noopener" aria-label="Book a court, ₱200 to ₱300 per hour, open 6 AM to 2 AM daily (opens in a new tab)" data-cta="cafe_hero_book_a_court_on_sports360" data-dest="book">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           <span class="btn__stack"><span class="btn__label">Book a court</span><span class="btn__sub" aria-hidden="true">₱200 to ₱300/hour · 6 AM to 2 AM daily</span></span></a>
-        <a class="btn btn--ball btn--tile" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=cafe_hero_join_open_play" target="_blank" rel="noopener" aria-label="Join open play, all levels, 586 members on Reclub (opens in a new tab)" data-cta="cafe_hero_join_open_play" data-dest="reclub">
+        <a class="btn btn--ball btn--tile" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=cafe_hero_join_open_play" target="_blank" rel="noopener" aria-label="Join open play, all levels, nearly 600 members on Reclub (opens in a new tab)" data-cta="cafe_hero_join_open_play" data-dest="reclub">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/><circle cx="14" cy="9" r="1.2" fill="currentColor"/><circle cx="15" cy="14" r="1.2" fill="currentColor"/><circle cx="10" cy="15" r="1.2" fill="currentColor"/></svg>
-          <span class="btn__stack"><span class="btn__label">Join open play</span><span class="btn__sub" aria-hidden="true">All levels · 586 members on Reclub</span></span></a>
+          <span class="btn__stack"><span class="btn__label">Join open play</span><span class="btn__sub" aria-hidden="true">All levels · Nearly 600 members on Reclub</span></span></a>
       </div>
       <p class="note cafe-hero__note">Court open 6 AM to 2 AM daily · Café open during court bookings</p>
     </div>
+      <!-- RC4: photo 01 (@drafaelscafe) has no owner permission recorded (Ling). Default: Saranay's own court-and-patio photo (court-shade, Sports360 gallery). -->
+      <!--rights-else:ig01-->
+      <figure class="photo cafe-hero__photo"><img src="../../img/court-shade-780.svg" srcset="../../img/court-shade-480.svg 480w, ../../img/court-shade-780.svg 780w" sizes="(min-width: 60rem) 40vw, 100vw" width="780" height="1040" decoding="async" alt="The Saranay court under its shade sail, with patio tables on the left."></figure>
+      <!--/rights-else-->
+      <!--rights-if:ig01
       <figure class="photo photo--ig cafe-hero__photo"><img src="../../img/cafe-patio-night-guests-800.svg" srcset="../../img/cafe-patio-night-guests-480.svg 480w, ../../img/cafe-patio-night-guests-800.svg 800w" sizes="(min-width: 60rem) 40vw, 100vw" width="800" height="1000" decoding="async" alt="Friends sharing a table on the café patio at night, under the umbrellas beside the court."></figure>
+      rights-if-end-->
   </div>
 </section>
 <!-- /COPY: C1 café hero -->
@@ -858,19 +885,23 @@ a.next-play .next-play__go { color: var(--c-sky); }
         </ul>
         <p class="menuboard__foot">From our posts. Ask at the counter for today's menu and prices.</p>
       </div>
+    </div>
+    <!-- v3.4 café photos from @drafaelscafe. RC4: 02 and 03 have no owner permission recorded (Ling), so they ship only when OK'd in _build/owner-ok.json.
+         The right column always carries the café hours and actions, so there is no empty slot without the photos. -->
+    <div class="cafe-side">
+    <!--rights-if:ig02|ig03
+    <div class="cafe-photos">
+      <figure class="photo photo--ig" data-rights="ig02"><img src="../../img/cafe-logo-wall-patio-800.svg" srcset="../../img/cafe-logo-wall-patio-480.svg 480w, ../../img/cafe-logo-wall-patio-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="1000" loading="lazy" decoding="async" alt="The D' Rafael's Cafe logo painted on a white wall, with folding chairs and a table on the patio."></figure>
+      <figure class="photo photo--ig" data-rights="ig03"><img src="../../img/cafe-nachos-800.svg" srcset="../../img/cafe-nachos-480.svg 480w, ../../img/cafe-nachos-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="1000" loading="lazy" decoding="async" alt="A plate of nachos with cheese sauce on a café table beside the court."></figure>
+    </div>
+    rights-if-end-->
       <dl class="info">
         <div><dt>Café hours</dt><dd>Open during court bookings</dd></div>
       </dl>
-      <p><strong>Planning a party?</strong> Message us about food and drinks for your group.</p>
       <div class="btn-row">
         <a class="btn" href="https://www.facebook.com/p/Saranay-Pickleball-Court-and-Cafe-61589930970148/" data-cta="cafe_ask_about_the_cafe" data-dest="messenger">Ask about the café</a>
         <a class="btn btn--outline" href="https://maps.app.goo.gl/ZfC7mDdgYcpLxBRT7" data-cta="cafe_directions_in_google_maps" data-dest="directions">Directions in Google Maps</a>
       </div>
-    </div>
-    <!-- v3.4 café photos (v3.14: the patio photo moved up to the café page hero) from D' Rafael's Cafe's Instagram, @drafaelscafe (credits in CHANGELOG.md) (noindex demo only; public use waits for the owners' OK). -->
-    <div class="cafe-photos">
-      <figure class="photo photo--ig"><img src="../../img/cafe-logo-wall-patio-800.svg" srcset="../../img/cafe-logo-wall-patio-480.svg 480w, ../../img/cafe-logo-wall-patio-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="1000" loading="lazy" decoding="async" alt="The D' Rafael's Cafe logo painted on a white wall, with folding chairs and a table on the patio."></figure>
-      <figure class="photo photo--ig"><img src="../../img/cafe-nachos-800.svg" srcset="../../img/cafe-nachos-480.svg 480w, ../../img/cafe-nachos-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="1000" loading="lazy" decoding="async" alt="A plate of nachos with cheese sauce on a café table beside the court."></figure>
     </div>
   </div>
 </section>
@@ -912,7 +943,7 @@ a.next-play .next-play__go { color: var(--c-sky); }
       <details><summary>When is the café open?</summary><div><p>D' Rafael's Cafe is open during court bookings, so it's there while you play. Our menu includes coffee, the Tusok-Tusok Treat (fishball, kwek-kwek, kikiam) and enoki crispy fries.</p></div></details>
       <details><summary>What are your hours?</summary><div><p>Court: 6 AM to 2 AM, every day. Café: open during court bookings. See <a href="../#rates">Rates and hours</a>.</p></div></details>
       <details><summary>Can we bring outside food?</summary><div><p>Sorry, no outside food or drinks. D' Rafael's Cafe is right inside and opens when the court is booked.</p></div></details>
-      <details><summary>Can we hold a party or private event here?</summary><div><p>Yes. We've hosted private events on the court and in the café. Message us with your date and headcount and we'll work out the court time and the food.</p></div></details>
+      <details><summary>Can we hold a party or private event here?</summary><div><p>Yes. Book the court for your group and message us about food and drinks.</p></div></details>
       <details><summary>How much is open play?</summary><div><p>See each session's fee on Reclub. Every session is for all levels.</p></div></details>
     </div>
     <p class="mt-6">More answers in the <a href="../#faq">full FAQ</a>.</p>
@@ -936,7 +967,7 @@ a.next-play .next-play__go { color: var(--c-sky); }
       <nav aria-labelledby="follow-title">
         <h2 id="follow-title">Follow us</h2>
         <ul>
-          <li><a href="https://www.facebook.com/people/Saranay-Pickleball-Court-and-Cafe/61589930970148/" data-cta="footer_follow_facebook" data-dest="facebook">Facebook</a></li>
+          <li><a href="https://www.facebook.com/p/Saranay-Pickleball-Court-and-Cafe-61589930970148/" data-cta="footer_follow_facebook" data-dest="messenger">Facebook</a></li>
           <li><a href="https://www.instagram.com/drafaelscafe/" target="_blank" rel="noopener" data-cta="footer_follow_instagram_cafe" data-dest="instagram">Instagram: @drafaelscafe (café)<span class="visually-hidden"> (opens in a new tab)</span></a></li>
           <li><a href="https://www.instagram.com/saranaypickleballcourt/" target="_blank" rel="noopener" data-cta="footer_follow_instagram" data-dest="instagram">Instagram: @saranaypickleballcourt<span class="visually-hidden"> (opens in a new tab)</span></a></li>
           <li><a href="https://www.tiktok.com/@saranay.picklebal" data-cta="footer_follow_tiktok" data-dest="tiktok">TikTok</a></li>
@@ -949,11 +980,11 @@ a.next-play .next-play__go { color: var(--c-sky); }
           <li><a href="../book/?cta=footer_book_book_a_court_on_sports360" target="_blank" rel="noopener" aria-label="Book a court (opens in a new tab)" data-cta="footer_book_book_a_court_on_sports360" data-dest="book">Book a court</a></li>
           <li><a href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=footer_book_join_open_play_on_reclub" target="_blank" rel="noopener" aria-label="Join open play on Reclub (opens in a new tab)" data-cta="footer_book_join_open_play_on_reclub" data-dest="reclub">Join open play on Reclub</a></li>
           <li><a href="https://www.facebook.com/p/Saranay-Pickleball-Court-and-Cafe-61589930970148/" data-cta="footer_book_message_us_for_groups_or" data-dest="messenger">Message us for groups or help booking</a></li>
-          <li><a href="https://www.instagram.com/saranaypickleballcourt/" data-cta="footer_book_message_on_instagram" data-dest="ig_dm">Message on Instagram</a></li>
+          <li><a href="https://www.instagram.com/saranaypickleballcourt/" data-cta="footer_book_message_on_instagram" data-dest="ig_dm">Instagram</a></li>
         </ul>
       </nav>
     </div>
-    <p class="footer__fine">Book open play on Reclub. Court rentals on Sports360. No bookings or payments on this site.<br>Demo preview v3.15 · Fonts are self-hosted. Court and café photos are Saranay's own, from their Sports360 page and Instagram accounts. The share image is a placeholder. <a href="../#privacy">Privacy and cookies</a></p>
+    <p class="footer__fine">Book open play on Reclub. Court rentals on Sports360. No bookings or payments on this site.<br>Photos are Saranay's own. <a href="../#privacy">Privacy and cookies</a></p>
   </div>
 </footer>
 <!-- /COPY: 10 footer -->
@@ -979,7 +1010,6 @@ function saranayConsent() { try { return localStorage.getItem('saranay_consent')
 var SARANAY_UTM = 'utm_source=saranay_site&utm_medium=referral&utm_campaign=site_booking&utm_content=';
 function saranayTag(href, loc) {
   if (/^https:\/\/(reclub\.co|app\.sports360\.ph)\//.test(href)) return href + (href.indexOf('?') < 0 ? '?' : '&') + SARANAY_UTM + loc;
-  if (/^https:\/\/m\.me\//.test(href)) return href + '?ref=' + loc;
   return href;
 }
 (function () {
@@ -994,13 +1024,12 @@ function saranayTag(href, loc) {
     dlEvent({ event: 'chooser_select', path: e.detail || 'none', selection_method: booting ? 'deep_link' : 'chip' });
   });
   var EVENTS = { reclub: 'click_reclub', sports360: 'click_sports360', messenger: 'click_messenger', instagram: 'click_instagram',
-    ig_dm: 'click_ig_dm', call: 'click_call', directions: 'click_directions' };
+    ig_dm: 'click_ig_dm', call: 'click_call', directions: 'click_directions', tiktok: 'click_tiktok' };
   function destOf(a) {
     if (a.dataset.dest) return a.dataset.dest;
     var h = a.href;
     if (/reclub\.co/.test(h)) return 'reclub';
     if (/app\.sports360\.ph/.test(h)) return 'sports360';
-    if (/^https:\/\/m\.me\//.test(h)) return 'messenger';
     if (/ig\.me\//.test(h)) return 'ig_dm';
     if (/instagram\.com/.test(h)) return 'instagram';
     if (/^tel:/.test(h)) return 'call';
@@ -1098,70 +1127,8 @@ function saranayTag(href, loc) {
   if (stored !== 'granted' && stored !== 'denied') show();
 })();
 
-/* v3.4 · Next open play chip: Fri to Sun, about 6 PM, ₱150 per player (posted pattern). Manila clock. Never availability. */
-(function () {
-  var el = document.getElementById('hero-next');
-  if (!el || !window.Intl) return;
-  var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  function tick() {
-    var parts = {};
-    new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Manila', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
-      .formatToParts(new Date()).forEach(function (p) { parts[p.type] = p.value; });
-    var base = Date.UTC(+parts.year, +parts.month - 1, +parts.day);  // Manila calendar date, held in UTC
-    var mins = (+parts.hour % 24) * 60 + +parts.minute;
-    for (var i = 0; i < 8; i++) {
-      var d = new Date(base + i * 864e5), wd = d.getUTCDay();
-      if ((wd === 5 || wd === 6 || wd === 0) && (i > 0 || mins < 18 * 60)) break;
-    }
-    var when = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : DAYS[wd] + ' ' + d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' });
-    el.innerHTML = '';
-    var b = document.createElement('b'); b.textContent = 'Next open play';
-    el.appendChild(b); el.appendChild(document.createTextNode(': ' + when + ' · usually 6 PM · all levels'));
-    el.hidden = false;
-  }
-  tick(); setInterval(tick, 60000);
-})();
-
-/* v3.11 · Coming up becomes dated open play slots: the next three Fri/Sat/Sun dates from the posted pattern (usually 6 PM, ₱150),
-   each with a one-tap Join on Reclub. Manila calendar. Pattern dates only, never availability. The coffee open play card (TBC) stays last. */
-(function () {
-  var list = document.querySelector('#coming-up .events');
-  if (!list || !window.Intl) return;
-  var RECLUB = 'https://reclub.co/clubs/@saranay-pickleball-club';
-  var DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  var parts = {};
-  new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Manila', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
-    .formatToParts(new Date()).forEach(function (p) { parts[p.type] = p.value; });
-  var base = Date.UTC(+parts.year, +parts.month - 1, +parts.day);
-  var mins = (+parts.hour % 24) * 60 + +parts.minute;
-  var slots = [];
-  for (var i = 0; i < 14 && slots.length < 3; i++) {
-    var d = new Date(base + i * 864e5), wd = d.getUTCDay();
-    if ((wd === 5 || wd === 6 || wd === 0) && (i > 0 || mins < 18 * 60)) slots.push({ d: d, i: i, wd: wd });
-  }
-  var keep = [].filter.call(list.children, function (li) { return li.querySelector('.tbc'); });
-  [].slice.call(list.children).forEach(function (li) { if (keep.indexOf(li) < 0) li.remove(); });
-  var first = keep[0] || null;
-  slots.forEach(function (sl, n) {
-    var md = sl.d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' });
-    var full = DAYS[sl.wd] + ', ' + sl.d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', day: 'numeric' });
-    var rel = sl.i === 0 ? 'Today' : sl.i === 1 ? 'Tomorrow' : '';
-    var cta = 'coming_up_slot_' + (n + 1);
-    var li = document.createElement('li');
-    li.className = 'event event--slot' + (n === 0 ? ' is-next' : '');
-    li.innerHTML = '<p class="slot__cal" aria-hidden="true"><span class="slot__wd"></span><span class="slot__md"></span></p>' +
-      '<p class="event__date"></p><h3 class="event__title">Open play · all levels</h3>' +
-      '<p class="event__meta">Usually 6 PM · fee on Reclub · up to 12</p>' +
-      '<a class="btn btn--ball btn--sm" target="_blank" rel="noopener" data-dest="reclub">Join open play</a>';
-    li.querySelector('.slot__wd').textContent = DAYS[sl.wd].slice(0, 3);
-    li.querySelector('.slot__md').textContent = md;
-    li.querySelector('.event__date').textContent = (rel ? rel + ' · ' : '') + full;
-    var a = li.querySelector('a');
-    a.href = saranayTag(RECLUB, cta); a.dataset.cta = cta;
-    a.setAttribute('aria-label', 'Join open play on ' + full + ', usually 6 PM, on Reclub (opens in a new tab)');
-    list.insertBefore(li, first);
-  });
-})();
+/* RC4 (Ling RC3 read): the derived-date chip and the dated Coming up slots are gone. Both are static, undated HTML now and link to Reclub
+   (data-dest="reclub": click_reclub + join_open_play_click from the click handler above). */
 
 /* Menu toggle + copy location pin */
 (function () {

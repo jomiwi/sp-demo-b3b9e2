@@ -18,7 +18,7 @@
   --c-court: #1F4FD1;          /* THE accent: court blue. Buttons, links, active states */
   --c-court-deep: #14328A;     /* hover/pressed */
   --c-sky: #6CC8F8;            /* kitchen blue: accent text on ink only */
-  --c-ball: #FFB502;           /* logo ball amber: TBC badges, the Now marker, focus on dark. Never text on paper */
+  --c-ball: #FFB502;           /* logo ball amber: the Now marker, focus on dark. Never text on paper */
   --c-on-court: #FFFFFF;
   --c-on-dark: #F4F2EC;
   --c-on-dark-muted: #AEB3C0;
@@ -33,9 +33,6 @@
   --c-court-line: #FFFFFF;
   --c-coffee: #6B4A35;
   --c-coffee-soft: #C9A27E;
-  --c-tbc-bg: #FFF1CC;
-  --c-tbc-ink: #5C3D00;
-  --c-tbc-line: #C98F00;
   --c-focus: var(--c-court);
   --c-focus-dark: var(--c-ball);
 
@@ -112,10 +109,6 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 .on-dark .note { color: var(--c-on-dark-muted); }
 .on-dark { color: var(--c-on-dark); }
 .on-dark a:not(.btn) { color: var(--c-sky); }
-
-/* ---------- TBC badge: unverified facts stay visibly unverified ---------- */
-.tbc { display: inline; -webkit-box-decoration-break: clone; box-decoration-break: clone; line-height: 1.9; background: var(--c-tbc-bg); color: var(--c-tbc-ink); border: 1px dashed var(--c-tbc-line); border-radius: var(--r-sm); padding: 0.125rem var(--s-2); font-size: var(--fs-sm); font-weight: var(--fw-semibold); font-family: var(--font-body); font-stretch: 100%; letter-spacing: 0; text-transform: none; }
-.tbc::before { content: "TBC"; display: inline-block; margin-right: var(--s-2); line-height: 1.4; vertical-align: 0.08em; font-size: 0.6875rem; letter-spacing: 0.08em; background: var(--c-tbc-ink); color: var(--c-tbc-bg); border-radius: 0.25rem; padding: 0 0.3rem; }
 
 /* ---------- demo ribbon + header ---------- */
 .demo-ribbon { margin: 0; background: var(--c-ink); color: var(--c-on-dark-muted); font-size: var(--fs-xs); text-align: center; padding: var(--s-2) var(--gutter); border-bottom: 1px solid var(--c-line-dark); }
@@ -406,7 +399,6 @@ a.next-play .next-play__go { color: var(--c-sky); }
 .rate-card .info { margin-bottom: var(--s-5); }
 .hours { width: 100%; border-collapse: collapse; margin-bottom: var(--s-4); font-size: var(--fs-sm); }
 .hours th, .hours td { text-align: left; padding: var(--s-3) var(--s-3) var(--s-3) 0; border-bottom: 1px solid var(--c-line); }
-.hours .tbc { white-space: nowrap; font-size: var(--fs-xs); }
 
 /* rent · split-the-court tool as a night scoreboard */
 .rent-side { min-width: 0; }
@@ -666,9 +658,6 @@ a.next-play .next-play__go { color: var(--c-sky); }
 }
 .site-nav a[aria-current="page"] { color: var(--c-on-dark); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; text-decoration-color: var(--c-ball); }
 
-/* v3.15 · TBC badge never overflows a narrow column at 390px: the badge may wrap inside its own box */
-.tbc { overflow-wrap: anywhere; }
-.hours .tbc { white-space: normal; }
 .cafe-hero__note { overflow-wrap: anywhere; }
 /* v3.15 · café note on the booking path */
 .card--cafe-note { margin-top: var(--s-6); }
@@ -699,3 +688,23 @@ a.next-play .next-play__go { color: var(--c-sky); }
 .beg-photo { margin-bottom: var(--s-6); }
 .beg-photo img { aspect-ratio: 4 / 3; }
 @media (min-width: 48rem) { .beg-hero__h1 { font-size: var(--fs-xl); } .beg-hero__sub { font-size: var(--fs-md, 1.0625rem); } }
+
+/* ---------- RC4 (Ling RC3 read) ---------- */
+/* Real court hero (court-sky, Sports360 gallery). Phones: portrait photo, court and building in the top part, clear of the type. Desktop: native 16:9 crop. */
+@media (max-width: 59.99rem) { .hero__media img.hero__img--court { object-position: 50% 92%; } }
+@media (min-width: 60rem) { .hero__media img.hero__img--court { object-position: 50% 50%; } }
+/* The open play chip is now an undated link to Reclub: a full 44px tap target. */
+a.hero__next { display: inline-flex; align-items: center; min-height: var(--tap); padding-block: 0; text-decoration: none; color: var(--c-on-dark); }
+a.hero__next:hover { text-decoration: underline; color: var(--c-on-dark); }
+a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-offset: 2px; }
+/* Proof bar has three cells: on phones the third spans the row; from 48rem it is three equal columns. */
+@media (max-width: 47.99rem) { .proof__list li:nth-child(3):last-child { grid-column: 1 / -1; border-right: 0; border-top: 1px solid rgb(255 255 255 / 0.18); } .proof__list li:nth-child(-n+2) { border-bottom: 0; } }
+@media (min-width: 48rem) { .proof__list { grid-template-columns: repeat(3, 1fr); } }
+/* Coming up is one undated card. */
+.events--one .event .btn { min-height: var(--tap); }
+@media (min-width: 60rem) { .events--one .event { grid-template-columns: 16rem minmax(0, 1fr) minmax(0, 1fr) auto; } }
+/* Café: the right column always holds hours and actions; the two Instagram photos sit above them only when the owners OK them. */
+.cafe-side > .info:first-child { margin-top: 0; }
+@media (min-width: 60rem) { .section--cafe .split { align-items: center; } .cafe-side { align-self: center; } .cafe-side .cafe-photos { position: static; margin-bottom: var(--s-6); } }
+.cafe-side:not(:has(.cafe-photos)) { padding: var(--s-6); border: 1px solid var(--c-line-dark); border-radius: var(--r-lg); background: var(--c-ink-2); }
+.cafe-side .btn-row { margin-top: var(--s-5); }

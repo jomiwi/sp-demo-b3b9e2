@@ -14,24 +14,36 @@
   <!-- v3.15: fonts are self-hosted (fonts/, SIL OFL 1.1). No request to fonts.googleapis.com or fonts.gstatic.com. -->
   <link rel="preload" href="../fonts/archivo-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../fonts/fonts.css">
-  <!-- v3.4 social previews. v3.5: og:image is a 1200x630 JPG crop of the new golden-hour hero (Studio-generated, demo only) with the headline in Archivo and palette tokens. v3.6: share image regenerated with the new headline SARANAY / PICKLEBALL / Court &amp; Café (same file name). v3.6.1: eyebrow "North Caloocan" (Martha). v3.6.2: share image location line removed, hours line "Court open 6 AM to 2 AM" (Ling). -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Saranay Pickleball Court &amp; Café">
   <meta property="og:title" content="D' Rafael's Cafe | Saranay Pickleball Court &amp; Café">
   <meta property="og:description" content="D' Rafael's Cafe, right at the Saranay Pickleball court in North Caloocan. Coffee, Tusok-Tusok Treat and enoki crispy fries. Open during court bookings.">
   <meta property="og:url" content="https://jomiwi.github.io/sp-demo-b3b9e2/cafe/">
+  <!-- RC4 (Ling RC3 read): the share image is og-share-1200x630.jpg, built from Saranay's own court photo (court-sky, their Sports360 gallery). The Studio-generated og-hero set below returns only when ai_images is set in _build/owner-ok.json. -->
+  <!--rights-else:ai_images-->
+  <meta property="og:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg?v=3.15">
+  <meta property="og:image:secure_url" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg?v=3.15">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Saranay Pickleball Court &amp; Café: the headline Pickleball and Coffee in Saranay, beside a photo of the blue court on green turf.">
+  <meta name="twitter:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg?v=3.15">
+  <meta name="twitter:image:alt" content="Saranay Pickleball Court &amp; Café: the headline Pickleball and Coffee in Saranay, beside a photo of the blue court on green turf.">
+  <!--/rights-else-->
+  <!--rights-if:ai_images
   <meta property="og:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg?v=3.15">
   <meta property="og:image:secure_url" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg?v=3.15">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball, Court &amp; Café, beside friends toasting with iced coffees on the court at golden hour.">
+  <meta name="twitter:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg?v=3.15">
+  <meta name="twitter:image:alt" content="Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball, Court &amp; Café, beside friends toasting with iced coffees on the court at golden hour.">
+  rights-if-end-->
   <meta property="og:locale" content="en_PH">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="D' Rafael's Cafe | Saranay Pickleball Court &amp; Café">
   <meta name="twitter:description" content="D' Rafael's Cafe, right at the Saranay Pickleball court in North Caloocan. Coffee, Tusok-Tusok Treat and enoki crispy fries. Open during court bookings.">
-  <meta name="twitter:image" content="https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg?v=3.15">
-  <meta name="twitter:image:alt" content="Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball, Court &amp; Café, beside friends toasting with iced coffees on the court at golden hour.">
   <!-- v3.15 tagging switch. ONE constant picks how Google tags load:
        SARANAY_TAG_MODE = 'gtm'  : Google Tag Manager container GTM-TZ4KN34J, which carries the GA4 Google tag G-Q9F8HPKEND (v3.15 default)
        SARANAY_TAG_MODE = 'gtag' : the v3.14 direct gtag.js load of G-Q9F8HPKEND (rollback only)
@@ -127,13 +139,19 @@
         <a class="btn btn--tile" href="../book/?cta=cafe_hero_book_a_court_on_sports360" target="_blank" rel="noopener" aria-label="Book a court, ₱200 to ₱300 per hour, open 6 AM to 2 AM daily (opens in a new tab)" data-cta="cafe_hero_book_a_court_on_sports360" data-dest="book">
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           <span class="btn__stack"><span class="btn__label">Book a court</span><span class="btn__sub" aria-hidden="true">₱200 to ₱300/hour · 6 AM to 2 AM daily</span></span></a>
-        <a class="btn btn--ball btn--tile" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=cafe_hero_join_open_play" target="_blank" rel="noopener" aria-label="Join open play, all levels, 586 members on Reclub (opens in a new tab)" data-cta="cafe_hero_join_open_play" data-dest="reclub">
+        <a class="btn btn--ball btn--tile" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=cafe_hero_join_open_play" target="_blank" rel="noopener" aria-label="Join open play, all levels, nearly 600 members on Reclub (opens in a new tab)" data-cta="cafe_hero_join_open_play" data-dest="reclub">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/><circle cx="14" cy="9" r="1.2" fill="currentColor"/><circle cx="15" cy="14" r="1.2" fill="currentColor"/><circle cx="10" cy="15" r="1.2" fill="currentColor"/></svg>
-          <span class="btn__stack"><span class="btn__label">Join open play</span><span class="btn__sub" aria-hidden="true">All levels · 586 members on Reclub</span></span></a>
+          <span class="btn__stack"><span class="btn__label">Join open play</span><span class="btn__sub" aria-hidden="true">All levels · Nearly 600 members on Reclub</span></span></a>
       </div>
       <p class="note cafe-hero__note">Court open 6 AM to 2 AM daily · Café open during court bookings</p>
     </div>
+      <!-- RC4: photo 01 (@drafaelscafe) has no owner permission recorded (Ling). Default: Saranay's own court-and-patio photo (court-shade, Sports360 gallery). -->
+      <!--rights-else:ig01-->
+      <figure class="photo cafe-hero__photo"><img src="../img/court-shade-780.svg" srcset="../img/court-shade-480.svg 480w, ../img/court-shade-780.svg 780w" sizes="(min-width: 60rem) 40vw, 100vw" width="780" height="1040" decoding="async" alt="The Saranay court under its shade sail, with patio tables on the left."></figure>
+      <!--/rights-else-->
+      <!--rights-if:ig01
       <figure class="photo photo--ig cafe-hero__photo"><img src="../img/cafe-patio-night-guests-800.svg" srcset="../img/cafe-patio-night-guests-480.svg 480w, ../img/cafe-patio-night-guests-800.svg 800w" sizes="(min-width: 60rem) 40vw, 100vw" width="800" height="1000" decoding="async" alt="Friends sharing a table on the café patio at night, under the umbrellas beside the court."></figure>
+      rights-if-end-->
   </div>
 </section>
 <!-- /COPY: C1 café hero -->
@@ -154,19 +172,23 @@
         </ul>
         <p class="menuboard__foot">From our posts. Ask at the counter for today's menu and prices.</p>
       </div>
+    </div>
+    <!-- v3.4 café photos from @drafaelscafe. RC4: 02 and 03 have no owner permission recorded (Ling), so they ship only when OK'd in _build/owner-ok.json.
+         The right column always carries the café hours and actions, so there is no empty slot without the photos. -->
+    <div class="cafe-side">
+    <!--rights-if:ig02|ig03
+    <div class="cafe-photos">
+      <figure class="photo photo--ig" data-rights="ig02"><img src="../img/cafe-logo-wall-patio-800.svg" srcset="../img/cafe-logo-wall-patio-480.svg 480w, ../img/cafe-logo-wall-patio-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="1000" loading="lazy" decoding="async" alt="The D' Rafael's Cafe logo painted on a white wall, with folding chairs and a table on the patio."></figure>
+      <figure class="photo photo--ig" data-rights="ig03"><img src="../img/cafe-nachos-800.svg" srcset="../img/cafe-nachos-480.svg 480w, ../img/cafe-nachos-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="1000" loading="lazy" decoding="async" alt="A plate of nachos with cheese sauce on a café table beside the court."></figure>
+    </div>
+    rights-if-end-->
       <dl class="info">
         <div><dt>Café hours</dt><dd>Open during court bookings</dd></div>
       </dl>
-      <p><strong>Planning a party?</strong> Message us about food and drinks for your group.</p>
       <div class="btn-row">
         <a class="btn" href="https://www.facebook.com/p/Saranay-Pickleball-Court-and-Cafe-61589930970148/" data-cta="cafe_ask_about_the_cafe" data-dest="messenger">Ask about the café</a>
         <a class="btn btn--outline" href="https://maps.app.goo.gl/ZfC7mDdgYcpLxBRT7" data-cta="cafe_directions_in_google_maps" data-dest="directions">Directions in Google Maps</a>
       </div>
-    </div>
-    <!-- v3.4 café photos (v3.14: the patio photo moved up to the café page hero) from D' Rafael's Cafe's Instagram, @drafaelscafe (credits in CHANGELOG.md) (noindex demo only; public use waits for the owners' OK). -->
-    <div class="cafe-photos">
-      <figure class="photo photo--ig"><img src="../img/cafe-logo-wall-patio-800.svg" srcset="../img/cafe-logo-wall-patio-480.svg 480w, ../img/cafe-logo-wall-patio-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="1000" loading="lazy" decoding="async" alt="The D' Rafael's Cafe logo painted on a white wall, with folding chairs and a table on the patio."></figure>
-      <figure class="photo photo--ig"><img src="../img/cafe-nachos-800.svg" srcset="../img/cafe-nachos-480.svg 480w, ../img/cafe-nachos-800.svg 800w" sizes="(min-width: 60rem) 25vw, 50vw" width="800" height="1000" loading="lazy" decoding="async" alt="A plate of nachos with cheese sauce on a café table beside the court."></figure>
     </div>
   </div>
 </section>
@@ -208,7 +230,7 @@
       <details><summary>When is the café open?</summary><div><p>D' Rafael's Cafe is open during court bookings, so it's there while you play. Our menu includes coffee, the Tusok-Tusok Treat (fishball, kwek-kwek, kikiam) and enoki crispy fries.</p></div></details>
       <details><summary>What are your hours?</summary><div><p>Court: 6 AM to 2 AM, every day. Café: open during court bookings. See <a href="../#rates">Rates and hours</a>.</p></div></details>
       <details><summary>Can we bring outside food?</summary><div><p>Sorry, no outside food or drinks. D' Rafael's Cafe is right inside and opens when the court is booked.</p></div></details>
-      <details><summary>Can we hold a party or private event here?</summary><div><p>Yes. We've hosted private events on the court and in the café. Message us with your date and headcount and we'll work out the court time and the food.</p></div></details>
+      <details><summary>Can we hold a party or private event here?</summary><div><p>Yes. Book the court for your group and message us about food and drinks.</p></div></details>
       <details><summary>How much is open play?</summary><div><p>See each session's fee on Reclub. Every session is for all levels.</p></div></details>
     </div>
     <p class="mt-6">More answers in the <a href="../#faq">full FAQ</a>.</p>
@@ -232,7 +254,7 @@
       <nav aria-labelledby="follow-title">
         <h2 id="follow-title">Follow us</h2>
         <ul>
-          <li><a href="https://www.facebook.com/people/Saranay-Pickleball-Court-and-Cafe/61589930970148/" data-cta="footer_follow_facebook" data-dest="facebook">Facebook</a></li>
+          <li><a href="https://www.facebook.com/p/Saranay-Pickleball-Court-and-Cafe-61589930970148/" data-cta="footer_follow_facebook" data-dest="messenger">Facebook</a></li>
           <li><a href="https://www.instagram.com/drafaelscafe/" target="_blank" rel="noopener" data-cta="footer_follow_instagram_cafe" data-dest="instagram">Instagram: @drafaelscafe (café)<span class="visually-hidden"> (opens in a new tab)</span></a></li>
           <li><a href="https://www.instagram.com/saranaypickleballcourt/" target="_blank" rel="noopener" data-cta="footer_follow_instagram" data-dest="instagram">Instagram: @saranaypickleballcourt<span class="visually-hidden"> (opens in a new tab)</span></a></li>
           <li><a href="https://www.tiktok.com/@saranay.picklebal" data-cta="footer_follow_tiktok" data-dest="tiktok">TikTok</a></li>
@@ -245,11 +267,11 @@
           <li><a href="../book/?cta=footer_book_book_a_court_on_sports360" target="_blank" rel="noopener" aria-label="Book a court (opens in a new tab)" data-cta="footer_book_book_a_court_on_sports360" data-dest="book">Book a court</a></li>
           <li><a href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=footer_book_join_open_play_on_reclub" target="_blank" rel="noopener" aria-label="Join open play on Reclub (opens in a new tab)" data-cta="footer_book_join_open_play_on_reclub" data-dest="reclub">Join open play on Reclub</a></li>
           <li><a href="https://www.facebook.com/p/Saranay-Pickleball-Court-and-Cafe-61589930970148/" data-cta="footer_book_message_us_for_groups_or" data-dest="messenger">Message us for groups or help booking</a></li>
-          <li><a href="https://www.instagram.com/saranaypickleballcourt/" data-cta="footer_book_message_on_instagram" data-dest="ig_dm">Message on Instagram</a></li>
+          <li><a href="https://www.instagram.com/saranaypickleballcourt/" data-cta="footer_book_message_on_instagram" data-dest="ig_dm">Instagram</a></li>
         </ul>
       </nav>
     </div>
-    <p class="footer__fine">Book open play on Reclub. Court rentals on Sports360. No bookings or payments on this site.<br>Demo preview v3.15 · Fonts are self-hosted. Court and café photos are Saranay's own, from their Sports360 page and Instagram accounts. The share image is a placeholder. <a href="../#privacy">Privacy and cookies</a></p>
+    <p class="footer__fine">Book open play on Reclub. Court rentals on Sports360. No bookings or payments on this site.<br>Photos are Saranay's own. <a href="../#privacy">Privacy and cookies</a></p>
   </div>
 </footer>
 <!-- /COPY: 10 footer -->

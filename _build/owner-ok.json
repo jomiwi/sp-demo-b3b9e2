@@ -1,0 +1,14 @@
+{
+  "_note": "Owner OK switch for go-live photos. false = ship without (default). Set approve_all to true, or a single key to true, once the owner OK is logged (rights-facts-sweep-v3.15.md). Then rerun: python3 _build/build-golive.py",
+  "approve_all": false,
+  "ai_images": false,
+  "ig01": false,
+  "ig02": false,
+  "ig03": false,
+  "ig06": false,
+  "ig07": false,
+  "ig08": false,
+  "ig09": false,
+  "ig11": false,
+  "ig12": false
+}

@@ -13,7 +13,6 @@ function saranayConsent() { try { return localStorage.getItem('saranay_consent')
 var SARANAY_UTM = 'utm_source=saranay_site&utm_medium=referral&utm_campaign=site_booking&utm_content=';
 function saranayTag(href, loc) {
   if (/^https:\/\/(reclub\.co|app\.sports360\.ph)\//.test(href)) return href + (href.indexOf('?') < 0 ? '?' : '&') + SARANAY_UTM + loc;
-  if (/^https:\/\/m\.me\//.test(href)) return href + '?ref=' + loc;
   return href;
 }
 (function () {
@@ -28,13 +27,12 @@ function saranayTag(href, loc) {
     dlEvent({ event: 'chooser_select', path: e.detail || 'none', selection_method: booting ? 'deep_link' : 'chip' });
   });
   var EVENTS = { reclub: 'click_reclub', sports360: 'click_sports360', messenger: 'click_messenger', instagram: 'click_instagram',
-    ig_dm: 'click_ig_dm', call: 'click_call', directions: 'click_directions' };
+    ig_dm: 'click_ig_dm', call: 'click_call', directions: 'click_directions', tiktok: 'click_tiktok' };
   function destOf(a) {
     if (a.dataset.dest) return a.dataset.dest;
     var h = a.href;
     if (/reclub\.co/.test(h)) return 'reclub';
     if (/app\.sports360\.ph/.test(h)) return 'sports360';
-    if (/^https:\/\/m\.me\//.test(h)) return 'messenger';
     if (/ig\.me\//.test(h)) return 'ig_dm';
     if (/instagram\.com/.test(h)) return 'instagram';
     if (/^tel:/.test(h)) return 'call';
@@ -132,70 +130,8 @@ function saranayTag(href, loc) {
   if (stored !== 'granted' && stored !== 'denied') show();
 })();
 
-/* v3.4 · Next open play chip: Fri to Sun, about 6 PM, ₱150 per player (posted pattern). Manila clock. Never availability. */
-(function () {
-  var el = document.getElementById('hero-next');
-  if (!el || !window.Intl) return;
-  var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  function tick() {
-    var parts = {};
-    new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Manila', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
-      .formatToParts(new Date()).forEach(function (p) { parts[p.type] = p.value; });
-    var base = Date.UTC(+parts.year, +parts.month - 1, +parts.day);  // Manila calendar date, held in UTC
-    var mins = (+parts.hour % 24) * 60 + +parts.minute;
-    for (var i = 0; i < 8; i++) {
-      var d = new Date(base + i * 864e5), wd = d.getUTCDay();
-      if ((wd === 5 || wd === 6 || wd === 0) && (i > 0 || mins < 18 * 60)) break;
-    }
-    var when = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : DAYS[wd] + ' ' + d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' });
-    el.innerHTML = '';
-    var b = document.createElement('b'); b.textContent = 'Next open play';
-    el.appendChild(b); el.appendChild(document.createTextNode(': ' + when + ' · usually 6 PM · all levels'));
-    el.hidden = false;
-  }
-  tick(); setInterval(tick, 60000);
-})();
-
-/* v3.11 · Coming up becomes dated open play slots: the next three Fri/Sat/Sun dates from the posted pattern (usually 6 PM, ₱150),
-   each with a one-tap Join on Reclub. Manila calendar. Pattern dates only, never availability. The coffee open play card (TBC) stays last. */
-(function () {
-  var list = document.querySelector('#coming-up .events');
-  if (!list || !window.Intl) return;
-  var RECLUB = 'https://reclub.co/clubs/@saranay-pickleball-club';
-  var DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  var parts = {};
-  new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Manila', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
-    .formatToParts(new Date()).forEach(function (p) { parts[p.type] = p.value; });
-  var base = Date.UTC(+parts.year, +parts.month - 1, +parts.day);
-  var mins = (+parts.hour % 24) * 60 + +parts.minute;
-  var slots = [];
-  for (var i = 0; i < 14 && slots.length < 3; i++) {
-    var d = new Date(base + i * 864e5), wd = d.getUTCDay();
-    if ((wd === 5 || wd === 6 || wd === 0) && (i > 0 || mins < 18 * 60)) slots.push({ d: d, i: i, wd: wd });
-  }
-  var keep = [].filter.call(list.children, function (li) { return li.querySelector('.tbc'); });
-  [].slice.call(list.children).forEach(function (li) { if (keep.indexOf(li) < 0) li.remove(); });
-  var first = keep[0] || null;
-  slots.forEach(function (sl, n) {
-    var md = sl.d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' });
-    var full = DAYS[sl.wd] + ', ' + sl.d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', day: 'numeric' });
-    var rel = sl.i === 0 ? 'Today' : sl.i === 1 ? 'Tomorrow' : '';
-    var cta = 'coming_up_slot_' + (n + 1);
-    var li = document.createElement('li');
-    li.className = 'event event--slot' + (n === 0 ? ' is-next' : '');
-    li.innerHTML = '<p class="slot__cal" aria-hidden="true"><span class="slot__wd"></span><span class="slot__md"></span></p>' +
-      '<p class="event__date"></p><h3 class="event__title">Open play · all levels</h3>' +
-      '<p class="event__meta">Usually 6 PM · fee on Reclub · up to 12</p>' +
-      '<a class="btn btn--ball btn--sm" target="_blank" rel="noopener" data-dest="reclub">Join open play</a>';
-    li.querySelector('.slot__wd').textContent = DAYS[sl.wd].slice(0, 3);
-    li.querySelector('.slot__md').textContent = md;
-    li.querySelector('.event__date').textContent = (rel ? rel + ' · ' : '') + full;
-    var a = li.querySelector('a');
-    a.href = saranayTag(RECLUB, cta); a.dataset.cta = cta;
-    a.setAttribute('aria-label', 'Join open play on ' + full + ', usually 6 PM, on Reclub (opens in a new tab)');
-    list.insertBefore(li, first);
-  });
-})();
+/* RC4 (Ling RC3 read): the derived-date chip and the dated Coming up slots are gone. Both are static, undated HTML now and link to Reclub
+   (data-dest="reclub": click_reclub + join_open_play_click from the click handler above). */
 
 /* Menu toggle + copy location pin */
 (function () {
