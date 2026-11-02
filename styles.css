@@ -261,6 +261,19 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
   .next-play { grid-template-columns: 1fr; } .next-play__go { grid-column: 1; grid-row: auto; }
 }
 
+/* v3.12 · Proof bar (replaces the ticker on the page; ticker rules kept below for older frozen versions' parity) */
+.proof { background: var(--c-court); color: var(--c-on-court); border-block: 1px solid var(--c-court-deep); }
+.proof__list { list-style: none; margin: 0 auto; padding: 0; display: grid; grid-template-columns: 1fr 1fr; max-width: none; }
+.proof__list li { display: flex; min-width: 0; border-right: 1px solid rgb(255 255 255 / 0.18); border-bottom: 1px solid rgb(255 255 255 / 0.18); }
+.proof__list li:nth-child(2n) { border-right: 0; }
+.proof__list li:nth-child(n+3) { border-bottom: 0; }
+.proof__cell { flex: 1; display: flex; flex-direction: column; gap: 2px; margin: 0; min-height: 3.75rem; padding: var(--s-3) var(--gutter); color: inherit; text-decoration: none; }
+.proof__cell strong { font: var(--fw-black) var(--fs-lg)/1.05 var(--font-display); font-stretch: var(--wdth-display); text-transform: uppercase; }
+.proof__cell span { font-size: var(--fs-xs); font-weight: var(--fw-semibold); }
+.proof__go { margin-top: var(--s-1); text-decoration: underline; text-underline-offset: 3px; }
+.proof__cell--go:hover { background: var(--c-court-deep); text-decoration: none; }
+.proof__cell--go:focus-visible { outline: 3px solid var(--c-focus-dark); outline-offset: -3px; }
+@media (min-width: 48rem) { .proof__list { grid-template-columns: repeat(4, 1fr); } .proof__list li { border-bottom: 0; border-right: 1px solid rgb(255 255 255 / 0.18); } .proof__list li:last-child { border-right: 0; } }
 /* ticker · "at a glance" facts as a slow marquee (static when motion is reduced) */
 .ticker { display: flex; overflow: hidden; background: var(--c-court); color: var(--c-on-court); border-block: 1px solid var(--c-court-deep); }
 .ticker__list { list-style: none; margin: 0; padding: var(--s-3) 0; display: flex; flex: none; gap: 0; min-width: 100%; justify-content: space-around; }

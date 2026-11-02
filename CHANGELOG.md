@@ -3,6 +3,19 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.12 · 2026-11-02 · conversion round 5
+
+**Bold change: the moving ticker is now a still proof bar, and the proof leads straight to booking.** The court-blue marquee under the hero scrolled four facts sideways, nonstop. It's replaced by four fixed cells: a 2×2 grid on phones, one row of four from 48rem up. The two cells that answer a buyer's question are also the actions:
+- **₱200/HOUR · 10 AM to 4 PM · Book a court →** (Sports360, `proof_200_per_hour`, `rate_band` midday)
+- **586 MEMBERS · in our Reclub club · Join open play →** (Reclub, `proof_586_members`)
+- "The first pickleball court in Saranay" and "One court with its own café" stay as plain facts.
+
+Book comes before Join, as everywhere else.
+- **Why:** nothing on the first scroll moves anymore, so it's calmer and nothing pulls the eye away from the buttons. Moving content also no longer depends on hover-to-pause (WCAG 2.2.2). The two strongest proof points, the lowest rate and the member count, now sit right next to the action they support. All facts are verified (Sports360 rates; 586 members on Reclub).
+- The old ticker CSS stays in `styles.css`, unused at the root, and frozen versions are untouched. **Exits: 42** (15 Sports360, 19 Reclub, 8 Messenger).
+- **Borrowed from Mobbin:** a stat with its action right below it, as in Fresha's "57 services available / Book now" and Insight Timer's "From $950 / Reserve now". The proof and the action share one tap target.
+- Footer: "Demo preview v3.12". Share image `?v=3.12`.
+
 ## v3.11 · 2026-11-02 · conversion round 4
 
 **Bold change: "Coming up" now shows dated open play slots with one-tap Join.** The section used to show two generic rows, "Fridays" and "Saturdays and Sundays", each with an outline "Request a spot" button. JS now builds the next three real dates from the posted pattern (Fri, Sat, Sun, usually 6 PM, ₱150, up to 12), using the Manila calendar. Each slot gets:
