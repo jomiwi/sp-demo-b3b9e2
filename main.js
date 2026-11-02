@@ -1,10 +1,12 @@
 /* Saranay demo: menu toggle, copy location pin, chooser, dock, clocks, and (v3.4) consent + dataLayer events.
-   No dependencies. Events are pushed to window.dataLayer and, v3.14, sent to Google Analytics 4 (G-Q9F8HPKEND) with
-   gtag('event', ...) ONLY after the visitor accepts cookies (Consent Mode v2, denied by default; gtag.js isn't loaded before). */
+   No dependencies. Events are pushed to window.dataLayer and, v3.15, read by Google Tag Manager (GTM-TZ4KN34J, which carries GA4 G-Q9F8HPKEND) ONLY after the visitor accepts cookies (Consent Mode v2, denied by default; gtag.js isn't loaded before). */
 /* v3.14 · GA4 events: same name and parameters as the dataLayer push. Sent only while analytics consent is granted. */
+/* v3.15 · In 'gtm' mode (default) GTM-TZ4KN34J reads the dataLayer events below, so nothing is sent with gtag('event') (no double count).
+   In 'gtag' rollback mode the v3.14 behaviour returns: the same events also go out through gtag('event'). */
 function saranayGA(name, params) {
-  try { if (window.saranayGAOn && localStorage.getItem('saranay_consent') === 'granted' && typeof gtag === 'function') gtag('event', name, params); } catch (e) {}
+  try { if (window.SARANAY_TAG_MODE === 'gtag' && window.saranayGAOn && localStorage.getItem('saranay_consent') === 'granted' && typeof gtag === 'function') gtag('event', name, params); } catch (e) {}
 }
+function saranayConsent() { try { return localStorage.getItem('saranay_consent') === 'granted' ? 'granted' : 'denied'; } catch (e) { return 'denied'; } }
 
 /* v3.4 · dataLayer events, per the Saranay conversion tracking plan (31 Oct 2026). Must run before the chooser so
    a ?play= deep link is recorded as chooser_select with selection_method "deep_link". */
@@ -16,12 +18,14 @@ function saranayTag(href, loc) {
 }
 (function () {
   var dl = window.dataLayer = window.dataLayer || [];
+  /* v3.15 · every event says whether analytics consent was granted when it happened; GTM triggers require 'granted' */
+  function dlEvent(o) { o.analytics_consent = saranayConsent(); dl.push(o); }
   var booting = true, play = null, split = null;
   try { play = new URL(location.href).searchParams.get('play'); } catch (e) {}
   setTimeout(function () { booting = false; }, 0);
   document.addEventListener('saranay:path', function (e) {
     play = e.detail || null;
-    dl.push({ event: 'chooser_select', path: e.detail || 'none', selection_method: booting ? 'deep_link' : 'chip' });
+    dlEvent({ event: 'chooser_select', path: e.detail || 'none', selection_method: booting ? 'deep_link' : 'chip' });
   });
   var EVENTS = { reclub: 'click_reclub', sports360: 'click_sports360', messenger: 'click_messenger', instagram: 'click_instagram',
     ig_dm: 'click_ig_dm', call: 'click_call', directions: 'click_directions' };
@@ -44,24 +48,26 @@ function saranayTag(href, loc) {
     /* v3.14 · the café is its own page (cafe/); count which link sent people there */
     if (!ev && /\/cafe\/$/.test(a.pathname) && a.origin === location.origin && !a.dataset.path && !/\/cafe\/$/.test(location.pathname)) {
       var cp = { cta_location: a.dataset.cta || 'unlabeled', link_url: a.href, play_context: play || 'none' };
-      dl.push({ event: 'cafe_link_click', cta_location: cp.cta_location, link_url: cp.link_url, play_context: cp.play_context });
+      dlEvent({ event: 'cafe_link_click', cta_location: cp.cta_location, link_url: cp.link_url, play_context: cp.play_context });
       saranayGA('cafe_link_click', cp); return;
     }
     if (!ev) return;
     var p = { event: ev, cta_location: a.dataset.cta || 'unlabeled', link_url: a.href, play_context: play || 'none' };
     if (d === 'sports360' && split) p.split_estimate = split;
-    dl.push(p);
+    dlEvent(p);
     saranayGA(ev, { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context });
     /* v3.8 · one named event per goal, so each booking button can be measured on its own */
-    if (d === 'sports360') { var bp = { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context, rate_band: a.dataset.band || 'none' }; dl.push(Object.assign({ event: 'book_court_click' }, bp)); saranayGA('book_court_click', bp); }
-    if (d === 'reclub') { var jp = { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context }; dl.push(Object.assign({ event: 'join_open_play_click' }, jp)); saranayGA('join_open_play_click', jp); }
+    if (d === 'sports360') { var bp = { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context, rate_band: a.dataset.band || 'none' }; dlEvent(Object.assign({ event: 'book_court_click' }, bp)); saranayGA('book_court_click', bp); }
+    if (d === 'reclub') { var jp = { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context }; dlEvent(Object.assign({ event: 'join_open_play_click' }, jp)); saranayGA('join_open_play_click', jp); }
+    /* v3.15 · lessons: any link marked data-lesson also fires lesson_click */
+    if (a.dataset.lesson) { var lp = { cta_location: p.cta_location, link_url: p.link_url, play_context: p.play_context, lesson_channel: d }; dlEvent(Object.assign({ event: 'lesson_click' }, lp)); saranayGA('lesson_click', lp); }
     var bar = a.closest('#cta-bar');
-    if (bar) dl.push({ event: 'sticky_bar_click', bar_context: bar.dataset.ctx || 'none', cta_location: p.cta_location });
+    if (bar) dlEvent({ event: 'sticky_bar_click', bar_context: bar.dataset.ctx || 'none', cta_location: p.cta_location });
   }, true);
   var pin = document.getElementById('copy-pin');
-  if (pin) pin.addEventListener('click', function () { dl.push({ event: 'click_directions', cta_location: 'find_us_copy_pin', link_url: 'copy-pin', play_context: play || 'none' }); });
+  if (pin) pin.addEventListener('click', function () { dlEvent({ event: 'click_directions', cta_location: 'find_us_copy_pin', link_url: 'copy-pin', play_context: play || 'none' }); });
   [].forEach.call(document.querySelectorAll('#faq details'), function (d) {
-    d.addEventListener('toggle', function () { if (d.open) dl.push({ event: 'faq_open', faq_question: d.querySelector('summary').textContent.trim() }); });
+    d.addEventListener('toggle', function () { if (d.open) dlEvent({ event: 'faq_open', faq_question: d.querySelector('summary').textContent.trim() }); });
   });
   var form = document.getElementById('split');
   if (form) {
@@ -71,7 +77,7 @@ function saranayTag(href, loc) {
       setTimeout(function () {
         var each = document.getElementById('split-each');
         split = each ? each.textContent.trim() : null;
-        if (!used) { used = true; dl.push({ event: 'split_calc_use', split_estimate: split }); }
+        if (!used) { used = true; dlEvent({ event: 'split_calc_use', split_estimate: split }); }
       }, 0);
     };
     form.addEventListener('input', mark); form.addEventListener('click', mark);
@@ -80,7 +86,7 @@ function saranayTag(href, loc) {
   function depth() {
     ticking = false;
     var doc = document.documentElement, pct = (window.scrollY + window.innerHeight) / doc.scrollHeight * 100;
-    while (marks.length && pct >= marks[0]) dl.push({ event: 'scroll_depth', percent_scrolled: marks.shift() });
+    while (marks.length && pct >= marks[0]) dlEvent({ event: 'scroll_depth', percent_scrolled: marks.shift() });
     if (!marks.length) window.removeEventListener('scroll', onScroll);
   }
   function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(depth); } }
@@ -90,7 +96,7 @@ function saranayTag(href, loc) {
     var t = null;
     var io = new IntersectionObserver(function (es) {
       var vis = es[0].intersectionRatio >= 0.5 || es[0].intersectionRect.height >= window.innerHeight * 0.5;
-      if (vis && !t) t = setTimeout(function () { dl.push({ event: 'cafe_menu_view', play_context: play || 'none' }); io.disconnect(); }, 2000);
+      if (vis && !t) t = setTimeout(function () { dlEvent({ event: 'cafe_menu_view', play_context: play || 'none' }); io.disconnect(); }, 2000);
       if (!vis && t) { clearTimeout(t); t = null; }
     }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
     io.observe(cafe);
@@ -111,7 +117,7 @@ function saranayTag(href, loc) {
     var state = { analytics_storage: v, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' };
     if (typeof gtag === 'function') gtag('consent', 'update', state);
     if (v === 'granted' && typeof window.saranayLoadGA === 'function') window.saranayLoadGA(); /* v3.14: GA4 loads only now */
-    (window.dataLayer = window.dataLayer || []).push({ event: 'consent_update', consent: v, analytics_storage: state.analytics_storage, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+    (window.dataLayer = window.dataLayer || []).push({ event: 'consent_update', analytics_consent: v, consent: v, analytics_storage: state.analytics_storage, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
     var had = box.contains(document.activeElement);
     box.hidden = true;
     if (had) { var nx = document.querySelector('.brand'); if (nx) nx.focus(); }
@@ -140,7 +146,7 @@ function saranayTag(href, loc) {
     var when = i === 0 ? 'Today' : i === 1 ? 'Tomorrow' : DAYS[wd] + ' ' + d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' });
     el.innerHTML = '';
     var b = document.createElement('b'); b.textContent = 'Next open play';
-    el.appendChild(b); el.appendChild(document.createTextNode(': ' + when + ' · ~6 PM · ₱150/player'));
+    el.appendChild(b); el.appendChild(document.createTextNode(': ' + when + ' · ~6 PM · all levels'));
     el.hidden = false;
   }
   tick(); setInterval(tick, 60000);
@@ -175,7 +181,7 @@ function saranayTag(href, loc) {
     li.className = 'event event--slot' + (n === 0 ? ' is-next' : '');
     li.innerHTML = '<p class="slot__cal" aria-hidden="true"><span class="slot__wd"></span><span class="slot__md"></span></p>' +
       '<p class="event__date"></p><h3 class="event__title">Open play · all levels</h3>' +
-      '<p class="event__meta">Usually 6 PM · 4 hours · ₱150 per player · up to 12</p>' +
+      '<p class="event__meta">Usually 6 PM · 4 hours · fee on Reclub · up to 12</p>' +
       '<a class="btn btn--ball btn--sm" target="_blank" rel="noopener" data-dest="reclub">Join open play</a>';
     li.querySelector('.slot__wd').textContent = DAYS[sl.wd].slice(0, 3);
     li.querySelector('.slot__md').textContent = md;
@@ -242,7 +248,7 @@ function saranayTag(href, loc) {
   var hero = document.getElementById('top');
   var main = document.getElementById('main');
   var order = [].slice.call(main.children); // original order, for undo
-  var MOVE = { open: ['coming-up', 'open-play'], rent: ['rates', 'rent'], cafe: ['cafe-teaser', 'find-us'], first: ['new', 'open-play'] };
+  var MOVE = { open: ['coming-up', 'open-play'], rent: ['rates', 'rent'], lessons: ['lessons', 'new'], first: ['new', 'open-play'] }; /* v3.15: café chip became Lessons */
   var current = null;
 
   function restore() { order.forEach(function (n) { main.appendChild(n); }); }
@@ -268,6 +274,7 @@ function saranayTag(href, loc) {
     o.addEventListener('keydown', function (e) { if (e.key === ' ') { e.preventDefault(); pick(o.dataset.path, true); } });
   });
   var q = null; try { q = new URL(location.href).searchParams.get('play'); } catch (e) {}
+  if (q === 'cafe') q = 'rent'; /* v3.15: old ?play=cafe links land on the booking path, where the café now sits */
   if (q && MOVE[q]) pick(q, false);
 })();
 
@@ -360,10 +367,10 @@ function saranayTag(href, loc) {
   var CAP = {
     play: ['Open play', 'All levels · come solo, we rotate you in'],
     court: ['Court', '₱200–₱300/hour · 6 AM to 2 AM daily'],
-    cafe: ["D' Rafael's Cafe", 'At the court · café hours TBC']
+    cafe: ["D' Rafael's Cafe", 'Open during court bookings']
   };
-  var BY_SECTION = { 'coming-up': 'play', 'open-play': 'play', 'new': 'play', 'rates': 'court', 'rent': 'court', 'cafe': 'cafe', 'cafe-teaser': 'cafe', 'find-us': 'cafe' };
-  var BY_PATH = { open: 'play', first: 'play', rent: 'court', cafe: 'cafe' };
+  var BY_SECTION = { 'coming-up': 'play', 'open-play': 'play', 'new': 'play', 'rates': 'court', 'rent': 'court', 'cafe': 'cafe', 'lessons': 'play', 'find-us': 'court', 'welcome': 'play', 'start': 'play', 'family': 'court', 'getting-here': 'court', 'ready': 'play' };
+  var BY_PATH = { open: 'play', first: 'play', rent: 'court', lessons: 'play', cafe: 'court' };
   var base = 'play';
   try { base = BY_PATH[new URL(location.href).searchParams.get('play')] || document.body.dataset.dockBase || 'play'; } catch (e) {}
   var CAL = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
@@ -388,7 +395,7 @@ function saranayTag(href, loc) {
       entries.forEach(function (e) { if (e.isIntersecting) inView = BY_SECTION[e.target.id] || null; });
       refresh();
     }, { rootMargin: '-45% 0px -50% 0px' });
-    ['top', 'coming-up', 'open-play', 'rates', 'rent', 'new', 'cafe', 'cafe-teaser', 'find-us', 'about', 'book', 'faq'].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+    ['top', 'coming-up', 'open-play', 'rates', 'rent', 'new', 'lessons', 'cafe', 'find-us', 'about', 'book', 'faq', 'welcome', 'start', 'family', 'getting-here', 'ready'].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
   }
   document.addEventListener('saranay:path', function (e) { base = BY_PATH[e.detail] || document.body.dataset.dockBase || 'play'; refresh(); });
   var form = document.getElementById('split');

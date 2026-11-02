@@ -3,7 +3,31 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
-## v3.14 · 2026-11-02 · the café gets its own page, and GA4 (local build, awaiting Jon's OK to publish)
+## v3.15 · 2026-11-02 · release candidate: beginners page, /book, GTM, no-TBC (LOCAL ONLY, not published)
+
+Built on `release/v3.15` from v3.14 (8d6e7a4). Not pushed, not deployed; noindex stays on. Publishing needs Jon's own OK.
+
+**Price: no comparison claim anywhere** (Ling, Nov 2). The hero, title, meta, OG/twitter and JSON-LD state only Saranay's own rate: "₱200 per court-hour, 10 AM–4 PM" (₱300 other hours; Sports360, Oct 31). The daystrip tag "Lowest" is now "Off-peak". Why: HustleHub publishes no rate, and the Matchgrounds sources conflict (₱450 vs ₱250); see rights-facts-sweep-v3.15.md and Anjali's brief (CHOAM 4f3be338).
+
+**SEO:** the home title, meta, OG/twitter and H1 carry "Bagumbong, North Caloocan" (title: "Saranay Pickleball Court & Café | Pickleball in Bagumbong, North Caloocan").
+
+**Lessons:** a new home lessons section (verified facts only: Learn to Play, beginner-friendly, no experience needed, message us) with `lesson_click` on every lesson CTA (`lesson_channel` = messenger/phone). The nav "Beginners" goes to the new page.
+
+**Café:** out of the nav, hero and teaser; it stays on the booking path (rent section) and in the FAQ. The hours cell reads "Open during court bookings" (Jon via Ling/Sage).
+
+**New page `pickleball-for-beginners/`:** Martha's v2 copy (CHOAM 44d0334f, approved by Ling), used verbatim with its meta title, description, H1, buttons and alt text. Book on Sports360 first, Join open play on Reclub second (both tracked), and Message us → lesson_click. It's linked from the home lessons section and the nav on every page. Only real photo 06 is used; there's no hero or family photo.
+
+**No-TBC rule (Ling):** no TBC text ships on any page. Messenger links go to the Facebook page, the open play fee reads "See each session's fee on Reclub", and parking, routes, the coach lines, the coffee open play cards and the café prices are dropped. All 25 fallbacks are in the sweep, §4.
+
+**New `book/`** (for saranaypickleball.com/book, for QR codes and social bios; noindex, not in the sitemap). If Accept is stored, it loads GTM-TZ4KN34J and pushes `book_court_click` (with page_location and utm_source/medium/campaign/content/term). It redirects to Sports360 only in eventCallback (eventTimeout 2000), with a 2000 ms gtm.js-load fallback and a once-only guard. Without consent it redirects at once and sends nothing. There's a visible "Continue to Sports360 booking" link plus a noscript link; no server 301. Tests: v315/book-test.md.
+
+**GTM:** `SARANAY_TAG_MODE='gtm'` (GTM-TZ4KN34J, loaded only after Accept; consent basic mode is unchanged). `'gtag'` is the rollback to v3.14 direct G-Q9F8HPKEND. The container build is in gtm-config-v3.15.md; **the GTM and site publishes must happen together.**
+
+**v3.14.1 fixes folded in:** fonts are self-hosted (Archivo, Instrument Serif, OFL, `fonts/`; 0 Google Fonts requests), the TBC badge wrap at 390 is moot (no badges ship), and the v3.14 heading above is corrected.
+
+Frozen copies: `/v3.15/`, `/v3.15/cafe/`, `/v3.15/pickleball-for-beginners/`, `/v3.15/book/`. The demo ribbon reads "Demo preview · not the official site yet."
+
+## v3.14 · 2026-11-02 · the café gets its own page, and GA4 (published Nov 2, 15:17 PHT)
 
 **The café moves from a #cafe section to its own page at `cafe/`** (Jon, via Róen: GA can't count # anchors, so the café needs a real page view).
 - **New `cafe/index.html`**: same header, footer, tokens, consent banner, dataLayer and noindex as the home page. It opens with D' Rafael's Cafe and both money actions, **Book a court on Sports360 first, then Join open play** (`cafe_hero_book_a_court_on_sports360`, `cafe_hero_join_open_play`, firing `book_court_click` and `join_open_play_click`). Then the full menu board (prices TBC), seating and café hours (TBC), the party line, Ask about the café and Directions, the three café photos, a Find the café block (address, court hours, café hours TBC, Maps, Copy location pin, Call us), and the five café questions from the FAQ, word for word. The phone dock opens in café context. No new facts.
