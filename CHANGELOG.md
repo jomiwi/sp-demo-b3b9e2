@@ -3,6 +3,14 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.15 RC4.2 · 2026-11-02 · Martha's private-events must-fix (LOCAL ONLY, not published)
+
+Still local on `release/v3.15`: not pushed, not deployed, noindex stays on. Ling confirmed RC4.1. Item map: `rc4-changes.md` (RC4.2 section).
+- **Copy (home, rent section):** paragraph is now "Have the whole court to yourselves. Book it for a game with friends, a family afternoon, a team practice or a birthday. For a private event, you can book the court and café together as a package for your group. Message us to plan it." "Message us" stays plain text (no new link; the tracked "Message us for groups or help booking" button sits just below). No price.
+- **FAQ (home + café):** "Can we hold a party or private event here?" -> "Can we book the court and café for a private event?" Answer unchanged. No FAQPage JSON-LD exists, so nothing else repeats the question.
+- **Source:** Saranay's own Facebook reel (facebook.com/reel/953250367146852, undated; its price is not used) + Reclub "private court rentals"; added to the rights/facts sweep.
+- `/v3.15/` home and café re-frozen; `/v3.15/book/` and beginners unchanged. Build script unchanged.
+
 ## v3.15 RC4.1 · 2026-11-02 · Ling's RC4 fact read + Martha's RC4 re-read (LOCAL ONLY, not published)
 
 Still local on `release/v3.15`: not pushed, not deployed, noindex stays on. Item map: `_docs/rc4-changes.md` (RC4.1 section).
