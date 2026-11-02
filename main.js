@@ -231,6 +231,8 @@ function saranayTag(href, loc) {
     var h = (parseInt(parts.hour, 10) % 24) + parseInt(parts.minute, 10) / 60;
     var label = new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Manila', hour: 'numeric', minute: '2-digit' }).format(new Date());
     var open = h >= 6 || h < 2;
+    var bands = document.querySelectorAll('.daystrip__band'), bi = !open ? -1 : (h >= 6 && h < 10) ? 0 : (h >= 10 && h < 16) ? 1 : 2;
+    [].forEach.call(bands, function (b, i) { b.classList.toggle('is-now', i === bi); });
     if (!open) { marker.hidden = true; now.textContent = 'Now in Manila, ' + label + ': closed. Opens 6 AM.'; now.hidden = false; return; }
     var pos = h >= 6 ? h - 6 : h + 18; // hours since 6 AM, 0 to 20
     var rate = (h >= 10 && h < 16) ? '₱200' : '₱300';

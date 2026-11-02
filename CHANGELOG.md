@@ -3,6 +3,20 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.10 · 2026-11-02 · conversion round 3
+
+**Bold change: the price-by-time strip is now the booking picker.** The #rates day strip used to be a chart, with one "Book a ₱200 daytime hour" button under it. Now each band is a Sports360 booking link:
+- ₱300 · 6–10 AM
+- ₱200 · 10 AM–4 PM
+- ₱300 · 4 PM–2 AM
+
+The heading is "Pick a time, then book it". The band that matches the current Manila time gets a ball-yellow ring (this is the clock only, not availability).
+- **Phones (under 30rem):** the bands stack into three full-width rows, each 56px or taller with price, time and "Book →". The proportional bar was too narrow to read or tap at 360px. **Desktop:** the proportional bar and the Now marker stay.
+- **Honest limit:** Sports360 has no verified time pre-select parameter, so the chosen band travels as `utm_content=rates_band_early|midday|evening` and as `rate_band` on `book_court_click` (via `data-band`). The visitor picks the exact slot on Sports360, and the footnote says so.
+- The single button under the strip is removed, because the bands replace it. **Exits: 39** (14 Sports360, 17 Reclub, 8 Messenger).
+- **Borrowed from Mobbin:** the time slot is itself the button, as in Tripadvisor's tour time-slot grid and Swiggy's table-booking slot grid. A tap on a time is a commitment step, not reading.
+- Footer: "Demo preview v3.10". Share image `?v=3.10`.
+
 ## v3.9 · 2026-11-02 · conversion round 2
 
 **Bold change: phones now have a two-action booking dock.** The old dock showed only one action for the section in view, so on the rates section Join was missing, and on the open-play section Book was missing. The dock now always shows both: **Book a court** (court blue, Sports360) first, then **Join open play** (amber, Reclub), side by side at 48px tall.
