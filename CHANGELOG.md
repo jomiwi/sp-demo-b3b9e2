@@ -3,6 +3,14 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.15 RC4.3 · 2026-11-03 · phone hero Open play card -> one line (LOCAL ONLY, not published)
+
+Sage approved Jared's proposal (Notion DB7, "merge hero Open play card into dated Coming up slots", Nov 3). Still local on `release/v3.15`: not pushed, not deployed, noindex stays on. Item map: `rc4-changes.md` (RC4.3 section).
+- **Phones (< 60rem):** the hero `.next-play` card is hidden; one line sits under Book a court / Join open play: "Open play most weekends, some weeknights · Join on Reclub". Same Reclub URL (utm_content=hero_next_play_card) and `data-cta="hero_next_play_card" data-dest="reclub"`, so it fires click_reclub + join_open_play_click exactly like the card. 48 px tap target, tokens only, AA (17.09 / 10.81 / 10.26:1 on ink). Book a court stays first.
+- **Undated on purpose:** Reclub lists dated sessions, but RC4 dropped every derived date (Ling) and a fixed date on a static page goes stale. Reclub keeps the live list.
+- **Desktop (60rem+):** unchanged; the card stays and the line is `display: none`. Layout/colour of all 606 visible elements identical to RC4.2 at 1280.
+- `/v3.15/` home, café and beginners re-frozen (shared inline CSS); `/v3.15/book/` unchanged. Build script unchanged.
+
 ## v3.15 RC4.2 · 2026-11-02 · Martha's private-events must-fix (LOCAL ONLY, not published)
 
 Still local on `release/v3.15`: not pushed, not deployed, noindex stays on. Ling confirmed RC4.1. Item map: `rc4-changes.md` (RC4.2 section).

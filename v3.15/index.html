@@ -797,6 +797,17 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
 @media (min-width: 60rem) { .section--cafe .split { align-items: center; } .cafe-side { align-self: center; } .cafe-side .cafe-photos { position: static; margin-bottom: var(--s-6); } }
 .cafe-side:not(:has(.cafe-photos)) { padding: var(--s-6); border: 1px solid var(--c-line-dark); border-radius: var(--r-lg); background: var(--c-ink-2); }
 .cafe-side .btn-row { margin-top: var(--s-5); }
+/* RC4.3 · phone hero (< 60rem): the Open play card (.next-play) becomes one line under the booking buttons. Book a court stays first.
+   48px tap target (--tap + --s-1); ball on ink and sky on ink are AA. Desktop (60rem+) keeps the card and never shows the line. */
+.hero__openline { display: none; }
+@media (max-width: 59.99rem) {
+  .hero__more .next-play { display: none; }
+  .hero__openline { display: block; margin: var(--s-2) 0 0; font-size: var(--fs-sm); line-height: 1.3; }
+  .hero__openline a { display: flex; flex-wrap: wrap; align-items: center; column-gap: 0.3em; min-height: calc(var(--tap) + var(--s-1)); color: var(--c-on-dark); text-decoration: none; }
+  .hero__openline b { color: var(--c-ball); font-weight: var(--fw-bold); }
+  .hero__openline-go { color: var(--c-sky); font-weight: var(--fw-bold); text-decoration: underline; text-underline-offset: 0.2em; }
+  .hero__openline a:hover .hero__openline-go { color: var(--c-on-dark); }
+}
 
 </style>
 </head>
@@ -914,6 +925,8 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
           <div class="btn-row hero__ctas"><a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=hero_first_find_an_all_levels_session" target="_blank" rel="noopener" aria-label="Find an all-levels session (opens in a new tab)" data-cta="hero_first_find_an_all_levels_session" data-dest="reclub">Find an all-levels session</a><a class="btn btn--outline" href="#new">Your first visit</a></div>
         </div>
       </div>
+      <!-- RC4.3 (Sage-approved proposal, Nov 3): on phones the hero Open play card becomes this one line under the booking buttons. Undated on purpose: RC4 dropped derived dates (Ling) and a fixed date goes stale. Same Reclub URL and data-cta/data-dest as the card, so it fires click_reclub + join_open_play_click (cta_location=hero_next_play_card). Hidden from 60rem, where the card stays. -->
+      <p class="hero__openline"><a href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=hero_next_play_card" target="_blank" rel="noopener" aria-label="Open play most weekends, some weeknights. Join on Reclub (opens in a new tab)" data-cta="hero_next_play_card" data-dest="reclub"><b>Open play</b> most weekends, some weeknights · <span class="hero__openline-go">Join on Reclub</span></a></p>
       <!-- v2.0 "How are you playing?" chooser, now compact chips under the booking buttons. Without JS they are plain links to each section. -->
       <div class="chooser" id="chooser">
         <p class="chooser__q" id="chooser-q">How are you playing?</p>
