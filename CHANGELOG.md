@@ -3,6 +3,20 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.11 · 2026-11-02 · conversion round 4
+
+**Bold change: "Coming up" now shows dated open play slots with one-tap Join.** The section used to show two generic rows, "Fridays" and "Saturdays and Sundays", each with an outline "Request a spot" button. JS now builds the next three real dates from the posted pattern (Fri, Sat, Sun, usually 6 PM, ₱150, up to 12), using the Manila calendar. Each slot gets:
+- a calendar tile (the next slot is court blue)
+- "Today" or "Tomorrow" when that applies
+- the full date
+- a solid amber **Join open play** button (Reclub)
+
+The coffee open play card, with its TBC day and terms, stays last and unchanged.
+- **Pattern dates only, never availability:** "Usually 6 PM", plus the existing note "Times can change. Reclub always has the live list." After 6 PM on a session day, that day drops off. Without JS, the original rows remain.
+- Each button has its own event: `coming_up_slot_1..3` (`click_reclub` + `join_open_play_click`). **Exits: 40** (14 Sports360, 18 Reclub, 8 Messenger).
+- **Borrowed from Mobbin:** concrete dated choices beat an abstract schedule, as in Swiggy's day chips ("18 Today, 19 Wed…") and Tripadvisor's date-first tour picker. A named date ("Friday, November 6") is easier to commit to than "Fridays".
+- Footer: "Demo preview v3.11". Share image `?v=3.11`.
+
 ## v3.10 · 2026-11-02 · conversion round 3
 
 **Bold change: the price-by-time strip is now the booking picker.** The #rates day strip used to be a chart, with one "Book a ₱200 daytime hour" button under it. Now each band is a Sports360 booking link:

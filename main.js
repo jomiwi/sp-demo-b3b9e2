@@ -134,6 +134,47 @@ function saranayTag(href, loc) {
   tick(); setInterval(tick, 60000);
 })();
 
+/* v3.11 · Coming up becomes dated open play slots: the next three Fri/Sat/Sun dates from the posted pattern (usually 6 PM, ₱150),
+   each with a one-tap Join on Reclub. Manila calendar. Pattern dates only, never availability. The coffee open play card (TBC) stays last. */
+(function () {
+  var list = document.querySelector('#coming-up .events');
+  if (!list || !window.Intl) return;
+  var RECLUB = 'https://reclub.co/clubs/@saranay-pickleball-club';
+  var DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  var parts = {};
+  new Intl.DateTimeFormat('en-US', { timeZone: 'Asia/Manila', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' })
+    .formatToParts(new Date()).forEach(function (p) { parts[p.type] = p.value; });
+  var base = Date.UTC(+parts.year, +parts.month - 1, +parts.day);
+  var mins = (+parts.hour % 24) * 60 + +parts.minute;
+  var slots = [];
+  for (var i = 0; i < 14 && slots.length < 3; i++) {
+    var d = new Date(base + i * 864e5), wd = d.getUTCDay();
+    if ((wd === 5 || wd === 6 || wd === 0) && (i > 0 || mins < 18 * 60)) slots.push({ d: d, i: i, wd: wd });
+  }
+  var keep = [].filter.call(list.children, function (li) { return li.querySelector('.tbc'); });
+  [].slice.call(list.children).forEach(function (li) { if (keep.indexOf(li) < 0) li.remove(); });
+  var first = keep[0] || null;
+  slots.forEach(function (sl, n) {
+    var md = sl.d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'short', day: 'numeric' });
+    var full = DAYS[sl.wd] + ', ' + sl.d.toLocaleDateString('en-US', { timeZone: 'UTC', month: 'long', day: 'numeric' });
+    var rel = sl.i === 0 ? 'Today' : sl.i === 1 ? 'Tomorrow' : '';
+    var cta = 'coming_up_slot_' + (n + 1);
+    var li = document.createElement('li');
+    li.className = 'event event--slot' + (n === 0 ? ' is-next' : '');
+    li.innerHTML = '<p class="slot__cal" aria-hidden="true"><span class="slot__wd"></span><span class="slot__md"></span></p>' +
+      '<p class="event__date"></p><h3 class="event__title">Open play · all levels</h3>' +
+      '<p class="event__meta">Usually 6 PM · 4 hours · ₱150 per player · up to 12</p>' +
+      '<a class="btn btn--ball btn--sm" target="_blank" rel="noopener" data-dest="reclub">Join open play</a>';
+    li.querySelector('.slot__wd').textContent = DAYS[sl.wd].slice(0, 3);
+    li.querySelector('.slot__md').textContent = md;
+    li.querySelector('.event__date').textContent = (rel ? rel + ' · ' : '') + full;
+    var a = li.querySelector('a');
+    a.href = saranayTag(RECLUB, cta); a.dataset.cta = cta;
+    a.setAttribute('aria-label', 'Join open play on ' + full + ', usually 6 PM, on Reclub (opens in a new tab)');
+    list.insertBefore(li, first);
+  });
+})();
+
 /* Menu toggle + copy location pin */
 (function () {
   var toggle = document.querySelector('.nav-toggle');
