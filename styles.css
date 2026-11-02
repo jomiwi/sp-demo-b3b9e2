@@ -97,7 +97,7 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 .on-dark :focus-visible, .hero :focus-visible, .site-footer :focus-visible, .cta-bar :focus-visible, .splitter :focus-visible { outline-color: var(--c-focus-dark); }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 .skip-link { position: absolute; left: var(--s-4); top: -10rem; z-index: 100; background: var(--c-ink); color: var(--c-on-dark); padding: var(--s-3) var(--s-4); border-radius: var(--r-sm); }
-.skip-link:focus { top: var(--s-4); }
+.skip-link:focus { top: calc(var(--consent-h, 0px) + var(--s-4)); }
 .container { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
 .mt-3 { margin-top: var(--s-3); } .mt-6 { margin-top: var(--s-6); }
 .eyebrow { font: var(--fw-bold) var(--fs-xs)/1.3 var(--font-body); letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--c-court); margin-bottom: var(--s-4); display: flex; align-items: center; gap: var(--s-3); }
@@ -583,6 +583,16 @@ a.next-play .next-play__go { color: var(--c-sky); }
 .consent__btn { min-height: var(--tap); padding: var(--s-2) var(--s-3); font-size: var(--fs-sm); background: var(--c-paper); color: var(--c-ink); border: 2px solid var(--c-paper); }
 .consent__btn:hover { background: var(--c-paper-2); border-color: var(--c-paper-2); }
 .consent :focus-visible { outline: 3px solid var(--c-focus-dark); outline-offset: 2px; }
+/* RC4.1 (Ling RC4 read): compact phone banner. Text left, Decline/Accept stacked right (each still 44px tall, same weight),
+   so the banner stays above the hero open-play chip and far from Book/Join. main.js nudges the chip down if a font or zoom
+   setting still makes the banner taller. */
+@media (max-width: 59.99rem) {
+  .consent { padding: var(--s-2) var(--gutter); padding-top: max(var(--s-2), env(safe-area-inset-top)); }
+  .consent__inner { grid-template-columns: 1fr auto; align-items: center; gap: var(--s-3); }
+  .consent__text { line-height: 1.35; }
+  .consent__btns { grid-template-columns: 1fr; gap: var(--s-1); }
+  .consent__btn { min-width: 6.25rem; padding-inline: var(--s-3); }
+}
 @media (min-width: 60rem) {
   .consent { inset: auto 0 0 0; border-bottom: 0; border-top: 1px solid var(--c-line-dark); padding: var(--s-3) var(--gutter); }
   .consent__inner { grid-template-columns: 1fr auto; align-items: center; gap: var(--s-6); }

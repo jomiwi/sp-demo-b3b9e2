@@ -112,7 +112,21 @@ function saranayTag(href, loc) {
   if (!box) return;
   var KEY = 'saranay_consent', stored = null;
   try { stored = localStorage.getItem(KEY); } catch (e) {}
-  function show() { box.hidden = false; }
+  /* RC4.1: on first visit the banner must not cover the hero open-play chip; if it would, push the chip below it. */
+  var chip = document.getElementById('hero-next');
+  function fit() {
+    var root = document.documentElement.style;
+    root.removeProperty('--consent-h');
+    if (chip) chip.style.marginTop = '';
+    if (box.hidden || getComputedStyle(box).top !== '0px') return;
+    root.setProperty('--consent-h', Math.ceil(box.getBoundingClientRect().bottom) + 'px'); /* the skip link shows below the banner */
+    if (!chip || chip.hidden) return;
+    var over = box.getBoundingClientRect().bottom + 8 - (chip.getBoundingClientRect().top + window.scrollY);
+    if (over > 0) chip.style.marginTop = Math.ceil(over) + 'px';
+  }
+  function show() { box.hidden = false; fit(); }
+  window.addEventListener('resize', function () { if (!box.hidden) fit(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (!box.hidden) fit(); });
   function choose(v) {
     try { localStorage.setItem(KEY, v); } catch (e) {}
     /* v3.4.1: Accept grants analytics_storage ONLY. Ad storage, ad user data and ad personalization stay denied always. */
@@ -122,6 +136,7 @@ function saranayTag(href, loc) {
     (window.dataLayer = window.dataLayer || []).push({ event: 'consent_update', analytics_consent: v, consent: v, analytics_storage: state.analytics_storage, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
     var had = box.contains(document.activeElement);
     box.hidden = true;
+    fit();
     if (had) { var nx = document.querySelector('.brand'); if (nx) nx.focus(); }
   }
   [].forEach.call(box.querySelectorAll('[data-consent]'), function (b) { b.addEventListener('click', function () { choose(b.dataset.consent); }); });

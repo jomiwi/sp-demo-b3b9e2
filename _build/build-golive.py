@@ -2,11 +2,12 @@
 """Build the go-live site from the RC root.
 
     python3 _build/build-golive.py                # writes ../golive-build (noindex kept)
-    python3 _build/build-golive.py --launch       # also drops noindex, adds canonical, uses saranaypickleball.com
+    python3 _build/build-golive.py --launch       # also drops noindex (not on /book), adds canonical and CNAME, uses saranaypickleball.com
     python3 _build/build-golive.py --approve ig06,ai_images   # override owner-ok.json for one build
 
 Only the live pages and the files they reference are copied. No /vX/ copies, no README/CHANGELOG,
-no HTML/CSS/JS comments, no demo ribbon. Photos without a logged owner OK are left out unless
+no HTML/CSS/JS comments (inline <script> too), no demo ribbon. /book keeps noindex in every build;
+CNAME is written only in --launch builds, so a preview build can't claim the domain. Photos without a logged owner OK are left out unless
 _build/owner-ok.json says otherwise. The build fails if a forbidden string survives.
 """
 import argparse, json, os, re, shutil, subprocess, sys
@@ -57,6 +58,7 @@ def rights(html):
     return html, n
 
 def strip_html(html):
+    html = re.sub(r'^[ \t]*<!--.*?-->[ \t]*\n', '', html, flags=re.S | re.M)  # comment-only lines go entirely
     html = re.sub(r'<!--.*?-->', '', html, flags=re.S)
     html = re.sub(r'[ \t]*<p class="demo-ribbon".*?</p>\n?', '', html, flags=re.S)
     html = re.sub(r'\n[ \t]*\n(?:[ \t]*\n)+', '\n\n', html)
@@ -74,9 +76,52 @@ def strip_js(js):
     js = re.sub(r'(?<=[;{},)])[ \t]+//[^\n]*', '', js)
     return re.sub(r'\n\s*\n+', '\n', js).strip() + '\n'
 
+def strip_js_safe(js):
+    """Remove // and /* */ comments with a small tokenizer that skips strings, template literals and regex
+    literals, so 'https://' or /[/]/ survive. Used for inline <script> bodies."""
+    out, i, n, prev = [], 0, len(js), ''
+    while i < n:
+        c = js[i]
+        if c in '\'"`':
+            j = i + 1
+            while j < n and js[j] != c:
+                j += 2 if js[j] == '\\' else 1
+            out.append(js[i:j + 1]); prev = c; i = j + 1; continue
+        if c == '/' and js.startswith('/*', i):
+            j = js.find('*/', i + 2); i = n if j < 0 else j + 2; continue
+        if c == '/' and js.startswith('//', i):
+            j = js.find('\n', i); i = n if j < 0 else j; continue
+        if c == '/' and (prev == '' or prev in '(,=:[!&|?{};+-*%<>~^'):
+            j, cls = i + 1, False
+            while j < n and (cls or js[j] != '/') and js[j] != '\n':
+                if js[j] == '\\': j += 1
+                elif js[j] == '[': cls = True
+                elif js[j] == ']': cls = False
+                j += 1
+            j += 1
+            while j < n and js[j].isalpha(): j += 1
+            out.append(js[i:j]); prev = '/'; i = j; continue
+        out.append(c)
+        if not c.isspace(): prev = c
+        i += 1
+    s = ''.join(out)
+    s = re.sub(r'[ \t]+\n', '\n', s)
+    return re.sub(r'\n[ \t]*\n+', '\n', s)
+
+inline_checked = []
+def strip_inline_scripts(html, page):
+    def r(m):
+        attrs, body = m.group(1), m.group(2)
+        if 'src=' in attrs or 'ld+json' in attrs or not body.strip(): return m.group(0)
+        new = strip_js_safe(body)
+        # same code, just without comments: node --check runs on every stripped body below
+        inline_checked.append((page, body, new))
+        return f'<script{attrs}>{new}</script>'
+    return re.sub(r'<script\b([^>]*)>(.*?)</script>', r, html, flags=re.S)
+
 def launch(html, page):
-    html = re.sub(r'[ \t]*<meta name="(?:robots|googlebot)"[^>]*>\n', '', html)
-    if page != BOOK:
+    if page != BOOK:  # /book is a redirect page: it stays noindex at go-live
+        html = re.sub(r'[ \t]*<meta name="(?:robots|googlebot)"[^>]*>\n', '', html)
         url = LIVE_URL + (page[:-len('index.html')])
         html = html.replace('<meta name="viewport"', f'<link rel="canonical" href="{url}">\n  <meta name="viewport"', 1)
     return html.replace(DEMO_URL, LIVE_URL)
@@ -116,11 +161,11 @@ missing, report = [], []
 for page in PAGES + [p for p in OPTIONAL if os.path.exists(os.path.join(REPO, p))]:
     src = open(os.path.join(REPO, page), encoding='utf-8').read()
     html, n = rights(src)
-    html = strip_html(html)
+    html = strip_inline_scripts(strip_html(html), page)
     if a.launch: html = launch(html, page)
     write(page, html); collect(page, html); report.append(f'{page}: {n} rights blocks processed')
 # /book is copied as is apart from comments (source untouched)
-book = strip_html(open(os.path.join(REPO, BOOK), encoding='utf-8').read())
+book = strip_inline_scripts(strip_html(open(os.path.join(REPO, BOOK), encoding='utf-8').read()), BOOK)
 if a.launch: book = launch(book, BOOK)
 write(BOOK, book); collect(BOOK, book)
 
@@ -139,8 +184,14 @@ for p in sorted(refs):
 # font licences travel with the fonts
 for f in os.listdir(os.path.join(REPO, 'fonts')):
     if f.lower().endswith('.txt'): shutil.copy2(os.path.join(REPO, 'fonts', f), os.path.join(out, 'fonts', f))
-for f in ['robots.txt', 'sitemap.xml', 'CNAME']:
+for f in ['robots.txt', 'sitemap.xml'] + (['CNAME'] if a.launch else []):
     shutil.copy2(os.path.join(BUILD, f), os.path.join(out, f))
+# every stripped inline script must still parse
+import tempfile
+for page, body, new in inline_checked:
+    with tempfile.NamedTemporaryFile('w', suffix='.js', delete=False) as tf: tf.write(new)
+    rc = subprocess.run(['node', '--check', tf.name], capture_output=True); os.unlink(tf.name)
+    if rc.returncode: sys.exit(f'inline script in {page} no longer parses after comment strip:\n{rc.stderr.decode()}')
 
 # ---- checks
 fails = []
@@ -157,15 +208,27 @@ for f in files:
         if s.lower() in t.lower(): fails.append(f'{f}: contains {s!r}')
     if f.endswith('.html') and '<!--' in t: fails.append(f'{f}: HTML comment left')
     if f.endswith('.html') and 'demo-ribbon' in t: fails.append(f'{f}: ribbon left')
-    if f.endswith('.html') and a.launch is False and f != BOOK and 'noindex' not in t: fails.append(f'{f}: noindex missing (non-launch build)')
+    if f.endswith('.html'):
+        robots = re.findall(r'<meta name="(?:robots|googlebot)" content="([^"]*)"', t)
+        has_noindex = bool(robots) and all('noindex' in v for v in robots) and len(robots) == 2
+        if f == BOOK and not has_noindex: fails.append(f'{f}: /book must keep robots + googlebot noindex in every build')
+        if f != BOOK and not a.launch and not has_noindex: fails.append(f'{f}: noindex missing (preview build)')
+        if f != BOOK and a.launch and robots: fails.append(f'{f}: robots/googlebot meta left in launch build')
+        if f != BOOK and a.launch and '<link rel="canonical"' not in t: fails.append(f'{f}: canonical missing (launch build)')
+        for sc in re.findall(r'<script\b(?![^>]*\bsrc=)(?![^>]*ld\+json)[^>]*>(.*?)</script>', t, flags=re.S):
+            if re.sub(r'\s', '', strip_js_safe(sc)) != re.sub(r'\s', '', sc): fails.append(f'{f}: JS comment left in inline <script>')
 for f in files:
     top = f.split('/')[0]
     if re.match(r'v\d', top) or top in ('README.md', 'CHANGELOG.md', 'booktest', '_build'): fails.append(f'{f}: should not ship')
     if f.startswith('img/') and f not in refs: fails.append(f'{f}: unused image')
+if a.launch and 'CNAME' not in files: fails.append('CNAME missing (launch build)')
+if not a.launch and 'CNAME' in files: fails.append('CNAME in a preview build (it would claim the domain)')
+if a.launch and open(os.path.join(out, 'CNAME')).read().strip() != urlsplit(LIVE_URL).netloc: fails.append('CNAME does not match LIVE_URL')
 mode = 'launch' if a.launch else 'preview (noindex kept)'
 print(f'golive build -> {out} [{mode}] owner OK: {sorted(ok) or "none"}')
 print('\n'.join(report))
 for f in sorted(files): print(f'  {os.path.getsize(os.path.join(out, f)):>8}  {f}')
 if fails:
     print('\nFAILED:\n  ' + '\n  '.join(fails)); sys.exit(1)
-print(f'{len(files)} files, all checks passed: no {", ".join(FORBIDDEN)}; no comments, ribbon, /vX/, README, CHANGELOG or unused images.')
+print(f'{len(files)} files, all checks passed: no {", ".join(FORBIDDEN)}; no comments (incl. inline JS), ribbon, /vX/, README, CHANGELOG or unused images; '
+      + ('/book noindex, other pages indexable with canonical, CNAME present.' if a.launch else 'noindex on every page, no CNAME.'))

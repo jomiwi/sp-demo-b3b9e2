@@ -3,6 +3,16 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.15 RC4.1 · 2026-11-02 · Ling's RC4 fact read + Martha's RC4 re-read (LOCAL ONLY, not published)
+
+Still local on `release/v3.15`: not pushed, not deployed, noindex stays on. Item map: `_docs/rc4-changes.md` (RC4.1 section).
+- **/book noindex at go-live:** `--launch` no longer strips robots/googlebot from /book. New build check (preview and launch): /book must carry both noindex metas; preview pages must have noindex; launch pages (other than /book) must have no robots meta and a canonical. `golive-noindex-urls.diff` regenerated (/book is no longer in it).
+- **Build:** inline `<script>` comments are stripped with a string/regex-aware tokenizer (URLs like `https://` survive), every stripped script must pass `node --check`; comment-only HTML lines removed whole; `CNAME` written only with `--launch` (preview builds fail if it's there, launch builds fail if it's missing or wrong). Preview 27 files, launch 28.
+- **Copy:** rent section private-events sentence removed (paragraph now ends "...a team practice or a birthday."); beginners "Come 10 to 15 minutes early." -> "Come a few minutes early."
+- **Cookie banner (phones):** compact layout (text left, Decline/Accept stacked right, 44 px each), 128 -> 109 px tall, so it no longer covers the hero open-play chip at 390/360; main.js nudges the chip below the banner if it would still overlap and puts the focused skip link below the banner. Desktop unchanged.
+- **GOLIVE.md:** stale `/v3.15/book` mapping row removed; RC4.1 checks and CNAME rule documented.
+- Frozen `/v3.15/` (index, café, beginners) regenerated; `/v3.15/book/` unchanged.
+
 ## v3.15 RC4 · 2026-11-02 · Ling's RC3 fact read (LOCAL ONLY, not published)
 
 Still local on `release/v3.15`: not pushed, not deployed, noindex stays on. Item map: `_docs/rc4-changes.md`.

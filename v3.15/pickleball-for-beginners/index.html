@@ -174,7 +174,7 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 .on-dark :focus-visible, .hero :focus-visible, .site-footer :focus-visible, .cta-bar :focus-visible, .splitter :focus-visible { outline-color: var(--c-focus-dark); }
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
 .skip-link { position: absolute; left: var(--s-4); top: -10rem; z-index: 100; background: var(--c-ink); color: var(--c-on-dark); padding: var(--s-3) var(--s-4); border-radius: var(--r-sm); }
-.skip-link:focus { top: var(--s-4); }
+.skip-link:focus { top: calc(var(--consent-h, 0px) + var(--s-4)); }
 .container { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
 .mt-3 { margin-top: var(--s-3); } .mt-6 { margin-top: var(--s-6); }
 .eyebrow { font: var(--fw-bold) var(--fs-xs)/1.3 var(--font-body); letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--c-court); margin-bottom: var(--s-4); display: flex; align-items: center; gap: var(--s-3); }
@@ -660,6 +660,16 @@ a.next-play .next-play__go { color: var(--c-sky); }
 .consent__btn { min-height: var(--tap); padding: var(--s-2) var(--s-3); font-size: var(--fs-sm); background: var(--c-paper); color: var(--c-ink); border: 2px solid var(--c-paper); }
 .consent__btn:hover { background: var(--c-paper-2); border-color: var(--c-paper-2); }
 .consent :focus-visible { outline: 3px solid var(--c-focus-dark); outline-offset: 2px; }
+/* RC4.1 (Ling RC4 read): compact phone banner. Text left, Decline/Accept stacked right (each still 44px tall, same weight),
+   so the banner stays above the hero open-play chip and far from Book/Join. main.js nudges the chip down if a font or zoom
+   setting still makes the banner taller. */
+@media (max-width: 59.99rem) {
+  .consent { padding: var(--s-2) var(--gutter); padding-top: max(var(--s-2), env(safe-area-inset-top)); }
+  .consent__inner { grid-template-columns: 1fr auto; align-items: center; gap: var(--s-3); }
+  .consent__text { line-height: 1.35; }
+  .consent__btns { grid-template-columns: 1fr; gap: var(--s-1); }
+  .consent__btn { min-width: 6.25rem; padding-inline: var(--s-3); }
+}
 @media (min-width: 60rem) {
   .consent { inset: auto 0 0 0; border-bottom: 0; border-top: 1px solid var(--c-line-dark); padding: var(--s-3) var(--gutter); }
   .consent__inner { grid-template-columns: 1fr auto; align-items: center; gap: var(--s-6); }
@@ -869,7 +879,7 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
     <div>
       <h3>On the day</h3>
       <ol class="steps steps--compact">
-        <li><p>Come 10 to 15 minutes early.</p></li>
+        <li><p>Come a few minutes early.</p></li>
         <li><p>Tell us it's your first time. We'll show you where to go.</p></li>
         <li><p>Warm up, then play at your own pace. Take breaks whenever you like.</p></li>
       </ol>
@@ -1228,7 +1238,21 @@ function saranayTag(href, loc) {
   if (!box) return;
   var KEY = 'saranay_consent', stored = null;
   try { stored = localStorage.getItem(KEY); } catch (e) {}
-  function show() { box.hidden = false; }
+  /* RC4.1: on first visit the banner must not cover the hero open-play chip; if it would, push the chip below it. */
+  var chip = document.getElementById('hero-next');
+  function fit() {
+    var root = document.documentElement.style;
+    root.removeProperty('--consent-h');
+    if (chip) chip.style.marginTop = '';
+    if (box.hidden || getComputedStyle(box).top !== '0px') return;
+    root.setProperty('--consent-h', Math.ceil(box.getBoundingClientRect().bottom) + 'px'); /* the skip link shows below the banner */
+    if (!chip || chip.hidden) return;
+    var over = box.getBoundingClientRect().bottom + 8 - (chip.getBoundingClientRect().top + window.scrollY);
+    if (over > 0) chip.style.marginTop = Math.ceil(over) + 'px';
+  }
+  function show() { box.hidden = false; fit(); }
+  window.addEventListener('resize', function () { if (!box.hidden) fit(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (!box.hidden) fit(); });
   function choose(v) {
     try { localStorage.setItem(KEY, v); } catch (e) {}
     /* v3.4.1: Accept grants analytics_storage ONLY. Ad storage, ad user data and ad personalization stay denied always. */
@@ -1238,6 +1262,7 @@ function saranayTag(href, loc) {
     (window.dataLayer = window.dataLayer || []).push({ event: 'consent_update', analytics_consent: v, consent: v, analytics_storage: state.analytics_storage, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
     var had = box.contains(document.activeElement);
     box.hidden = true;
+    fit();
     if (had) { var nx = document.querySelector('.brand'); if (nx) nx.focus(); }
   }
   [].forEach.call(box.querySelectorAll('[data-consent]'), function (b) { b.addEventListener('click', function () { choose(b.dataset.consent); }); });
