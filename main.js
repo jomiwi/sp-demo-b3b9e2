@@ -294,45 +294,47 @@ function saranayTag(href, loc) {
   update();
 })();
 
-/* v2.3 · Context dock: the sticky bar swaps its summary and main action for the section in view */
+/* v3.9 · Two-action dock (was the v2.3 single-action context dock).
+   Both money actions are always one tap away on phones: Book a court on Sports360 first, Join open play second.
+   A one-line caption above them still follows the section in view (and the Split-the-court estimate). */
 (function () {
   var bar = document.getElementById('cta-bar');
-  if (!bar || !('IntersectionObserver' in window)) return;
+  if (!bar) return;
   var S360 = 'https://app.sports360.ph/sportshub/saranay-pickleball-court';
   var RECLUB = 'https://reclub.co/clubs/@saranay-pickleball-club';
-  var MSG = 'https://m.me/61589930970148';
-  var CTX = {
-    play: { big: 'Open play', small: 'All levels · Join on Reclub', label: 'Join open play', href: RECLUB, cta: 'sticky_bar_join_open_play', dest: 'reclub', ext: ' on Reclub (opens in a new tab)' },
-    court: { big: 'From ₱200/hour', small: 'Whole court · Book on Sports360', label: 'Book a court', href: S360, cta: 'sticky_bar_book_a_court', dest: 'sports360', ext: ' on Sports360 (opens in a new tab)' },
-    cafe: { big: "D' Rafael's Cafe", small: 'At the court · Hours TBC', label: 'Message us', href: MSG, cta: 'sticky_bar_message_us', dest: 'messenger' }
+  var CAP = {
+    play: ['Open play', 'All levels · come solo, we rotate you in'],
+    court: ['Court', '₱200–₱300/hour · 6 AM to 2 AM daily'],
+    cafe: ["D' Rafael's Cafe", 'At the court · café hours TBC']
   };
   var BY_SECTION = { 'coming-up': 'play', 'open-play': 'play', 'new': 'play', 'rates': 'court', 'rent': 'court', 'cafe': 'cafe', 'find-us': 'cafe' };
   var BY_PATH = { open: 'play', first: 'play', rent: 'court', cafe: 'cafe' };
   var base = 'play';
   try { base = BY_PATH[new URL(location.href).searchParams.get('play')] || 'play'; } catch (e) {}
-  bar.classList.add('dock');
-  bar.innerHTML = '<p class="dock__sum" style="margin:0"><span class="dock__big"><span class="dock__ctx" aria-hidden="true"></span><span data-dock="big"></span></span><span class="dock__small" data-dock="small"></span></p><a class="btn btn--ball" data-dock="btn"></a>';
-  var big = bar.querySelector('[data-dock="big"]'), small = bar.querySelector('[data-dock="small"]'), btn = bar.querySelector('[data-dock="btn"]');
+  var CAL = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+  var BALL = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/><circle cx="15" cy="10" r="1.2" fill="currentColor"/><circle cx="12" cy="15" r="1.2" fill="currentColor"/></svg>';
+  bar.classList.add('dock', 'dock--duo');
+  bar.innerHTML = '<p class="dock__cap"><span class="dock__ctx" aria-hidden="true"></span><strong data-dock="big"></strong> <span data-dock="small"></span></p>' +
+    '<a class="btn" data-dock="book" target="_blank" rel="noopener" data-cta="sticky_bar_book_a_court" data-dest="sports360" aria-label="Book a court on Sports360 (opens in a new tab)" href="' + saranayTag(S360, 'sticky_bar_book_a_court') + '">' + CAL + 'Book a court</a>' +
+    '<a class="btn btn--ball" data-dock="join" target="_blank" rel="noopener" data-cta="sticky_bar_join_open_play" data-dest="reclub" aria-label="Join open play on Reclub (opens in a new tab)" href="' + saranayTag(RECLUB, 'sticky_bar_join_open_play') + '">' + BALL + 'Join open play</a>';
+  var big = bar.querySelector('[data-dock="big"]'), small = bar.querySelector('[data-dock="small"]');
   var split = null, cur = null, inView = null;
   function render(key) {
-    var c = CTX[key];
-    var b = c.big, sm = c.small;
+    var b = CAP[key][0], sm = CAP[key][1];
     if (key === 'court' && split) { b = split.each + ' each'; sm = split.players + ' players · ' + split.hours + (split.hours > 1 ? ' hours' : ' hour') + ' · estimate'; }
     var changed = key !== cur;
-    cur = key;
-    bar.dataset.ctx = key;
+    cur = key; bar.dataset.ctx = key;
     big.textContent = b; small.textContent = sm;
-    btn.textContent = c.label; btn.href = saranayTag(c.href, c.cta); btn.dataset.cta = c.cta; btn.dataset.dest = c.dest;
-    if (c.ext) { btn.target = '_blank'; btn.rel = 'noopener'; btn.setAttribute('aria-label', c.label + c.ext); }
-    else { btn.removeAttribute('target'); btn.removeAttribute('rel'); btn.removeAttribute('aria-label'); }
     if (changed) { bar.classList.remove('is-swapping'); void bar.offsetWidth; bar.classList.add('is-swapping'); }
   }
   function refresh() { render(inView || base); }
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) { if (e.isIntersecting) inView = BY_SECTION[e.target.id] || null; });
-    refresh();
-  }, { rootMargin: '-45% 0px -50% 0px' });
-  ['top', 'coming-up', 'open-play', 'rates', 'rent', 'new', 'cafe', 'find-us', 'about', 'book', 'faq'].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) inView = BY_SECTION[e.target.id] || null; });
+      refresh();
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    ['top', 'coming-up', 'open-play', 'rates', 'rent', 'new', 'cafe', 'find-us', 'about', 'book', 'faq'].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+  }
   document.addEventListener('saranay:path', function (e) { base = BY_PATH[e.detail] || 'play'; refresh(); });
   var form = document.getElementById('split');
   if (form) form.addEventListener('input', sync), form.addEventListener('click', function () { setTimeout(sync, 0); });

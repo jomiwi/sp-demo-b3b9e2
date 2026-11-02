@@ -3,6 +3,20 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.9 · 2026-11-02 · conversion round 2
+
+**Bold change: phones now have a two-action booking dock.** The old dock showed only one action for the section in view, so on the rates section Join was missing, and on the open-play section Book was missing. The dock now always shows both: **Book a court** (court blue, Sports360) first, then **Join open play** (amber, Reclub), side by side at 48px tall.
+- A one-line caption above the buttons still follows the section in view:
+  - "Open play · All levels"
+  - "Court · ₱200–₱300/hour · 6 AM to 2 AM daily"
+  - "D' Rafael's Cafe · café hours TBC"
+  
+  It also still shows the Split-the-court estimate, so the v2 features stay.
+- The dock still tucks away (and is inert) while the hero buttons are on screen, and it's still hidden on desktop. The no-JS fallback bar is now Book then Join too.
+- **Exits: 37, down from 38.** The dock now has 2 fixed links instead of 3 rotating ones. The café context's "Message us" left the dock, but Messenger stays in the #cafe, #rent, #find-us and footer sections. The new links are `sticky_bar_book_a_court` and `sticky_bar_join_open_play`. Both fire `sticky_bar_click`, their `click_*` event and the named `book_court_click` / `join_open_play_click`.
+- **Borrowed from Mobbin:** one persistent bottom action area that stays put whatever section you're on, as in Fresha's "Book now" bar across every profile tab and Trainline / Insight Timer's price-plus-action bar. We kept their context line and doubled the action because this venue sells two things.
+- Footer: "Demo preview v3.9". Share image `?v=3.9`.
+
 ## v3.8 · 2026-11-02 · conversion round 1
 
 **Brief (Jon, via Róen):** get more clicks on "Book a court on Sports360" and "Join open play". Make one bold change each round, keep it clean, and ship every round.
