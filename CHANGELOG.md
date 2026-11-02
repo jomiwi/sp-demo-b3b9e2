@@ -3,6 +3,13 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.15 RC4.4 · 2026-11-03 · Ling's RC4.3 read (LOCAL ONLY, not published)
+
+Ling passed RC4.3 on copy and facts and asked for two changes. Still local on `release/v3.15`: not pushed, not deployed, noindex stays on. No wording changed. Item map: `rc4-changes.md` (RC4.4 section).
+- **Phones (< 60rem):** the open-play photo chip (`hero_open_play_chip`) is hidden, so the hero says "Open play" once (the line under the buttons). The "Open now" chip stays. Desktop unchanged.
+- **Phone line UTM:** `utm_content=hero_openline` (was hero_next_play_card); the desktop card keeps hero_next_play_card. `data-cta` unchanged (main.js takes cta_location from data-cta, never the UTM), so click_reclub + join_open_play_click are unchanged; only link_url differs.
+- `/v3.15/` home, café and beginners re-frozen; `/v3.15/book/` unchanged. Build script and main.js unchanged.
+
 ## v3.15 RC4.3 · 2026-11-03 · phone hero Open play card -> one line (LOCAL ONLY, not published)
 
 Sage approved Jared's proposal (Notion DB7, "merge hero Open play card into dated Coming up slots", Nov 3). Still local on `release/v3.15`: not pushed, not deployed, noindex stays on. Item map: `rc4-changes.md` (RC4.3 section).

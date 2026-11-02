@@ -729,3 +729,6 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
   .hero__openline-go { color: var(--c-sky); font-weight: var(--fw-bold); text-decoration: underline; text-underline-offset: 0.2em; }
   .hero__openline a:hover .hero__openline-go { color: var(--c-on-dark); }
 }
+/* RC4.4 (Ling RC4.3 read) · phones (< 60rem): hide the photo open-play chip (#hero-next, hero_open_play_chip); the line under the buttons says it once.
+   The Open now chip (#hero-status) stays. Desktop (60rem+) keeps the chip. */
+@media (max-width: 59.99rem) { a.hero__next { display: none; } }
