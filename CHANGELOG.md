@@ -3,6 +3,14 @@
 Brief (Jon, Oct 31 2026, via Ling): "it's not a modern look. And the color scheme looks like AI Slop." v3 rebuilds the look; every v2 feature stays (hero chooser, price-by-time day bar, Split the court, the section-aware mobile bar, the two booking cards).
 Every version is frozen at `/v3.x/` (noindex). The root always shows the latest.
 
+## v3.15 RC4.5 · 2026-11-04 · 48px tap-target floor (LOCAL ONLY, not published)
+
+The DR accessibility floor is 48px; earlier rounds only checked 44px. CSS only: no copy, events, data-cta, UTMs or HTML changed. Item map: `rc4-changes.md` (RC4.5 section).
+- **Token:** `--tap-min: 3rem` (48px); `--tap` now points at it, so every control on the token is 48px tall (cookie Decline/Accept, Menu, header Book/Join, nav links, chooser chips, small buttons incl. Facebook/Instagram/Call, calculator −/+ and fields, FAQ rows).
+- `.link-arrow` 44px → `var(--tap-min)`; the phone open-play line stays 48px; footer list links get a 48×48 hit area (inline links in sentences stay inline).
+- Checks on the go-live build (3 pages × 360/390/1280): controls under 48px 203 → 9 (the 9 are calculator field labels whose inputs have their own 48px controls); contrast 0 failures; Book/Join positions unchanged; all build guards pass.
+- `/v3.15/` home, café and beginners re-frozen (inline CSS); `/v3.15/book/` unchanged.
+
 ## v3.15 RC4.4 · 2026-11-03 · Ling's RC4.3 read (LOCAL ONLY, not published)
 
 Ling passed RC4.3 on copy and facts and asked for two changes. Still local on `release/v3.15`: not pushed, not deployed, noindex stays on. No wording changed. Item map: `rc4-changes.md` (RC4.4 section).

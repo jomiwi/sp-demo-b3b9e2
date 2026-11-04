@@ -66,7 +66,8 @@
   --section-y: clamp(4.5rem, 3rem + 7vw, 9rem);
   --gutter: clamp(1.25rem, 0.8rem + 2.2vw, 3rem);
   --max: 78rem;
-  --tap: 2.75rem;
+  --tap-min: 3rem;             /* RC4.5: 48px tap floor (DR accessibility floor) */
+  --tap: var(--tap-min);
   --header-h: 3.75rem;
   --cta-bar-h: 4.75rem;
   --cta-bar-clear: calc(var(--cta-bar-h) + var(--s-3));
@@ -516,7 +517,9 @@ a.next-play .next-play__go { color: var(--c-sky); }
 .footer__brand { font: var(--fw-black) clamp(2.5rem, 1rem + 7vw, 6rem)/0.9 var(--font-display); font-stretch: var(--wdth-display); text-transform: uppercase; color: var(--c-on-dark); }
 .site-footer h2, .site-footer h3 { font-size: var(--fs-sm); font-family: var(--font-body); font-stretch: 100%; letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--c-on-dark); }
 .site-footer ul { list-style: none; padding: 0; margin: 0; }
-.site-footer li { margin-bottom: var(--s-2); }
+.site-footer li { margin-bottom: 0; }
+/* RC4.5: footer list links get a full 48px hit area (pitch was ~32px); inline links in sentences stay inline (WCAG exception). */
+.site-footer li > a { display: inline-flex; align-items: center; min-height: var(--tap-min); min-width: var(--tap-min); }
 .footer__fine { margin-top: var(--s-10); padding-top: var(--s-6); border-top: 1px solid var(--c-line-dark); font-size: var(--fs-xs); }
 
 /* ---------- mobile smart bar (context dock) ---------- */
@@ -583,7 +586,7 @@ a.next-play .next-play__go { color: var(--c-sky); }
 .consent__btn { min-height: var(--tap); padding: var(--s-2) var(--s-3); font-size: var(--fs-sm); background: var(--c-paper); color: var(--c-ink); border: 2px solid var(--c-paper); }
 .consent__btn:hover { background: var(--c-paper-2); border-color: var(--c-paper-2); }
 .consent :focus-visible { outline: 3px solid var(--c-focus-dark); outline-offset: 2px; }
-/* RC4.1 (Ling RC4 read): compact phone banner. Text left, Decline/Accept stacked right (each still 44px tall, same weight),
+/* RC4.1 (Ling RC4 read): compact phone banner. Text left, Decline/Accept stacked right (each 48px tall since RC4.5, same weight),
    so the banner stays above the hero open-play chip and far from Book/Join. main.js nudges the chip down if a font or zoom
    setting still makes the banner taller. */
 @media (max-width: 59.99rem) {
@@ -672,7 +675,7 @@ a.next-play .next-play__go { color: var(--c-sky); }
 /* v3.15 · café note on the booking path */
 .card--cafe-note { margin-top: var(--s-6); }
 .card--cafe-note h3 { margin-bottom: var(--s-2); }
-.link-arrow { display: inline-flex; align-items: center; min-height: 44px; font-weight: var(--fw-semibold); }
+.link-arrow { display: inline-flex; align-items: center; min-height: var(--tap-min); font-weight: var(--fw-semibold); }
 
 /* v3.15 beginners page */
 .beg-hero { padding-block: var(--s-6) var(--s-8); }
@@ -724,7 +727,7 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
 @media (max-width: 59.99rem) {
   .hero__more .next-play { display: none; }
   .hero__openline { display: block; margin: var(--s-2) 0 0; font-size: var(--fs-sm); line-height: 1.3; }
-  .hero__openline a { display: flex; flex-wrap: wrap; align-items: center; column-gap: 0.3em; min-height: calc(var(--tap) + var(--s-1)); color: var(--c-on-dark); text-decoration: none; }
+  .hero__openline a { display: flex; flex-wrap: wrap; align-items: center; column-gap: 0.3em; min-height: var(--tap-min); color: var(--c-on-dark); text-decoration: none; }
   .hero__openline b { color: var(--c-ball); font-weight: var(--fw-bold); }
   .hero__openline-go { color: var(--c-sky); font-weight: var(--fw-bold); text-decoration: underline; text-underline-offset: 0.2em; }
   .hero__openline a:hover .hero__openline-go { color: var(--c-on-dark); }
