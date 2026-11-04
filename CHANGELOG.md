@@ -1,5 +1,13 @@
 # Saranay demo site · v3 changelog (visual identity)
 
+## v3.15 RC4.7.4 (local + Vercel preview) - Nov 4 2026 · /book/ counts no-consent scans (first-party beacon)
+Decision (Notion DB3, Nov 4, Sage, "Approved"): count no-consent QR scans on /book/ with a first-party, cookie-free, ID-free, IP-free count; redirect under ~300 ms; Sports360 bookings are the cross-check. Cookieless Google ping NOT approved.
+- **No stored consent / Decline:** one navigator.sendBeacon (text/plain JSON, not awaited) to same-origin `/api/count` with event, utm_*, cta, rate_band, path only; redirect on the next tick. Still nothing from Google loads.
+- **Accepted:** unchanged (GTM-TZ4KN34J, book_court_click, eventCallback redirect). No beacon, so no double count.
+- **Endpoint (preview only):** `_build/preview-api/count.js` (Vercel function, deployed as api/count.js) forwards only allow-listed body fields, no headers/IP/UA, server-to-server to Supabase edge fn `saranay-book-count` (`_build/supabase/`), which calls `saranay_metrics.record_scan()` (security definer) into `saranay_metrics.book_scans` (RLS on, no anon/authenticated grants). No new credentials.
+- **Production (GitHub Pages) has no functions:** /api/count 404s there, the beacon fails silently, the redirect is unaffected. Production endpoint location is UNRESOLVED.
+- Checks: preview test no-consent beacon + row + redirect ~131 ms after document; consented GTM path unchanged, no beacon, no row. Build guards pass (27 files); overflow sweep re-run.
+
 ## v3.15 RC4.7.2 (local + Vercel preview) - Nov 4 2026 · one-row hero CTAs back on desktop, and they fit (layout only, no copy change)
 Jon (Nov 4, 7:14 PM): "I like this one better" (the RC4.7 one-row look over RC4.7.1's stacked tiles). RC4.7.2 restores the one row and makes it fit.
 - **Desktop (60rem / 960px+):** the CTA row may span the full chooser panel (672px) while text stays at 36rem. Home: Book | Join | Call in one grid row (1.15fr 1.15fr 1fr, min-width 0). Café/beginners: their 2 buttons in one row. Fact lines may wrap to 2 lines (e.g. at 1024) but never overflow.
