@@ -1,5 +1,12 @@
 # Saranay demo site · v3 changelog (visual identity)
 
+## v3.15 RC4.7.3 (local + Vercel preview) - Nov 4 2026 · Bungee on the SARANAY PICKLEBALL hero title (title only)
+Jon (Nov 4, 7:29 PM): "please make the font on Saranay Pickleball BUNGEE. The current font is too ... meh." Scope (7:30 PM): the SARANAY PICKLEBALL title only.
+- **Bungee** (Google Font, SIL OFL 1.1) self-hosted in `fonts/` (latin, latin-ext, vietnamese woff2 + OFL-Bungee.txt), `@font-face` in `fonts/fonts.css`, `font-display: swap`, latin file preloaded on home and beginners. No request to Google at runtime.
+- **Only `.hero__big`** (the SARANAY / PICKLEBALL lines on home and beginners) uses the new `--font-hero-title` token. The em line, every h2/h3, nav, buttons, body and the café page keep Archivo.
+- Bungee has one weight: weight 400, `font-synthesis: none`, letter-spacing 0, line-height 1.02. It is wide (PICKLEBALL 6.855em vs 4.357em), so size = `min(100cqi / 7, 6.5rem)` of the title box (container query units, vw fallback): one line at every width, 40px at 320, 96px desktop home.
+- Checks: overflow sweep 0/8428; title fit sweep 320-1440 every 16px, 2 pages, 0 failures; contrast 0 failures; under-48 unchanged (3 calculator labels); build 31 files (27 + 4 font files), guards pass. `/v3.15/` home, café and beginners re-frozen.
+
 ## v3.15 RC4.7.2 (local + Vercel preview) - Nov 4 2026 · one-row hero CTAs back on desktop, and they fit (layout only, no copy change)
 Jon (Nov 4, 7:14 PM): "I like this one better" (the RC4.7 one-row look over RC4.7.1's stacked tiles). RC4.7.2 restores the one row and makes it fit.
 - **Desktop (60rem / 960px+):** the CTA row may span the full chooser panel (672px) while text stays at 36rem. Home: Book | Join | Call in one grid row (1.15fr 1.15fr 1fr, min-width 0). Café/beginners: their 2 buttons in one row. Fact lines may wrap to 2 lines (e.g. at 1024) but never overflow.
