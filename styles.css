@@ -39,7 +39,6 @@
   /* type */
   --font-display: "Archivo", "Arial Narrow", system-ui, sans-serif;
   --font-body: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-hero-title: "Bungee", "Archivo", system-ui, sans-serif; /* RC4.7.3: SARANAY PICKLEBALL hero title only */
   --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
   --wdth-display: 68%;
   --wdth-ui: 92%;
@@ -780,14 +779,3 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
 }
 /* Smallest phones (< 22.5rem, e.g. 320): the half-width Call tile drops its icon so "+63 906 545 8384" fits on one line inside the tile. */
 @media (max-width: 22.49rem) { .hero__ctas > .hero__call svg { display: none; } }
-
-/* RC4.7.3 (Jon, Nov 4: "make the font BUNGEE"; scope 7:30 PM: the SARANAY PICKLEBALL title only). Only .hero__big (home + beginners hero)
-   uses --font-hero-title; every other heading, the em line, nav, buttons and body keep Archivo. Bungee ships one weight (400): no synthetic bold,
-   no width axis. Bungee is wide (PICKLEBALL = 6.855em vs 4.357em in Archivo wdth 62), so the size is fit to the title's own width with container
-   units: 100cqi / 7 keeps PICKLEBALL on one line inside its column at every width, capped at 6.5rem on desktop. vw fallback first. */
-.hero__title { container-type: inline-size; }
-.hero__big, .beg-hero__display .hero__big { font-family: var(--font-hero-title); font-weight: 400; font-stretch: 100%; font-synthesis: none; letter-spacing: 0; margin-left: 0; line-height: 1.02;
-  font-size: min(12.5vw, 6.5rem); font-size: min(calc(100cqi / 7), 6.5rem); }
-@media (max-width: 59.99rem) {
-  .hero__big, .beg-hero__display .hero__big { font-weight: 400; font-stretch: 100%; letter-spacing: 0; margin-left: 0; font-size: min(12.5vw, 6.5rem); font-size: min(calc(100cqi / 7), 6.5rem); }
-}
