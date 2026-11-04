@@ -1,5 +1,12 @@
 # Saranay demo site · v3 changelog (visual identity)
 
+## v3.15 RC4.7.1 (local + Vercel preview) - Nov 4 2026 · hero CTAs fit at every width (layout only, no copy change)
+Jon (Nov 4, ~1024px desktop): the three hero tiles overflowed: the Book and Join fact lines ran past their boxes and the Call tile was clipped on the right. Cause: the desktop hero copy column is 36rem (576px), but three tiles side by side need ~820px (two need ~630px, so the café hero overflowed too). RC4.7 was only checked at 360/390/1280.
+- **Desktop (60rem+):** the hero tiles now flow and wrap (flex-wrap). Each starts at its natural width, wraps when the line is full, then grows to fill it. Home: Book full width over Join | Call. Café/beginners: Book over Join. Book stays first. Labels and fact lines may wrap inside a tile (min-width 0, no nowrap) but never overflow.
+- **Phones under 22.5rem (e.g. 320):** the half-width Call tile drops its icon so the number fits on one line.
+- No copy, data-cta, data-dest, href or event change.
+- Checks: new overflow sweep (`tools/overflow-sweep.js`: each button and its children, scrollWidth <= clientWidth, inside its parent and the viewport, no ellipsis) at 320-1440 every 16px plus 360/390/1024/1280, 3 pages, top and scrolled: 0 failures (RC4.7 had 204). Guards pass; contrast 0 failures (360/390/1024/1280); under-48 still only the 3 calculator field labels. `/v3.15/` home, café and beginners re-frozen; `/v3.15/book/` unchanged.
+
 ## v3.15 RC4.7 (local) - Nov 4 2026 · call to book above the fold (prototype, LOCAL ONLY, not published)
 Jon (Nov 4, 6:26 PM, via Róen): many customers call to book; add a call-to-book above the fold, rethink the crowded top, GA|GTM tagged. Item map: `rc4-changes.md` (RC4.7 section).
 - **Phone hero (< 60rem):** Book a court stays the full-width primary tile. Join open play and a new **Call to book** tile (`tel:+639065458384`, outline-light, phone icon, number as the fact line) share the next row at equal size, so the call adds **0 px** of height (Book/Join/open-play line at the same y as RC4.6). Under 30rem the half-width Join tile drops its fact line ("Nearly 600 members" is in the proof bar right below); under 24rem it drops its icon so the label fits at 360.

@@ -839,6 +839,17 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
 /* RC4.7 · phone dock: Book | Join | Call. Call is a 48x48 icon button (aria-label carries the words and number) so Book and Join keep their width. */
 .cta-bar.dock--trio { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) var(--tap-min); }
 .cta-bar.dock--trio .dock__call { padding: 0; min-width: var(--tap-min); min-height: var(--tap-min); justify-content: center; }
+/* RC4.7.1 (Jon, Nov 4 · 1024px read) · the hero CTAs must fit at every width. On desktop the hero copy column is 36rem, narrower than three
+   tiles side by side (and on the café hero, two), so the row overflowed onto the photo and the Call tile was clipped. From 60rem the tiles flow
+   and wrap: each starts at its natural width and wraps to a new line when the line is full, then grows to fill it. Home: Book full width over
+   Join | Call; café/beginners: Book over Join. Book stays first. Text may wrap inside a tile, never overflow (min-width 0, no nowrap). Layout only: no copy change. */
+@media (min-width: 60rem) {
+  .hero__ctas { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  .hero__ctas > .btn { flex: 1 1 auto; min-width: 0; }
+  .hero__ctas .btn__label, .hero__ctas .btn__sub { white-space: normal; overflow-wrap: break-word; }
+}
+/* Smallest phones (< 22.5rem, e.g. 320): the half-width Call tile drops its icon so "+63 906 545 8384" fits on one line inside the tile. */
+@media (max-width: 22.49rem) { .hero__ctas > .hero__call svg { display: none; } }
 
 </style>
 </head>
