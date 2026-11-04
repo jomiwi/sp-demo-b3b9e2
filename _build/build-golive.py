@@ -28,6 +28,7 @@ ap = argparse.ArgumentParser()
 ap.add_argument('--out', default=os.path.join(os.path.dirname(REPO), 'golive-build'))
 ap.add_argument('--launch', action='store_true')
 ap.add_argument('--approve', default='')
+ap.add_argument('--book-scans', choices=['on', 'off'], default=None, help='/book no-consent count beacon; default on for preview, OFF for --launch (DID-38)')
 a = ap.parse_args()
 
 cfg = json.load(open(os.path.join(BUILD, 'owner-ok.json')))
@@ -167,6 +168,11 @@ for page in PAGES + [p for p in OPTIONAL if os.path.exists(os.path.join(REPO, p)
 # /book is copied as is apart from comments (source untouched)
 book = strip_inline_scripts(strip_html(open(os.path.join(REPO, BOOK), encoding='utf-8').read()), BOOK)
 if a.launch: book = launch(book, BOOK)
+BOOK_SCANS = a.book_scans or os.environ.get('BOOK_SCANS') or ('off' if a.launch else 'on')
+if BOOK_SCANS != 'on':
+    n = book.count("var COUNT_ON = true, COUNT_URL = '/api/count';")
+    book = book.replace("var COUNT_ON = true, COUNT_URL = '/api/count';", "var COUNT_ON = false, COUNT_URL = '';")
+    if n != 1: print('FAILED: book-scans switch marker not found'); sys.exit(1)
 write(BOOK, book); collect(BOOK, book)
 
 refs.discard('index.html'); 
@@ -221,6 +227,10 @@ for f in files:
     top = f.split('/')[0]
     if re.match(r'v\d', top) or top in ('README.md', 'CHANGELOG.md', 'booktest', '_build'): fails.append(f'{f}: should not ship')
     if f.startswith('img/') and f not in refs: fails.append(f'{f}: unused image')
+_bk = open(os.path.join(out, BOOK), encoding='utf-8').read()
+if BOOK_SCANS == 'on' and 'COUNT_ON = true' not in _bk: fails.append('/book: book-scans on but COUNT_ON not true')
+if BOOK_SCANS != 'on' and ('/api/count' in _bk or 'COUNT_ON = false' not in _bk): fails.append('/book: book-scans off but /api/count still present')
+report.append(f'/book no-consent count beacon (book-scans): {BOOK_SCANS.upper()}' + (' (launch default OFF; pass --book-scans on or BOOK_SCANS=on)' if a.launch else ''))
 if a.launch and 'CNAME' not in files: fails.append('CNAME missing (launch build)')
 if not a.launch and 'CNAME' in files: fails.append('CNAME in a preview build (it would claim the domain)')
 if a.launch and open(os.path.join(out, 'CNAME')).read().strip() != urlsplit(LIVE_URL).netloc: fails.append('CNAME does not match LIVE_URL')

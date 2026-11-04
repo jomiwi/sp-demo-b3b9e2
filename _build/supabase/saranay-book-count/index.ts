@@ -4,7 +4,7 @@ import postgres from "npm:postgres@3.4.4";
 const sql = postgres(Deno.env.get("SUPABASE_DB_URL")!, { max: 1, prepare: false });
 const S = (v: unknown, n: number) => (typeof v === "string" && v.length ? v.slice(0, n) : null);
 Deno.serve(async (req: Request) => {
-  if (req.method !== "POST") return new Response(null, { status: 405 });
+  if (req.method !== "POST") return new Response(null, { status: 204 }); // POST-only, no insert
   let b: Record<string, unknown> = {};
   try { b = JSON.parse((await req.text()).slice(0, 2000)); } catch { return new Response(null, { status: 400 }); }
   if (b.event !== "book_court_click") return new Response(null, { status: 400 });

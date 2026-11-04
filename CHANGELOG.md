@@ -1,5 +1,12 @@
 # Saranay demo site · v3 changelog (visual identity)
 
+## v3.15 RC4.7.5 (local + Vercel preview) - Nov 4 2026 · /book/ count: bot filter + launch switch (Ling's metric sign-off)
+- **Bot filter (/api/count):** POST only (HEAD/GET/other -> 204, no insert). User-Agent is read in memory only to drop bots and link previewers (facebookexternalhit, Facebot, MessengerLinkPreview, Viber, Slackbot/Slack-ImgProxy, Twitterbot, WhatsApp, TelegramBot, Discordbot, LinkedInBot, Googlebot, bingbot, generic bot|crawler|spider|preview|headless); an empty UA is dropped too. The UA is never stored, forwarded or logged. Plain "Messenger" is not matched (Messenger's in-app browser is a real person). The edge function is POST-only too.
+- **Only JS browsers can count:** the beacon fires from /book/'s inline script, so link previewers that only fetch the HTML can never count.
+- **Testing:** headless Chrome's default UA ("HeadlessChrome") is dropped by design; automated tests must set a normal browser UA (no test bypass flag, so nobody can abuse one).
+- **Launch switch (DID-38):** `--launch` builds ship the beacon OFF (`COUNT_ON = false, COUNT_URL = ''`, no /api/count string) unless `--book-scans on` or `BOOK_SCANS=on`. Preview builds default ON. The build report prints the switch state and the build fails if the output doesn't match it.
+- **Naming:** this metric is **booking clicks** (no-consent /book/ redirects + GA4 book_court_click), never "bookings"; Sports360 holds the real bookings (cross-check). click_call is reported separately.
+
 ## v3.15 RC4.7.4 (local + Vercel preview) - Nov 4 2026 · /book/ counts no-consent scans (first-party beacon)
 Decision (Notion DB3, Nov 4, Sage, "Approved"): count no-consent QR scans on /book/ with a first-party, cookie-free, ID-free, IP-free count; redirect under ~300 ms; Sports360 bookings are the cross-check. Cookieless Google ping NOT approved.
 - **No stored consent / Decline:** one navigator.sendBeacon (text/plain JSON, not awaited) to same-origin `/api/count` with event, utm_*, cta, rate_band, path only; redirect on the next tick. Still nothing from Google loads.
