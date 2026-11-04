@@ -1,5 +1,12 @@
 # Saranay demo site · v3 changelog (visual identity)
 
+## v3.15 RC4.7.2 (local + Vercel preview) - Nov 4 2026 · one-row hero CTAs back on desktop, and they fit (layout only, no copy change)
+Jon (Nov 4, 7:14 PM): "I like this one better" (the RC4.7 one-row look over RC4.7.1's stacked tiles). RC4.7.2 restores the one row and makes it fit.
+- **Desktop (60rem / 960px+):** the CTA row may span the full chooser panel (672px) while text stays at 36rem. Home: Book | Join | Call in one grid row (1.15fr 1.15fr 1fr, min-width 0). Café/beginners: their 2 buttons in one row. Fact lines may wrap to 2 lines (e.g. at 1024) but never overflow.
+- **Under 60rem:** unchanged from RC4.7.1 (Book full width, Join | Call side by side; Call icon hidden under 22.5rem).
+- No copy, data-cta, data-dest, href or event change (index.html and main.js byte-identical to RC4.7.1).
+- Checks: overflow sweep 320-1440 (73 widths, 3 pages, top + scrolled, 8428 button checks): 0 failures. Guards pass; contrast 0 failures; under-48 still only the 3 calculator field labels. `/v3.15/` home, café and beginners re-frozen.
+
 ## v3.15 RC4.7.1 (local + Vercel preview) - Nov 4 2026 · hero CTAs fit at every width (layout only, no copy change)
 Jon (Nov 4, ~1024px desktop): the three hero tiles overflowed: the Book and Join fact lines ran past their boxes and the Call tile was clipped on the right. Cause: the desktop hero copy column is 36rem (576px), but three tiles side by side need ~820px (two need ~630px, so the café hero overflowed too). RC4.7 was only checked at 360/390/1280.
 - **Desktop (60rem+):** the hero tiles now flow and wrap (flex-wrap). Each starts at its natural width, wraps when the line is full, then grows to fill it. Home: Book full width over Join | Call. Café/beginners: Book over Join. Book stays first. Labels and fact lines may wrap inside a tile (min-width 0, no nowrap) but never overflow.
