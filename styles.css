@@ -735,3 +735,30 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
 /* RC4.4 (Ling RC4.3 read) · phones (< 60rem): hide the photo open-play chip (#hero-next, hero_open_play_chip); the line under the buttons says it once.
    The Open now chip (#hero-status) stays. Desktop (60rem+) keeps the chip. */
 @media (max-width: 59.99rem) { a.hero__next { display: none; } }
+/* RC4.7 (Jon, Nov 4) · call to book, above the fold. Book stays the primary, full-width tile on phones; Join open play and Call to book
+   share the next row at equal size, so the call adds no height (borrowed: Swiggy "Book a table | Pay bill" equal pair, Google Maps Book/Call chips).
+   Call is the outline-light secondary (on-dark on ink, AA). Desktop (60rem+): three tiles in one row, Book first. Tokens only; every target >= --tap-min. */
+@media (max-width: 59.99rem) {
+  .hero__ctas { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .hero__ctas > .btn--tile:first-child { grid-column: 1 / -1; }
+  .hero__ctas > .btn--tile:not(:first-child) { min-height: var(--tap-min); padding-inline: var(--s-3); gap: var(--s-2); }
+}
+/* Phones under 30rem: the half-width Join tile drops its fact line ("Nearly 600 members" stays in the proof bar right under the hero;
+   "all levels" is in the open-play line), so both half tiles are one height and nothing wraps at 360. */
+@media (max-width: 29.99rem) {
+  .hero__ctas > .btn--ball.btn--tile .btn__sub { display: none; }
+  .hero__ctas > .btn--tile:not(:first-child) { padding-inline: var(--s-2); justify-content: center; }
+  .hero__ctas > .btn--tile:not(:first-child) .btn__sub { white-space: nowrap; }
+  .hero__ctas > .btn--tile:not(:first-child) .btn__label { white-space: nowrap; }
+}
+/* Narrow phones (< 24rem, e.g. 360): the dock's Book and Join drop their small icons so both labels fit beside the Call button. */
+@media (max-width: 23.99rem) {
+  .cta-bar.dock--trio .btn:not(.dock__call) svg { display: none; }
+  .hero__ctas > .btn--ball.btn--tile svg { display: none; } /* half-width Join tile: the label needs the room; Call keeps its phone icon */
+}
+@media (min-width: 60rem) { .hero__ctas { grid-template-columns: auto auto auto; } }
+/* On desktop the third tile sits over the photo, so it gets a solid ink fill (on-dark on ink, AA); hover keeps the outline-light swap. */
+.hero__ctas .hero__call:not(:hover) { --btn-bg: var(--c-ink); }
+/* RC4.7 · phone dock: Book | Join | Call. Call is a 48x48 icon button (aria-label carries the words and number) so Book and Join keep their width. */
+.cta-bar.dock--trio { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) var(--tap-min); }
+.cta-bar.dock--trio .dock__call { padding: 0; min-width: var(--tap-min); min-height: var(--tap-min); justify-content: center; }

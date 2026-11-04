@@ -1,5 +1,14 @@
 # Saranay demo site · v3 changelog (visual identity)
 
+## v3.15 RC4.7 (local) - Nov 4 2026 · call to book above the fold (prototype, LOCAL ONLY, not published)
+Jon (Nov 4, 6:26 PM, via Róen): many customers call to book; add a call-to-book above the fold, rethink the crowded top, GA|GTM tagged. Item map: `rc4-changes.md` (RC4.7 section).
+- **Phone hero (< 60rem):** Book a court stays the full-width primary tile. Join open play and a new **Call to book** tile (`tel:+639065458384`, outline-light, phone icon, number as the fact line) share the next row at equal size, so the call adds **0 px** of height (Book/Join/open-play line at the same y as RC4.6). Under 30rem the half-width Join tile drops its fact line ("Nearly 600 members" is in the proof bar right below); under 24rem it drops its icon so the label fits at 360.
+- **Desktop (60rem+):** three tiles in one row, Book first; the Call tile gets a solid ink fill because it sits over the photo.
+- **Phone dock (all pages):** Book a court | Join open play | a 48×48 icon-only Call button (aria-label "Call to book: +63 906 545 8384"). Under 24rem Book/Join drop their icons so both labels fit.
+- **Number:** +63 906 545 8384, owner-confirmed (Martha copy review Oct 30; rights-facts-sweep-v3.15 "Phone"). Already on the page in Find us, FAQ and footer.
+- **Events:** no main.js event change. `data-dest="call"` already maps to `click_call`; new `cta_location` values `hero_call` and `sticky_bar_call` (the dock also fires `sticky_bar_click`). GTM needs a click_call tag (not touched here).
+- Checks: preview build 27 files, guards pass; new controls 155-180×58-60 (hero) and 48×48 (dock); contrast 17.09:1 (Call on ink), 14.17:1 worst case dock; no horizontal scroll at 360/390/1280. `/v3.15/` home, café and beginners re-frozen; `/v3.15/book/` unchanged.
+
 ## v3.15 RC4.6 (local) - Nov 4 2026
 - Phone open-play line `data-cta` is now `hero_openline` (was hero_next_play_card), matching its UTM, so GA4 `cta_location` separates it from the desktop card (Ling). click_reclub + join_open_play_click still fire (keyed on data-dest=reclub). No copy, CSS or other change.
 

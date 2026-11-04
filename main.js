@@ -333,10 +333,14 @@ function saranayTag(href, loc) {
   try { base = BY_PATH[new URL(location.href).searchParams.get('play')] || document.body.dataset.dockBase || 'play'; } catch (e) {}
   var CAL = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
   var BALL = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="9" cy="10" r="1.2" fill="currentColor"/><circle cx="15" cy="10" r="1.2" fill="currentColor"/><circle cx="12" cy="15" r="1.2" fill="currentColor"/></svg>';
-  bar.classList.add('dock', 'dock--duo');
+  /* RC4.7 (Jon, Nov 4): a third, icon-only Call button (48x48) so callers can book from anywhere on the page. data-dest=call -> click_call, cta_location=sticky_bar_call. */
+  var TEL = 'tel:+639065458384';
+  var PHONE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
+  bar.classList.add('dock', 'dock--duo', 'dock--trio');
   bar.innerHTML = '<p class="dock__cap"><span class="dock__ctx" aria-hidden="true"></span><strong data-dock="big"></strong> <span data-dock="small"></span></p>' +
     '<a class="btn" data-dock="book" target="_blank" rel="noopener" data-cta="sticky_bar_book_a_court" data-dest="book" aria-label="Book a court (opens in a new tab)" href="' + BOOK + '">' + CAL + 'Book a court</a>' +
-    '<a class="btn btn--ball" data-dock="join" target="_blank" rel="noopener" data-cta="sticky_bar_join_open_play" data-dest="reclub" aria-label="Join open play on Reclub (opens in a new tab)" href="' + saranayTag(RECLUB, 'sticky_bar_join_open_play') + '">' + BALL + 'Join open play</a>';
+    '<a class="btn btn--ball" data-dock="join" target="_blank" rel="noopener" data-cta="sticky_bar_join_open_play" data-dest="reclub" aria-label="Join open play on Reclub (opens in a new tab)" href="' + saranayTag(RECLUB, 'sticky_bar_join_open_play') + '">' + BALL + 'Join open play</a>' +
+    '<a class="btn btn--outline-light dock__call" data-dock="call" data-cta="sticky_bar_call" data-dest="call" aria-label="Call to book: +63 906 545 8384" href="' + TEL + '">' + PHONE + '</a>';
   var big = bar.querySelector('[data-dock="big"]'), small = bar.querySelector('[data-dock="small"]');
   var split = null, cur = null, inView = null;
   function render(key) {
