@@ -20,7 +20,8 @@ BOOK = 'book/index.html'
 OPTIONAL = ['privacy/index.html']
 DEMO_URL = 'https://jomiwi.github.io/sp-demo-b3b9e2/'
 LIVE_URL = 'https://saranaypickleball.com/'
-FORBIDDEN = ['TBC', '₱150', 'm.me', 'Demo preview', 'placeholder']
+# RC4.8: '₱150' was narrowed to the open-play phrasings it was added to catch, because French Fries and Streetfoods are ₱150 on the café menu.
+FORBIDDEN = ['TBC', '₱150/player', '₱150 per player', '₱150 a player', 'm.me', 'Demo preview', 'placeholder']
 TEXT_EXT = ('.html', '.css', '.js', '.txt', '.xml', '.json', '.svg')
 MARKER = '.golive-build'
 

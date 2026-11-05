@@ -1,5 +1,21 @@
 # Saranay demo site · v3 changelog (visual identity)
 
+## v3.15 RC4.8 (LOCAL ONLY, not pushed) - Nov 5 2026 · the café's real menu and prices
+Source: D' Rafael's Cafe's own printed menu (two pages, food and drinks), sent by Jon on Nov 5. Every item and price comes from it, and nothing that isn't on it is shown.
+- **Food stays open (Appetizers).** French Fries ₱150 (cheese, sour cream or BBQ), Streetfoods ₱150, Chick N' Fries ₱220, Nachos ₱250, Calamares ₱280. Each row now has a price column.
+- **Drinks fold into five native `<details>` groups**, all closed by default: Hot drinks (12 oz), Iced coffee, Iced non-coffee, Fruity soda pop, Frappe. Each closed group still shows its drink count and price range, for example "10 drinks · ₱130 to ₱200". Inside, a table lists the Regular and Large prices. The Choco Crust (₱40) is a note under Frappe. It needs no JS and has 44px+ tap targets.
+- **Removed (not on the menu):** "Coffee and other drinks", Tusok-Tusok Treat (fishball, kwek-kwek, kikiam) and Enoki crispy fries. The menu's Best Seller and Must Try marks are left out, because they're ranking claims.
+- **Footer** "From our posts. Ask at the counter…" is replaced by "Prices as listed on D' Rafael's Cafe's menu, November 2026."
+- **Copy:**
+  - The café meta, og and twitter descriptions are updated.
+  - "When is the café open?" is updated on the café page and on home, word for word.
+  - Home About now says "coffee or a plate of nachos" (was fishball and kwek-kwek).
+- **Build guard:** `'₱150'` is narrowed to the open-play phrasings it was added to catch (`₱150/player`, `₱150 per player`, `₱150 a player`), because two menu items cost ₱150.
+- **No tracking change.** `id="cafe"` (cafe_menu_view) is kept and the data-cta counts are unchanged. `/v3.15/` home and café are re-frozen; `/v3.15/book/` and `/book/` are unchanged.
+- **Check before publishing:**
+  - The drinks page photo is low-resolution, so Dirty Matcha (₱190/₱200) is the least certain reading.
+  - D' Rafael's Signature Drink appears in both Iced coffee and Iced non-coffee, as on the printed menu.
+
 ## v3.15 RC4.7.5 (local + Vercel preview) - Nov 4 2026 · /book/ count: bot filter + launch switch (Ling's metric sign-off)
 - **Bot filter (/api/count):** POST only (HEAD/GET/other -> 204, no insert). User-Agent is read in memory only to drop bots and link previewers (facebookexternalhit, Facebot, MessengerLinkPreview, Viber, Slackbot/Slack-ImgProxy, Twitterbot, WhatsApp, TelegramBot, Discordbot, LinkedInBot, Googlebot, bingbot, generic bot|crawler|spider|preview|headless); an empty UA is dropped too. The UA is never stored, forwarded or logged. Plain "Messenger" is not matched (Messenger's in-app browser is a real person). The edge function is POST-only too.
 - **Only JS browsers can count:** the beacon fires from /book/'s inline script, so link previewers that only fetch the HTML can never count.
