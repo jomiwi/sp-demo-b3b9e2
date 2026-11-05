@@ -284,12 +284,11 @@ function saranayTag(href, loc) {
     var cap = h >= 3 ? 12 : h * 4;
     var extra = Math.max(0, p - cap);
     var court = rate * h, total = court + extra * 100 + pad * 100;
-    each.textContent = peso(total / p);
+    each.textContent = peso(total);
     var parts = ['Court ' + peso(court)];
     if (extra) parts.push(extra + ' extra player' + (extra > 1 ? 's' : '') + ' ' + peso(extra * 100));
     if (pad) parts.push(pad + ' paddle' + (pad > 1 ? 's' : '') + ' ' + peso(pad * 100));
-    parts.push('Total ' + peso(total));
-    brk.textContent = parts.join(' · ') + '. ' + h + (h > 1 ? ' hours cover' : ' hour covers') + ' up to ' + cap + ' players.';
+    brk.textContent = '≈ ' + peso(total / p) + ' each · ' + parts.join(' · ');
     form.querySelectorAll('.stepper__btn').forEach(function (b) {
       var el = form.querySelector('#' + b.dataset.for), v = clamp(el);
       var mx = el === paddles ? Math.min(+el.max, p) : +el.max;
@@ -345,7 +344,7 @@ function saranayTag(href, loc) {
   var split = null, cur = null, inView = null;
   function render(key) {
     var b = CAP[key][0], sm = CAP[key][1];
-    if (key === 'court' && split) { b = split.each + ' each'; sm = split.players + ' players · ' + split.hours + (split.hours > 1 ? ' hours' : ' hour') + ' · estimate'; }
+    if (key === 'court' && split) { b = split.each; sm = split.players + ' players · ' + split.hours + (split.hours > 1 ? ' hours' : ' hour') + ' · estimate'; }
     var changed = key !== cur;
     cur = key; bar.dataset.ctx = key;
     big.textContent = b; small.textContent = sm;

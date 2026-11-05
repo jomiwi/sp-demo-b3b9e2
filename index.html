@@ -370,8 +370,8 @@
       <svg viewBox="0 0 400 300" class="court-art"><rect width="400" height="300" rx="24" style="fill:var(--c-coffee-soft)"/><g transform="translate(200 150)"><rect x="-150" y="-95" width="300" height="190" rx="6" style="fill:var(--c-court)"/><g fill="none" style="stroke:var(--c-court-line)" stroke-width="3"><rect x="-150" y="-95" width="300" height="190" rx="6"/><line x1="0" y1="-95" x2="0" y2="95" stroke-width="5"/><line x1="-45" y1="-95" x2="-45" y2="95"/><line x1="45" y1="-95" x2="45" y2="95"/><line x1="-150" y1="0" x2="-45" y2="0"/><line x1="45" y1="0" x2="150" y2="0"/></g><circle cx="80" cy="-40" r="10" style="fill:var(--c-ball)"/></g><g style="fill:var(--c-coffee)"><rect x="24" y="24" width="88" height="30" rx="15"/></g><text x="68" y="44" style="fill:var(--c-bg)" font-family="Inter, sans-serif" font-size="14" font-weight="600" text-anchor="middle">Yours</text></svg>
     </div>
       <form class="splitter" id="split" hidden aria-labelledby="split-title">
-        <h3 id="split-title">Split the court</h3>
-        <p class="splitter__sub">Rough cost per person, based on our posted rates.</p>
+        <h3 id="split-title">Estimated cost for your session</h3>
+        <p class="splitter__sub">Court + paddles, from our posted rates.</p>
         <div class="splitter__row">
           <label class="splitter__label" for="split-players">Players</label>
           <div class="stepper">
@@ -402,8 +402,8 @@
           <label class="splitter__opt"><input type="radio" name="split-rate" value="300"> <span>Other hours<small>₱300/hour</small></span></label>
         </fieldset>
         <div class="splitter__result" aria-live="polite">
-          <p class="splitter__each"><output id="split-each" for="split-players split-hours split-paddles">₱100</output> <span>each</span></p>
-          <p class="splitter__break" id="split-break">Court ₱400 · Total ₱400</p>
+          <p class="splitter__total"><output id="split-each" for="split-players split-hours split-paddles">₱400</output></p>
+          <p class="splitter__break" id="split-break">≈ ₱100 each · Court ₱400</p>
         </div>
         <p class="splitter__note">Estimate only. Sports360 shows the final price.</p>
         <a class="btn btn--ball splitter__cta" href="book/?cta=rent_book_a_court_on_sports360_2" target="_blank" rel="noopener" aria-label="Book a court (opens in a new tab)" data-cta="rent_book_a_court_on_sports360_2" data-dest="book">Book a court</a>
