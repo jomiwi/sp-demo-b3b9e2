@@ -22,6 +22,17 @@ DEMO_URL = 'https://jomiwi.github.io/sp-demo-b3b9e2/'
 LIVE_URL = 'https://saranaypickleball.com/'
 # RC4.8: '₱150' was narrowed to the open-play phrasings it was added to catch, because French Fries and Streetfoods are ₱150 on the café menu.
 FORBIDDEN = ['TBC', '₱150/player', '₱150 per player', '₱150 a player', 'm.me', 'Demo preview', 'placeholder']
+BRAND = 'Saranay Pickleball Court & Café'
+BRAND_HTML = 'Saranay Pickleball Court &amp; Café'
+# Off-brand brand strings on shipped HTML (after masking allowed contexts).
+BRAND_FORBIDDEN = [
+    ('and Coffee', True),  # case-insensitive
+    ('Court and Cafe', False),
+    ('Court and Café', False),
+    ('Pickleball Court & Cafe', False),
+    ('&amp; Cafe', False),  # unaccented Cafe after amp
+    ('Saranay Pickleball, Court', False),  # comma in brand
+]
 TEXT_EXT = ('.html', '.css', '.js', '.txt', '.xml', '.json', '.svg')
 MARKER = '.golive-build'
 
@@ -236,10 +247,94 @@ if a.launch and 'CNAME' not in files: fails.append('CNAME missing (launch build)
 if not a.launch and 'CNAME' in files: fails.append('CNAME in a preview build (it would claim the domain)')
 if a.launch and open(os.path.join(out, 'CNAME')).read().strip() != urlsplit(LIVE_URL).netloc: fails.append('CNAME does not match LIVE_URL')
 mode = 'launch' if a.launch else 'preview (noindex kept)'
+
+# ---- brand name guard (RC4.9.3)
+def mask_brand_allowed(html):
+    """Drop contexts where unaccented Cafe / Court-and-Cafe is correct."""
+    s = html
+    s = re.sub(r"D' Rafael'?s Cafe", "D_RAFAELS_CAFE", s)
+    s = re.sub(r'https?://[^\s"\'<>]*Court-and-Cafe[^\s"\'<>]*', 'URL_SLUG', s, flags=re.I)
+    s = re.sub(r'https?://[^\s"\'<>]*Court%20and%20Cafe[^\s"\'<>]*', 'URL_SLUG', s, flags=re.I)
+    s = re.sub(r'maps\.app\.goo\.gl/[^\s"\'<>]+', 'MAPS_SHORT', s)
+    return s
+
+for f in files:
+    if not f.endswith('.html'):
+        continue
+    raw = open(os.path.join(out, f), encoding='utf-8', errors='ignore').read()
+    masked = mask_brand_allowed(raw)
+    for pat, ci in BRAND_FORBIDDEN:
+        hay = masked.lower() if ci else masked
+        nd = pat.lower() if ci else pat
+        if nd in hay:
+            fails.append(f'{f}: off-brand {pat!r}')
+    site = re.search(r'<meta property="og:site_name" content="([^"]*)"', raw)
+    if site and site.group(1) != BRAND_HTML:
+        fails.append(f'{f}: og:site_name {site.group(1)!r} != {BRAND_HTML!r}')
+    for tit in re.findall(r'<title>([^<]*)</title>', raw):
+        plain = tit.replace('&amp;', '&')
+        # If the full brand appears, it must be exact (already true if substring).
+        # Home/café titles must carry the exact brand; beginners may use short "Saranay".
+        if f == 'index.html' and not (plain == BRAND or plain.startswith(BRAND + ' |')):
+            fails.append(f'{f}: <title> brand not exact: {tit!r}')
+        if f == 'cafe/index.html' and BRAND not in plain:
+            fails.append(f'{f}: <title> missing brand: {tit!r}')
+        if 'Saranay Pickleball, Court' in tit or 'Saranay Pickleball, Court' in plain:
+            fails.append(f'{f}: <title> comma in brand: {tit!r}')
+        if re.search(r'Saranay Pickleball Court &(?!amp;)? ?Cafe(?!é)', plain) or re.search(r'Court &amp; Cafe(?!é)', tit):
+            fails.append(f'{f}: <title> unaccented Cafe in brand: {tit!r}')
+    for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>', raw, flags=re.S):
+        try:
+            data = json.loads(block)
+        except Exception:
+            continue
+        if isinstance(data, dict) and 'name' in data and data['name'] != BRAND:
+            fails.append(f'{f}: JSON-LD name {data["name"]!r} != {BRAND!r}')
+
+# ---- pre-publish og:image print + _build/build.txt (RC4.9.3)
+from datetime import datetime
+try:
+    from zoneinfo import ZoneInfo
+    manila_now = datetime.now(ZoneInfo('Asia/Manila')).strftime('%Y-%m-%d %H:%M %Z')
+except Exception:
+    manila_now = datetime.now().strftime('%Y-%m-%d %H:%M Asia/Manila')
+
+og_lines = []
+print('\n--- og:image / twitter:image (pre-publish eye check) ---')
+for f in sorted(x for x in files if x.endswith('.html')):
+    raw = open(os.path.join(out, f), encoding='utf-8', errors='ignore').read()
+    for prop, attr in (
+        ('og:image', 'property'),
+        ('og:image:alt', 'property'),
+        ('twitter:image', 'name'),
+        ('twitter:image:alt', 'name'),
+    ):
+        for val in re.findall(rf'<meta {attr}="{re.escape(prop)}" content="([^"]*)"', raw):
+            line = f'{f}: {prop} = {val}'
+            print(line)
+            og_lines.append(line)
+
+build_txt_path = os.path.join(BUILD, 'build.txt')
+build_txt = [
+    f'golive build [{mode}] at {manila_now}',
+    'Required: word-for-word check of every text-bearing image against brand "Saranay Pickleball Court & Café" before publish.',
+    f'Brand check: img/og-share-1200x630.jpg checked word-for-word by Jared on {manila_now}: "NORTH CALOOCAN / SARANAY / PICKLEBALL / Court & Café / Bagumbong North, Caloocan · Court open 6 AM to 2 AM"',
+    'Other text-bearing images:',
+    '  - img/og-hero-1200x630.jpg: has baked headline (ships only when ai_images is approved). Needs the same word-for-word brand check before any build that enables it.',
+    '  - img/hero-court-*.webp / hero-court-wide-*.webp: court photos only, no baked brand text (page CSS/HTML carries the lockup).',
+    '  - img/logo-480.svg: logo mark; confirm it does not say "Pickleball and Coffee" or unaccented Cafe in the brand lockup before publish.',
+    'og:image dump:',
+]
+build_txt.extend('  ' + L for L in og_lines)
+open(build_txt_path, 'w', encoding='utf-8').write('\n'.join(build_txt) + '\n')
+print(f'wrote {build_txt_path}')
+for L in build_txt[:5]:
+    print('  build.txt:', L)
+
 print(f'golive build -> {out} [{mode}] owner OK: {sorted(ok) or "none"}')
 print('\n'.join(report))
 for f in sorted(files): print(f'  {os.path.getsize(os.path.join(out, f)):>8}  {f}')
 if fails:
     print('\nFAILED:\n  ' + '\n  '.join(fails)); sys.exit(1)
-print(f'{len(files)} files, all checks passed: no {", ".join(FORBIDDEN)}; no comments (incl. inline JS), ribbon, /vX/, README, CHANGELOG or unused images; '
+print(f'{len(files)} files, all checks passed: no {", ".join(FORBIDDEN)}; brand "{BRAND}"; no comments (incl. inline JS), ribbon, /vX/, README, CHANGELOG or unused images; '
       + ('/book noindex, other pages indexable with canonical, CNAME present.' if a.launch else 'noindex on every page, no CNAME.'))
