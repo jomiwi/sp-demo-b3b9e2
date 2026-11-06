@@ -1,4 +1,4 @@
-/* Saranay Pickleball Court and Cafe · demo styles v3.0
+/* Saranay Pickleball Court & Café · demo styles v3.0
    Visual identity rebuilt from the venue itself: royal-blue court, sky-blue kitchen, the amber ball from the logo, night ink.
    Type: Archivo (condensed, heavy) for display, Instrument Serif italic for accents, Archivo for body.
    Every color, size and space below is a token. Components only read tokens. */
@@ -131,10 +131,10 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 .site-nav a:hover { color: var(--c-sky); }
 .site-nav .btn { margin-top: var(--s-5); }
 .site-nav a.btn { font: var(--fw-bold) var(--fs-base)/1 var(--font-body); text-transform: none; justify-content: center; border-bottom: 0; color: var(--btn-ink); }
-@media (min-width: 60rem) {
+@media (min-width: 64rem) {
   .nav-toggle { display: none; }
-  .site-nav, .site-nav[hidden] { display: flex; position: static; background: none; border: 0; box-shadow: none; padding: 0; align-items: center; gap: var(--s-6); }
-  .site-nav ul { display: flex; gap: var(--s-6); }
+  .site-nav, .site-nav[hidden] { display: flex; position: static; background: none; border: 0; box-shadow: none; padding: 0; align-items: center; gap: var(--s-6); flex-wrap: nowrap; }
+  .site-nav ul { display: flex; gap: var(--s-6); flex-wrap: nowrap; }
   .site-nav a { border: 0; min-height: var(--tap); font: var(--fw-semibold) var(--fs-sm)/1 var(--font-body); text-transform: none; color: var(--c-on-dark-muted); }
   .site-nav a:hover { color: var(--c-on-dark); }
   .site-nav .btn { margin-top: 0; }
@@ -665,13 +665,13 @@ a.next-play .next-play__go { color: var(--c-sky); }
    Rent the court, New here? and FAQ stay in the phone menu and on the page. */
 .site-nav__ctas { display: grid; gap: var(--s-2); margin-top: var(--s-5); }
 .site-nav__ctas .btn { margin-top: 0; }
-@media (min-width: 60rem) {
+@media (min-width: 64rem) {
   .site-nav .nav__extra { display: none; }
-  .site-nav__ctas { display: flex; margin-top: 0; }
+  .site-nav__ctas { display: flex; margin-top: 0; flex-wrap: nowrap; }
   .site-nav__ctas .btn { min-height: var(--tap); padding-inline: var(--s-5); white-space: nowrap; }
 }
-/* RC4.9.1: Café back in the desktop nav (5 links). Tighten gap under ~72rem so 1024 fits without wrap. */
-@media (min-width: 60rem) and (max-width: 71.99rem) {
+/* RC4.9.2: desktop nav from 64rem (1024px) so 768–1023 use the menu (Café included, no clip). Tighten under ~72rem. */
+@media (min-width: 64rem) and (max-width: 71.99rem) {
   .site-nav, .site-nav[hidden] { gap: var(--s-4); }
   .site-nav ul { gap: var(--s-4); }
   .site-nav__ctas .btn { padding-inline: var(--s-4); }
