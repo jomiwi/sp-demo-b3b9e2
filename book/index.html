@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Book a court on Sports360 | Saranay Pickleball</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <script>
+  (function () {
+    var S360 = 'https://app.sports360.ph/sportshub/saranay-pickleball-court';
+    var GTM_ID = 'GTM-TZ4KN34J';
+    var COUNT_ON = true, COUNT_URL = '/api/count';
+    var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var sp = null; try { sp = new URLSearchParams(location.search); } catch (e) {}
+    function arg(k) { var v = sp && sp.get(k); return v ? v : undefined; }
+    var q = {}, fwd = [];
+    UTM.forEach(function (k) { var v = arg(k); q[k] = v; if (v) fwd.push(k + '=' + encodeURIComponent(v)); });
+    var cta = arg('cta'); if (!cta || !/^[a-z0-9_]{1,80}$/.test(cta)) cta = 'book_redirect';
+    var band = arg('rate_band'); if (!/^(early|midday|evening)$/.test(band || '')) band = 'none';
+    var BOOK_DEST = S360 + (fwd.length ? '?' + fwd.join('&') : '');
+    window.SARANAY_BOOK_DEST = BOOK_DEST;
+    function setLinks() { var l = document.getElementById('book-fallback'); if (l) l.href = BOOK_DEST; }
+    document.addEventListener('DOMContentLoaded', setLinks);
+    var done = false, gtmLoaded = false;
+    function go(via) { if (done) return; done = true; window.SARANAY_BOOK_VIA = via; location.replace(BOOK_DEST); }
+    var consent = null;
+    try { consent = localStorage.getItem('saranay_consent'); } catch (e) {}
+    if (consent !== 'granted') {
+      try {
+        if (COUNT_ON && COUNT_URL && navigator.sendBeacon) {
+          var body = JSON.stringify({ event: 'book_court_click', utm_source: q.utm_source, utm_medium: q.utm_medium, utm_campaign: q.utm_campaign,
+            utm_content: q.utm_content, utm_term: q.utm_term, cta: cta, rate_band: band, page: location.pathname });
+          window.SARANAY_BEACON = navigator.sendBeacon(COUNT_URL, new Blob([body], { type: 'text/plain' }));
+        }
+      } catch (e) {}
+      setTimeout(function () { go('no_consent'); }, 0);
+      return;
+    }
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+    gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+    dataLayer.push({
+      event: 'book_court_click',
+      cta_location: cta,
+      rate_band: band,
+      link_url: BOOK_DEST,
+      play_context: 'book_redirect',
+      page_location: location.href,
+      utm_source: q.utm_source, utm_medium: q.utm_medium, utm_campaign: q.utm_campaign, utm_content: q.utm_content, utm_term: q.utm_term,
+      analytics_consent: 'granted',
+      eventCallback: function () { go('callback'); },
+      eventTimeout: 2000
+    });
+    dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var j = document.createElement('script'); j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + GTM_ID;
+    j.onload = function () { gtmLoaded = true; window.SARANAY_GTM_LOADED_AT = Date.now(); };
+    j.onerror = function () { go('load_fallback'); };
+    setTimeout(function () { if (!gtmLoaded) go('load_fallback'); }, 2000);
+    document.head.appendChild(j);
+  })();
+  </script>
+  <style>
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0B0F1A; color: #F4F2EC; font: 1.0625rem/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; text-align: center; padding: 1.5rem; box-sizing: border-box; }
+    a { display: inline-flex; align-items: center; min-height: 44px; padding: 0.75rem 1.25rem; border-radius: 999px; background: #1F4FD1; color: #fff; font-weight: 700; text-decoration: none; }
+    a:focus-visible { outline: 3px solid #FFB800; outline-offset: 3px; }
+    p { margin: 0 0 1rem; }
+  </style>
+</head>
+<body>
+  <main>
+    <p>Taking you to Saranay Pickleball's booking page on Sports360…</p>
+    <p><a id="book-fallback" href="https://app.sports360.ph/sportshub/saranay-pickleball-court">Continue to Sports360 booking</a></p>
+    <noscript><p><a href="https://app.sports360.ph/sportshub/saranay-pickleball-court">Continue to Sports360 booking</a></p></noscript>
+  </main>
+</body>
+</html>
