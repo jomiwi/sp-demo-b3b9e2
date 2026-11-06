@@ -670,6 +670,12 @@ a.next-play .next-play__go { color: var(--c-sky); }
   .site-nav__ctas { display: flex; margin-top: 0; }
   .site-nav__ctas .btn { min-height: var(--tap); padding-inline: var(--s-5); white-space: nowrap; }
 }
+/* RC4.9.1: Café back in the desktop nav (5 links). Tighten gap under ~72rem so 1024 fits without wrap. */
+@media (min-width: 60rem) and (max-width: 71.99rem) {
+  .site-nav, .site-nav[hidden] { gap: var(--s-4); }
+  .site-nav ul { gap: var(--s-4); }
+  .site-nav__ctas .btn { padding-inline: var(--s-4); }
+}
 
 /* v3.14 · The café moved to its own page (cafe/). Home keeps a short teaser; the café page opens with both money actions, Book first. */
 .cafe-teaser__inner { display: grid; gap: var(--s-6); align-items: center; }

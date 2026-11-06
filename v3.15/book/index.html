@@ -21,11 +21,16 @@
        The redirect runs ONLY from that push's eventCallback (eventTimeout 2000 ms is GTM's own fallback).
        Load fallback: if gtm.js hasn't loaded within 2000 ms (blocked or slow), or fails, forward anyway.
        A flag makes sure the redirect runs exactly once, whichever path fires first.
-     - No stored choice, or Decline: redirect at once. Nothing is loaded, pushed or logged.
+     - No stored choice, or Decline (RC4.7.4, Decision 2026-11-04): nothing from Google loads or is pushed. One first-party
+       navigator.sendBeacon to /api/count with only event, utm_*, cta, rate_band and path (no cookie, no ID, no UA, no IP stored),
+       not awaited; the redirect runs on the next tick.
+       RC4.7.5: COUNT_ON is set by the build: --launch builds turn it OFF (and blank COUNT_URL) unless --book-scans / BOOK_SCANS=on.
+       Only a JS-executing browser can fire it, so link previewers that just fetch the HTML never count. Consented visits never send the beacon, so nothing is counted twice.
      Destination: the Sports360 booking page, plus the incoming utm_* forwarded unchanged (no utm added when none came in). */
   (function () {
     var S360 = 'https://app.sports360.ph/sportshub/saranay-pickleball-court';
     var GTM_ID = 'GTM-TZ4KN34J';
+    var COUNT_ON = true, COUNT_URL = '/api/count';
     var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
     var sp = null; try { sp = new URLSearchParams(location.search); } catch (e) {}
     function arg(k) { var v = sp && sp.get(k); return v ? v : undefined; }
@@ -41,7 +46,17 @@
     function go(via) { if (done) return; done = true; window.SARANAY_BOOK_VIA = via; location.replace(BOOK_DEST); }
     var consent = null;
     try { consent = localStorage.getItem('saranay_consent'); } catch (e) {}
-    if (consent !== 'granted') { go('no_consent'); return; }
+    if (consent !== 'granted') {
+      try {
+        if (COUNT_ON && COUNT_URL && navigator.sendBeacon) {
+          var body = JSON.stringify({ event: 'book_court_click', utm_source: q.utm_source, utm_medium: q.utm_medium, utm_campaign: q.utm_campaign,
+            utm_content: q.utm_content, utm_term: q.utm_term, cta: cta, rate_band: band, page: location.pathname });
+          window.SARANAY_BEACON = navigator.sendBeacon(COUNT_URL, new Blob([body], { type: 'text/plain' }));
+        }
+      } catch (e) {}
+      setTimeout(function () { go('no_consent'); }, 0);
+      return;
+    }
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });

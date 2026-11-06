@@ -98,6 +98,7 @@
   --c-court-deep: #14328A;     /* hover/pressed */
   --c-sky: #6CC8F8;            /* kitchen blue: accent text on ink only */
   --c-ball: #FFB502;           /* logo ball amber: the Now marker, focus on dark. Never text on paper */
+  --c-ball-deep: #C88800;     /* hover/pressed amber — AA with --c-on-ball */
   --c-on-court: #FFFFFF;
   --c-on-dark: #F4F2EC;
   --c-on-dark-muted: #AEB3C0;
@@ -142,7 +143,7 @@
   /* space */
   --s-1: 0.25rem; --s-2: 0.5rem; --s-3: 0.75rem; --s-4: 1rem; --s-5: 1.25rem; --s-6: 1.5rem;
   --s-8: 2rem; --s-10: 2.5rem; --s-12: 3rem; --s-16: 4rem; --s-20: 5rem; --s-24: 6rem;
-  --section-y: clamp(4.5rem, 3rem + 7vw, 9rem);
+  --section-y: clamp(2.25rem, 1.5rem + 3.5vw, 4.5rem);
   --gutter: clamp(1.25rem, 0.8rem + 2.2vw, 3rem);
   --max: 78rem;
   --tap-min: 3rem;             /* RC4.5: 48px tap floor (DR accessibility floor) */
@@ -229,9 +230,9 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 .btn svg { width: 1.125rem; height: 1.125rem; flex: none; }
 /* "ball" = the primary open-play action: amber like the ball, ink text */
 .btn--ball { --btn-bg: var(--c-ball); --btn-ink: var(--c-on-ball); --btn-border: var(--c-ball); }
-.btn--ball:hover { --btn-bg: var(--c-on-dark); --btn-border: var(--c-on-dark); }
+.btn--ball:hover { --btn-bg: var(--c-ball-deep); --btn-border: var(--c-ball-deep); }
 .btn--outline { --btn-bg: transparent; --btn-ink: var(--c-ink); --btn-border: var(--c-ink); }
-.btn--outline:hover { --btn-bg: var(--c-ink); --btn-ink: var(--c-on-dark); --btn-border: var(--c-ink); }
+.btn--outline:hover { --btn-bg: var(--c-paper-2); --btn-ink: var(--c-ink); --btn-border: var(--c-ink); }
 .btn--outline-light, .on-dark .btn--outline { --btn-bg: transparent; --btn-ink: var(--c-on-dark); --btn-border: var(--c-on-dark); }
 .btn--outline-light:hover, .on-dark .btn--outline:hover { --btn-bg: var(--c-on-dark); --btn-ink: var(--c-ink); --btn-border: var(--c-on-dark); }
 .btn--sm { min-height: var(--tap); padding: 0 var(--s-5); font-size: var(--fs-sm); }
@@ -348,6 +349,10 @@ a.next-play .next-play__go { color: var(--c-sky); }
 .proof__cell span { font-size: var(--fs-xs); font-weight: var(--fw-semibold); }
 .proof__go { margin-top: var(--s-1); text-decoration: underline; text-underline-offset: 3px; }
 .proof__cell--go:hover { background: var(--c-court-deep); text-decoration: none; }
+.proof a.proof__cell,
+.proof a.proof__cell:hover { color: var(--c-on-court); text-decoration: none; }
+.daystrip a.daystrip__book,
+.daystrip a.daystrip__book:hover { color: inherit; text-decoration: none; }
 .proof__cell--go:focus-visible { outline: 3px solid var(--c-focus-dark); outline-offset: -3px; }
 @media (min-width: 48rem) { .proof__list { grid-template-columns: repeat(4, 1fr); } .proof__list li { border-bottom: 0; border-right: 1px solid rgb(255 255 255 / 0.18); } .proof__list li:last-child { border-right: 0; } }
 /* ticker · "at a glance" facts as a slow marquee (static when motion is reduced) */
@@ -503,9 +508,8 @@ a.next-play .next-play__go { color: var(--c-sky); }
 .splitter__opt input:checked + span small { color: var(--c-muted); }
 .splitter__opt input:focus-visible + span { outline: 3px solid var(--c-focus-dark); outline-offset: 2px; }
 .splitter__result { border-top: 2px solid var(--c-on-dark); padding-top: var(--s-4); }
-.splitter__each { margin: 0; display: flex; align-items: baseline; gap: var(--s-3); }
-.splitter__each output { font: var(--fw-black) clamp(4rem, 2rem + 9vw, 6.5rem)/0.9 var(--font-display); font-stretch: var(--wdth-display); color: var(--c-ball); }
-.splitter__each span { font-family: var(--font-serif); font-style: italic; font-size: var(--fs-xl); }
+.splitter__total { margin: 0; }
+.splitter__total output { font: var(--fw-black) clamp(4rem, 2rem + 9vw, 6.5rem)/0.9 var(--font-display); font-stretch: var(--wdth-display); color: var(--c-ball); }
 .splitter__break { margin: var(--s-2) 0 0; color: var(--c-on-dark-muted); font-size: var(--fs-sm); }
 .splitter__note { margin: 0; color: var(--c-on-dark-muted); font-size: var(--fs-xs); }
 .splitter a:not(.btn) { color: var(--c-sky); }
@@ -745,6 +749,12 @@ a.next-play .next-play__go { color: var(--c-sky); }
   .site-nav__ctas { display: flex; margin-top: 0; }
   .site-nav__ctas .btn { min-height: var(--tap); padding-inline: var(--s-5); white-space: nowrap; }
 }
+/* RC4.9.1: Café back in the desktop nav (5 links). Tighten gap under ~72rem so 1024 fits without wrap. */
+@media (min-width: 60rem) and (max-width: 71.99rem) {
+  .site-nav, .site-nav[hidden] { gap: var(--s-4); }
+  .site-nav ul { gap: var(--s-4); }
+  .site-nav__ctas .btn { padding-inline: var(--s-4); }
+}
 
 /* v3.14 · The café moved to its own page (cafe/). Home keeps a short teaser; the café page opens with both money actions, Book first. */
 .cafe-teaser__inner { display: grid; gap: var(--s-6); align-items: center; }
@@ -917,6 +927,7 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
       <ul>
         <li><a href="#open-play">Open play</a></li>
         <li><a href="#rates">Rates &amp; hours</a></li>
+        <li><a href="cafe/" data-cta="nav_cafe">Café</a></li>
         <li class="nav__extra"><a href="#rent">Rent the court</a></li>
         <li class="nav__extra"><a href="#new">New here?</a></li>
         <li><a href="pickleball-for-beginners/">Beginners</a></li>
@@ -994,12 +1005,16 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
           <ul class="chooser__facts" role="list"><li>Beginner lessons</li><li>No experience needed</li></ul>
           <div class="btn-row hero__ctas"><a class="btn btn--ball" href="https://www.facebook.com/p/Saranay-Pickleball-Court-and-Cafe-61589930970148/" data-cta="hero_lessons_ask_about_lessons" data-dest="messenger" data-lesson="1">Ask about lessons</a><a class="btn btn--outline" href="#lessons">About lessons</a></div>
         </div>
+        <div class="chooser__panel" data-panel="cafe" hidden>
+          <ul class="chooser__facts" role="list"><li>D' Rafael's Cafe, right at the court</li><li>Coffee, merienda and food for your group</li><li>Open during court bookings</li></ul>
+          <div class="btn-row hero__ctas"><a class="btn" href="cafe/" data-cta="hero_cafe_see_the_cafe">See the café</a><a class="btn btn--outline" href="https://www.facebook.com/p/Saranay-Pickleball-Court-and-Cafe-61589930970148/" data-cta="hero_cafe_ask_about_the_cafe" data-dest="messenger">Ask about the café</a></div>
+        </div>
         <div class="chooser__panel" data-panel="first" hidden>
           <ul class="chooser__facts" role="list"><li>No partner or experience needed</li><li>Paddle rental ₱100 per session</li><li>Every open play is all levels</li></ul>
           <div class="btn-row hero__ctas"><a class="btn btn--ball" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=hero_first_find_an_all_levels_session" target="_blank" rel="noopener" aria-label="Find an all-levels session (opens in a new tab)" data-cta="hero_first_find_an_all_levels_session" data-dest="reclub">Find an all-levels session</a><a class="btn btn--outline" href="#new">Your first visit</a></div>
         </div>
       </div>
-      <!-- RC4.3 (Sage-approved proposal, Nov 3): on phones the hero Open play card becomes this one line under the booking buttons. Undated on purpose: RC4 dropped derived dates (Ling) and a fixed date goes stale. Same Reclub link and data-cta/data-dest as the card, so it fires click_reclub + join_open_play_click (cta_location=hero_next_play_card); RC4.4: its utm_content is hero_openline (Ling), the card keeps hero_next_play_card. Hidden from 60rem, where the card stays. -->
+      <!-- RC4.3 (Sage-approved proposal, Nov 3): on phones the hero Open play card becomes this one line under the booking buttons. Undated on purpose: RC4 dropped derived dates (Ling) and a fixed date goes stale. Same Reclub link and data-dest as the card, so it fires click_reclub + join_open_play_click; RC4.6: data-cta=hero_openline (Ling) so GA4 cta_location separates it from the card; RC4.4: its utm_content is hero_openline (Ling), the card keeps hero_next_play_card. Hidden from 60rem, where the card stays. -->
       <p class="hero__openline"><a href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=hero_openline" target="_blank" rel="noopener" aria-label="Open play most weekends, some weeknights. Join on Reclub (opens in a new tab)" data-cta="hero_openline" data-dest="reclub"><b>Open play</b> most weekends, some weeknights · <span class="hero__openline-go">Join on Reclub</span></a></p>
       <!-- v2.0 "How are you playing?" chooser, now compact chips under the booking buttons. Without JS they are plain links to each section. -->
       <div class="chooser" id="chooser">
@@ -1008,6 +1023,7 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
           <a class="chooser__opt" href="#open-play" data-path="open"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2 20c0-3.3 2.7-6 6-6s6 2.7 6 6M12 20c0-3.3 1.8-6 4-6s6 2.7 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="chooser__label">Open play</span><span class="chooser__hint">All levels · Reclub</span></a>
           <a class="chooser__opt" href="#rates" data-path="rent"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span class="chooser__label">Rent the court</span><span class="chooser__hint">From ₱200/hour</span></a>
           <a class="chooser__opt" href="#lessons" data-path="lessons"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 9l10-5 10 5-10 5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M6 11v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5" fill="none" stroke="currentColor" stroke-width="2"/></svg><span class="chooser__label">Lessons</span><span class="chooser__hint">For beginners</span></a>
+          <a class="chooser__opt" href="cafe/" data-path="cafe" data-cta="chooser_cafe"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h12v5a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5z M16 11h1.5a2.5 2.5 0 0 1 0 5H16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 3c0 1.5 1.5 1.5 1.5 3M12 3c0 1.5 1.5 1.5 1.5 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span class="chooser__label">Just the café</span><span class="chooser__hint">Open with bookings</span></a>
           <a class="chooser__opt" href="#new" data-path="first"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.6 5.6 6 .7-4.5 4.1 1.2 6L12 16.4 6.7 19.4l1.2-6L3.4 9.3l6-.7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span class="chooser__label">First time</span><span class="chooser__hint">No partner needed</span></a>
         </div>
       </div>
@@ -1027,7 +1043,7 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
   <ul class="proof__list" role="list">
     <li><a class="proof__cell proof__cell--go" href="book/?cta=proof_200_per_hour&amp;rate_band=midday" target="_blank" rel="noopener" data-cta="proof_200_per_hour" data-dest="book" data-band="midday" aria-label="From ₱200 per hour, 10 AM to 4 PM. Book a court (opens in a new tab)"><strong>₱200/hour</strong><span>10 AM to 4 PM</span><span class="proof__go" aria-hidden="true">Book a court →</span></a></li>
     <li><a class="proof__cell proof__cell--go" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=proof_nearly_600_members" target="_blank" rel="noopener" data-cta="proof_nearly_600_members" data-dest="reclub" aria-label="Nearly 600 members in our Reclub club. Join open play on Reclub (opens in a new tab)"><strong>Nearly 600</strong><span>members in our Reclub club</span><span class="proof__go" aria-hidden="true">Join open play →</span></a></li>
-    <li><a class="proof__cell proof__cell--go" href="https://www.facebook.com/p/Saranay-Pickleball-Court-and-Cafe-61589930970148/" data-cta="proof_lessons" data-dest="messenger" data-lesson="1" aria-label="Lessons for beginners. Ask about lessons on Facebook"><strong>Lessons</strong><span>For beginners</span><span class="proof__go" aria-hidden="true">Ask about lessons →</span></a></li>
+    <li><a class="proof__cell proof__cell--go" href="cafe/" data-cta="proof_cafe" aria-label="One court with its own café. See the café"><strong>One court</strong><span>with its own café</span><span class="proof__go" aria-hidden="true">See the café →</span></a></li>
   </ul>
 </div>
 <!-- /COPY: 1 hero -->
@@ -1173,8 +1189,8 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
       <svg viewBox="0 0 400 300" class="court-art"><rect width="400" height="300" rx="24" style="fill:var(--c-coffee-soft)"/><g transform="translate(200 150)"><rect x="-150" y="-95" width="300" height="190" rx="6" style="fill:var(--c-court)"/><g fill="none" style="stroke:var(--c-court-line)" stroke-width="3"><rect x="-150" y="-95" width="300" height="190" rx="6"/><line x1="0" y1="-95" x2="0" y2="95" stroke-width="5"/><line x1="-45" y1="-95" x2="-45" y2="95"/><line x1="45" y1="-95" x2="45" y2="95"/><line x1="-150" y1="0" x2="-45" y2="0"/><line x1="45" y1="0" x2="150" y2="0"/></g><circle cx="80" cy="-40" r="10" style="fill:var(--c-ball)"/></g><g style="fill:var(--c-coffee)"><rect x="24" y="24" width="88" height="30" rx="15"/></g><text x="68" y="44" style="fill:var(--c-bg)" font-family="Inter, sans-serif" font-size="14" font-weight="600" text-anchor="middle">Yours</text></svg>
     </div>
       <form class="splitter" id="split" hidden aria-labelledby="split-title">
-        <h3 id="split-title">Split the court</h3>
-        <p class="splitter__sub">Rough cost per person, based on our posted rates.</p>
+        <h3 id="split-title">Estimated cost for your session</h3>
+        <p class="splitter__sub">Court + paddles, from our posted rates.</p>
         <div class="splitter__row">
           <label class="splitter__label" for="split-players">Players</label>
           <div class="stepper">
@@ -1205,8 +1221,8 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
           <label class="splitter__opt"><input type="radio" name="split-rate" value="300"> <span>Other hours<small>₱300/hour</small></span></label>
         </fieldset>
         <div class="splitter__result" aria-live="polite">
-          <p class="splitter__each"><output id="split-each" for="split-players split-hours split-paddles">₱100</output> <span>each</span></p>
-          <p class="splitter__break" id="split-break">Court ₱400 · Total ₱400</p>
+          <p class="splitter__total"><output id="split-each" for="split-players split-hours split-paddles">₱400</output></p>
+          <p class="splitter__break" id="split-break">≈ ₱100 each · Court ₱400</p>
         </div>
         <p class="splitter__note">Estimate only. Sports360 shows the final price.</p>
         <a class="btn btn--ball splitter__cta" href="book/?cta=rent_book_a_court_on_sports360_2" target="_blank" rel="noopener" aria-label="Book a court (opens in a new tab)" data-cta="rent_book_a_court_on_sports360_2" data-dest="book">Book a court</a>
@@ -1270,7 +1286,24 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
   </div>
 </section>
 <!-- /COPY: 5b lessons -->
-<!-- v3.15: the café teaser section is removed; the café now sits in "Rent the court" as "Café open during court bookings". -->
+<!-- COPY: 6 cafe teaser (RC4.9.1: restored per Jon; full café stays at cafe/ for page-view counting). Placed after lessons, not next to the rent café card, to avoid a duplicate teaser. -->
+<section class="section section--tight section--dark on-dark cafe-teaser" id="cafe-teaser" aria-labelledby="cafe-teaser-title">
+  <div class="container cafe-teaser__inner">
+      <!--rights-else:ig01-->
+      <figure class="photo cafe-teaser__photo"><img src="../img/court-shade-780.svg" srcset="../img/court-shade-480.svg 480w, ../img/court-shade-780.svg 780w" sizes="(min-width: 60rem) 30vw, 100vw" width="780" height="1040" loading="lazy" decoding="async" alt="The Saranay court under its shade sail, with patio tables on the left."></figure>
+      <!--/rights-else-->
+      <!--rights-if:ig01
+      <figure class="photo photo--ig cafe-teaser__photo"><img src="../img/cafe-patio-night-guests-800.svg" srcset="../img/cafe-patio-night-guests-480.svg 480w, ../img/cafe-patio-night-guests-800.svg 800w" sizes="(min-width: 60rem) 30vw, 100vw" width="800" height="1000" loading="lazy" decoding="async" alt="Friends sharing a table on the café patio at night, under the umbrellas beside the court."></figure>
+      rights-if-end-->
+    <div class="cafe-teaser__text">
+      <p class="eyebrow">The café</p>
+      <h2 id="cafe-teaser-title">D' Rafael's Cafe</h2>
+      <p class="lede">Coffee and merienda right at the court, open during court bookings.</p>
+      <a class="btn btn--outline" href="cafe/" data-cta="cafe_teaser_see_the_cafe">See the café <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
+<!-- /COPY: 6 cafe teaser -->
 <!-- COPY: 8 location and hours -->
 <section class="section" id="find-us" aria-labelledby="find-title">
   <div class="container split">
@@ -1441,7 +1474,7 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
         <p>Saranay Homes, Block 5 Lot 13 Saranay Road, Bagumbong North, Caloocan</p>
         <p>Phone: <a href="tel:+639065458384" data-cta="footer_63_906_545_8384" data-dest="call">+63 906 545 8384</a></p>
         <p>Court hours: 6 AM to 2 AM daily</p>
-        <p>D' Rafael's Cafe: open during court bookings</p>
+        <p><a href="cafe/" data-cta="footer_cafe">The café: D' Rafael's Cafe</a> · open during court bookings</p>
       </div>
       <nav aria-labelledby="follow-title">
         <h2 id="follow-title">Follow us</h2>
@@ -1679,7 +1712,7 @@ function saranayTag(href, loc) {
   var hero = document.getElementById('top');
   var main = document.getElementById('main');
   var order = [].slice.call(main.children); // original order, for undo
-  var MOVE = { open: ['coming-up', 'open-play'], rent: ['rates', 'rent'], lessons: ['lessons', 'new'], first: ['new', 'open-play'] }; /* v3.15: café chip became Lessons */
+  var MOVE = { open: ['coming-up', 'open-play'], rent: ['rates', 'rent'], lessons: ['lessons', 'new'], cafe: ['cafe-teaser', 'find-us'], first: ['new', 'open-play'] }; /* RC4.9.1: café chip restored alongside Lessons */
   var current = null;
 
   function restore() { order.forEach(function (n) { main.appendChild(n); }); }
@@ -1705,8 +1738,7 @@ function saranayTag(href, loc) {
     o.addEventListener('keydown', function (e) { if (e.key === ' ') { e.preventDefault(); pick(o.dataset.path, true); } });
   });
   var q = null; try { q = new URL(location.href).searchParams.get('play'); } catch (e) {}
-  if (q === 'cafe') q = 'rent'; /* v3.15: old ?play=cafe links land on the booking path, where the café now sits */
-  if (q && MOVE[q]) pick(q, false);
+  if (q && MOVE[q]) pick(q, false); /* RC4.9.1: ?play=cafe selects the café teaser again */
 })();
 
 /* v2.1 day strip: place a "Now" marker at the current Manila time on the 6 AM to 2 AM price bar.
@@ -1760,12 +1792,11 @@ function saranayTag(href, loc) {
     var cap = h >= 3 ? 12 : h * 4;
     var extra = Math.max(0, p - cap);
     var court = rate * h, total = court + extra * 100 + pad * 100;
-    each.textContent = peso(total / p);
+    each.textContent = peso(total);
     var parts = ['Court ' + peso(court)];
     if (extra) parts.push(extra + ' extra player' + (extra > 1 ? 's' : '') + ' ' + peso(extra * 100));
     if (pad) parts.push(pad + ' paddle' + (pad > 1 ? 's' : '') + ' ' + peso(pad * 100));
-    parts.push('Total ' + peso(total));
-    brk.textContent = parts.join(' · ') + '. ' + h + (h > 1 ? ' hours cover' : ' hour covers') + ' up to ' + cap + ' players.';
+    brk.textContent = '≈ ' + peso(total / p) + ' each · ' + parts.join(' · ');
     form.querySelectorAll('.stepper__btn').forEach(function (b) {
       var el = form.querySelector('#' + b.dataset.for), v = clamp(el);
       var mx = el === paddles ? Math.min(+el.max, p) : +el.max;
@@ -1803,8 +1834,8 @@ function saranayTag(href, loc) {
     court: ['Court', '₱200 to ₱300/hour · 6 AM to 2 AM daily'],
     cafe: ["D' Rafael's Cafe", 'Open during court bookings']
   };
-  var BY_SECTION = { 'coming-up': 'play', 'open-play': 'play', 'new': 'play', 'rates': 'court', 'rent': 'court', 'cafe': 'cafe', 'lessons': 'play', 'find-us': 'court', 'welcome': 'play', 'start': 'play', 'family': 'court', 'getting-here': 'court', 'ready': 'play' };
-  var BY_PATH = { open: 'play', first: 'play', rent: 'court', lessons: 'play', cafe: 'court' };
+  var BY_SECTION = { 'coming-up': 'play', 'open-play': 'play', 'new': 'play', 'rates': 'court', 'rent': 'court', 'cafe': 'cafe', 'cafe-teaser': 'cafe', 'lessons': 'play', 'find-us': 'court', 'welcome': 'play', 'start': 'play', 'family': 'court', 'getting-here': 'court', 'ready': 'play' };
+  var BY_PATH = { open: 'play', first: 'play', rent: 'court', lessons: 'play', cafe: 'cafe' };
   var base = 'play';
   try { base = BY_PATH[new URL(location.href).searchParams.get('play')] || document.body.dataset.dockBase || 'play'; } catch (e) {}
   var CAL = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
@@ -1821,7 +1852,7 @@ function saranayTag(href, loc) {
   var split = null, cur = null, inView = null;
   function render(key) {
     var b = CAP[key][0], sm = CAP[key][1];
-    if (key === 'court' && split) { b = split.each + ' each'; sm = split.players + ' players · ' + split.hours + (split.hours > 1 ? ' hours' : ' hour') + ' · estimate'; }
+    if (key === 'court' && split) { b = split.each; sm = split.players + ' players · ' + split.hours + (split.hours > 1 ? ' hours' : ' hour') + ' · estimate'; }
     var changed = key !== cur;
     cur = key; bar.dataset.ctx = key;
     big.textContent = b; small.textContent = sm;
@@ -1833,7 +1864,7 @@ function saranayTag(href, loc) {
       entries.forEach(function (e) { if (e.isIntersecting) inView = BY_SECTION[e.target.id] || null; });
       refresh();
     }, { rootMargin: '-45% 0px -50% 0px' });
-    ['top', 'coming-up', 'open-play', 'rates', 'rent', 'new', 'lessons', 'cafe', 'find-us', 'about', 'book', 'faq', 'welcome', 'start', 'family', 'getting-here', 'ready'].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+    ['top', 'coming-up', 'open-play', 'rates', 'rent', 'new', 'lessons', 'cafe', 'cafe-teaser', 'find-us', 'about', 'book', 'faq', 'welcome', 'start', 'family', 'getting-here', 'ready'].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
   }
   document.addEventListener('saranay:path', function (e) { base = BY_PATH[e.detail] || document.body.dataset.dockBase || 'play'; refresh(); });
   var form = document.getElementById('split');

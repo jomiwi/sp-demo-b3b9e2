@@ -203,7 +203,7 @@ function saranayTag(href, loc) {
   var hero = document.getElementById('top');
   var main = document.getElementById('main');
   var order = [].slice.call(main.children); // original order, for undo
-  var MOVE = { open: ['coming-up', 'open-play'], rent: ['rates', 'rent'], lessons: ['lessons', 'new'], first: ['new', 'open-play'] }; /* v3.15: café chip became Lessons */
+  var MOVE = { open: ['coming-up', 'open-play'], rent: ['rates', 'rent'], lessons: ['lessons', 'new'], cafe: ['cafe-teaser', 'find-us'], first: ['new', 'open-play'] }; /* RC4.9.1: café chip restored alongside Lessons */
   var current = null;
 
   function restore() { order.forEach(function (n) { main.appendChild(n); }); }
@@ -229,8 +229,7 @@ function saranayTag(href, loc) {
     o.addEventListener('keydown', function (e) { if (e.key === ' ') { e.preventDefault(); pick(o.dataset.path, true); } });
   });
   var q = null; try { q = new URL(location.href).searchParams.get('play'); } catch (e) {}
-  if (q === 'cafe') q = 'rent'; /* v3.15: old ?play=cafe links land on the booking path, where the café now sits */
-  if (q && MOVE[q]) pick(q, false);
+  if (q && MOVE[q]) pick(q, false); /* RC4.9.1: ?play=cafe selects the café teaser again */
 })();
 
 /* v2.1 day strip: place a "Now" marker at the current Manila time on the 6 AM to 2 AM price bar.
@@ -326,8 +325,8 @@ function saranayTag(href, loc) {
     court: ['Court', '₱200 to ₱300/hour · 6 AM to 2 AM daily'],
     cafe: ["D' Rafael's Cafe", 'Open during court bookings']
   };
-  var BY_SECTION = { 'coming-up': 'play', 'open-play': 'play', 'new': 'play', 'rates': 'court', 'rent': 'court', 'cafe': 'cafe', 'lessons': 'play', 'find-us': 'court', 'welcome': 'play', 'start': 'play', 'family': 'court', 'getting-here': 'court', 'ready': 'play' };
-  var BY_PATH = { open: 'play', first: 'play', rent: 'court', lessons: 'play', cafe: 'court' };
+  var BY_SECTION = { 'coming-up': 'play', 'open-play': 'play', 'new': 'play', 'rates': 'court', 'rent': 'court', 'cafe': 'cafe', 'cafe-teaser': 'cafe', 'lessons': 'play', 'find-us': 'court', 'welcome': 'play', 'start': 'play', 'family': 'court', 'getting-here': 'court', 'ready': 'play' };
+  var BY_PATH = { open: 'play', first: 'play', rent: 'court', lessons: 'play', cafe: 'cafe' };
   var base = 'play';
   try { base = BY_PATH[new URL(location.href).searchParams.get('play')] || document.body.dataset.dockBase || 'play'; } catch (e) {}
   var CAL = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
@@ -356,7 +355,7 @@ function saranayTag(href, loc) {
       entries.forEach(function (e) { if (e.isIntersecting) inView = BY_SECTION[e.target.id] || null; });
       refresh();
     }, { rootMargin: '-45% 0px -50% 0px' });
-    ['top', 'coming-up', 'open-play', 'rates', 'rent', 'new', 'lessons', 'cafe', 'find-us', 'about', 'book', 'faq', 'welcome', 'start', 'family', 'getting-here', 'ready'].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+    ['top', 'coming-up', 'open-play', 'rates', 'rent', 'new', 'lessons', 'cafe', 'cafe-teaser', 'find-us', 'about', 'book', 'faq', 'welcome', 'start', 'family', 'getting-here', 'ready'].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
   }
   document.addEventListener('saranay:path', function (e) { base = BY_PATH[e.detail] || document.body.dataset.dockBase || 'play'; refresh(); });
   var form = document.getElementById('split');

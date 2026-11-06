@@ -96,6 +96,7 @@
   --c-court-deep: #14328A;     /* hover/pressed */
   --c-sky: #6CC8F8;            /* kitchen blue: accent text on ink only */
   --c-ball: #FFB502;           /* logo ball amber: the Now marker, focus on dark. Never text on paper */
+  --c-ball-deep: #C88800;     /* hover/pressed amber — AA with --c-on-ball */
   --c-on-court: #FFFFFF;
   --c-on-dark: #F4F2EC;
   --c-on-dark-muted: #AEB3C0;
@@ -140,7 +141,7 @@
   /* space */
   --s-1: 0.25rem; --s-2: 0.5rem; --s-3: 0.75rem; --s-4: 1rem; --s-5: 1.25rem; --s-6: 1.5rem;
   --s-8: 2rem; --s-10: 2.5rem; --s-12: 3rem; --s-16: 4rem; --s-20: 5rem; --s-24: 6rem;
-  --section-y: clamp(4.5rem, 3rem + 7vw, 9rem);
+  --section-y: clamp(2.25rem, 1.5rem + 3.5vw, 4.5rem);
   --gutter: clamp(1.25rem, 0.8rem + 2.2vw, 3rem);
   --max: 78rem;
   --tap-min: 3rem;             /* RC4.5: 48px tap floor (DR accessibility floor) */
@@ -227,9 +228,9 @@ a:hover { color: var(--c-court-deep); text-decoration-thickness: 2px; }
 .btn svg { width: 1.125rem; height: 1.125rem; flex: none; }
 /* "ball" = the primary open-play action: amber like the ball, ink text */
 .btn--ball { --btn-bg: var(--c-ball); --btn-ink: var(--c-on-ball); --btn-border: var(--c-ball); }
-.btn--ball:hover { --btn-bg: var(--c-on-dark); --btn-border: var(--c-on-dark); }
+.btn--ball:hover { --btn-bg: var(--c-ball-deep); --btn-border: var(--c-ball-deep); }
 .btn--outline { --btn-bg: transparent; --btn-ink: var(--c-ink); --btn-border: var(--c-ink); }
-.btn--outline:hover { --btn-bg: var(--c-ink); --btn-ink: var(--c-on-dark); --btn-border: var(--c-ink); }
+.btn--outline:hover { --btn-bg: var(--c-paper-2); --btn-ink: var(--c-ink); --btn-border: var(--c-ink); }
 .btn--outline-light, .on-dark .btn--outline { --btn-bg: transparent; --btn-ink: var(--c-on-dark); --btn-border: var(--c-on-dark); }
 .btn--outline-light:hover, .on-dark .btn--outline:hover { --btn-bg: var(--c-on-dark); --btn-ink: var(--c-ink); --btn-border: var(--c-on-dark); }
 .btn--sm { min-height: var(--tap); padding: 0 var(--s-5); font-size: var(--fs-sm); }
@@ -346,6 +347,10 @@ a.next-play .next-play__go { color: var(--c-sky); }
 .proof__cell span { font-size: var(--fs-xs); font-weight: var(--fw-semibold); }
 .proof__go { margin-top: var(--s-1); text-decoration: underline; text-underline-offset: 3px; }
 .proof__cell--go:hover { background: var(--c-court-deep); text-decoration: none; }
+.proof a.proof__cell,
+.proof a.proof__cell:hover { color: var(--c-on-court); text-decoration: none; }
+.daystrip a.daystrip__book,
+.daystrip a.daystrip__book:hover { color: inherit; text-decoration: none; }
 .proof__cell--go:focus-visible { outline: 3px solid var(--c-focus-dark); outline-offset: -3px; }
 @media (min-width: 48rem) { .proof__list { grid-template-columns: repeat(4, 1fr); } .proof__list li { border-bottom: 0; border-right: 1px solid rgb(255 255 255 / 0.18); } .proof__list li:last-child { border-right: 0; } }
 /* ticker · "at a glance" facts as a slow marquee (static when motion is reduced) */
@@ -501,9 +506,8 @@ a.next-play .next-play__go { color: var(--c-sky); }
 .splitter__opt input:checked + span small { color: var(--c-muted); }
 .splitter__opt input:focus-visible + span { outline: 3px solid var(--c-focus-dark); outline-offset: 2px; }
 .splitter__result { border-top: 2px solid var(--c-on-dark); padding-top: var(--s-4); }
-.splitter__each { margin: 0; display: flex; align-items: baseline; gap: var(--s-3); }
-.splitter__each output { font: var(--fw-black) clamp(4rem, 2rem + 9vw, 6.5rem)/0.9 var(--font-display); font-stretch: var(--wdth-display); color: var(--c-ball); }
-.splitter__each span { font-family: var(--font-serif); font-style: italic; font-size: var(--fs-xl); }
+.splitter__total { margin: 0; }
+.splitter__total output { font: var(--fw-black) clamp(4rem, 2rem + 9vw, 6.5rem)/0.9 var(--font-display); font-stretch: var(--wdth-display); color: var(--c-ball); }
 .splitter__break { margin: var(--s-2) 0 0; color: var(--c-on-dark-muted); font-size: var(--fs-sm); }
 .splitter__note { margin: 0; color: var(--c-on-dark-muted); font-size: var(--fs-xs); }
 .splitter a:not(.btn) { color: var(--c-sky); }
@@ -743,6 +747,12 @@ a.next-play .next-play__go { color: var(--c-sky); }
   .site-nav__ctas { display: flex; margin-top: 0; }
   .site-nav__ctas .btn { min-height: var(--tap); padding-inline: var(--s-5); white-space: nowrap; }
 }
+/* RC4.9.1: Café back in the desktop nav (5 links). Tighten gap under ~72rem so 1024 fits without wrap. */
+@media (min-width: 60rem) and (max-width: 71.99rem) {
+  .site-nav, .site-nav[hidden] { gap: var(--s-4); }
+  .site-nav ul { gap: var(--s-4); }
+  .site-nav__ctas .btn { padding-inline: var(--s-4); }
+}
 
 /* v3.14 · The café moved to its own page (cafe/). Home keeps a short teaser; the café page opens with both money actions, Book first. */
 .cafe-teaser__inner { display: grid; gap: var(--s-6); align-items: center; }
@@ -915,6 +925,7 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
       <ul>
         <li><a href="../#open-play">Open play</a></li>
         <li><a href="../#rates">Rates &amp; hours</a></li>
+        <li><a href="./" data-cta="nav_cafe" aria-current="page">Café</a></li>
         <li class="nav__extra"><a href="../#rent">Rent the court</a></li>
         <li class="nav__extra"><a href="../#new">New here?</a></li>
         <li><a href="../pickleball-for-beginners/">Beginners</a></li>
@@ -1153,7 +1164,7 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
         <p>Saranay Homes, Block 5 Lot 13 Saranay Road, Bagumbong North, Caloocan</p>
         <p>Phone: <a href="tel:+639065458384" data-cta="footer_63_906_545_8384" data-dest="call">+63 906 545 8384</a></p>
         <p>Court hours: 6 AM to 2 AM daily</p>
-        <p>D' Rafael's Cafe: open during court bookings</p>
+        <p><a href="./" data-cta="footer_cafe" aria-current="page">The café: D' Rafael's Cafe</a> · open during court bookings</p>
       </div>
       <nav aria-labelledby="follow-title">
         <h2 id="follow-title">Follow us</h2>
@@ -1391,7 +1402,7 @@ function saranayTag(href, loc) {
   var hero = document.getElementById('top');
   var main = document.getElementById('main');
   var order = [].slice.call(main.children); // original order, for undo
-  var MOVE = { open: ['coming-up', 'open-play'], rent: ['rates', 'rent'], lessons: ['lessons', 'new'], first: ['new', 'open-play'] }; /* v3.15: café chip became Lessons */
+  var MOVE = { open: ['coming-up', 'open-play'], rent: ['rates', 'rent'], lessons: ['lessons', 'new'], cafe: ['cafe-teaser', 'find-us'], first: ['new', 'open-play'] }; /* RC4.9.1: café chip restored alongside Lessons */
   var current = null;
 
   function restore() { order.forEach(function (n) { main.appendChild(n); }); }
@@ -1417,8 +1428,7 @@ function saranayTag(href, loc) {
     o.addEventListener('keydown', function (e) { if (e.key === ' ') { e.preventDefault(); pick(o.dataset.path, true); } });
   });
   var q = null; try { q = new URL(location.href).searchParams.get('play'); } catch (e) {}
-  if (q === 'cafe') q = 'rent'; /* v3.15: old ?play=cafe links land on the booking path, where the café now sits */
-  if (q && MOVE[q]) pick(q, false);
+  if (q && MOVE[q]) pick(q, false); /* RC4.9.1: ?play=cafe selects the café teaser again */
 })();
 
 /* v2.1 day strip: place a "Now" marker at the current Manila time on the 6 AM to 2 AM price bar.
@@ -1472,12 +1482,11 @@ function saranayTag(href, loc) {
     var cap = h >= 3 ? 12 : h * 4;
     var extra = Math.max(0, p - cap);
     var court = rate * h, total = court + extra * 100 + pad * 100;
-    each.textContent = peso(total / p);
+    each.textContent = peso(total);
     var parts = ['Court ' + peso(court)];
     if (extra) parts.push(extra + ' extra player' + (extra > 1 ? 's' : '') + ' ' + peso(extra * 100));
     if (pad) parts.push(pad + ' paddle' + (pad > 1 ? 's' : '') + ' ' + peso(pad * 100));
-    parts.push('Total ' + peso(total));
-    brk.textContent = parts.join(' · ') + '. ' + h + (h > 1 ? ' hours cover' : ' hour covers') + ' up to ' + cap + ' players.';
+    brk.textContent = '≈ ' + peso(total / p) + ' each · ' + parts.join(' · ');
     form.querySelectorAll('.stepper__btn').forEach(function (b) {
       var el = form.querySelector('#' + b.dataset.for), v = clamp(el);
       var mx = el === paddles ? Math.min(+el.max, p) : +el.max;
@@ -1515,8 +1524,8 @@ function saranayTag(href, loc) {
     court: ['Court', '₱200 to ₱300/hour · 6 AM to 2 AM daily'],
     cafe: ["D' Rafael's Cafe", 'Open during court bookings']
   };
-  var BY_SECTION = { 'coming-up': 'play', 'open-play': 'play', 'new': 'play', 'rates': 'court', 'rent': 'court', 'cafe': 'cafe', 'lessons': 'play', 'find-us': 'court', 'welcome': 'play', 'start': 'play', 'family': 'court', 'getting-here': 'court', 'ready': 'play' };
-  var BY_PATH = { open: 'play', first: 'play', rent: 'court', lessons: 'play', cafe: 'court' };
+  var BY_SECTION = { 'coming-up': 'play', 'open-play': 'play', 'new': 'play', 'rates': 'court', 'rent': 'court', 'cafe': 'cafe', 'cafe-teaser': 'cafe', 'lessons': 'play', 'find-us': 'court', 'welcome': 'play', 'start': 'play', 'family': 'court', 'getting-here': 'court', 'ready': 'play' };
+  var BY_PATH = { open: 'play', first: 'play', rent: 'court', lessons: 'play', cafe: 'cafe' };
   var base = 'play';
   try { base = BY_PATH[new URL(location.href).searchParams.get('play')] || document.body.dataset.dockBase || 'play'; } catch (e) {}
   var CAL = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
@@ -1533,7 +1542,7 @@ function saranayTag(href, loc) {
   var split = null, cur = null, inView = null;
   function render(key) {
     var b = CAP[key][0], sm = CAP[key][1];
-    if (key === 'court' && split) { b = split.each + ' each'; sm = split.players + ' players · ' + split.hours + (split.hours > 1 ? ' hours' : ' hour') + ' · estimate'; }
+    if (key === 'court' && split) { b = split.each; sm = split.players + ' players · ' + split.hours + (split.hours > 1 ? ' hours' : ' hour') + ' · estimate'; }
     var changed = key !== cur;
     cur = key; bar.dataset.ctx = key;
     big.textContent = b; small.textContent = sm;
@@ -1545,7 +1554,7 @@ function saranayTag(href, loc) {
       entries.forEach(function (e) { if (e.isIntersecting) inView = BY_SECTION[e.target.id] || null; });
       refresh();
     }, { rootMargin: '-45% 0px -50% 0px' });
-    ['top', 'coming-up', 'open-play', 'rates', 'rent', 'new', 'lessons', 'cafe', 'find-us', 'about', 'book', 'faq', 'welcome', 'start', 'family', 'getting-here', 'ready'].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+    ['top', 'coming-up', 'open-play', 'rates', 'rent', 'new', 'lessons', 'cafe', 'cafe-teaser', 'find-us', 'about', 'book', 'faq', 'welcome', 'start', 'family', 'getting-here', 'ready'].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
   }
   document.addEventListener('saranay:path', function (e) { base = BY_PATH[e.detail] || document.body.dataset.dockBase || 'play'; refresh(); });
   var form = document.getElementById('split');

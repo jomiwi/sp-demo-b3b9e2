@@ -1,5 +1,19 @@
 # Saranay demo site · v3 changelog (visual identity)
 
+## v3.15 RC4.9.1 (local + Vercel preview) - Nov 6 2026 · restore café nav, home teaser and café links (Jon)
+
+Jon (Nov 6, 8:21 AM via Sage): "I want it back menu and home teaser, etc. back into the page!" Reverses the v3.15 RC "Café: out of the nav, hero and teaser" cut (be303bb), keeping every other v3.15 rule.
+
+- **Header + phone menu** (home, café, beginners): Café → `cafe/` (`data-cta=nav_cafe`). Café page marks it `aria-current="page"`.
+- **Home teaser** `#cafe-teaser`: one photo, one line, "See the café" → `cafe/` (`cafe_teaser_see_the_cafe`). Photo uses the ig01 rights switch with the court-shade fallback (same as the café hero). **Placement:** after Lessons, before Find us — not next to the rent-section café card, so the booking-path note and the destination teaser are not stacked duplicates.
+- **Hero chooser:** "Just the café" chip and panel restored alongside Lessons (5 chips; scrollable). Facts: open during court bookings; no TBC; no invented menu items. CTAs: See the café → `cafe/`, Ask about the café → Facebook page.
+- **Proof cell:** "One court with its own café" → `cafe/` (`proof_cafe`) replaces the Lessons proof cell (Lessons stays in the chooser and Lessons section).
+- **Footer:** "The café: D' Rafael's Cafe" link restored (`footer_cafe`); hours line kept ("open during court bookings").
+- **main.js:** `MOVE.cafe` → cafe-teaser + find-us; `?play=cafe` selects café again; dock `BY_SECTION`/`BY_PATH` watch `cafe-teaser`. `cafe_link_click` wiring unchanged.
+- **Nav fit:** desktop nav gap tightened to `--s-4` between 60rem and 72rem so five links + Book/Join fit at 1024.
+- Kept: rent café card, FAQ café links, RC4.8 menu, narrowed ₱150 guard, /book/, noindex, tracking, RC4.9 tokens (`--section-y`, button hovers, proof hover).
+- `/v3.15/` home, café and beginners re-frozen.
+
 ## v3.15 RC4.8 (LOCAL ONLY, not pushed) - Nov 5 2026 · the café's real menu and prices
 Source: D' Rafael's Cafe's own printed menu (two pages, food and drinks), sent by Jon on Nov 5. Every item and price comes from it, and nothing that isn't on it is shown.
 - **Food stays open (Appetizers).** French Fries ₱150 (cheese, sour cream or BBQ), Streetfoods ₱150, Chick N' Fries ₱220, Nachos ₱250, Calamares ₱280. Each row now has a price column.
