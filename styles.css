@@ -884,3 +884,5 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
   .pp-table td::before { content: attr(data-label); display: block; font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--c-muted); margin-bottom: var(--s-1); }
 }
 @media (min-width: 60rem) { .pp-tools { grid-template-columns: repeat(3, 1fr); } }
+.pp-glance__sub { margin: calc(-1 * var(--s-3)) 0 var(--s-6); color: var(--c-muted); font-size: var(--fs-lg); }
+.pp-tool p + p { margin-top: var(--s-3); }
