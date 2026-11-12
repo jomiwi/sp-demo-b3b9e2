@@ -1,5 +1,14 @@
 # Saranay demo site · v3 changelog (visual identity)
 
+## v3.15 LIVE on saranaypickleball.com - Nov 12 2026 (Jon's go, by call)
+
+- Built with `_build/build-golive.py --launch` from release/v3.15 @ 6ce3762, with `owner-ok.json` set to ai_images on and all ig keys off. noindex is off, and the CNAME is saranaypickleball.com.
+- Published to the gh-pages branch as commit 08b88ce. The custom domain moved from the saranay-placeholder repo to this repo. GoDaddy DNS points A @ to the four GitHub Pages IPs, and CNAME www to jomiwi.github.io.
+- The HTTPS certificate was approved for the apex and www (expires Feb 10 2027, renews automatically), and HTTPS is enforced.
+- The AI hero image and AI share image are live. The real court photo set is the fallback. Photo swaps are deferred until Jon, Raf, Rhema and Liz confer.
+- Post-launch: DID-132 (hero below the fold, Open Play nav anchor, Liz's item), DID-131 (IG carousel), DID-41 (13 owner facts), DID-57, DID-39, DID-44.
+
+
 ## v3.15 RC4.9.1 (local + Vercel preview) - Nov 6 2026 · restore café nav, home teaser and café links (Jon)
 
 Jon (Nov 6, 8:21 AM via Sage): "I want it back menu and home teaser, etc. back into the page!" Reverses the v3.15 RC "Café: out of the nav, hero and teaser" cut (be303bb), keeping every other v3.15 rule.
