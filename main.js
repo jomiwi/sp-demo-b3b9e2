@@ -412,3 +412,23 @@ function saranayTag(href, loc) {
   }
   tick(); setInterval(tick, 60000);
 })();
+
+/* Nov 13 · Tap-to-load map: nothing from Google loads until the visitor taps Show map. Then the original embed is injected. */
+(function () {
+  var frame = document.getElementById('map-frame'), wrap = document.getElementById('map-cta-js'), btn = document.getElementById('map-load');
+  if (!frame || !wrap || !btn) return;
+  wrap.hidden = false;
+  btn.addEventListener('click', function () {
+    var f = document.createElement('iframe');
+    f.title = frame.getAttribute('data-map-title');
+    f.src = frame.getAttribute('data-map-src');
+    f.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+    f.setAttribute('allowfullscreen', '');
+    f.setAttribute('tabindex', '0');
+    frame.textContent = '';
+    frame.appendChild(f);
+    frame.classList.add('is-live');
+    var dn = document.getElementById('map-drawn-note'); if (dn) dn.remove();
+    f.focus();
+  });
+})();
