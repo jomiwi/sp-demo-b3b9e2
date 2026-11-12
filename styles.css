@@ -819,3 +819,68 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
 .map-cta__btn svg { width: 1.25rem; height: 1.25rem; }
 .map-cta__note { margin: 0; font-size: var(--fs-xs); font-weight: var(--fw-semibold); color: var(--c-ink); }
 .map-frame.is-live { background: var(--c-paper-2); }
+
+/* ===== Privacy page (/privacy/, draft v1, Nov 13 2026). Tokens only. ===== */
+.pp-hero { padding-block: var(--s-10) var(--s-12); }
+.pp-hero__inner { max-width: 46rem; }
+.pp-hero__inner > * + * { margin-top: var(--s-4); }
+.pp-hero__title { font-family: var(--font-serif); font-style: italic; font-weight: var(--fw-regular); font-stretch: 100%; text-transform: none; letter-spacing: -0.02em; line-height: 0.95; font-size: clamp(2.75rem, 1.5rem + 5vw, 5.5rem); margin: 0; }
+.pp-hero .lede { color: var(--c-on-dark); font-size: var(--fs-xl); }
+.pp-choice { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); margin-top: var(--s-6); padding: var(--s-4) var(--s-5); background: var(--c-ink-2); border: 1px solid var(--c-line-dark); border-radius: var(--r-lg); }
+.pp-choice__status { margin: 0; flex: 1 1 14rem; }
+.pp-choice__status strong { color: var(--c-sky); }
+.pp-hero__updated { margin-top: var(--s-5); }
+
+.pp-h2 { font-size: clamp(1.75rem, 1.3rem + 2vw, 2.75rem); margin-bottom: var(--s-5); }
+.pp-glance__grid { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); }
+.pp-card { background: var(--c-surface); border: var(--border); border-radius: var(--r-lg); padding: var(--s-5) var(--s-6); border-top: 4px solid var(--c-court); }
+.pp-card h3 { font-size: var(--fs-lg); margin-bottom: var(--s-2); }
+.pp-card p { margin: 0; color: var(--c-muted); }
+.pp-card p strong { color: var(--c-text); }
+.pp-toc { margin-top: var(--s-10); }
+.pp-toc__title { font: var(--fw-bold) var(--fs-xs)/1.3 var(--font-body); letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--c-muted); margin-bottom: var(--s-3); }
+.pp-toc ol { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: var(--s-2); counter-reset: toc; }
+.pp-toc li { counter-increment: toc; }
+.pp-toc a { display: inline-flex; align-items: center; gap: var(--s-2); min-height: var(--tap); padding: var(--s-2) var(--s-4); border: 1px solid var(--c-line-strong); border-radius: var(--r-pill); color: var(--c-text); text-decoration: none; font-size: var(--fs-sm); background: var(--c-paper); }
+.pp-toc a::before { content: counter(toc); font-weight: var(--fw-bold); color: var(--c-court); }
+.pp-toc a:hover { border-color: var(--c-court); color: var(--c-court-deep); }
+
+.pp-prose { max-width: 48rem; }
+.pp-prose > section + section { margin-top: var(--s-12); padding-top: var(--s-10); border-top: 1px solid var(--c-line); }
+.pp-prose p, .pp-prose li { max-width: 44rem; }
+.pp-prose p + p { margin-top: var(--s-4); }
+.pp-prose a:not(.btn) { color: var(--c-court); }
+.pp-prose code, .pp-table code { font: var(--fw-semibold) 0.92em/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: var(--c-paper-2); padding: 0.1em 0.35em; border-radius: var(--r-sm); overflow-wrap: anywhere; }
+.pp-facts dt { color: var(--c-text); }
+.pp-facts dd { color: var(--c-muted); }
+.pp-list { padding-left: var(--s-5); margin: var(--s-4) 0; }
+.pp-list li + li { margin-top: var(--s-3); }
+.pp-list li::marker { color: var(--c-court); }
+.pp-tools { display: grid; gap: var(--s-4); }
+.pp-tool { background: var(--c-surface); border: var(--border); border-radius: var(--r-lg); padding: var(--s-5) var(--s-6); }
+.pp-tool h3 { margin-bottom: var(--s-1); }
+.pp-tool__meta { margin: 0 0 var(--s-3); font-size: var(--fs-sm); color: var(--c-muted); font-weight: var(--fw-semibold); }
+.pp-tool p:last-child { margin-bottom: 0; }
+.pp-rights { list-style: none; padding: 0; margin: var(--s-5) 0; display: grid; gap: var(--s-3); grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); }
+.pp-rights li { background: var(--c-surface); border: var(--border); border-radius: var(--r-md); padding: var(--s-4) var(--s-5); border-left: 4px solid var(--c-ball); }
+.pp-rights strong { display: block; margin-bottom: var(--s-1); }
+
+.pp-table-wrap { margin: var(--s-6) 0 var(--s-4); }
+.pp-table { width: 100%; border-collapse: collapse; background: var(--c-surface); border: var(--border); border-radius: var(--r-lg); overflow: hidden; font-size: var(--fs-sm); }
+.pp-table th, .pp-table td { text-align: left; vertical-align: top; padding: var(--s-3) var(--s-4); border-bottom: 1px solid var(--c-line); }
+.pp-table thead th { background: var(--c-ink); color: var(--c-on-dark); font-weight: var(--fw-bold); font-size: var(--fs-xs); letter-spacing: var(--track-caps); text-transform: uppercase; }
+.pp-table tbody tr:last-child > * { border-bottom: 0; }
+.pp-table tbody th { white-space: nowrap; }
+@media (min-width: 40rem) { .pp-prose { max-width: 60rem; } .pp-table tbody tr:nth-child(even) { background: var(--c-paper); } }
+@media (max-width: 39.99rem) {
+  .pp-table, .pp-table tbody, .pp-table tr, .pp-table th, .pp-table td { display: block; width: 100%; }
+  .pp-table { background: transparent; border: 0; border-radius: 0; overflow: visible; }
+  .pp-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); }
+  .pp-table tr { background: var(--c-surface); border: var(--border); border-radius: var(--r-lg); padding: var(--s-3) var(--s-4); }
+  .pp-table tr + tr { margin-top: var(--s-3); }
+  .pp-table th, .pp-table td { padding: var(--s-2) 0; border-bottom: 1px solid var(--c-line); white-space: normal; }
+  .pp-table tbody tr > :last-child { border-bottom: 0; }
+  .pp-table tbody th { font-size: var(--fs-base); padding-top: var(--s-1); }
+  .pp-table td::before { content: attr(data-label); display: block; font-size: var(--fs-xs); font-weight: var(--fw-bold); letter-spacing: var(--track-caps); text-transform: uppercase; color: var(--c-muted); margin-bottom: var(--s-1); }
+}
+@media (min-width: 60rem) { .pp-tools { grid-template-columns: repeat(3, 1fr); } }
