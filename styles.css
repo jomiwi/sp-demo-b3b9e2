@@ -886,3 +886,11 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
 @media (min-width: 60rem) { .pp-tools { grid-template-columns: repeat(3, 1fr); } }
 .pp-glance__sub { margin: calc(-1 * var(--s-3)) 0 var(--s-6); color: var(--c-muted); font-size: var(--fs-lg); }
 .pp-tool p + p { margin-top: var(--s-3); }
+/* Privacy page language switch (EN / Taglish). Real links, 48px tap, aria-current marks the page you're on. */
+.pp-hero__top { margin-bottom: var(--s-3); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-3) var(--s-5); }
+.pp-hero__top .eyebrow { margin: 0; }
+.pp-lang { display: inline-flex; padding: 3px; border: 1px solid var(--c-line-dark); border-radius: var(--r-pill); background: var(--c-ink-2); }
+.pp-lang a { display: inline-flex; align-items: center; justify-content: center; min-height: var(--tap); min-width: 6.5rem; padding: 0 var(--s-4); border-radius: var(--r-pill); color: var(--c-on-dark); font: var(--fw-semibold) var(--fs-sm)/1 var(--font-body); text-decoration: none; }
+.pp-lang a:hover { text-decoration: underline; text-underline-offset: 0.2em; }
+.pp-lang a[aria-current="page"] { background: var(--c-on-dark); color: var(--c-ink); }
+.pp-lang a:focus-visible { outline: 3px solid var(--c-sky); outline-offset: 2px; }

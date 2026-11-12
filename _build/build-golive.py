@@ -17,7 +17,7 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BUILD = os.path.join(REPO, '_build')
 PAGES = ['index.html', 'cafe/index.html', 'pickleball-for-beginners/index.html']
 BOOK = 'book/index.html'
-OPTIONAL = ['privacy/index.html']
+OPTIONAL = ['privacy/index.html', 'privacy/tl/index.html']
 DEMO_URL = 'https://jomiwi.github.io/sp-demo-b3b9e2/'
 LIVE_URL = 'https://saranaypickleball.com/'
 # RC4.8: '₱150' was narrowed to the open-play phrasings it was added to catch, because French Fries and Streetfoods are ₱150 on the café menu.
