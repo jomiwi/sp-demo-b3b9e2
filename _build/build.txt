@@ -1,20 +1,20 @@
-golive build [preview (noindex kept)] at 2026-11-06 08:58 PST
+golive build [preview (noindex kept)] at 2026-11-12 11:51 PST
 Required: word-for-word check of every text-bearing image against brand "Saranay Pickleball Court & Café" before publish.
-Brand check: img/og-share-1200x630.jpg checked word-for-word by Jared on 2026-11-06 08:58 PST: "NORTH CALOOCAN / SARANAY / PICKLEBALL / Court & Café / Bagumbong North, Caloocan · Court open 6 AM to 2 AM"
+Brand check: img/og-share-1200x630.jpg checked word-for-word by Jared on 2026-11-12 11:51 PST: "NORTH CALOOCAN / SARANAY / PICKLEBALL / Court & Café / Bagumbong North, Caloocan · Court open 6 AM to 2 AM"
 Other text-bearing images:
   - img/og-hero-1200x630.jpg: has baked headline (ships only when ai_images is approved). Needs the same word-for-word brand check before any build that enables it.
   - img/hero-court-*.webp / hero-court-wide-*.webp: court photos only, no baked brand text (page CSS/HTML carries the lockup).
   - img/logo-480.svg: logo mark; confirm it does not say "Pickleball and Coffee" or unaccented Cafe in the brand lockup before publish.
 og:image dump:
-  cafe/index.html: og:image = https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg?v=3.15.2
-  cafe/index.html: og:image:alt = Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball Court &amp; Café, beside a photo of the blue court on green turf.
-  cafe/index.html: twitter:image = https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg?v=3.15.2
-  cafe/index.html: twitter:image:alt = Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball Court &amp; Café, beside a photo of the blue court on green turf.
-  index.html: og:image = https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg?v=3.15.2
-  index.html: og:image:alt = Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball Court &amp; Café, beside a photo of the blue court on green turf.
-  index.html: twitter:image = https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg?v=3.15.2
-  index.html: twitter:image:alt = Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball Court &amp; Café, beside a photo of the blue court on green turf.
-  pickleball-for-beginners/index.html: og:image = https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg?v=3.15.2
-  pickleball-for-beginners/index.html: og:image:alt = Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball Court &amp; Café, beside a photo of the blue court on green turf.
-  pickleball-for-beginners/index.html: twitter:image = https://jomiwi.github.io/sp-demo-b3b9e2/img/og-share-1200x630.jpg?v=3.15.2
-  pickleball-for-beginners/index.html: twitter:image:alt = Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball Court &amp; Café, beside a photo of the blue court on green turf.
+  cafe/index.html: og:image = https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg?v=3.15
+  cafe/index.html: og:image:alt = Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball Court &amp; Café, beside friends toasting with iced coffees on the court at golden hour.
+  cafe/index.html: twitter:image = https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg?v=3.15
+  cafe/index.html: twitter:image:alt = Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball Court &amp; Café, beside friends toasting with iced coffees on the court at golden hour.
+  index.html: og:image = https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg?v=3.15
+  index.html: og:image:alt = Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball Court &amp; Café, beside friends toasting with iced coffees on the court at golden hour.
+  index.html: twitter:image = https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg?v=3.15
+  index.html: twitter:image:alt = Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball Court &amp; Café, beside friends toasting with iced coffees on the court at golden hour.
+  pickleball-for-beginners/index.html: og:image = https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg?v=3.15
+  pickleball-for-beginners/index.html: og:image:alt = Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball Court &amp; Café, beside friends toasting with iced coffees on the court at golden hour.
+  pickleball-for-beginners/index.html: twitter:image = https://jomiwi.github.io/sp-demo-b3b9e2/img/og-hero-1200x630.jpg?v=3.15
+  pickleball-for-beginners/index.html: twitter:image:alt = Saranay Pickleball Court &amp; Café: the headline Saranay Pickleball Court &amp; Café, beside friends toasting with iced coffees on the court at golden hour.
