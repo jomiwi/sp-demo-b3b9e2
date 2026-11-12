@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="Drawn map of Saranay Homes, Bagumbong North, Caloocan">
+  <defs>
+    <pattern id="lots" width="28" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(-8)">
+      <rect width="28" height="22" fill="#E8E4D9"/>
+      <rect x="2" y="2" width="24" height="18" rx="2" fill="#DDD7C8"/>
+    </pattern>
+    <pattern id="lots-home" width="24" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(-8)">
+      <rect width="24" height="18" fill="#D6E2FA"/>
+      <rect x="2" y="2" width="20" height="14" rx="2" fill="#C2D3F6"/>
+    </pattern>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#FFB502" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#FFB502" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="#F4F2EC"/>
+  <rect x="-40" y="-40" width="880" height="680" fill="url(#lots)" opacity="0.75"/>
+  <path d="M-20 520 C 120 470, 230 560, 380 515 S 640 470, 820 505 L 820 620 L -20 620 Z" fill="#DCE8D2"/>
+  <path d="M-20 540 C 120 490, 230 580, 380 535 S 640 490, 820 525" fill="none" stroke="#9CC3E6" stroke-width="7" stroke-linecap="round" opacity="0.9"/>
+  <path d="M330 110 L 640 80 L 680 330 L 370 362 Z" fill="url(#lots-home)" stroke="#1F4FD1" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round"/>
+  <g fill="none" stroke="#FFFFFF" stroke-width="9" stroke-linecap="round">
+    <path d="M352 286 L 668 252"/>
+    <path d="M480 94 L 512 350"/>
+  </g>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M-20 440 C 120 430, 260 418, 400 392" stroke="#CFC9BB" stroke-width="18"/>
+    <path d="M-20 440 C 120 430, 260 418, 400 392" stroke="#FFFFFF" stroke-width="12"/>
+    <path d="M-20 232 C 200 216, 450 200, 700 176" stroke="#CFC9BB" stroke-width="20"/>
+    <path d="M-20 232 C 200 216, 450 200, 700 176" stroke="#FFFFFF" stroke-width="14"/>
+    <path d="M-20 232 C 200 216, 450 200, 700 176" stroke="#FFB502" stroke-width="3" stroke-dasharray="12 10"/>
+  </g>
+  <path d="M640 -20 C 690 140, 720 260, 780 400 S 830 560, 840 640" fill="none" stroke="#14328A" stroke-width="32" stroke-linecap="round" opacity="0.18"/>
+  <path d="M640 -20 C 690 140, 720 260, 780 400 S 830 560, 840 640" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round"/>
+  <g font-family="'Arial Narrow', 'Roboto Condensed', Arial, sans-serif" font-weight="700" letter-spacing="2.5">
+    <text x="668" y="40" font-size="15" fill="#0B0F1A" transform="rotate(72 668 40)">CONGRESSIONAL RD EXT</text>
+    <text x="120" y="212" font-size="14" fill="#0B0F1A" transform="rotate(-4 120 212)">SARANAY RD</text>
+    <text x="384" y="334" font-size="15" fill="#14328A" transform="rotate(-6 384 334)">SARANAY HOMES</text>
+    <text x="40" y="585" font-size="12" fill="#4B505C" letter-spacing="1.5">BAGUMBONG NORTH · CALOOCAN</text>
+  </g>
+  <g transform="translate(60 62)">
+    <circle r="26" fill="#FFFFFF" stroke="#CFC9BB" stroke-width="2"/>
+    <path d="M0 -17 L 7 6 L 0 2 L -7 6 Z" fill="#0B0F1A"/>
+    <text y="18" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="10" fill="#0B0F1A">N</text>
+  </g>
+  <g transform="translate(520 198)">
+    <circle r="64" fill="url(#glow)"/>
+    <ellipse cx="0" cy="4" rx="18" ry="6" fill="#0B0F1A" opacity="0.22"/>
+    <path d="M0 0 C -6 -14, -30 -30, -30 -52 A 30 30 0 1 1 30 -52 C 30 -30, 6 -14, 0 0 Z" fill="#1F4FD1" stroke="#FFFFFF" stroke-width="4"/>
+    <circle cx="0" cy="-52" r="15" fill="#FFB502"/>
+    <g fill="#1F4FD1"><circle cx="-5" cy="-57" r="2.2"/><circle cx="5" cy="-58" r="2.2"/><circle cx="6" cy="-47" r="2.2"/><circle cx="-4" cy="-46" r="2.2"/><circle cx="0" cy="-52" r="2.2"/></g>
+  </g>
+</svg>

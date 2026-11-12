@@ -808,3 +808,14 @@ a.hero__next:focus-visible { outline: 3px solid var(--c-focus-dark); outline-off
 }
 /* Smallest phones (< 22.5rem, e.g. 320): the half-width Call tile drops its icon so "+63 906 545 8384" fits on one line inside the tile. */
 @media (max-width: 22.49rem) { .hero__ctas > .hero__call svg { display: none; } }
+
+/* ===== Tap-to-load map (Nov 13). A drawing stored on the site shows first; Google Maps loads only on "Show map". ===== */
+.map-frame { position: relative; }
+.map-static { display: block; width: 100%; height: 100%; object-fit: cover; }
+.map-cta { position: absolute; inset: auto 0 0 0; display: flex; justify-content: center; padding: var(--s-4); background: linear-gradient(to top, rgb(244 242 236 / 0.96) 45%, rgb(244 242 236 / 0)); }
+.map-cta__js { display: flex; flex-direction: column; align-items: center; gap: var(--s-1); }
+.map-cta__js[hidden] { display: none; }
+.map-cta__btn { min-height: var(--tap); padding-inline: var(--s-6); box-shadow: var(--shadow-md); }
+.map-cta__btn svg { width: 1.25rem; height: 1.25rem; }
+.map-cta__note { margin: 0; font-size: var(--fs-xs); font-weight: var(--fw-semibold); color: var(--c-ink); }
+.map-frame.is-live { background: var(--c-paper-2); }
