@@ -17,6 +17,8 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BUILD = os.path.join(REPO, '_build')
 PAGES = ['index.html', 'cafe/index.html', 'pickleball-for-beginners/index.html']
 BOOK = 'book/index.html'
+PLAY = 'play/index.html'  # v3.16: open-play redirect, built exactly like /book
+REDIRECTS = (BOOK, PLAY)
 OPTIONAL = ['privacy/index.html', 'privacy/tl/index.html']
 DEMO_URL = 'https://jomiwi.github.io/sp-demo-b3b9e2/'
 LIVE_URL = 'https://saranaypickleball.com/'
@@ -133,7 +135,7 @@ def strip_inline_scripts(html, page):
     return re.sub(r'<script\b([^>]*)>(.*?)</script>', r, html, flags=re.S)
 
 def launch(html, page):
-    if page != BOOK:  # /book is a redirect page: it stays noindex at go-live
+    if page not in REDIRECTS:  # /book and /play are redirect pages: they stay noindex at go-live
         html = re.sub(r'[ \t]*<meta name="(?:robots|googlebot)"[^>]*>\n', '', html)
         url = LIVE_URL + (page[:-len('index.html')])
         html = html.replace('<meta name="viewport"', f'<link rel="canonical" href="{url}">\n  <meta name="viewport"', 1)
@@ -177,15 +179,16 @@ for page in PAGES + [p for p in OPTIONAL if os.path.exists(os.path.join(REPO, p)
     html = strip_inline_scripts(strip_html(html), page)
     if a.launch: html = launch(html, page)
     write(page, html); collect(page, html); report.append(f'{page}: {n} rights blocks processed')
-# /book is copied as is apart from comments (source untouched)
-book = strip_inline_scripts(strip_html(open(os.path.join(REPO, BOOK), encoding='utf-8').read()), BOOK)
-if a.launch: book = launch(book, BOOK)
+# /book and /play are copied as is apart from comments (source untouched); one book-scans switch covers both beacons
 BOOK_SCANS = a.book_scans or os.environ.get('BOOK_SCANS') or ('off' if a.launch else 'on')
-if BOOK_SCANS != 'on':
-    n = book.count("var COUNT_ON = true, COUNT_URL = '/api/count';")
-    book = book.replace("var COUNT_ON = true, COUNT_URL = '/api/count';", "var COUNT_ON = false, COUNT_URL = '';")
-    if n != 1: print('FAILED: book-scans switch marker not found'); sys.exit(1)
-write(BOOK, book); collect(BOOK, book)
+for R in REDIRECTS:
+    book = strip_inline_scripts(strip_html(open(os.path.join(REPO, R), encoding='utf-8').read()), R)
+    if a.launch: book = launch(book, R)
+    if BOOK_SCANS != 'on':
+        n = book.count("var COUNT_ON = true, COUNT_URL = '/api/count';")
+        book = book.replace("var COUNT_ON = true, COUNT_URL = '/api/count';", "var COUNT_ON = false, COUNT_URL = '';")
+        if n != 1: print(f'FAILED: book-scans switch marker not found in {R}'); sys.exit(1)
+    write(R, book); collect(R, book)
 
 refs.discard('index.html'); 
 for p in sorted(refs):
@@ -229,20 +232,21 @@ for f in files:
     if f.endswith('.html'):
         robots = re.findall(r'<meta name="(?:robots|googlebot)" content="([^"]*)"', t)
         has_noindex = bool(robots) and all('noindex' in v for v in robots) and len(robots) == 2
-        if f == BOOK and not has_noindex: fails.append(f'{f}: /book must keep robots + googlebot noindex in every build')
-        if f != BOOK and not a.launch and not has_noindex: fails.append(f'{f}: noindex missing (preview build)')
-        if f != BOOK and a.launch and robots: fails.append(f'{f}: robots/googlebot meta left in launch build')
-        if f != BOOK and a.launch and '<link rel="canonical"' not in t: fails.append(f'{f}: canonical missing (launch build)')
+        if f in REDIRECTS and not has_noindex: fails.append(f'{f}: redirect page must keep robots + googlebot noindex in every build')
+        if f not in REDIRECTS and not a.launch and not has_noindex: fails.append(f'{f}: noindex missing (preview build)')
+        if f not in REDIRECTS and a.launch and robots: fails.append(f'{f}: robots/googlebot meta left in launch build')
+        if f not in REDIRECTS and a.launch and '<link rel="canonical"' not in t: fails.append(f'{f}: canonical missing (launch build)')
         for sc in re.findall(r'<script\b(?![^>]*\bsrc=)(?![^>]*ld\+json)[^>]*>(.*?)</script>', t, flags=re.S):
             if re.sub(r'\s', '', strip_js_safe(sc)) != re.sub(r'\s', '', sc): fails.append(f'{f}: JS comment left in inline <script>')
 for f in files:
     top = f.split('/')[0]
     if re.match(r'v\d', top) or top in ('README.md', 'CHANGELOG.md', 'booktest', '_build'): fails.append(f'{f}: should not ship')
     if f.startswith('img/') and f not in refs: fails.append(f'{f}: unused image')
-_bk = open(os.path.join(out, BOOK), encoding='utf-8').read()
-if BOOK_SCANS == 'on' and 'COUNT_ON = true' not in _bk: fails.append('/book: book-scans on but COUNT_ON not true')
-if BOOK_SCANS != 'on' and ('/api/count' in _bk or 'COUNT_ON = false' not in _bk): fails.append('/book: book-scans off but /api/count still present')
-report.append(f'/book no-consent count beacon (book-scans): {BOOK_SCANS.upper()}' + (' (launch default OFF; pass --book-scans on or BOOK_SCANS=on)' if a.launch else ''))
+for R in REDIRECTS:
+    _bk = open(os.path.join(out, R), encoding='utf-8').read()
+    if BOOK_SCANS == 'on' and 'COUNT_ON = true' not in _bk: fails.append(f'{R}: book-scans on but COUNT_ON not true')
+    if BOOK_SCANS != 'on' and ('/api/count' in _bk or 'COUNT_ON = false' not in _bk): fails.append(f'{R}: book-scans off but /api/count still present')
+report.append(f'/book + /play no-consent count beacon (book-scans): {BOOK_SCANS.upper()}' + (' (launch default OFF; pass --book-scans on or BOOK_SCANS=on)' if a.launch else ''))
 if a.launch and 'CNAME' not in files: fails.append('CNAME missing (launch build)')
 if not a.launch and 'CNAME' in files: fails.append('CNAME in a preview build (it would claim the domain)')
 if a.launch and open(os.path.join(out, 'CNAME')).read().strip() != urlsplit(LIVE_URL).netloc: fails.append('CNAME does not match LIVE_URL')
@@ -337,4 +341,4 @@ for f in sorted(files): print(f'  {os.path.getsize(os.path.join(out, f)):>8}  {f
 if fails:
     print('\nFAILED:\n  ' + '\n  '.join(fails)); sys.exit(1)
 print(f'{len(files)} files, all checks passed: no {", ".join(FORBIDDEN)}; brand "{BRAND}"; no comments (incl. inline JS), ribbon, /vX/, README, CHANGELOG or unused images; '
-      + ('/book noindex, other pages indexable with canonical, CNAME present.' if a.launch else 'noindex on every page, no CNAME.'))
+      + ('/book + /play noindex, other pages indexable with canonical, CNAME present.' if a.launch else 'noindex on every page, no CNAME.'))

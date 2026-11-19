@@ -1,5 +1,16 @@
 # Saranay demo site · v3 changelog (visual identity)
 
+## v3.16 /play open-play redirect (preview, NOT live) - Nov 19 2026
+
+Decision 2026-11-05 (Sage, nightly proposals review; proposal by Lee): add a tracked /play short link beside /book for open-play posts and QR codes.
+
+- **New `play/index.html`**: copy of the /book redirect. Destination `https://reclub.co/clubs/@saranay-pickleball-club` plus the incoming utm_* unchanged. Optional `?cta=` (default `play_redirect`).
+- **Stored Accept**: loads GTM-TZ4KN34J and pushes `join_open_play_click` (cta_location, link_url, play_context `play_redirect`, page_location, utm_*, analytics_consent) with eventCallback + 2000 ms timeout, same as /book.
+- **No choice / Decline**: nothing from Google loads; same first-party beacon and the same build switch as /book (`event: join_open_play_click`). `--launch` turns it OFF unless `--book-scans on`.
+- Title "Join open play on Reclub | Saranay Pickleball Court & Café"; robots + googlebot noindex in every build; no canonical; not in sitemap.xml (same as /book); robots.txt `Disallow: /play/` beside /book.
+- The link has a real href, so it works with JS off; no duplicate noscript button.
+- `_build/build-golive.py`: /book and /play built through one REDIRECTS list (noindex guard, book-scans switch and checks cover both).
+
 ## v3.15 LIVE on saranaypickleball.com - Nov 12 2026 (Jon's go, by call)
 
 - Built with `_build/build-golive.py --launch` from release/v3.15 @ 6ce3762, with `owner-ok.json` set to ai_images on and all ig keys off. noindex is off, and the CNAME is saranaypickleball.com.
