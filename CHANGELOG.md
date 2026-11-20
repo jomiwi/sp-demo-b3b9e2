@@ -10,6 +10,7 @@ Decision 2026-11-05 (Sage, nightly proposals review; proposal by Lee): add a tra
 - Title "Join open play on Reclub | Saranay Pickleball Court & Café"; robots + googlebot noindex in every build; no canonical; not in sitemap.xml (same as /book); robots.txt `Disallow: /play/` beside /book.
 - The link has a real href, so it works with JS off; no duplicate noscript button.
 - `_build/build-golive.py`: /book and /play built through one REDIRECTS list (noindex guard, book-scans switch and checks cover both).
+- **GA4 redirect race (play and book)**: with a stored Accept, the click is not pushed until GTM-TZ4KN34J's `gtag/js` has loaded. `join_open_play_click` / `book_court_click` then fire once, and the redirect waits until that `/g/collect` has been passed to `navigator.sendBeacon` (250 ms cap, still inside the 2000 ms load fallback). `gtag('set', 'transport_type', 'beacon')` in both the string and object forms does not change current gtag.js (no `ep.transport_type`, and the library still calls fetch keepalive). Fetch keepalive is aborted by an immediate `location.replace`, so the same collect URL and body are handed to `sendBeacon` instead. No choice / Decline is unchanged: no Google requests, and `/api/count` only when the build leaves `COUNT_ON` on.
 
 ## v3.15 LIVE on saranaypickleball.com - Nov 12 2026 (Jon's go, by call)
 
