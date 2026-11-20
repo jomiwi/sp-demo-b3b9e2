@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Join open play on Reclub | Saranay Pickleball Court &amp; Café</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <script>
+  (function () {
+    var RECLUB = 'https://reclub.co/clubs/@saranay-pickleball-club';
+    var GTM_ID = 'GTM-TZ4KN34J';
+    var COUNT_ON = false, COUNT_URL = '';
+    var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var sp = null; try { sp = new URLSearchParams(location.search); } catch (e) {}
+    function arg(k) { var v = sp && sp.get(k); return v ? v : undefined; }
+    var q = {}, fwd = [];
+    UTM.forEach(function (k) { var v = arg(k); q[k] = v; if (v) fwd.push(k + '=' + encodeURIComponent(v)); });
+    var cta = arg('cta'); if (!cta || !/^[a-z0-9_]{1,80}$/.test(cta)) cta = 'play_redirect';
+    var PLAY_DEST = RECLUB + (fwd.length ? '?' + fwd.join('&') : '');
+    window.SARANAY_PLAY_DEST = PLAY_DEST;
+    function setLinks() { var l = document.getElementById('play-fallback'); if (l) l.href = PLAY_DEST; }
+    document.addEventListener('DOMContentLoaded', setLinks);
+    var done = false;
+    function go(via) { if (done) return; done = true; stopWatch(); window.SARANAY_PLAY_VIA = via; location.replace(PLAY_DEST); }
+    var consent = null;
+    try { consent = localStorage.getItem('saranay_consent'); } catch (e) {}
+    if (consent !== 'granted') {
+      try {
+        if (COUNT_ON && COUNT_URL && navigator.sendBeacon) {
+          var body = JSON.stringify({ event: 'join_open_play_click', utm_source: q.utm_source, utm_medium: q.utm_medium, utm_campaign: q.utm_campaign,
+            utm_content: q.utm_content, utm_term: q.utm_term, cta: cta, page: location.pathname });
+          window.SARANAY_BEACON = navigator.sendBeacon(COUNT_URL, new Blob([body], { type: 'text/plain' }));
+        }
+      } catch (e) {}
+      setTimeout(function () { go('no_consent'); }, 0);
+      return;
+    }
+    var EVENT = 'join_open_play_click';
+    var started = Date.now();
+    window.SARANAY_PLAY_T0 = started;
+    window.SARANAY_HITS = [];
+    var eventPushed = false, collectQueued = false, settling = false, gtagArmed = false;
+    var watch = null, obs = null, resourceSeen = 0;
+    setTimeout(function () { go('load_fallback'); }, 2000);
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+    gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+    function armTransport() {
+      gtag('set', 'transport_type', 'beacon');
+      gtag('set', { transport_type: 'beacon' });
+    }
+    armTransport();
+    window.SARANAY_TRANSPORT_SET = 'string+object';
+    function textOf(data, cb) {
+      try {
+        if (data == null || data === '') { cb(''); return; }
+        if (typeof data === 'string') { cb(data); return; }
+        if (window.URLSearchParams && data instanceof URLSearchParams) { cb(String(data)); return; }
+        if (typeof TextDecoder === 'function' && data instanceof Uint8Array) { cb(new TextDecoder().decode(data)); return; }
+        if (typeof Blob === 'function' && data instanceof Blob) { data.text().then(cb, function () { cb(''); }); return; }
+      } catch (e) {}
+      cb('');
+    }
+    function noteCollect(url, data, transport) {
+      var u = String(url || '');
+      textOf(data, function (extra) {
+        var blob = u + '\n' + (extra || '');
+        if (blob.indexOf('/g/collect') === -1 && blob.indexOf('google-analytics.com') === -1 && blob.indexOf('analytics.google.com') === -1) return;
+        var matched = blob.indexOf('en=' + EVENT) !== -1;
+        window.SARANAY_HITS.push({ transport: transport, click: matched ? 1 : 0, t: Date.now() - started });
+        if (matched) { collectQueued = true; window.SARANAY_TRANSPORT = transport; window.SARANAY_COLLECT_AT = Date.now(); }
+      });
+    }
+    var origBeacon = navigator.sendBeacon ? navigator.sendBeacon.bind(navigator) : null;
+    if (origBeacon) {
+      navigator.sendBeacon = function (url, data) {
+        var ok = false;
+        try { ok = origBeacon(url, data); } catch (e) { return false; }
+        try { noteCollect(url, data, 'beacon'); } catch (e2) {}
+        return ok;
+      };
+    }
+    var origFetch = window.fetch ? window.fetch.bind(window) : null;
+    function isCollectUrl(url) { return String(url || '').indexOf('/g/collect') !== -1; }
+    function beaconBody(body) {
+      if (body == null || body === '') return undefined;
+      if (typeof body === 'string' || (typeof Blob === 'function' && body instanceof Blob) || body instanceof Uint8Array || (window.URLSearchParams && body instanceof URLSearchParams)) return body;
+      return undefined;
+    }
+    if (origFetch) {
+      window.fetch = function (input, init) {
+        var url = '';
+        try { url = (typeof input === 'string') ? input : (input && input.url) || ''; } catch (e) {}
+        var body = init && init.body;
+        if (isCollectUrl(url) && origBeacon) {
+          var payload = beaconBody(body);
+          var ok = false;
+          try { ok = payload === undefined ? origBeacon(url) : origBeacon(url, payload); } catch (e2) { ok = false; }
+          try { noteCollect(url, payload === undefined ? '' : payload, ok ? 'beacon' : 'beacon-failed'); } catch (e3) {}
+          if (ok) return Promise.resolve(new Response(null, { status: 204 }));
+        }
+        try {
+          var keepalive = !!(init && init.keepalive);
+          noteCollect(url, typeof body === 'string' ? body : '', keepalive ? 'fetch-keepalive' : 'fetch');
+        } catch (e4) {}
+        return origFetch.apply(window, arguments);
+      };
+    }
+    function settleAndGo() {
+      if (settling || done) return;
+      settling = true;
+      window.SARANAY_CALLBACK_AT = Date.now();
+      var t0 = Date.now();
+      (function tick() {
+        if (done) return;
+        if (!collectQueued) {
+          try {
+            var ents = performance.getEntriesByType('resource');
+            for (var i = 0; i < ents.length; i++) {
+              var name = ents[i].name || '';
+              if ((name.indexOf('/g/collect') !== -1 || name.indexOf('google-analytics.com') !== -1) && name.indexOf('en=' + EVENT) !== -1) {
+                collectQueued = true;
+                if (!window.SARANAY_TRANSPORT) window.SARANAY_TRANSPORT = 'performance';
+                window.SARANAY_COLLECT_AT = window.SARANAY_COLLECT_AT || Date.now();
+              }
+            }
+          } catch (e) {}
+        }
+        if (collectQueued || Date.now() - t0 >= 250) {
+          window.SARANAY_SETTLE_MS = Date.now() - t0;
+          setTimeout(function () { go('callback'); }, collectQueued ? 40 : 0);
+          return;
+        }
+        setTimeout(tick, 16);
+      })();
+    }
+    function pushClick() {
+      if (eventPushed || done) return;
+      eventPushed = true;
+      stopWatch();
+      armTransport();
+      var payload = {
+        event: EVENT,
+        cta_location: cta,
+        link_url: PLAY_DEST,
+        play_context: 'play_redirect',
+        page_location: location.href,
+        utm_source: q.utm_source, utm_medium: q.utm_medium, utm_campaign: q.utm_campaign, utm_content: q.utm_content, utm_term: q.utm_term,
+        analytics_consent: 'granted'
+      };
+      window.SARANAY_PLAY_PAYLOAD = payload;
+      window.SARANAY_EVENT_PUSHED_AT = Date.now();
+      dataLayer.push({
+        event: payload.event,
+        cta_location: payload.cta_location,
+        link_url: payload.link_url,
+        play_context: payload.play_context,
+        page_location: payload.page_location,
+        utm_source: payload.utm_source, utm_medium: payload.utm_medium, utm_campaign: payload.utm_campaign, utm_content: payload.utm_content, utm_term: payload.utm_term,
+        analytics_consent: payload.analytics_consent,
+        eventCallback: function () { settleAndGo(); },
+        eventTimeout: 2000
+      });
+    }
+    function isGtagSrc(src) { src = src || ''; return src.indexOf('gtag/js') !== -1 && src.indexOf('googletagmanager.com') !== -1; }
+    function gtagResourceDone() {
+      try {
+        var ents = performance.getEntriesByType('resource');
+        for (var i = 0; i < ents.length; i++) {
+          if (isGtagSrc(ents[i].name) && ents[i].responseEnd > 0) return true;
+        }
+      } catch (e) {}
+      return false;
+    }
+    function considerReady(why) {
+      if (eventPushed || done) return;
+      window.SARANAY_GTAG_LOADED_AT = Date.now();
+      window.SARANAY_GTAG_READY_WHY = why;
+      pushClick();
+    }
+    function armGtag(node) {
+      if (gtagArmed || done || eventPushed || !node) return;
+      var src = node.src || (node.getAttribute && node.getAttribute('src')) || '';
+      if (!isGtagSrc(src)) return;
+      gtagArmed = true;
+      window.SARANAY_GTAG_SEEN_AT = Date.now();
+      if (node.readyState === 'complete' || node.readyState === 'loaded') { considerReady('readystate'); return; }
+      node.addEventListener('load', function () { considerReady('onload'); });
+      node.addEventListener('error', function () { window.SARANAY_GTAG_ERROR = 1; go('load_fallback'); });
+    }
+    function scan() {
+      if (done || eventPushed) { stopWatch(); return; }
+      var scripts = document.getElementsByTagName('script');
+      for (var i = 0; i < scripts.length; i++) if (isGtagSrc(scripts[i].src || '')) armGtag(scripts[i]);
+      if (eventPushed) return;
+      if (gtagResourceDone()) {
+        if (!resourceSeen) resourceSeen = Date.now();
+        else if (!gtagArmed && Date.now() - resourceSeen >= 30) considerReady('resource');
+        else if (gtagArmed && Date.now() - resourceSeen >= 150) considerReady('resource-fallback');
+      }
+    }
+    function stopWatch() {
+      if (watch) { clearInterval(watch); watch = null; }
+      if (obs) { try { obs.disconnect(); } catch (e) {} obs = null; }
+    }
+    try {
+      obs = new MutationObserver(function (recs) {
+        for (var i = 0; i < recs.length; i++) {
+          var nodes = recs[i].addedNodes;
+          for (var n = 0; n < nodes.length; n++) {
+            var node = nodes[n];
+            if (!node || node.nodeType !== 1) continue;
+            if (node.tagName === 'SCRIPT') armGtag(node);
+            if (node.getElementsByTagName) {
+              var nested = node.getElementsByTagName('script');
+              for (var s = 0; s < nested.length; s++) armGtag(nested[s]);
+            }
+          }
+        }
+      });
+      obs.observe(document.documentElement, { childList: true, subtree: true });
+    } catch (e) {}
+    watch = setInterval(scan, 20);
+    scan();
+    dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    var j = document.createElement('script'); j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + GTM_ID;
+    j.onload = function () { window.SARANAY_GTM_LOADED_AT = Date.now(); };
+    j.onerror = function () { window.SARANAY_GTM_ERROR = 1; go('load_fallback'); };
+    document.head.appendChild(j);
+  })();
+  </script>
+  <style>
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0B0F1A; color: #F4F2EC; font: 1.0625rem/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; text-align: center; padding: 1.5rem; box-sizing: border-box; }
+    a { display: inline-flex; align-items: center; min-height: 44px; padding: 0.75rem 1.25rem; border-radius: 999px; background: #1F4FD1; color: #fff; font-weight: 700; text-decoration: none; }
+    a:focus-visible { outline: 3px solid #FFB800; outline-offset: 3px; }
+    p { margin: 0 0 1rem; text-wrap: balance; }
+  </style>
+</head>
+<body>
+  <main>
+    <p>Taking you to Saranay Pickleball's open play on Reclub…</p>
+    <p><a id="play-fallback" href="https://reclub.co/clubs/@saranay-pickleball-club">Continue to Reclub</a></p>
+  </main>
+</body>
+</html>
