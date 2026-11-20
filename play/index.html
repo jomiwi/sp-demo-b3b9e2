@@ -13,9 +13,16 @@
   /* v3.16 /play redirect (Decision 2026-11-05, Sage): copy of the /book redirect, destination the Reclub club page.
      Open-play posts and QR codes link here as /play?utm_source=...&utm_medium=...&utm_campaign=...[&utm_content=...][&cta=...].
      Consent Mode v2 BASIC, same as /book: nothing from Google loads without a stored Accept.
-     - Stored Accept (localStorage saranay_consent = 'granted'): load GTM-TZ4KN34J and push join_open_play_click with
-       cta_location (from ?cta, else 'play_redirect'), link_url, play_context 'play_redirect' and the incoming utm_* as-is.
-       The redirect runs ONLY from that push's eventCallback (eventTimeout 2000 ms), with the same 2000 ms load fallback as /book.
+     - Stored Accept (localStorage saranay_consent = 'granted'): consent default all-denied, then analytics_storage granted
+       (ad keys stay denied). gtag('set') asks for beacon transport. Load GTM-TZ4KN34J FIRST and do not push the click yet.
+       GTM's gtm.init injects gtag/js and would otherwise run a queued join_open_play_click (and its eventCallback redirect)
+       before gtag/js can send /g/collect, so the hit dies on a fast redirect. Wait until that gtag/js script has loaded,
+       push join_open_play_click once (cta_location from ?cta else 'play_redirect', link_url, play_context 'play_redirect',
+       page_location, incoming utm_* as-is, analytics_consent), then redirect from eventCallback only after /g/collect for
+       that event has been handed to sendBeacon (250 ms cap). Current gtag.js ignores transport_type and uses fetch
+       keepalive, which Chrome aborts on an immediate location.replace, so a /g/collect fetch is reissued with
+       navigator.sendBeacon and the fetch is not left in flight. Outer cap is 2000 ms from start, and gtm.js onerror
+       redirects immediately, so a blocked tag never hangs. go() runs once.
      - No stored choice, or Decline: nothing from Google loads or is pushed. Same first-party beacon as /book, same build switch
        (--launch turns COUNT_ON OFF unless --book-scans on / BOOK_SCANS=on). Event name join_open_play_click.
      Destination: the Reclub club page, plus the incoming utm_* forwarded unchanged (none added when none came in). */
@@ -33,8 +40,8 @@
     window.SARANAY_PLAY_DEST = PLAY_DEST;
     function setLinks() { var l = document.getElementById('play-fallback'); if (l) l.href = PLAY_DEST; }
     document.addEventListener('DOMContentLoaded', setLinks);
-    var done = false, gtmLoaded = false;
-    function go(via) { if (done) return; done = true; window.SARANAY_PLAY_VIA = via; location.replace(PLAY_DEST); }
+    var done = false;
+    function go(via) { if (done) return; done = true; stopWatch(); window.SARANAY_PLAY_VIA = via; location.replace(PLAY_DEST); }
     var consent = null;
     try { consent = localStorage.getItem('saranay_consent'); } catch (e) {}
     if (consent !== 'granted') {
@@ -48,26 +55,198 @@
       setTimeout(function () { go('no_consent'); }, 0);
       return;
     }
+    var EVENT = 'join_open_play_click';
+    var started = Date.now();
+    window.SARANAY_PLAY_T0 = started;
+    window.SARANAY_HITS = [];
+    var eventPushed = false, collectQueued = false, settling = false, gtagArmed = false;
+    var watch = null, obs = null, resourceSeen = 0;
+    setTimeout(function () { go('load_fallback'); }, 2000);
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
     gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
-    dataLayer.push({
-      event: 'join_open_play_click',
-      cta_location: cta,
-      link_url: PLAY_DEST,
-      play_context: 'play_redirect',
-      page_location: location.href,
-      utm_source: q.utm_source, utm_medium: q.utm_medium, utm_campaign: q.utm_campaign, utm_content: q.utm_content, utm_term: q.utm_term,
-      analytics_consent: 'granted',
-      eventCallback: function () { go('callback'); },
-      eventTimeout: 2000
-    });
+    function armTransport() {
+      gtag('set', 'transport_type', 'beacon');
+      gtag('set', { transport_type: 'beacon' });
+    }
+    armTransport();
+    window.SARANAY_TRANSPORT_SET = 'string+object';
+    function textOf(data, cb) {
+      try {
+        if (data == null || data === '') { cb(''); return; }
+        if (typeof data === 'string') { cb(data); return; }
+        if (window.URLSearchParams && data instanceof URLSearchParams) { cb(String(data)); return; }
+        if (typeof TextDecoder === 'function' && data instanceof Uint8Array) { cb(new TextDecoder().decode(data)); return; }
+        if (typeof Blob === 'function' && data instanceof Blob) { data.text().then(cb, function () { cb(''); }); return; }
+      } catch (e) {}
+      cb('');
+    }
+    function noteCollect(url, data, transport) {
+      var u = String(url || '');
+      textOf(data, function (extra) {
+        var blob = u + '\n' + (extra || '');
+        if (blob.indexOf('/g/collect') === -1 && blob.indexOf('google-analytics.com') === -1 && blob.indexOf('analytics.google.com') === -1) return;
+        var matched = blob.indexOf('en=' + EVENT) !== -1;
+        window.SARANAY_HITS.push({ transport: transport, click: matched ? 1 : 0, t: Date.now() - started });
+        if (matched) { collectQueued = true; window.SARANAY_TRANSPORT = transport; window.SARANAY_COLLECT_AT = Date.now(); }
+      });
+    }
+    var origBeacon = navigator.sendBeacon ? navigator.sendBeacon.bind(navigator) : null;
+    if (origBeacon) {
+      navigator.sendBeacon = function (url, data) {
+        var ok = false;
+        try { ok = origBeacon(url, data); } catch (e) { return false; }
+        try { noteCollect(url, data, 'beacon'); } catch (e2) {}
+        return ok;
+      };
+    }
+    var origFetch = window.fetch ? window.fetch.bind(window) : null;
+    function isCollectUrl(url) { return String(url || '').indexOf('/g/collect') !== -1; }
+    function beaconBody(body) {
+      if (body == null || body === '') return undefined;
+      if (typeof body === 'string' || (typeof Blob === 'function' && body instanceof Blob) || body instanceof Uint8Array || (window.URLSearchParams && body instanceof URLSearchParams)) return body;
+      return undefined;
+    }
+    if (origFetch) {
+      window.fetch = function (input, init) {
+        var url = '';
+        try { url = (typeof input === 'string') ? input : (input && input.url) || ''; } catch (e) {}
+        var body = init && init.body;
+        if (isCollectUrl(url) && origBeacon) {
+          var payload = beaconBody(body);
+          var ok = false;
+          try { ok = payload === undefined ? origBeacon(url) : origBeacon(url, payload); } catch (e2) { ok = false; }
+          try { noteCollect(url, payload === undefined ? '' : payload, ok ? 'beacon' : 'beacon-failed'); } catch (e3) {}
+          if (ok) return Promise.resolve(new Response(null, { status: 204 }));
+        }
+        try {
+          var keepalive = !!(init && init.keepalive);
+          noteCollect(url, typeof body === 'string' ? body : '', keepalive ? 'fetch-keepalive' : 'fetch');
+        } catch (e4) {}
+        return origFetch.apply(window, arguments);
+      };
+    }
+    function settleAndGo() {
+      if (settling || done) return;
+      settling = true;
+      window.SARANAY_CALLBACK_AT = Date.now();
+      var t0 = Date.now();
+      (function tick() {
+        if (done) return;
+        if (!collectQueued) {
+          try {
+            var ents = performance.getEntriesByType('resource');
+            for (var i = 0; i < ents.length; i++) {
+              var name = ents[i].name || '';
+              if ((name.indexOf('/g/collect') !== -1 || name.indexOf('google-analytics.com') !== -1) && name.indexOf('en=' + EVENT) !== -1) {
+                collectQueued = true;
+                if (!window.SARANAY_TRANSPORT) window.SARANAY_TRANSPORT = 'performance';
+                window.SARANAY_COLLECT_AT = window.SARANAY_COLLECT_AT || Date.now();
+              }
+            }
+          } catch (e) {}
+        }
+        if (collectQueued || Date.now() - t0 >= 250) {
+          window.SARANAY_SETTLE_MS = Date.now() - t0;
+          setTimeout(function () { go('callback'); }, collectQueued ? 40 : 0);
+          return;
+        }
+        setTimeout(tick, 16);
+      })();
+    }
+    function pushClick() {
+      if (eventPushed || done) return;
+      eventPushed = true;
+      stopWatch();
+      armTransport();
+      var payload = {
+        event: EVENT,
+        cta_location: cta,
+        link_url: PLAY_DEST,
+        play_context: 'play_redirect',
+        page_location: location.href,
+        utm_source: q.utm_source, utm_medium: q.utm_medium, utm_campaign: q.utm_campaign, utm_content: q.utm_content, utm_term: q.utm_term,
+        analytics_consent: 'granted'
+      };
+      window.SARANAY_PLAY_PAYLOAD = payload;
+      window.SARANAY_EVENT_PUSHED_AT = Date.now();
+      dataLayer.push({
+        event: payload.event,
+        cta_location: payload.cta_location,
+        link_url: payload.link_url,
+        play_context: payload.play_context,
+        page_location: payload.page_location,
+        utm_source: payload.utm_source, utm_medium: payload.utm_medium, utm_campaign: payload.utm_campaign, utm_content: payload.utm_content, utm_term: payload.utm_term,
+        analytics_consent: payload.analytics_consent,
+        eventCallback: function () { settleAndGo(); },
+        eventTimeout: 2000
+      });
+    }
+    function isGtagSrc(src) { src = src || ''; return src.indexOf('gtag/js') !== -1 && src.indexOf('googletagmanager.com') !== -1; }
+    function gtagResourceDone() {
+      try {
+        var ents = performance.getEntriesByType('resource');
+        for (var i = 0; i < ents.length; i++) {
+          if (isGtagSrc(ents[i].name) && ents[i].responseEnd > 0) return true;
+        }
+      } catch (e) {}
+      return false;
+    }
+    function considerReady(why) {
+      if (eventPushed || done) return;
+      window.SARANAY_GTAG_LOADED_AT = Date.now();
+      window.SARANAY_GTAG_READY_WHY = why;
+      pushClick();
+    }
+    function armGtag(node) {
+      if (gtagArmed || done || eventPushed || !node) return;
+      var src = node.src || (node.getAttribute && node.getAttribute('src')) || '';
+      if (!isGtagSrc(src)) return;
+      gtagArmed = true;
+      window.SARANAY_GTAG_SEEN_AT = Date.now();
+      if (node.readyState === 'complete' || node.readyState === 'loaded') { considerReady('readystate'); return; }
+      node.addEventListener('load', function () { considerReady('onload'); });
+      node.addEventListener('error', function () { window.SARANAY_GTAG_ERROR = 1; go('load_fallback'); });
+    }
+    function scan() {
+      if (done || eventPushed) { stopWatch(); return; }
+      var scripts = document.getElementsByTagName('script');
+      for (var i = 0; i < scripts.length; i++) if (isGtagSrc(scripts[i].src || '')) armGtag(scripts[i]);
+      if (eventPushed) return;
+      if (gtagResourceDone()) {
+        if (!resourceSeen) resourceSeen = Date.now();
+        else if (!gtagArmed && Date.now() - resourceSeen >= 30) considerReady('resource');
+        else if (gtagArmed && Date.now() - resourceSeen >= 150) considerReady('resource-fallback');
+      }
+    }
+    function stopWatch() {
+      if (watch) { clearInterval(watch); watch = null; }
+      if (obs) { try { obs.disconnect(); } catch (e) {} obs = null; }
+    }
+    try {
+      obs = new MutationObserver(function (recs) {
+        for (var i = 0; i < recs.length; i++) {
+          var nodes = recs[i].addedNodes;
+          for (var n = 0; n < nodes.length; n++) {
+            var node = nodes[n];
+            if (!node || node.nodeType !== 1) continue;
+            if (node.tagName === 'SCRIPT') armGtag(node);
+            if (node.getElementsByTagName) {
+              var nested = node.getElementsByTagName('script');
+              for (var s = 0; s < nested.length; s++) armGtag(nested[s]);
+            }
+          }
+        }
+      });
+      obs.observe(document.documentElement, { childList: true, subtree: true });
+    } catch (e) {}
+    watch = setInterval(scan, 20);
+    scan();
     dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
     var j = document.createElement('script'); j.async = true; j.src = 'https://www.googletagmanager.com/gtm.js?id=' + GTM_ID;
-    j.onload = function () { gtmLoaded = true; window.SARANAY_GTM_LOADED_AT = Date.now(); };
-    j.onerror = function () { go('load_fallback'); };
-    setTimeout(function () { if (!gtmLoaded) go('load_fallback'); }, 2000);
+    j.onload = function () { window.SARANAY_GTM_LOADED_AT = Date.now(); };
+    j.onerror = function () { window.SARANAY_GTM_ERROR = 1; go('load_fallback'); };
     document.head.appendChild(j);
   })();
   </script>
