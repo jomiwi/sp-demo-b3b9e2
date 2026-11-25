@@ -1,5 +1,23 @@
 # Saranay demo site · v3 changelog (visual identity)
 
+## v3.18 implied consent + one-line privacy notice (same PR as v3.17, NOT live) - Nov 25 2026
+
+Jon, Nov 25 10:57 AM Manila (relayed by Sage): "I really want the [cookie] banner to point to the privacy page and that's it... say that moving forward indicates an acceptance of our privacy policy." No extra pop-ups.
+
+- **Banner -> notice**: the Accept/Decline banner is gone on every page. A one-line notice in the page flow above the header: "By continuing to use this site, you accept our privacy policy." (Taglish on /privacy/tl/), linked to the privacy page, with a 48px dismiss X (aria-label). The head script sets localStorage `saranay_notice` on the first view and hides the notice before first paint on later views (no layout shift, no cookie). No motion.
+- **Consent Mode**: analytics_storage granted by default; ad_storage, ad_user_data, ad_personalization denied always. **Opt-out** = Global Privacy Control or localStorage `saranay_consent = 'denied'` (old Decline choices, plus the new "Turn off analytics on this device" button on the privacy pages): analytics denied and GTM never loads, so no GA4 and no Clarity. Every dataLayer event carries analytics_consent = granted unless opted out, so the existing GTM triggers fire with no container change.
+- **/book and /play**: GA4 path (gtag-load wait + beacon transport, unchanged) for everyone not opted out; opted out = immediate redirect (via no_consent). The Supabase count on /book now runs on every visit (no cookie, no ID).
+- **Martha's Taglish (Nov 25)**: TL #your-choice and #always-on applied word for word from her review (heading "Paano gumagana ang pagpayag dito", TOC updated); TL notice "Kapag patuloy mong ginamit ang site na ito, tinatanggap mo ang privacy policy namin."; TL lede and summary card moved from pumapayag/yes to tinatanggap; EN "won't show again".
+- **Privacy EN + Taglish**: consent section rewritten as "How consent works here" (implied consent, what runs incl. Clarity session recordings, how to opt out: GPC, the button, browser settings/blockers, email); "What happens even if you decline" becomes "Hosting and our click count"; Supabase named as a recipient with its request logs (IP address, device details) and retention; all "after you accept" wording removed. Home privacy block rewritten the same way; its "Change cookie choice" button removed.
+
+## v3.17 consent-free /book counter ON (PR open, NOT live) - Nov 25 2026
+
+Jon approved Nov 25 10:46 AM Manila (relayed by Sage): turn on the cookieless /book counter and add one sentence to /privacy/ and /privacy/tl/. Ships only after Hopper approves and deploys saranay-book-count v3.
+
+- **/book no-consent count**: `fetch` keepalive, `credentials: 'omit'`, `Content-Type: text/plain` (no preflight, no cookie sent or stored) instead of sendBeacon. No sendBeacon fallback. Redirect, UTM forwarding, ?cta= and the consented GA4 path are unchanged.
+- **`_build/build-golive.py`**: `--count-url` (launch default: Supabase edge fn `saranay-book-count`) and a separate `--play-scans` switch (launch default OFF; v3 counts book_court_click only). A cross-origin COUNT_URL is refused on /play. New checks: COUNT_URL exact, credentials omit, no count URL when off.
+- **Privacy (EN + Taglish)**: one sentence in "What happens even if you decline" naming Supabase and servers outside the Philippines; Last updated November 25, 2026.
+
 ## v3.16 /play open-play redirect (preview, NOT live) - Nov 19 2026
 
 Decision 2026-11-05 (Sage, nightly proposals review; proposal by Lee): add a tracked /play short link beside /book for open-play posts and QR codes.

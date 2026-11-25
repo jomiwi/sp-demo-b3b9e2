@@ -47,17 +47,25 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Privacy and cookies | Saranay Pickleball Court &amp; Café">
   <meta name="twitter:description" content="How Saranay Pickleball Court &amp; Café uses Google Analytics and Microsoft Clarity, only with your consent: what's collected, every cookie, who receives it, how long it's kept, and your rights under the Data Privacy Act.">
-  <!-- v3.15 tagging switch. ONE constant picks how Google tags load:
-       SARANAY_TAG_MODE = 'gtm'  : Google Tag Manager container GTM-TZ4KN34J, which carries the GA4 Google tag G-Q9F8HPKEND (v3.15 default)
-       SARANAY_TAG_MODE = 'gtag' : the v3.14 direct gtag.js load of G-Q9F8HPKEND (rollback only)
-       Only one loader ever runs, so GA4 is never tagged twice. Consent Mode v2, basic: defaults all denied, and NOTHING from Google
-       loads until the visitor taps Accept (or accepted on an earlier visit). Accept grants analytics_storage only; ad_storage,
-       ad_user_data and ad_personalization stay denied always. Every dataLayer event carries analytics_consent, and the GTM triggers
-       only fire on analytics_consent = granted, so clicks made before Accept are never sent later. -->
+  <!-- v3.18 tagging switch + implied consent (Jon, Nov 25 2026: "point them to the privacy page, say that moving forward indicates an
+       acceptance of our privacy policy"). ONE constant picks how Google tags load:
+       SARANAY_TAG_MODE = 'gtm'  : Google Tag Manager container GTM-TZ4KN34J (GA4 G-Q9F8HPKEND + Microsoft Clarity) (default)
+       SARANAY_TAG_MODE = 'gtag' : direct gtag.js load of G-Q9F8HPKEND (rollback only)
+       Consent Mode v2: analytics_storage GRANTED by default; ad_storage, ad_user_data and ad_personalization DENIED always.
+       Opt-out = Global Privacy Control (navigator.globalPrivacyControl === true) OR localStorage saranay_consent = 'denied'
+       (old Decline choices, and the privacy page's "Turn off analytics" button). Opted out: analytics_storage denied and GTM is
+       never loaded, so neither GA4 nor Clarity runs. Every dataLayer event carries analytics_consent (granted unless opted out).
+       Privacy notice: localStorage saranay_notice is set the first time a page shows it, so it appears on one page view only
+       (dismissed or not). The notice-seen class is set here, before first paint, so hiding it causes no layout shift. -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('consent', 'default', {ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500});
+    window.saranayOptOut = function () {
+      var gpc = navigator.globalPrivacyControl === true;
+      try { return gpc || localStorage.getItem('saranay_consent') === 'denied'; } catch (e) { return gpc; }
+    };
+    window.SARANAY_OPTOUT = window.saranayOptOut();
+    gtag('consent', 'default', {ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: window.SARANAY_OPTOUT ? 'denied' : 'granted'});
     window.SARANAY_TAG_MODE = 'gtm';
     window.SARANAY_GTM_ID = 'GTM-TZ4KN34J';
     window.SARANAY_GA_ID = 'G-Q9F8HPKEND';
@@ -74,7 +82,11 @@
       }
       document.head.appendChild(j);
     };
-    (function () { try { if (localStorage.getItem('saranay_consent') === 'granted') { gtag('consent', 'update', {analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied'}); window.saranayLoadGA(); } } catch (e) {} })();
+    if (!window.SARANAY_OPTOUT) window.saranayLoadGA();
+    (function () {
+      var h = document.documentElement; h.className += ' js';
+      try { if (localStorage.getItem('saranay_notice')) h.className += ' notice-seen'; else localStorage.setItem('saranay_notice', '1'); } catch (e) {}
+    })();
   </script>
   <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -88,16 +100,13 @@
 -->
 <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- v3.4 cookie consent (RA 10173). Hidden until JS shows it; no choice stored = nothing but the denied defaults. -->
-<section class="consent" id="consent" aria-labelledby="consent-title" hidden>
-  <div class="consent__inner">
-    <p class="consent__text"><strong id="consent-title">Cookies</strong> Saranay Pickleball Court &amp; Café tracks visits and clicks so we can serve you better, only if you accept. Change it anytime. <a href="./">Privacy notice</a></p>
-    <div class="consent__btns">
-      <button class="btn consent__btn" type="button" data-consent="denied">Decline</button>
-      <button class="btn consent__btn" type="button" data-consent="granted">Accept</button>
-    </div>
+<!-- v3.18 privacy notice (Jon, Nov 25 2026). One line, in the page flow (covers nothing), shown on one page view only. -->
+<aside class="notice" id="notice" aria-label="Privacy notice">
+  <div class="notice__inner">
+    <p class="notice__text">Kapag patuloy mong ginamit ang site na ito, tinatanggap mo ang <a href="./">privacy policy</a> namin.</p>
+    <button class="notice__x" type="button" aria-label="Isara ang privacy notice"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
   </div>
-</section>
+</aside>
 
 <p class="demo-ribbon"><strong>Demo preview</strong> · not the official site yet.</p>
 
@@ -143,13 +152,13 @@
     </div>
     <h1 id="pp-title" class="pp-hero__title">Privacy mo, walang paligoy-ligoy.</h1>
     <p class="lede">Nandito ang site na 'to para matulungan kang makahanap ng laro, mag-book ng court at magkape. 'Yun lang talaga ang trabaho niya. Hindi kami tumatanggap ng bookings o bayad dito, at hindi namin hinihingi ang pangalan mo, kahit kailan.</p>
-    <p>Kung mag-yes ka, may dalawang tools na nagpapakita sa amin kung aling pages at buttons ang talagang nakakatulong sa mga players. Kung no, hindi sila naglo-load kahit kailan.</p>
-    <p>Upo ka muna. Ito mismo ang nangyayari, mag-yes ka man o mag-no.</p>
+    <p>May dalawang analytics tools na nagpapakita sa amin kung aling pages at buttons ang talagang nakakatulong sa mga players. Kapag ginamit mo ang site na ito, tinatanggap mo ang privacy policy na ito, at puwede mo silang i-off kahit kailan.</p>
+    <p>Upo ka muna. Ito mismo ang tumatakbo, at kung paano mag-no.</p>
     <div class="pp-choice" role="group" aria-labelledby="pp-choice-label">
-      <p class="pp-choice__status" id="pp-choice-label" aria-live="polite">Your choice on this device: <strong id="pp-choice-now">not chosen yet</strong></p>
-      <button class="btn btn--outline" type="button" id="consent-open">Change cookie choice</button>
+      <p class="pp-choice__status" id="pp-choice-label" aria-live="polite">Analytics sa device na ito: <strong data-optout-status>Naka-on</strong></p>
+      <button class="btn btn--outline" type="button" data-optout aria-pressed="false">I-off ang analytics sa device na ito</button>
     </div>
-    <p class="note pp-hero__updated">Huling update: November 13, 2026</p>
+    <p class="note pp-hero__updated">Huling update: November 25, 2026</p>
   </div>
 </section>
 <!-- /COPY: P1 privacy hero -->
@@ -160,22 +169,22 @@
     <h2 id="glance-title" class="pp-h2">Sa madaling salita</h2>
     <p class="pp-glance__sub">Mabilisang basa, pang-break between games.</p>
     <ul class="pp-glance__grid" role="list">
-      <li class="pp-card"><h3>Hinihintay muna ng analytics ang yes mo</h3><p>Kapag nag-tap ka ng <strong>Decline</strong>, o hindi ka pa pumipili, hindi maglo-load ang Google Tag Manager, Google Analytics at Microsoft Clarity.</p></li>
+      <li class="pp-card"><h3>Kapag ginamit mo ang site, tinatanggap mo ang policy</h3><p>Tumatakbo ang Google Analytics at Microsoft Clarity kapag ginamit mo ang site na ito. Ino-off sila ng Global Privacy Control o ng <strong>I-off ang analytics</strong> button.</p></li>
       <li class="pp-card"><h3>Ano ang nakikita namin</h3><p>Page views, clicks, scrolls, klase ng device at browser mo, at tantiyang location (city o country).</p></li>
       <li class="pp-card"><h3>Ano ang hindi namin kinokolekta</h3><p>Ang pangalan, phone number o email mo. Hindi 'yan kinokolekta ng mga tools na ito. Lahat ng tina-type mo ay nakatago na bago pa umalis sa browser mo.</p></li>
-      <li class="pp-card"><h3>Sino ang nakakatanggap</h3><p>Ang Google at Microsoft. Ipinapadala at ini-store ang analytics data sa servers ng Google at Microsoft na nasa labas ng Pilipinas.</p></li>
+      <li class="pp-card"><h3>Sino ang nakakatanggap</h3><p>Ang Google at Microsoft. Ipinapadala at ini-store ang analytics data sa servers ng Google at Microsoft na nasa labas ng Pilipinas. May anonymous na bilang din ng booking clicks sa Supabase.</p></li>
       <li class="pp-card"><h3>Gaano katagal namin itinatago</h3><p>Google Analytics: detailed visit data 2 months, visitor data 14 months. Clarity: recordings 30 days, heatmaps 9 months.</p></li>
-      <li class="pp-card"><h3>Ikaw ang masusunod</h3><p>Puwede kang magbago ng isip kahit kailan gamit ang <strong>Change cookie choice</strong> button. May mga karapatan ka rin sa ilalim ng Data Privacy Act, at inisa-isa namin ang mga 'yan sa ibaba.</p></li>
+      <li class="pp-card"><h3>Ikaw ang masusunod</h3><p>I-off ang analytics kahit kailan gamit ang Global Privacy Control o ang <strong>I-off ang analytics</strong> button. May mga karapatan ka rin sa ilalim ng Data Privacy Act, at inisa-isa namin ang mga 'yan sa ibaba.</p></li>
     </ul>
     <nav class="pp-toc" aria-labelledby="toc-title">
       <h2 id="toc-title" class="pp-toc__title">Sa page na ito</h2>
       <ol>
         <li><a href="#who-we-are">Sino kami</a></li>
-        <li><a href="#your-choice">Ang desisyon mo</a></li>
+        <li><a href="#your-choice">Paano gumagana ang pagpayag dito</a></li>
         <li><a href="#tools">Ang mga tools na gamit namin</a></li>
         <li><a href="#collected">Ano ang kinokolekta</a></li>
         <li><a href="#cookies">Cookies, isa-isa</a></li>
-        <li><a href="#always-on">Ano ang nangyayari kahit mag-Decline ka</a></li>
+        <li><a href="#always-on">Hosting at ang click count namin</a></li>
         <li><a href="#recipients">Sino ang nakakatanggap ng data</a></li>
         <li><a href="#retention">Gaano katagal itinatago</a></li>
         <li><a href="#rights">Ang mga karapatan mo</a></li>
@@ -202,14 +211,20 @@
     </section>
 
     <section id="your-choice" aria-labelledby="choice-title">
-      <h2 id="choice-title" class="pp-h2">Ang desisyon mo</h2>
-      <p>Gumagamit lang kami ng analytics kung mag-yes ka.</p>
-      <p>Sa una mong bisita, may banner na magtatanong. Habang wala ka pang sagot, at kung mag-tap ka ng <strong>Decline</strong>, walang analytics tool namin na maglo-load, at wala sa kanila ang magpapadala ng kahit ano sa Google o Microsoft.</p>
-      <p>Kapag nag-tap ka ng <strong>Accept</strong>, ilo-load namin ang Google Tag Manager, na siya namang maglo-load ng Google Analytics at Microsoft Clarity. Analytics lang 'yan. Naka-off pa rin ang advertising settings ng Google (ad storage, ad user data at ad personalization).</p>
-      <p>Tinatandaan namin ang sagot mo sa storage ng browser mo sa device na ito, bilang <code>saranay_consent</code>, para hindi ka na namin tanungin sa bawat page. Hindi ito umaalis sa device mo.</p>
-      <p>Nagbago ang isip mo? Gamitin ang button sa ibaba o sa taas ng page na ito. Gusto mong mag-umpisa ulit? I-clear ang data ng site na ito sa browser mo.</p>
-      <p><button class="btn btn--outline" type="button" data-consent-open>Change cookie choice</button></p>
-      <p class="note">Kapag lumipat ka mula Accept papuntang Decline, titigil ang pag-load ng mga tools sa susunod mong page view. Ang cookies na na-set na nila ay mananatili sa browser mo hanggang mag-expire sila o i-clear mo.</p>
+      <h2 id="choice-title" class="pp-h2">Paano gumagana ang pagpayag dito</h2>
+      <p>Kapag ginamit mo ang site na ito, tinatanggap mo ang privacy policy na ito. Sa unang page na bubuksan mo, may isang linyang notice na nagsasabi nito, kasama ang link papunta rito. Isang beses lang itong lalabas, at hindi ka na namin aabalahin ulit.</p>
+      <p>Ito ang tumatakbo: ilo-load ng Google Tag Manager ang Google Analytics 4 at Microsoft Clarity, kasama ang session recordings ng Clarity. Analytics lang 'yan. Laging naka-off para sa lahat ang advertising settings ng Google (ad storage, ad user data at ad personalization).</p>
+      <p>Itinatala namin sa storage ng browser mo sa device na ito, bilang <code>saranay_notice</code>, na nakita mo na ang notice. Hindi ito umaalis sa device mo.</p>
+      <p>Ayaw mo ng analytics? Puwede ang alinman dito:</p>
+      <ul class="pp-list">
+        <li><strong>Global Privacy Control (GPC).</strong> I-on ito sa browser mo o sa isang privacy extension. Para sa amin, no 'yon: hindi talaga maglo-load ang Google Tag Manager, Google Analytics at Microsoft Clarity.</li>
+        <li><strong>Ang button sa ibaba.</strong> Ino-off nito ang analytics sa device na ito, at sine-save namin 'yon bilang <code>saranay_consent</code> sa storage ng browser mo. Kung nag-tap ka ng Decline sa dating version ng site na ito, sinusunod pa rin namin 'yon.</li>
+        <li><strong>Browser settings o blockers.</strong> I-block ang cookies o trackers sa settings ng browser mo, o gumamit ng ad o tracker blocker.</li>
+        <li><strong>Sabihan mo kami.</strong> Mag-email sa <a href="mailto:saranaypickleball@gmail.com">saranaypickleball@gmail.com</a>.</li>
+      </ul>
+      <p>Analytics lang ang natitigil kapag nag-opt out ka. Tuloy pa rin ang hosting logs at ang anonymous na bilang ng booking clicks, na ipinapaliwanag sa ibaba.</p>
+      <p><button class="btn btn--outline" type="button" data-optout aria-pressed="false">I-off ang analytics sa device na ito</button></p>
+      <p class="note">Kapag in-off mo ang analytics, hindi na maglo-load ang mga tools simula sa susunod mong page view. Ang cookies na na-set na nila ay mananatili sa browser mo hanggang mag-expire ang mga ito o i-clear mo.</p>
     </section>
 
     <section id="tools" aria-labelledby="tools-title">
@@ -219,7 +234,7 @@
         <article class="pp-tool">
           <h3>Google Tag Manager</h3>
           <p class="pp-tool__meta">Google · container GTM-TZ4KN34J</p>
-          <p>Ang loader. Wala itong sinusukat mismo. Pagka-accept mo, siya ang nagdadala ng dalawang tools sa ibaba. Hangga't hindi ka pa nag-a-accept, hindi talaga ito naka-load.</p>
+          <p>Ang loader. Wala itong sinusukat mismo. Siya ang nagdadala ng dalawang tools sa ibaba. Kung naka-opt out ka, hindi talaga ito naka-load.</p>
         </article>
         <article class="pp-tool">
           <h3>Google Analytics 4</h3>
@@ -238,7 +253,7 @@
 
     <section id="collected" aria-labelledby="collected-title">
       <h2 id="collected-title" class="pp-h2">Ano ang kinokolekta</h2>
-      <p>Pagkatapos mo lang mag-accept, ito ang kinokolekta ng mga tools:</p>
+      <p>Maliban kung naka-opt out ka, ito ang kinokolekta ng mga tools:</p>
       <ul class="pp-list">
         <li><strong>Pages na binubuksan mo</strong>, at ang page na pinanggalingan mo.</li>
         <li><strong>Clicks, taps at scrolls</strong>, kasama kung aling buttons at links ang ginagamit mo.</li>
@@ -252,12 +267,12 @@
 
     <section id="cookies" aria-labelledby="cookies-title">
       <h2 id="cookies-title" class="pp-h2">Cookies, isa-isa</h2>
-      <p>Na-se-set lang ang mga ito pagkatapos mong mag-accept.</p>
+      <p>Na-se-set ang mga ito kapag nag-load ang analytics tools, ibig sabihin sa bawat bisita maliban kung naka-opt out ka.</p>
       <p>Ang "first-party" ay naka-set sa saranaypickleball.com. Ang "third-party" ay naka-set sa Microsoft domain.</p>
       <p>Ang lifetimes sa ibaba ay kung ano talaga ang sine-set ng tools ng site na ito sa kasalukuyang version ng Chrome, na-check noong November 13, 2026, kasama ang documented value ng provider kung iba ito.</p>
       <div class="pp-table-wrap">
         <table class="pp-table">
-          <caption class="visually-hidden">Cookies set after you accept, with provider, purpose and lifetime</caption>
+          <caption class="visually-hidden">Cookies set by the analytics tools, with provider, purpose and lifetime</caption>
           <thead><tr><th scope="col">Cookie</th><th scope="col">Provider</th><th scope="col">Para saan</th><th scope="col">Lifetime</th></tr></thead>
           <tbody>
             <tr><th scope="row" data-label="Cookie"><code>_ga</code></th><td data-label="Provider">Google Analytics · first-party</td><td data-label="Para saan">Pinagkakaiba ang visitors gamit ang random ID.</td><td data-label="Lifetime">400 days (Google's default is 2 years; Chrome caps cookies at 400 days)</td></tr>
@@ -278,12 +293,13 @@
     </section>
 
     <section id="always-on" aria-labelledby="always-title">
-      <h2 id="always-title" class="pp-h2">Ano ang nangyayari kahit mag-Decline ka</h2>
-      <p>May ilang bagay na hindi analytics, kaya hindi na nila hinihintay ang desisyon mo. Dapat alam mo rin ang mga ito.</p>
+      <h2 id="always-title" class="pp-h2">Hosting at ang click count namin</h2>
+      <p>Tumatakbo ang mga ito para sa bawat visitor, kahit naka-opt out ka sa analytics. Dapat alam mo rin ang mga ito.</p>
       <ul class="pp-list">
         <li><strong>Ang web host namin.</strong> Naka-host ang site na ito sa GitHub Pages. Nilo-log ng GitHub ang IP address ng bawat visitor para sa security, sa ilalim ng GitHub Privacy Statement.</li>
+        <li><strong>Kapag nag-tap ka ng booking link</strong>, binibilang namin ang click nang anonymous sa database provider namin na Supabase, sa servers na nasa labas ng Pilipinas, nang walang cookies at walang kahit anong makakakilala sa 'yo o sa device mo. Walang ID ang bilang mismo. Tulad ng GitHub, nilo-log ng Supabase ang IP address at device details ng bawat request para sa security, sa ilalim ng Supabase Privacy Policy.</li>
         <li><strong>Ang map sa home page namin.</strong> Hangga't hindi mo tina-tap ang <strong>Show map</strong>, drawing lang ito na naka-store sa site na ito, kaya walang naipapadala sa Google. Kapag tinap mo ang Show map, ilo-load ng browser mo ang Google Maps mula sa Google, at matatanggap ng Google ang IP address at browser details mo sa ilalim ng Privacy Policy ng Google. Hindi namin natatanggap ang data na 'yon.</li>
-        <li><strong>Links papunta sa ibang sites.</strong> Dadalhin ka ng "Book a court" sa Sports360, ng "Join open play" sa Reclub, ng "Message us" sa Facebook, at ng "Open in Google Maps" sa Google Maps. Pagdating mo doon, privacy policies na nila ang sinusunod.</li>
+        <li><strong>Links papunta sa ibang sites.</strong> Dadalhin ka ng "Book a court" sa Sports360, ng "Join open play" sa Reclub, ng "Message us" sa Facebook, at ng "Open in Google Maps" sa Google Maps. Pagdating mo roon, privacy policies na nila ang masusunod.</li>
       </ul>
     </section>
 
@@ -292,9 +308,10 @@
       <ul class="pp-list">
         <li><strong>Google</strong>: natatanggap nila ang Google Analytics at Google Tag Manager data.</li>
         <li><strong>Microsoft</strong>: natatanggap nila ang Microsoft Clarity data, at ini-store nila ito sa Azure cloud nila. Sabi ng Microsoft, data controller sila para sa Clarity data, sa ilalim ng Microsoft Privacy Statement.</li>
+        <li><strong>Supabase</strong>: ini-store nila ang anonymous na bilang namin ng booking clicks, at may standard request logs sila na may IP address at device details.</li>
       </ul>
-      <p><strong>Sa labas ng Pilipinas.</strong> Ipinapadala at ini-store ang analytics data sa servers ng Google at Microsoft na nasa labas ng Pilipinas. Mangyayari lang ito kung mag-accept ka.</p>
-      <p>Hindi namin ibinebenta ang data mo, at hindi namin ito shine-share maliban sa mga services na nakapangalan sa page na ito. Bukod sa Google at Microsoft sa itaas, kasama rito ang <strong>GitHub Pages</strong>, ang web host namin, na nilo-log ang IP address ng bawat visitor para sa security, at ang <strong>Google Maps</strong>, na natatanggap lang ang IP address mo kapag tinap mo ang <strong>Show map</strong>.</p>
+      <p><strong>Sa labas ng Pilipinas.</strong> Ipinapadala at ini-store ang analytics data sa servers ng Google at Microsoft na nasa labas ng Pilipinas. Mangyayari ito maliban kung naka-opt out ka.</p>
+      <p>Hindi namin ibinebenta ang data mo, at hindi namin ito shine-share maliban sa mga services na nakapangalan sa page na ito. Bukod sa Google, Microsoft at Supabase sa itaas, kasama rito ang <strong>GitHub Pages</strong>, ang web host namin, na nilo-log ang IP address ng bawat visitor para sa security, at ang <strong>Google Maps</strong>, na natatanggap lang ang IP address mo kapag tinap mo ang <strong>Show map</strong>.</p>
     </section>
 
     <section id="retention" aria-labelledby="retention-title">
@@ -305,6 +322,8 @@
         <div><dt>Google Analytics: summary reports</dt><dd>Ang totals tulad ng "visits per week" ay hindi sakop ng settings na ito at puwedeng mas matagal itago, ayon sa paliwanag ng Google sa data retention help page nila.</dd></div>
         <div><dt>Microsoft Clarity: session recordings</dt><dd>30 days. May maliit na random sample na itinatago ang Microsoft, kasama ang mga minarkahan naming favourites, nang hanggang 9 months.</dd></div>
         <div><dt>Microsoft Clarity: heatmaps and click data</dt><dd>9 months.</dd></div>
+        <div><dt>Supabase: booking-click count</dt><dd>Totals lang, walang ID. Itinatago namin hangga't kailangan namin ang totals.</dd></div>
+        <div><dt>Supabase: request logs</dt><dd>1 day sa kasalukuyang plan namin.</dd></div>
       </dl>
     </section>
 
@@ -313,7 +332,7 @@
       <p>Ibinibigay sa 'yo ng Data Privacy Act of 2012 ang mga karapatang ito, maglaro ka man o hindi:</p>
       <ul class="pp-rights" role="list">
         <li><strong>Be informed</strong> Malaman na kinokolekta ang data mo, at kung paano ito ginagamit. Bahagi niyan ang binabasa mo ngayon.</li>
-        <li><strong>Object</strong> Tumanggi sa processing. Ito ang ginagawa ng pag-tap sa Decline, o puwede mo kaming kontakin.</li>
+        <li><strong>Object</strong> Tumanggi sa processing. Ito ang ginagawa ng Global Privacy Control o ng I-off ang analytics button, o puwede mo kaming kontakin.</li>
         <li><strong>Access</strong> Itanong kung anong data mo ang hawak namin.</li>
         <li><strong>Rectification</strong> Ipaayos sa amin ang data na mali.</li>
         <li><strong>Erasure or blocking</strong> Ipabura o ipa-block sa amin ang data mo.</li>
@@ -322,7 +341,7 @@
         <li><strong>File a complaint</strong> Mag-file ng complaint sa National Privacy Commission. Nasa pinakababa ng page na ito kung paano sila makokontak.</li>
       </ul>
       <p>May isang catch lang: random IDs ang gamit ng mga tools na ito sa halip na pangalan, kaya para mahanap ang data mo, baka kailanganin namin ang ID mula sa cookies ng browser mo.</p>
-      <p>Kapag nag-clear ka ng cookies at nag-decline, hindi na maiuugnay sa 'yo ang bagong data. Ang data na nakolekta na ay binubura ayon sa schedule sa itaas.</p>
+      <p>Kapag nag-clear ka ng cookies at in-off mo ang analytics, hindi na maiuugnay sa 'yo ang bagong data. Ang data na nakolekta na ay binubura ayon sa schedule sa itaas.</p>
     </section>
 
     <section id="contact" aria-labelledby="contact-title">
@@ -380,20 +399,6 @@
   <a class="btn btn--ball btn--block" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=sticky_bar_join_open_play" target="_blank" rel="noopener" aria-label="Join open play on Reclub (opens in a new tab)" data-cta="sticky_bar_join_open_play" data-dest="reclub">Join open play</a>
 </div>
 
-<script>
-  /* Privacy page: show the stored choice, and let the second "Change cookie choice" button reopen the banner (main.js owns the banner). */
-  (function () {
-    var now = document.getElementById('pp-choice-now');
-    function paint() { var v = null; try { v = localStorage.getItem('saranay_consent'); } catch (e) {} if (now) now.textContent = v === 'granted' ? 'Accepted' : v === 'denied' ? 'Declined' : 'not chosen yet'; }
-    paint();
-    document.addEventListener('click', function (e) {
-      var t = e.target.closest && e.target.closest('[data-consent], [data-consent-open]');
-      if (!t) return;
-      if (t.hasAttribute('data-consent-open')) { var o = document.getElementById('consent-open'); if (o) o.click(); }
-      else setTimeout(paint, 0);
-    });
-  })();
-</script>
 <script src="../../main.js" defer></script>
 </body>
 </html>

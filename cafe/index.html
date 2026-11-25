@@ -44,17 +44,25 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="D' Rafael's Cafe | Saranay Pickleball Court &amp; Café">
   <meta name="twitter:description" content="D' Rafael's Cafe, right at the Saranay Pickleball court in North Caloocan. Coffee, frappes, fries, nachos and calamares. Open during court bookings.">
-  <!-- v3.15 tagging switch. ONE constant picks how Google tags load:
-       SARANAY_TAG_MODE = 'gtm'  : Google Tag Manager container GTM-TZ4KN34J, which carries the GA4 Google tag G-Q9F8HPKEND (v3.15 default)
-       SARANAY_TAG_MODE = 'gtag' : the v3.14 direct gtag.js load of G-Q9F8HPKEND (rollback only)
-       Only one loader ever runs, so GA4 is never tagged twice. Consent Mode v2, basic: defaults all denied, and NOTHING from Google
-       loads until the visitor taps Accept (or accepted on an earlier visit). Accept grants analytics_storage only; ad_storage,
-       ad_user_data and ad_personalization stay denied always. Every dataLayer event carries analytics_consent, and the GTM triggers
-       only fire on analytics_consent = granted, so clicks made before Accept are never sent later. -->
+  <!-- v3.18 tagging switch + implied consent (Jon, Nov 25 2026: "point them to the privacy page, say that moving forward indicates an
+       acceptance of our privacy policy"). ONE constant picks how Google tags load:
+       SARANAY_TAG_MODE = 'gtm'  : Google Tag Manager container GTM-TZ4KN34J (GA4 G-Q9F8HPKEND + Microsoft Clarity) (default)
+       SARANAY_TAG_MODE = 'gtag' : direct gtag.js load of G-Q9F8HPKEND (rollback only)
+       Consent Mode v2: analytics_storage GRANTED by default; ad_storage, ad_user_data and ad_personalization DENIED always.
+       Opt-out = Global Privacy Control (navigator.globalPrivacyControl === true) OR localStorage saranay_consent = 'denied'
+       (old Decline choices, and the privacy page's "Turn off analytics" button). Opted out: analytics_storage denied and GTM is
+       never loaded, so neither GA4 nor Clarity runs. Every dataLayer event carries analytics_consent (granted unless opted out).
+       Privacy notice: localStorage saranay_notice is set the first time a page shows it, so it appears on one page view only
+       (dismissed or not). The notice-seen class is set here, before first paint, so hiding it causes no layout shift. -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('consent', 'default', {ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500});
+    window.saranayOptOut = function () {
+      var gpc = navigator.globalPrivacyControl === true;
+      try { return gpc || localStorage.getItem('saranay_consent') === 'denied'; } catch (e) { return gpc; }
+    };
+    window.SARANAY_OPTOUT = window.saranayOptOut();
+    gtag('consent', 'default', {ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: window.SARANAY_OPTOUT ? 'denied' : 'granted'});
     window.SARANAY_TAG_MODE = 'gtm';
     window.SARANAY_GTM_ID = 'GTM-TZ4KN34J';
     window.SARANAY_GA_ID = 'G-Q9F8HPKEND';
@@ -71,7 +79,11 @@
       }
       document.head.appendChild(j);
     };
-    (function () { try { if (localStorage.getItem('saranay_consent') === 'granted') { gtag('consent', 'update', {analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied'}); window.saranayLoadGA(); } } catch (e) {} })();
+    if (!window.SARANAY_OPTOUT) window.saranayLoadGA();
+    (function () {
+      var h = document.documentElement; h.className += ' js';
+      try { if (localStorage.getItem('saranay_notice')) h.className += ' notice-seen'; else localStorage.setItem('saranay_notice', '1'); } catch (e) {}
+    })();
   </script>
   <link rel="stylesheet" href="../styles.css">
 </head>
@@ -85,16 +97,13 @@
 -->
 <a class="skip-link" href="#main">Skip to content</a>
 
-<!-- v3.4 cookie consent (RA 10173). Hidden until JS shows it; no choice stored = nothing but the denied defaults. -->
-<section class="consent" id="consent" aria-labelledby="consent-title" hidden>
-  <div class="consent__inner">
-    <p class="consent__text"><strong id="consent-title">Cookies</strong> Saranay Pickleball Court &amp; Café tracks visits and clicks so we can serve you better, only if you accept. Change it anytime. <a href="../privacy/">Privacy notice</a></p>
-    <div class="consent__btns">
-      <button class="btn consent__btn" type="button" data-consent="denied">Decline</button>
-      <button class="btn consent__btn" type="button" data-consent="granted">Accept</button>
-    </div>
+<!-- v3.18 privacy notice (Jon, Nov 25 2026). One line, in the page flow (covers nothing), shown on one page view only. -->
+<aside class="notice" id="notice" aria-label="Privacy notice">
+  <div class="notice__inner">
+    <p class="notice__text">By continuing to use this site, you accept our <a href="../privacy/">privacy policy</a>.</p>
+    <button class="notice__x" type="button" aria-label="Dismiss privacy notice"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
   </div>
-</section>
+</aside>
 
 <p class="demo-ribbon"><strong>Demo preview</strong> · not the official site yet.</p>
 

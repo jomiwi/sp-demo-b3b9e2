@@ -13,7 +13,9 @@
   /* v3.15 RC2 /book redirect: the ONE place book_court_click is pushed for booking buttons.
      Site booking buttons link here as book/?cta=<cta_location>[&rate_band=early|midday|evening] and push nothing themselves.
      Social bios and QR codes link here as /book?utm_source=...&utm_medium=...&utm_campaign=...[&utm_content=...].
-     Consent Mode v2 BASIC, same as the rest of the site: nothing from Google loads without a stored Accept.
+     v3.18: implied consent, same as the rest of the site. Opted out (GPC or saranay_consent = 'denied') = the 'No stored choice' path below;
+     everyone else takes the 'Stored Accept' path. The Supabase count runs for every visit.
+     (History) Consent Mode v2 BASIC: nothing from Google loaded without a stored Accept.
      - Stored Accept (localStorage saranay_consent = 'granted'): consent default all-denied, then analytics_storage granted
        (ad keys stay denied). gtag('set') asks for beacon transport. Load GTM-TZ4KN34J FIRST and do not push the click yet.
        GTM's gtm.init injects gtag/js and would otherwise run a queued book_court_click (and its eventCallback redirect)
@@ -26,9 +28,13 @@
        Outer cap is 2000 ms from start, and gtm.js onerror redirects immediately. go() runs once. Nothing is invented when
        the link carried no utm_*.
      - No stored choice, or Decline (RC4.7.4, Decision 2026-11-04): nothing from Google loads or is pushed. One first-party
-       navigator.sendBeacon to /api/count with only event, utm_*, cta, rate_band and path (no cookie, no ID, no UA, no IP stored),
+       count request to COUNT_URL with only event, utm_*, cta, rate_band and path (no cookie, no ID, no UA, no IP stored),
        not awaited; the redirect runs on the next tick.
        RC4.7.5: COUNT_ON is set by the build: --launch builds turn it OFF (and blank COUNT_URL) unless --book-scans / BOOK_SCANS=on.
+       v3.17: the request is fetch keepalive with credentials 'omit' (so no cookie is sent or stored, incl. the Supabase/Cloudflare
+       __cf_bm cookie) and Content-Type text/plain (CORS simple request, no preflight). Launch builds with book-scans on point
+       COUNT_URL at the Supabase edge function saranay-book-count (v3: Origin-locked to saranaypickleball.com, drops bot UAs).
+       No sendBeacon fallback: sendBeacon always sends credentials, so a browser without fetch simply isn't counted.
        Only a JS-executing browser can fire it, so link previewers that just fetch the HTML never count. Consented visits never send the beacon, so nothing is counted twice.
      Destination: the Sports360 booking page, plus the incoming utm_* forwarded unchanged (no utm added when none came in). */
   (function () {
@@ -48,16 +54,21 @@
     document.addEventListener('DOMContentLoaded', setLinks);
     var done = false;
     function go(via) { if (done) return; done = true; stopWatch(); window.SARANAY_BOOK_VIA = via; location.replace(BOOK_DEST); }
-    var consent = null;
-    try { consent = localStorage.getItem('saranay_consent'); } catch (e) {}
-    if (consent !== 'granted') {
-      try {
-        if (COUNT_ON && COUNT_URL && navigator.sendBeacon) {
-          var body = JSON.stringify({ event: 'book_court_click', utm_source: q.utm_source, utm_medium: q.utm_medium, utm_campaign: q.utm_campaign,
-            utm_content: q.utm_content, utm_term: q.utm_term, cta: cta, rate_band: band, page: location.pathname });
-          window.SARANAY_BEACON = navigator.sendBeacon(COUNT_URL, new Blob([body], { type: 'text/plain' }));
-        }
-      } catch (e) {}
+    /* v3.18 implied consent: GA4 runs for everyone except opt-outs (Global Privacy Control, or saranay_consent = 'denied').
+       The Supabase click count runs for every visit, opted out or not (no cookie, no ID). */
+    var gpc = navigator.globalPrivacyControl === true, optOut = gpc;
+    try { optOut = gpc || localStorage.getItem('saranay_consent') === 'denied'; } catch (e) {}
+    window.SARANAY_OPTOUT = optOut;
+    try {
+      if (COUNT_ON && COUNT_URL && window.fetch) {
+        var body = JSON.stringify({ event: 'book_court_click', utm_source: q.utm_source, utm_medium: q.utm_medium, utm_campaign: q.utm_campaign,
+          utm_content: q.utm_content, utm_term: q.utm_term, cta: cta, rate_band: band, page: location.pathname });
+        fetch(COUNT_URL, { method: 'POST', body: body, headers: { 'Content-Type': 'text/plain' }, keepalive: true,
+          credentials: 'omit', mode: 'cors', cache: 'no-store', referrerPolicy: 'no-referrer' })['catch'](function () {});
+        window.SARANAY_BEACON = true;
+      }
+    } catch (e) {}
+    if (optOut) {
       setTimeout(function () { go('no_consent'); }, 0);
       return;
     }
