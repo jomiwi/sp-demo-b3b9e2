@@ -12,7 +12,7 @@
   (function () {
     var S360 = 'https://app.sports360.ph/sportshub/saranay-pickleball-court';
     var GTM_ID = 'GTM-TZ4KN34J';
-    var COUNT_ON = false, COUNT_URL = '';
+    var COUNT_ON = true, COUNT_URL = 'https://qyvitzzqhwtqectsmzhs.supabase.co/functions/v1/saranay-book-count';
     var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
     var sp = null; try { sp = new URLSearchParams(location.search); } catch (e) {}
     function arg(k) { var v = sp && sp.get(k); return v ? v : undefined; }
@@ -26,16 +26,19 @@
     document.addEventListener('DOMContentLoaded', setLinks);
     var done = false;
     function go(via) { if (done) return; done = true; stopWatch(); window.SARANAY_BOOK_VIA = via; location.replace(BOOK_DEST); }
-    var consent = null;
-    try { consent = localStorage.getItem('saranay_consent'); } catch (e) {}
-    if (consent !== 'granted') {
-      try {
-        if (COUNT_ON && COUNT_URL && navigator.sendBeacon) {
-          var body = JSON.stringify({ event: 'book_court_click', utm_source: q.utm_source, utm_medium: q.utm_medium, utm_campaign: q.utm_campaign,
-            utm_content: q.utm_content, utm_term: q.utm_term, cta: cta, rate_band: band, page: location.pathname });
-          window.SARANAY_BEACON = navigator.sendBeacon(COUNT_URL, new Blob([body], { type: 'text/plain' }));
-        }
-      } catch (e) {}
+    var gpc = navigator.globalPrivacyControl === true, optOut = gpc;
+    try { optOut = gpc || localStorage.getItem('saranay_consent') === 'denied'; } catch (e) {}
+    window.SARANAY_OPTOUT = optOut;
+    try {
+      if (COUNT_ON && COUNT_URL && window.fetch) {
+        var body = JSON.stringify({ event: 'book_court_click', utm_source: q.utm_source, utm_medium: q.utm_medium, utm_campaign: q.utm_campaign,
+          utm_content: q.utm_content, utm_term: q.utm_term, cta: cta, rate_band: band, page: location.pathname });
+        fetch(COUNT_URL, { method: 'POST', body: body, headers: { 'Content-Type': 'text/plain' }, keepalive: true,
+          credentials: 'omit', mode: 'cors', cache: 'no-store', referrerPolicy: 'no-referrer' })['catch'](function () {});
+        window.SARANAY_BEACON = true;
+      }
+    } catch (e) {}
+    if (optOut) {
       setTimeout(function () { go('no_consent'); }, 0);
       return;
     }
