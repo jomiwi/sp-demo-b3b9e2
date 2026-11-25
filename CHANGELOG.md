@@ -1,5 +1,14 @@
 # Saranay demo site · v3 changelog (visual identity)
 
+## v3.18 implied consent + one-line privacy notice (same PR as v3.17, NOT live) - Nov 25 2026
+
+Jon, Nov 25 10:57 AM Manila (relayed by Sage): "I really want the [cookie] banner to point to the privacy page and that's it... say that moving forward indicates an acceptance of our privacy policy." No extra pop-ups.
+
+- **Banner -> notice**: the Accept/Decline banner is gone on every page. A one-line notice in the page flow above the header: "By continuing to use this site, you accept our privacy policy." (Taglish on /privacy/tl/), linked to the privacy page, with a 48px dismiss X (aria-label). The head script sets localStorage `saranay_notice` on the first view and hides the notice before first paint on later views (no layout shift, no cookie). No motion.
+- **Consent Mode**: analytics_storage granted by default; ad_storage, ad_user_data, ad_personalization denied always. **Opt-out** = Global Privacy Control or localStorage `saranay_consent = 'denied'` (old Decline choices, plus the new "Turn off analytics on this device" button on the privacy pages): analytics denied and GTM never loads, so no GA4 and no Clarity. Every dataLayer event carries analytics_consent = granted unless opted out, so the existing GTM triggers fire with no container change.
+- **/book and /play**: GA4 path (gtag-load wait + beacon transport, unchanged) for everyone not opted out; opted out = immediate redirect (via no_consent). The Supabase count on /book now runs on every visit (no cookie, no ID).
+- **Privacy EN + Taglish**: consent section rewritten as "How consent works here" (implied consent, what runs incl. Clarity session recordings, how to opt out: GPC, the button, browser settings/blockers, email); "What happens even if you decline" becomes "Hosting and our click count"; Supabase named as a recipient with its request logs (IP address, device details) and retention; all "after you accept" wording removed. Home privacy block rewritten the same way; its "Change cookie choice" button removed.
+
 ## v3.17 consent-free /book counter ON (PR open, NOT live) - Nov 25 2026
 
 Jon approved Nov 25 10:46 AM Manila (relayed by Sage): turn on the cookieless /book counter and add one sentence to /privacy/ and /privacy/tl/. Ships only after Hopper approves and deploys saranay-book-count v3.

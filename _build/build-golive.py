@@ -259,7 +259,7 @@ for R in REDIRECTS:
     if SCANS[R] == 'on' and f"COUNT_URL = '{COUNT_URL}'" not in _bk: fails.append(f'{R}: scans on but COUNT_URL is not {COUNT_URL}')
     if SCANS[R] != 'on' and ('/api/count' in _bk or SUPABASE_COUNT_URL in _bk or "COUNT_ON = false, COUNT_URL = ''" not in _bk): fails.append(f'{R}: scans off but a count URL is still present')
     if R == BOOK and SCANS[R] == 'on' and "credentials: 'omit'" not in _bk: fails.append(f'{R}: count request must use credentials omit')
-report.append(f'/book no-consent count beacon (book-scans): {BOOK_SCANS.upper()}' + (f' -> {COUNT_URL}' if BOOK_SCANS == 'on' else '') + (' (launch default OFF; pass --book-scans on or BOOK_SCANS=on)' if a.launch else ''))
+report.append(f'/book click count (book-scans, every visit since v3.18): {BOOK_SCANS.upper()}' + (f' -> {COUNT_URL}' if BOOK_SCANS == 'on' else '') + (' (launch default OFF; pass --book-scans on or BOOK_SCANS=on)' if a.launch else ''))
 report.append(f'/play no-consent count beacon (play-scans): {PLAY_SCANS.upper()}' + (f' -> {COUNT_URL}' if PLAY_SCANS == 'on' else ''))
 if a.launch and 'CNAME' not in files: fails.append('CNAME missing (launch build)')
 if not a.launch and 'CNAME' in files: fails.append('CNAME in a preview build (it would claim the domain)')

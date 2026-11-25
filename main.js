@@ -1,12 +1,12 @@
-/* Saranay demo: menu toggle, copy location pin, chooser, dock, clocks, and (v3.4) consent + dataLayer events.
-   No dependencies. Events are pushed to window.dataLayer and, v3.15, read by Google Tag Manager (GTM-TZ4KN34J, which carries GA4 G-Q9F8HPKEND) ONLY after the visitor accepts cookies (Consent Mode v2, denied by default; gtag.js isn't loaded before). */
-/* v3.14 · GA4 events: same name and parameters as the dataLayer push. Sent only while analytics consent is granted. */
-/* v3.15 · In 'gtm' mode (default) GTM-TZ4KN34J reads the dataLayer events below, so nothing is sent with gtag('event') (no double count).
-   In 'gtag' rollback mode the v3.14 behaviour returns: the same events also go out through gtag('event'). */
+/* Saranay site: menu toggle, copy location pin, chooser, dock, clocks, privacy notice, analytics opt-out and dataLayer events.
+   No dependencies. Events are pushed to window.dataLayer and read by Google Tag Manager (GTM-TZ4KN34J: GA4 G-Q9F8HPKEND + Clarity).
+   v3.18 (implied consent, Nov 25 2026): GTM loads for everyone except visitors who opted out (Global Privacy Control, or
+   localStorage saranay_consent = 'denied'); see the head script. In 'gtag' rollback mode the same events also go out through gtag('event'). */
+function saranayOptedOut() { try { return typeof window.saranayOptOut === 'function' ? window.saranayOptOut() : true; } catch (e) { return true; } }
 function saranayGA(name, params) {
-  try { if (window.SARANAY_TAG_MODE === 'gtag' && window.saranayGAOn && localStorage.getItem('saranay_consent') === 'granted' && typeof gtag === 'function') gtag('event', name, params); } catch (e) {}
+  try { if (window.SARANAY_TAG_MODE === 'gtag' && window.saranayGAOn && !saranayOptedOut() && typeof gtag === 'function') gtag('event', name, params); } catch (e) {}
 }
-function saranayConsent() { try { return localStorage.getItem('saranay_consent') === 'granted' ? 'granted' : 'denied'; } catch (e) { return 'denied'; } }
+function saranayConsent() { return saranayOptedOut() ? 'denied' : 'granted'; }
 
 /* v3.4 · dataLayer events, per the Saranay conversion tracking plan (31 Oct 2026). Must run before the chooser so
    a ?play= deep link is recorded as chooser_select with selection_method "deep_link". */
@@ -105,44 +105,52 @@ function saranayTag(href, loc) {
   }
 })();
 
-/* v3.4 · Cookie consent banner (RA 10173 + Consent Mode v2). Default is denied (set in <head>). The choice is kept in
-   localStorage; "Change cookie choice" in the privacy notice reopens the banner. */
+/* v3.18 · Privacy notice: one dismiss button. The head script already marked the notice as seen (saranay_notice), so it shows
+   on this one page view only; dismissing just hides it now. */
 (function () {
-  var box = document.getElementById('consent');
+  var box = document.getElementById('notice');
   if (!box) return;
-  var KEY = 'saranay_consent', stored = null;
-  try { stored = localStorage.getItem(KEY); } catch (e) {}
-  /* RC4.1: on first visit the banner must not cover the hero open-play chip; if it would, push the chip below it. */
-  var chip = document.getElementById('hero-next');
-  function fit() {
-    var root = document.documentElement.style;
-    root.removeProperty('--consent-h');
-    if (chip) chip.style.marginTop = '';
-    if (box.hidden || getComputedStyle(box).top !== '0px') return;
-    root.setProperty('--consent-h', Math.ceil(box.getBoundingClientRect().bottom) + 'px'); /* the skip link shows below the banner */
-    if (!chip || chip.hidden) return;
-    var over = box.getBoundingClientRect().bottom + 8 - (chip.getBoundingClientRect().top + window.scrollY);
-    if (over > 0) chip.style.marginTop = Math.ceil(over) + 'px';
-  }
-  function show() { box.hidden = false; fit(); }
-  window.addEventListener('resize', function () { if (!box.hidden) fit(); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (!box.hidden) fit(); });
-  function choose(v) {
-    try { localStorage.setItem(KEY, v); } catch (e) {}
-    /* v3.4.1: Accept grants analytics_storage ONLY. Ad storage, ad user data and ad personalization stay denied always. */
-    var state = { analytics_storage: v, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' };
-    if (typeof gtag === 'function') gtag('consent', 'update', state);
-    if (v === 'granted' && typeof window.saranayLoadGA === 'function') window.saranayLoadGA(); /* v3.14: GA4 loads only now */
-    (window.dataLayer = window.dataLayer || []).push({ event: 'consent_update', analytics_consent: v, consent: v, analytics_storage: state.analytics_storage, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+  var x = box.querySelector('.notice__x');
+  if (!x) return;
+  x.addEventListener('click', function () {
     var had = box.contains(document.activeElement);
     box.hidden = true;
-    fit();
+    try { localStorage.setItem('saranay_notice', '1'); } catch (e) {}
     if (had) { var nx = document.querySelector('.brand'); if (nx) nx.focus(); }
+  });
+})();
+
+/* v3.18 · Analytics opt-out on this device (privacy pages). Turning off stores saranay_consent = 'denied' (the same key old
+   Decline choices used); turning back on removes it. Global Privacy Control always wins and can't be overridden here. */
+(function () {
+  var btns = document.querySelectorAll('[data-optout]');
+  var outs = document.querySelectorAll('[data-optout-status]');
+  if (!btns.length && !outs.length) return;
+  var tl = document.documentElement.lang === 'fil';
+  var L = tl
+    ? { on: 'Naka-on', offGpc: 'Naka-off (Global Privacy Control ng browser mo)', off: 'Naka-off (ikaw ang nag-off)', turnOff: 'I-off ang analytics sa device na ito', turnOn: 'I-on ulit ang analytics', gpc: 'Naka-off dahil sa Global Privacy Control' }
+    : { on: 'On', offGpc: "Off (your browser's Global Privacy Control)", off: 'Off (you turned it off)', turnOff: 'Turn off analytics on this device', turnOn: 'Turn analytics back on', gpc: 'Off because of Global Privacy Control' };
+  function gpc() { return navigator.globalPrivacyControl === true; }
+  function stored() { try { return localStorage.getItem('saranay_consent') === 'denied'; } catch (e) { return false; } }
+  function paint() {
+    var g = gpc(), s = stored();
+    [].forEach.call(outs, function (o) { o.textContent = g ? L.offGpc : s ? L.off : L.on; });
+    [].forEach.call(btns, function (b) { b.disabled = g; b.textContent = g ? L.gpc : s ? L.turnOn : L.turnOff; b.setAttribute('aria-pressed', String(g || s)); });
   }
-  [].forEach.call(box.querySelectorAll('[data-consent]'), function (b) { b.addEventListener('click', function () { choose(b.dataset.consent); }); });
-  var reopen = document.getElementById('consent-open');
-  if (reopen) reopen.addEventListener('click', function () { show(); box.querySelector('[data-consent]').focus(); });
-  if (stored !== 'granted' && stored !== 'denied') show();
+  [].forEach.call(btns, function (b) {
+    b.addEventListener('click', function () {
+      if (gpc()) return;
+      var off = !stored();
+      try { if (off) localStorage.setItem('saranay_consent', 'denied'); else localStorage.removeItem('saranay_consent'); } catch (e) {}
+      window.SARANAY_OPTOUT = off;
+      var v = off ? 'denied' : 'granted';
+      if (typeof gtag === 'function') gtag('consent', 'update', { analytics_storage: v, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+      (window.dataLayer = window.dataLayer || []).push({ event: 'consent_update', analytics_consent: v, analytics_storage: v, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+      if (!off && typeof window.saranayLoadGA === 'function') window.saranayLoadGA();
+      paint();
+    });
+  });
+  paint();
 })();
 
 /* RC4 (Ling RC3 read): the derived-date chip and the dated Coming up slots are gone. Both are static, undated HTML now and link to Reclub
