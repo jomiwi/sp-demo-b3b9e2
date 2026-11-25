@@ -43,6 +43,8 @@ ap.add_argument('--out', default=os.path.join(os.path.dirname(REPO), 'golive-bui
 ap.add_argument('--launch', action='store_true')
 ap.add_argument('--approve', default='')
 ap.add_argument('--book-scans', choices=['on', 'off'], default=None, help='/book no-consent count beacon; default on for preview, OFF for --launch (DID-38)')
+ap.add_argument('--count-url', default=None, help="COUNT_URL when book-scans is on; default '/api/count' for preview, the Supabase saranay-book-count function for --launch")
+ap.add_argument('--play-scans', choices=['on', 'off'], default=None, help='/play no-consent count beacon; default on for preview, OFF for --launch (v3.17: the edge function counts book_court_click only)')
 a = ap.parse_args()
 
 cfg = json.load(open(os.path.join(BUILD, 'owner-ok.json')))
@@ -181,13 +183,22 @@ for page in PAGES + [p for p in OPTIONAL if os.path.exists(os.path.join(REPO, p)
     write(page, html); collect(page, html); report.append(f'{page}: {n} rights blocks processed')
 # /book and /play are copied as is apart from comments (source untouched); one book-scans switch covers both beacons
 BOOK_SCANS = a.book_scans or os.environ.get('BOOK_SCANS') or ('off' if a.launch else 'on')
+PLAY_SCANS = a.play_scans or os.environ.get('PLAY_SCANS') or ('off' if a.launch else 'on')
+SUPABASE_COUNT_URL = 'https://qyvitzzqhwtqectsmzhs.supabase.co/functions/v1/saranay-book-count'
+COUNT_URL = a.count_url or os.environ.get('COUNT_URL') or (SUPABASE_COUNT_URL if a.launch else '/api/count')
+if not re.fullmatch(r"(/api/count|https://[A-Za-z0-9.-]+(/[A-Za-z0-9._/-]*)?)", COUNT_URL): sys.exit(f'bad COUNT_URL {COUNT_URL!r}')
+SCANS = {BOOK: BOOK_SCANS, PLAY: PLAY_SCANS}
+COUNT_MARKER = "var COUNT_ON = true, COUNT_URL = '/api/count';"
 for R in REDIRECTS:
     book = strip_inline_scripts(strip_html(open(os.path.join(REPO, R), encoding='utf-8').read()), R)
     if a.launch: book = launch(book, R)
-    if BOOK_SCANS != 'on':
-        n = book.count("var COUNT_ON = true, COUNT_URL = '/api/count';")
-        book = book.replace("var COUNT_ON = true, COUNT_URL = '/api/count';", "var COUNT_ON = false, COUNT_URL = '';")
-        if n != 1: print(f'FAILED: book-scans switch marker not found in {R}'); sys.exit(1)
+    n = book.count(COUNT_MARKER)
+    if n != 1: print(f'FAILED: book-scans switch marker not found in {R}'); sys.exit(1)
+    if SCANS[R] != 'on':
+        book = book.replace(COUNT_MARKER, "var COUNT_ON = false, COUNT_URL = '';")
+    elif COUNT_URL != '/api/count':
+        if R != BOOK: sys.exit(f'{R}: a cross-origin COUNT_URL is /book only (the edge function counts book_court_click only)')
+        book = book.replace(COUNT_MARKER, f"var COUNT_ON = true, COUNT_URL = '{COUNT_URL}';")
     write(R, book); collect(R, book)
 
 refs.discard('index.html'); 
@@ -244,9 +255,12 @@ for f in files:
     if f.startswith('img/') and f not in refs: fails.append(f'{f}: unused image')
 for R in REDIRECTS:
     _bk = open(os.path.join(out, R), encoding='utf-8').read()
-    if BOOK_SCANS == 'on' and 'COUNT_ON = true' not in _bk: fails.append(f'{R}: book-scans on but COUNT_ON not true')
-    if BOOK_SCANS != 'on' and ('/api/count' in _bk or 'COUNT_ON = false' not in _bk): fails.append(f'{R}: book-scans off but /api/count still present')
-report.append(f'/book + /play no-consent count beacon (book-scans): {BOOK_SCANS.upper()}' + (' (launch default OFF; pass --book-scans on or BOOK_SCANS=on)' if a.launch else ''))
+    if SCANS[R] == 'on' and "COUNT_ON = true" not in _bk: fails.append(f'{R}: scans on but COUNT_ON not true')
+    if SCANS[R] == 'on' and f"COUNT_URL = '{COUNT_URL}'" not in _bk: fails.append(f'{R}: scans on but COUNT_URL is not {COUNT_URL}')
+    if SCANS[R] != 'on' and ('/api/count' in _bk or SUPABASE_COUNT_URL in _bk or "COUNT_ON = false, COUNT_URL = ''" not in _bk): fails.append(f'{R}: scans off but a count URL is still present')
+    if R == BOOK and SCANS[R] == 'on' and "credentials: 'omit'" not in _bk: fails.append(f'{R}: count request must use credentials omit')
+report.append(f'/book no-consent count beacon (book-scans): {BOOK_SCANS.upper()}' + (f' -> {COUNT_URL}' if BOOK_SCANS == 'on' else '') + (' (launch default OFF; pass --book-scans on or BOOK_SCANS=on)' if a.launch else ''))
+report.append(f'/play no-consent count beacon (play-scans): {PLAY_SCANS.upper()}' + (f' -> {COUNT_URL}' if PLAY_SCANS == 'on' else ''))
 if a.launch and 'CNAME' not in files: fails.append('CNAME missing (launch build)')
 if not a.launch and 'CNAME' in files: fails.append('CNAME in a preview build (it would claim the domain)')
 if a.launch and open(os.path.join(out, 'CNAME')).read().strip() != urlsplit(LIVE_URL).netloc: fails.append('CNAME does not match LIVE_URL')

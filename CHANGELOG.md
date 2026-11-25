@@ -1,5 +1,13 @@
 # Saranay demo site · v3 changelog (visual identity)
 
+## v3.17 consent-free /book counter ON (PR open, NOT live) - Nov 25 2026
+
+Jon approved Nov 25 10:46 AM Manila (relayed by Sage): turn on the cookieless /book counter and add one sentence to /privacy/ and /privacy/tl/. Ships only after Hopper approves and deploys saranay-book-count v3.
+
+- **/book no-consent count**: `fetch` keepalive, `credentials: 'omit'`, `Content-Type: text/plain` (no preflight, no cookie sent or stored) instead of sendBeacon. No sendBeacon fallback. Redirect, UTM forwarding, ?cta= and the consented GA4 path are unchanged.
+- **`_build/build-golive.py`**: `--count-url` (launch default: Supabase edge fn `saranay-book-count`) and a separate `--play-scans` switch (launch default OFF; v3 counts book_court_click only). A cross-origin COUNT_URL is refused on /play. New checks: COUNT_URL exact, credentials omit, no count URL when off.
+- **Privacy (EN + Taglish)**: one sentence in "What happens even if you decline" naming Supabase and servers outside the Philippines; Last updated November 25, 2026.
+
 ## v3.16 /play open-play redirect (preview, NOT live) - Nov 19 2026
 
 Decision 2026-11-05 (Sage, nightly proposals review; proposal by Lee): add a tracked /play short link beside /book for open-play posts and QR codes.
