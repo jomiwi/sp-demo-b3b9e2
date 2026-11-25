@@ -34,7 +34,12 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('consent', 'default', {ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500});
+    window.saranayOptOut = function () {
+      var gpc = navigator.globalPrivacyControl === true;
+      try { return gpc || localStorage.getItem('saranay_consent') === 'denied'; } catch (e) { return gpc; }
+    };
+    window.SARANAY_OPTOUT = window.saranayOptOut();
+    gtag('consent', 'default', {ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: window.SARANAY_OPTOUT ? 'denied' : 'granted'});
     window.SARANAY_TAG_MODE = 'gtm';
     window.SARANAY_GTM_ID = 'GTM-TZ4KN34J';
     window.SARANAY_GA_ID = 'G-Q9F8HPKEND';
@@ -51,22 +56,23 @@
       }
       document.head.appendChild(j);
     };
-    (function () { try { if (localStorage.getItem('saranay_consent') === 'granted') { gtag('consent', 'update', {analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied'}); window.saranayLoadGA(); } } catch (e) {} })();
+    if (!window.SARANAY_OPTOUT) window.saranayLoadGA();
+    (function () {
+      var h = document.documentElement; h.className += ' js';
+      try { if (localStorage.getItem('saranay_notice')) h.className += ' notice-seen'; else localStorage.setItem('saranay_notice', '1'); } catch (e) {}
+    })();
   </script>
   <link rel="stylesheet" href="../styles.css">
 </head>
 <body data-dock-base="play">
 <a class="skip-link" href="#main">Skip to content</a>
 
-<section class="consent" id="consent" aria-labelledby="consent-title" hidden>
-  <div class="consent__inner">
-    <p class="consent__text"><strong id="consent-title">Cookies</strong> Saranay Pickleball Court &amp; Café tracks visits and clicks so we can serve you better, only if you accept. Change it anytime. <a href="./">Privacy notice</a></p>
-    <div class="consent__btns">
-      <button class="btn consent__btn" type="button" data-consent="denied">Decline</button>
-      <button class="btn consent__btn" type="button" data-consent="granted">Accept</button>
-    </div>
+<aside class="notice" id="notice" aria-label="Privacy notice">
+  <div class="notice__inner">
+    <p class="notice__text">By continuing to use this site, you accept our <a href="./">privacy policy</a>.</p>
+    <button class="notice__x" type="button" aria-label="Dismiss privacy notice"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
   </div>
-</section>
+</aside>
 
 <header class="site-header">
   <div class="container site-header__inner">
@@ -107,13 +113,13 @@
     </div>
     <h1 id="pp-title" class="pp-hero__title">Your privacy, plainly.</h1>
     <p class="lede">This site is here to help you find a game, book the court and grab a coffee. That's the whole job. We don't take bookings or payments here, and we never ask for your name.</p>
-    <p>If you say yes, two tools show us which pages and buttons actually help players. If you say no, they never load.</p>
-    <p>Pull up a chair. Here's exactly what happens either way.</p>
+    <p>Two analytics tools show us which pages and buttons actually help players. By using this site, you accept them, and you can switch them off any time.</p>
+    <p>Pull up a chair. Here's exactly what runs, and how to say no.</p>
     <div class="pp-choice" role="group" aria-labelledby="pp-choice-label">
-      <p class="pp-choice__status" id="pp-choice-label" aria-live="polite">Your choice on this device: <strong id="pp-choice-now">not chosen yet</strong></p>
-      <button class="btn btn--outline" type="button" id="consent-open">Change cookie choice</button>
+      <p class="pp-choice__status" id="pp-choice-label" aria-live="polite">Analytics on this device: <strong data-optout-status>On</strong></p>
+      <button class="btn btn--outline" type="button" data-optout aria-pressed="false">Turn off analytics on this device</button>
     </div>
-    <p class="note pp-hero__updated">Last updated November 13, 2026</p>
+    <p class="note pp-hero__updated">Last updated November 25, 2026</p>
   </div>
 </section>
 
@@ -122,22 +128,22 @@
     <h2 id="glance-title" class="pp-h2">At a glance</h2>
     <p class="pp-glance__sub">The short version, for between games.</p>
     <ul class="pp-glance__grid" role="list">
-      <li class="pp-card"><h3>Analytics wait for your yes</h3><p>Tap <strong>Decline</strong>, or don't choose at all, and Google Tag Manager, Google Analytics and Microsoft Clarity don't load.</p></li>
+      <li class="pp-card"><h3>Using the site means yes</h3><p>Google Analytics and Microsoft Clarity run when you use this site. Global Privacy Control, or the <strong>Turn off analytics</strong> button, switches them off.</p></li>
       <li class="pp-card"><h3>What we see</h3><p>Page views, clicks, scrolls, your device and browser type, and a rough location (city or country).</p></li>
       <li class="pp-card"><h3>What we don't collect</h3><p>Your name, phone number or email. These tools don't collect them. Anything you type is hidden before it leaves your browser.</p></li>
-      <li class="pp-card"><h3>Who gets it</h3><p>Google and Microsoft. Analytics data is sent to and stored on Google and Microsoft servers outside the Philippines.</p></li>
+      <li class="pp-card"><h3>Who gets it</h3><p>Google and Microsoft. Analytics data is sent to and stored on Google and Microsoft servers outside the Philippines. Supabase keeps an anonymous count of booking clicks.</p></li>
       <li class="pp-card"><h3>How long we keep it</h3><p>Google Analytics: detailed visit data 2 months, visitor data 14 months. Clarity: recordings 30 days, heatmaps 9 months.</p></li>
-      <li class="pp-card"><h3>You're in charge</h3><p>Change your mind any time with the <strong>Change cookie choice</strong> button. The Data Privacy Act gives you rights too, and we've spelled them out below.</p></li>
+      <li class="pp-card"><h3>You're in charge</h3><p>Turn analytics off any time with Global Privacy Control or the <strong>Turn off analytics</strong> button. The Data Privacy Act gives you rights too, and we've spelled them out below.</p></li>
     </ul>
     <nav class="pp-toc" aria-labelledby="toc-title">
       <h2 id="toc-title" class="pp-toc__title">On this page</h2>
       <ol>
         <li><a href="#who-we-are">Who we are</a></li>
-        <li><a href="#your-choice">Your choice</a></li>
+        <li><a href="#your-choice">How consent works here</a></li>
         <li><a href="#tools">The tools we use</a></li>
         <li><a href="#collected">What's collected</a></li>
         <li><a href="#cookies">Cookies, one by one</a></li>
-        <li><a href="#always-on">What happens even if you decline</a></li>
+        <li><a href="#always-on">Hosting and our click count</a></li>
         <li><a href="#recipients">Who receives the data</a></li>
         <li><a href="#retention">How long it's kept</a></li>
         <li><a href="#rights">Your rights</a></li>
@@ -162,14 +168,20 @@
     </section>
 
     <section id="your-choice" aria-labelledby="choice-title">
-      <h2 id="choice-title" class="pp-h2">Your choice</h2>
-      <p>We only use analytics if you say yes.</p>
-      <p>The first time you visit, a banner asks. Until you answer, and if you tap <strong>Decline</strong>, none of our analytics tools load, and none of them send anything to Google or Microsoft.</p>
-      <p>Tap <strong>Accept</strong> and we load Google Tag Manager, which then loads Google Analytics and Microsoft Clarity. That's analytics only. Google's advertising settings (ad storage, ad user data and ad personalization) stay off.</p>
-      <p>We remember your answer in your browser's storage on this device, as <code>saranay_consent</code>, so we don't ask on every page. It never leaves your device.</p>
-      <p>Changed your mind? Use the button below or at the top of this page. Want a clean slate? Clear this site's data in your browser.</p>
-      <p><button class="btn btn--outline" type="button" data-consent-open>Change cookie choice</button></p>
-      <p class="note">If you switch from Accept to Decline, the tools stop loading on your next page view. Cookies they've already set stay in your browser until they expire or you clear them.</p>
+      <h2 id="choice-title" class="pp-h2">How consent works here</h2>
+      <p>By using this site, you accept this privacy policy. The first page you open shows a one-line notice that says so, with a link to this page. It shows once and won't show again.</p>
+      <p>Here's what runs: Google Tag Manager loads Google Analytics 4 and Microsoft Clarity, including Clarity's session recordings. That's analytics only. Google's advertising settings (ad storage, ad user data and ad personalization) stay off for everyone.</p>
+      <p>We remember that you've seen the notice in your browser's storage on this device, as <code>saranay_notice</code>. It never leaves your device.</p>
+      <p>Don't want analytics? Any of these works:</p>
+      <ul class="pp-list">
+        <li><strong>Global Privacy Control (GPC).</strong> Turn it on in your browser or a privacy extension. We treat it as a no: Google Tag Manager, Google Analytics and Microsoft Clarity don't load at all.</li>
+        <li><strong>The button below.</strong> It turns analytics off on this device, and we save that as <code>saranay_consent</code> in your browser's storage. If you tapped Decline on an earlier version of this site, we still honour it.</li>
+        <li><strong>Browser settings or blockers.</strong> Block cookies or trackers in your browser's settings, or use an ad or tracker blocker.</li>
+        <li><strong>Tell us.</strong> Email <a href="mailto:saranaypickleball@gmail.com">saranaypickleball@gmail.com</a>.</li>
+      </ul>
+      <p>Opting out stops analytics only. Our hosting logs and the anonymous booking-click count, described below, still run.</p>
+      <p><button class="btn btn--outline" type="button" data-optout aria-pressed="false">Turn off analytics on this device</button></p>
+      <p class="note">If you turn analytics off, the tools stop loading on your next page view. Cookies they've already set stay in your browser until they expire or you clear them.</p>
     </section>
 
     <section id="tools" aria-labelledby="tools-title">
@@ -179,7 +191,7 @@
         <article class="pp-tool">
           <h3>Google Tag Manager</h3>
           <p class="pp-tool__meta">Google · container GTM-TZ4KN34J</p>
-          <p>The loader. It doesn't measure anything itself. Once you accept, it brings in the two tools below. Until then, it isn't loaded at all.</p>
+          <p>The loader. It doesn't measure anything itself. It brings in the two tools below. If you've opted out, it isn't loaded at all.</p>
         </article>
         <article class="pp-tool">
           <h3>Google Analytics 4</h3>
@@ -198,7 +210,7 @@
 
     <section id="collected" aria-labelledby="collected-title">
       <h2 id="collected-title" class="pp-h2">What's collected</h2>
-      <p>Only after you accept, these tools collect:</p>
+      <p>Unless you've opted out, these tools collect:</p>
       <ul class="pp-list">
         <li><strong>Pages you view</strong>, and the page you came from.</li>
         <li><strong>Clicks, taps and scrolls</strong>, including which buttons and links you use.</li>
@@ -212,12 +224,12 @@
 
     <section id="cookies" aria-labelledby="cookies-title">
       <h2 id="cookies-title" class="pp-h2">Cookies, one by one</h2>
-      <p>These are set only after you accept.</p>
+      <p>These are set when the analytics tools load, which is on every visit unless you've opted out.</p>
       <p>"First-party" means set on saranaypickleball.com. "Third-party" means set on a Microsoft domain.</p>
       <p>The lifetimes below are what this site's tools actually set in a current Chrome browser, checked on November 13, 2026, with the provider's documented value where it differs.</p>
       <div class="pp-table-wrap">
         <table class="pp-table">
-          <caption class="visually-hidden">Cookies set after you accept, with provider, purpose and lifetime</caption>
+          <caption class="visually-hidden">Cookies set by the analytics tools, with provider, purpose and lifetime</caption>
           <thead><tr><th scope="col">Cookie</th><th scope="col">Provider</th><th scope="col">What it's for</th><th scope="col">Lifetime</th></tr></thead>
           <tbody>
             <tr><th scope="row" data-label="Cookie"><code>_ga</code></th><td data-label="Provider">Google Analytics · first-party</td><td data-label="What it's for">Tells visitors apart with a random ID.</td><td data-label="Lifetime">400 days (Google's default is 2 years; Chrome caps cookies at 400 days)</td></tr>
@@ -238,10 +250,11 @@
     </section>
 
     <section id="always-on" aria-labelledby="always-title">
-      <h2 id="always-title" class="pp-h2">What happens even if you decline</h2>
-      <p>A few things aren't analytics, so they don't wait for your choice. You should know about them too.</p>
+      <h2 id="always-title" class="pp-h2">Hosting and our click count</h2>
+      <p>These run for every visitor, even if you've opted out of analytics. You should know about them too.</p>
       <ul class="pp-list">
         <li><strong>Our web host.</strong> This site is hosted on GitHub Pages. GitHub logs every visitor's IP address for security, under the GitHub Privacy Statement.</li>
+        <li><strong>When you tap a booking link</strong>, we count the click anonymously with our database provider, Supabase, on servers outside the Philippines, with no cookies and nothing that identifies you or your device. The count itself holds no ID. Like GitHub, Supabase logs the IP address and device details of each request for security, under the Supabase Privacy Policy.</li>
         <li><strong>The map on our home page.</strong> Until you tap <strong>Show map</strong>, it's a drawing stored on this site, so nothing is sent to Google. If you tap Show map, your browser loads Google Maps from Google, which receives your IP address and browser details under Google's Privacy Policy. We don't receive that data.</li>
         <li><strong>Links to other sites.</strong> "Book a court" takes you to Sports360, "Join open play" to Reclub, "Message us" to Facebook, and "Open in Google Maps" to Google Maps. Once you're there, their privacy policies apply.</li>
       </ul>
@@ -252,9 +265,10 @@
       <ul class="pp-list">
         <li><strong>Google</strong> receives Google Analytics and Google Tag Manager data.</li>
         <li><strong>Microsoft</strong> receives Microsoft Clarity data and stores it in its Azure cloud. Microsoft says it acts as a data controller for Clarity data, under the Microsoft Privacy Statement.</li>
+        <li><strong>Supabase</strong> stores our anonymous count of booking clicks, and keeps standard request logs with IP address and device details.</li>
       </ul>
-      <p><strong>Outside the Philippines.</strong> Analytics data is sent to and stored on Google and Microsoft servers outside the Philippines. This happens only if you accept.</p>
-      <p>We don't sell your data or share it beyond the services named on this page. Besides Google and Microsoft above, that means <strong>GitHub Pages</strong>, our web host, which logs every visitor's IP address for security, and <strong>Google Maps</strong>, which receives your IP address only when you tap <strong>Show map</strong>.</p>
+      <p><strong>Outside the Philippines.</strong> Analytics data is sent to and stored on Google and Microsoft servers outside the Philippines. This happens unless you've opted out.</p>
+      <p>We don't sell your data or share it beyond the services named on this page. Besides Google, Microsoft and Supabase above, that means <strong>GitHub Pages</strong>, our web host, which logs every visitor's IP address for security, and <strong>Google Maps</strong>, which receives your IP address only when you tap <strong>Show map</strong>.</p>
     </section>
 
     <section id="retention" aria-labelledby="retention-title">
@@ -265,6 +279,8 @@
         <div><dt>Google Analytics: summary reports</dt><dd>Totals like "visits per week" aren't covered by these settings and may be kept longer, as Google explains on its data retention help page.</dd></div>
         <div><dt>Microsoft Clarity: session recordings</dt><dd>30 days. Microsoft keeps a small random sample, plus any we mark as favourites, for up to 9 months.</dd></div>
         <div><dt>Microsoft Clarity: heatmaps and click data</dt><dd>9 months.</dd></div>
+        <div><dt>Supabase: booking-click count</dt><dd>Totals only, with no ID. Kept for as long as we need the totals.</dd></div>
+        <div><dt>Supabase: request logs</dt><dd>1 day on our current plan.</dd></div>
       </dl>
     </section>
 
@@ -273,7 +289,7 @@
       <p>The Data Privacy Act of 2012 gives you these rights, whether or not you ever pick up a paddle:</p>
       <ul class="pp-rights" role="list">
         <li><strong>Be informed</strong> Know that your data is being collected, and how it's used. You're reading part of that right now.</li>
-        <li><strong>Object</strong> Say no to the processing. Tapping Decline does this, or you can contact us.</li>
+        <li><strong>Object</strong> Say no to the processing. Global Privacy Control or the Turn off analytics button does this, or you can contact us.</li>
         <li><strong>Access</strong> Ask what data we hold about you.</li>
         <li><strong>Rectification</strong> Ask us to correct data that's wrong.</li>
         <li><strong>Erasure or blocking</strong> Ask us to delete or block your data.</li>
@@ -282,7 +298,7 @@
         <li><strong>File a complaint</strong> Complain to the National Privacy Commission. How to reach them is at the bottom of this page.</li>
       </ul>
       <p>One honest catch: these tools use random IDs instead of names, so to find your data we may need the ID from your browser's cookies.</p>
-      <p>Clearing your cookies and declining stops new data from being linked to you. Data already collected is deleted on the schedule above.</p>
+      <p>Clearing your cookies and turning analytics off stops new data from being linked to you. Data already collected is deleted on the schedule above.</p>
     </section>
 
     <section id="contact" aria-labelledby="contact-title">
@@ -336,19 +352,6 @@
   <a class="btn btn--ball btn--block" href="https://reclub.co/clubs/@saranay-pickleball-club?utm_source=saranay_site&amp;utm_medium=referral&amp;utm_campaign=site_booking&amp;utm_content=sticky_bar_join_open_play" target="_blank" rel="noopener" aria-label="Join open play on Reclub (opens in a new tab)" data-cta="sticky_bar_join_open_play" data-dest="reclub">Join open play</a>
 </div>
 
-<script>
-  (function () {
-    var now = document.getElementById('pp-choice-now');
-    function paint() { var v = null; try { v = localStorage.getItem('saranay_consent'); } catch (e) {} if (now) now.textContent = v === 'granted' ? 'Accepted' : v === 'denied' ? 'Declined' : 'not chosen yet'; }
-    paint();
-    document.addEventListener('click', function (e) {
-      var t = e.target.closest && e.target.closest('[data-consent], [data-consent-open]');
-      if (!t) return;
-      if (t.hasAttribute('data-consent-open')) { var o = document.getElementById('consent-open'); if (o) o.click(); }
-      else setTimeout(paint, 0);
-    });
-  })();
-</script>
 <script src="../main.js" defer></script>
 </body>
 </html>

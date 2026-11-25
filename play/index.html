@@ -25,9 +25,10 @@
     document.addEventListener('DOMContentLoaded', setLinks);
     var done = false;
     function go(via) { if (done) return; done = true; stopWatch(); window.SARANAY_PLAY_VIA = via; location.replace(PLAY_DEST); }
-    var consent = null;
-    try { consent = localStorage.getItem('saranay_consent'); } catch (e) {}
-    if (consent !== 'granted') {
+    var gpc = navigator.globalPrivacyControl === true, optOut = gpc;
+    try { optOut = gpc || localStorage.getItem('saranay_consent') === 'denied'; } catch (e) {}
+    window.SARANAY_OPTOUT = optOut;
+    if (optOut) {
       try {
         if (COUNT_ON && COUNT_URL && navigator.sendBeacon) {
           var body = JSON.stringify({ event: 'join_open_play_click', utm_source: q.utm_source, utm_medium: q.utm_medium, utm_campaign: q.utm_campaign,

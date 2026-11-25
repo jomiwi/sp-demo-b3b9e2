@@ -1,7 +1,8 @@
+function saranayOptedOut() { try { return typeof window.saranayOptOut === 'function' ? window.saranayOptOut() : true; } catch (e) { return true; } }
 function saranayGA(name, params) {
-  try { if (window.SARANAY_TAG_MODE === 'gtag' && window.saranayGAOn && localStorage.getItem('saranay_consent') === 'granted' && typeof gtag === 'function') gtag('event', name, params); } catch (e) {}
+  try { if (window.SARANAY_TAG_MODE === 'gtag' && window.saranayGAOn && !saranayOptedOut() && typeof gtag === 'function') gtag('event', name, params); } catch (e) {}
 }
-function saranayConsent() { try { return localStorage.getItem('saranay_consent') === 'granted' ? 'granted' : 'denied'; } catch (e) { return 'denied'; } }
+function saranayConsent() { return saranayOptedOut() ? 'denied' : 'granted'; }
 var SARANAY_UTM = 'utm_source=saranay_site&utm_medium=referral&utm_campaign=site_booking&utm_content=';
 function saranayTag(href, loc) {
   if (/^https:\/\/(reclub\.co|app\.sports360\.ph)\//.test(href)) return href + (href.indexOf('?') < 0 ? '?' : '&') + SARANAY_UTM + loc;
@@ -89,39 +90,46 @@ function saranayTag(href, loc) {
   }
 })();
 (function () {
-  var box = document.getElementById('consent');
+  var box = document.getElementById('notice');
   if (!box) return;
-  var KEY = 'saranay_consent', stored = null;
-  try { stored = localStorage.getItem(KEY); } catch (e) {}
-  var chip = document.getElementById('hero-next');
-  function fit() {
-    var root = document.documentElement.style;
-    root.removeProperty('--consent-h');
-    if (chip) chip.style.marginTop = '';
-    if (box.hidden || getComputedStyle(box).top !== '0px') return;
-    root.setProperty('--consent-h', Math.ceil(box.getBoundingClientRect().bottom) + 'px'); 
-    if (!chip || chip.hidden) return;
-    var over = box.getBoundingClientRect().bottom + 8 - (chip.getBoundingClientRect().top + window.scrollY);
-    if (over > 0) chip.style.marginTop = Math.ceil(over) + 'px';
-  }
-  function show() { box.hidden = false; fit(); }
-  window.addEventListener('resize', function () { if (!box.hidden) fit(); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { if (!box.hidden) fit(); });
-  function choose(v) {
-    try { localStorage.setItem(KEY, v); } catch (e) {}
-    var state = { analytics_storage: v, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' };
-    if (typeof gtag === 'function') gtag('consent', 'update', state);
-    if (v === 'granted' && typeof window.saranayLoadGA === 'function') window.saranayLoadGA(); 
-    (window.dataLayer = window.dataLayer || []).push({ event: 'consent_update', analytics_consent: v, consent: v, analytics_storage: state.analytics_storage, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+  var x = box.querySelector('.notice__x');
+  if (!x) return;
+  x.addEventListener('click', function () {
     var had = box.contains(document.activeElement);
     box.hidden = true;
-    fit();
+    try { localStorage.setItem('saranay_notice', '1'); } catch (e) {}
     if (had) { var nx = document.querySelector('.brand'); if (nx) nx.focus(); }
+  });
+})();
+(function () {
+  var btns = document.querySelectorAll('[data-optout]');
+  var outs = document.querySelectorAll('[data-optout-status]');
+  if (!btns.length && !outs.length) return;
+  var tl = document.documentElement.lang === 'fil';
+  var L = tl
+    ? { on: 'Naka-on', offGpc: 'Naka-off (Global Privacy Control ng browser mo)', off: 'Naka-off (ikaw ang nag-off)', turnOff: 'I-off ang analytics sa device na ito', turnOn: 'I-on ulit ang analytics', gpc: 'Naka-off dahil sa Global Privacy Control' }
+    : { on: 'On', offGpc: "Off (your browser's Global Privacy Control)", off: 'Off (you turned it off)', turnOff: 'Turn off analytics on this device', turnOn: 'Turn analytics back on', gpc: 'Off because of Global Privacy Control' };
+  function gpc() { return navigator.globalPrivacyControl === true; }
+  function stored() { try { return localStorage.getItem('saranay_consent') === 'denied'; } catch (e) { return false; } }
+  function paint() {
+    var g = gpc(), s = stored();
+    [].forEach.call(outs, function (o) { o.textContent = g ? L.offGpc : s ? L.off : L.on; });
+    [].forEach.call(btns, function (b) { b.disabled = g; b.textContent = g ? L.gpc : s ? L.turnOn : L.turnOff; b.setAttribute('aria-pressed', String(g || s)); });
   }
-  [].forEach.call(box.querySelectorAll('[data-consent]'), function (b) { b.addEventListener('click', function () { choose(b.dataset.consent); }); });
-  var reopen = document.getElementById('consent-open');
-  if (reopen) reopen.addEventListener('click', function () { show(); box.querySelector('[data-consent]').focus(); });
-  if (stored !== 'granted' && stored !== 'denied') show();
+  [].forEach.call(btns, function (b) {
+    b.addEventListener('click', function () {
+      if (gpc()) return;
+      var off = !stored();
+      try { if (off) localStorage.setItem('saranay_consent', 'denied'); else localStorage.removeItem('saranay_consent'); } catch (e) {}
+      window.SARANAY_OPTOUT = off;
+      var v = off ? 'denied' : 'granted';
+      if (typeof gtag === 'function') gtag('consent', 'update', { analytics_storage: v, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+      (window.dataLayer = window.dataLayer || []).push({ event: 'consent_update', analytics_consent: v, analytics_storage: v, ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+      if (!off && typeof window.saranayLoadGA === 'function') window.saranayLoadGA();
+      paint();
+    });
+  });
+  paint();
 })();
 (function () {
   var toggle = document.querySelector('.nav-toggle');
